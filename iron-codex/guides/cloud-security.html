@@ -537,6 +537,10 @@ aws rds create-db-instance \
     </script>
 
     <style>
+        .remaining-sections {
+            margin: 4rem 0;
+        }
+
         .provider-card {
             background: var(--glass);
             border: 1px solid var(--border);
@@ -559,6 +563,28 @@ aws rds create-db-instance \
             border-left: 3px solid var(--accent);
             padding-left: 1rem;
             margin-bottom: 0.5rem;
+        }
+
+        .difficulty-low {
+            background: rgba(46, 213, 115, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .difficulty-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .best-practices {
+            margin: 1.5rem 0;
+        }
+
+        .best-practices h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
         }
 
         .guide-footer {
