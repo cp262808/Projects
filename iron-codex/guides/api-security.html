@@ -70,7 +70,7 @@
             <p class="section-intro">Establish and verify the identity of API consumers through robust authentication mechanisms.</p>
 
             <div class="control-card">
-                <h3>API-AUTH-01: Implement OAuth 2.0 / OpenID Connect</h3>
+                <h3>Implement OAuth 2.0 / OpenID Connect</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
@@ -99,7 +99,7 @@ client_secret=your_client_secret</code></pre>
             </div>
 
             <div class="control-card">
-                <h3>API-AUTH-02: Require API Keys for Service Authentication</h3>
+                <h3>Require API Keys for Service Authentication</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-low">Low Difficulty</span>
@@ -127,7 +127,7 @@ GET /api/v1/users?api_key=your-api-key</code></pre>
             </div>
 
             <div class="control-card">
-                <h3>API-AUTH-03: Implement JWT Token Validation</h3>
+                <h3>Implement JWT Token Validation</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
@@ -202,7 +202,7 @@ function validateJWT(token, secret) {
             <p class="section-intro">Enforce proper access controls to ensure users can only access resources they are permitted to use.</p>
 
             <div class="control-card">
-                <h3>API-AUTHZ-01: Implement Role-Based Access Control (RBAC)</h3>
+                <h3>Implement Role-Based Access Control (RBAC)</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
@@ -241,7 +241,7 @@ app.get('/api/orders', requirePermission('read:orders'), getOrders);</code></pre
             </div>
 
             <div class="control-card">
-                <h3>API-AUTHZ-02: Enforce Resource-Level Authorization</h3>
+                <h3>Enforce Resource-Level Authorization</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
                     <span class="tag difficulty-high">High Difficulty</span>
@@ -307,7 +307,7 @@ app.get('/api/orders/:id', async (req, res, next) => {
             <p class="section-intro">Validate and sanitize all input to prevent injection attacks and ensure data integrity.</p>
 
             <div class="control-card">
-                <h3>API-VALID-01: Implement Comprehensive Input Validation</h3>
+                <h3>Implement Comprehensive Input Validation</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
@@ -345,7 +345,7 @@ app.post('/api/users', validateInput(userSchema), createUser);</code></pre>
             </div>
 
             <div class="control-card">
-                <h3>API-VALID-02: Prevent SQL Injection</h3>
+                <h3>Prevent SQL Injection</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>

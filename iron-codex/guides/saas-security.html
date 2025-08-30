@@ -67,7 +67,7 @@
             <p class="section-intro">Ensure complete isolation between tenants to prevent data leakage and unauthorized access across customer boundaries.</p>
 
             <div class="control-card">
-                <h3>SAAS-TENANT-01: Implement Database-Level Tenant Isolation</h3>
+                <h3>Implement Database-Level Tenant Isolation</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
                     <span class="tag difficulty-high">High Difficulty</span>
@@ -109,7 +109,7 @@ app.use(setTenantContext);</code></pre>
             </div>
 
             <div class="control-card">
-                <h3>SAAS-TENANT-02: Application-Level Tenant Filtering</h3>
+                <h3>Application-Level Tenant Filtering</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
@@ -155,7 +155,7 @@ const customers = await Customer.findAll(); // Only returns current tenant's cus
             </div>
 
             <div class="control-card">
-                <h3>SAAS-TENANT-03: Network-Level Tenant Isolation</h3>
+                <h3>Network-Level Tenant Isolation</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-high">High Difficulty</span>
@@ -240,7 +240,7 @@ spec:
             <p class="section-intro">Protect sensitive customer data with encryption, classification, and privacy controls.</p>
 
             <div class="control-card">
-                <h3>SAAS-DATA-01: Implement Data Classification and Labeling</h3>
+                <h3>Implement Data Classification and Labeling</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
@@ -290,7 +290,7 @@ class CustomerData extends BaseModel {
             </div>
 
             <div class="control-card">
-                <h3>SAAS-DATA-02: Implement Field-Level Encryption</h3>
+                <h3>Implement Field-Level Encryption</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
                     <span class="tag difficulty-high">High Difficulty</span>
@@ -372,7 +372,7 @@ class FieldEncryption {
             <p class="section-intro">Implement comprehensive access controls with role-based permissions and multi-factor authentication.</p>
 
             <div class="control-card">
-                <h3>SAAS-IAM-01: Implement Role-Based Access Control (RBAC)</h3>
+                <h3>Implement Role-Based Access Control (RBAC)</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
                     <span class="tag difficulty-medium">Medium Difficulty</span>
