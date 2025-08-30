@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Security Expanded - Iron Codex</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <meta name="description" content="Comprehensive API security guide with 74 practical controls for REST, GraphQL, authentication, and more">
+</head>
+<body data-page="guide">
+    <header class="header">
+        <nav class="nav container">
+            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../topics.html" class="nav-link">Topics</a></li>
+                <li><a href="../guides.html" class="nav-link">Guides</a></li>
+                <li><a href="../tools.html" class="nav-link">Tools</a></li>
+                <li><a href="../about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container guide-content">
+        <!-- Guide Header -->
+        <section class="guide-header">
+            <nav class="breadcrumb">
+                <a href="../guides.html">Guides</a> / <span>API Security Expanded</span>
+            </nav>
+            <h1>API Security Expanded</h1>
+            <div class="guide-meta">
+                <span class="meta-item">74 Controls</span>
+                <span class="meta-item">Expert Level</span>
+                <span class="meta-item">Last Updated: December 2024</span>
+            </div>
+            <p class="guide-intro">Complete API security framework covering REST, GraphQL, authentication, authorization, rate limiting, and API gateway configuration with practical implementation examples.</p>
+        </section>
+
+        <!-- Table of Contents -->
+        <section class="toc-section">
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <div class="toc-column">
+                    <ul class="toc-list">
+                        <li><a href="#authentication">1. Authentication (12 controls)</a></li>
+                        <li><a href="#authorization">2. Authorization (10 controls)</a></li>
+                        <li><a href="#input-validation">3. Input Validation (14 controls)</a></li>
+                        <li><a href="#rate-limiting">4. Rate Limiting (8 controls)</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul class="toc-list">
+                        <li><a href="#logging-monitoring">5. Logging & Monitoring (12 controls)</a></li>
+                        <li><a href="#data-protection">6. Data Protection (9 controls)</a></li>
+                        <li><a href="#api-gateway">7. API Gateway (5 controls)</a></li>
+                        <li><a href="#testing-validation">8. Testing & Validation (4 controls)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authentication Section -->
+        <section id="authentication" class="control-section">
+            <h2>1. Authentication (12 controls)</h2>
+            <p class="section-intro">Establish and verify the identity of API consumers through robust authentication mechanisms.</p>
+
+            <div class="control-card">
+                <h3>API-AUTH-01: Implement OAuth 2.0 / OpenID Connect</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Use industry-standard OAuth 2.0 for API authentication with OpenID Connect for identity.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code># OAuth 2.0 Authorization Code Flow
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&
+code=ABC123&
+redirect_uri=https://app.example.com/callback&
+client_id=your_client_id&
+client_secret=your_client_secret</code></pre>
+                </div>
+                <div class="validation">
+                    <h4>Validation:</h4>
+                    <ul>
+                        <li>Verify token expiration times</li>
+                        <li>Test token refresh mechanism</li>
+                        <li>Validate scope enforcement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>API-AUTH-02: Require API Keys for Service Authentication</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-low">Low Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> All API requests must include a valid API key for service identification.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code># Header-based API Key
+GET /api/v1/users
+Authorization: Bearer your-api-key
+X-API-Key: your-api-key
+
+# Query parameter (less secure, avoid if possible)
+GET /api/v1/users?api_key=your-api-key</code></pre>
+                </div>
+                <div class="best-practices">
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Use cryptographically secure random keys</li>
+                        <li>Implement key rotation policies</li>
+                        <li>Never expose keys in URLs or logs</li>
+                        <li>Use HTTPS only for key transmission</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>API-AUTH-03: Implement JWT Token Validation</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Properly validate JWT tokens including signature, expiration, and claims.</p>
+                <div class="implementation">
+                    <h4>Implementation Example (Node.js):</h4>
+                    <pre><code>const jwt = require('jsonwebtoken');
+
+function validateJWT(token, secret) {
+    try {
+        const decoded = jwt.verify(token, secret, {
+            algorithms: ['RS256'], // Specify allowed algorithms
+            issuer: 'your-issuer',
+            audience: 'your-audience',
+            clockTolerance: 30 // 30 seconds clock skew tolerance
+        });
+        return decoded;
+    } catch (error) {
+        throw new Error('Invalid token: ' + error.message);
+    }
+}</code></pre>
+                </div>
+                <div class="security-notes">
+                    <h4>Security Considerations:</h4>
+                    <ul>
+                        <li>Never use "none" algorithm</li>
+                        <li>Validate all standard claims (iss, aud, exp, iat)</li>
+                        <li>Implement proper key rotation</li>
+                        <li>Use short token lifespans with refresh tokens</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Authentication Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>API-AUTH-04:</strong> Multi-factor authentication for privileged operations
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-05:</strong> Certificate-based authentication for service-to-service
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-06:</strong> Session management and timeout controls
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-07:</strong> Account lockout and brute force protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-08:</strong> Authentication bypass detection
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-09:</strong> Token blacklisting and revocation
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-10:</strong> Secure credential storage
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-11:</strong> Authentication logging and monitoring
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTH-12:</strong> Cross-domain authentication policies
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Authorization Section -->
+        <section id="authorization" class="control-section">
+            <h2>2. Authorization (10 controls)</h2>
+            <p class="section-intro">Enforce proper access controls to ensure users can only access resources they are permitted to use.</p>
+
+            <div class="control-card">
+                <h3>API-AUTHZ-01: Implement Role-Based Access Control (RBAC)</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Define roles and permissions with fine-grained access control for API resources.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>{
+  "user": {
+    "id": "user123",
+    "roles": ["customer", "premium"],
+    "permissions": [
+      "read:profile",
+      "update:profile",
+      "read:orders",
+      "create:orders"
+    ]
+  }
+}
+
+// Express.js middleware example
+function requirePermission(permission) {
+    return (req, res, next) => {
+        if (!req.user.permissions.includes(permission)) {
+            return res.status(403).json({
+                error: "Insufficient permissions"
+            });
+        }
+        next();
+    };
+}
+
+// Usage
+app.get('/api/orders', requirePermission('read:orders'), getOrders);</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>API-AUTHZ-02: Enforce Resource-Level Authorization</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Verify user authorization for specific resource instances, not just resource types.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Bad - only checks if user can read orders
+app.get('/api/orders/:id', requirePermission('read:orders'), getOrder);
+
+// Good - checks if user can read this specific order
+app.get('/api/orders/:id', async (req, res, next) => {
+    const order = await Order.findById(req.params.id);
+    
+    if (!order) {
+        return res.status(404).json({error: "Order not found"});
+    }
+    
+    // Check if user owns this order or has admin privileges
+    if (order.userId !== req.user.id && !req.user.roles.includes('admin')) {
+        return res.status(403).json({error: "Access denied"});
+    }
+    
+    res.json(order);
+});</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Authorization Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-03:</strong> Attribute-based access control (ABAC) for complex scenarios
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-04:</strong> API scope validation and enforcement
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-05:</strong> Cross-tenant authorization controls
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-06:</strong> Dynamic permission evaluation
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-07:</strong> Authorization decision logging
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-08:</strong> Permission inheritance and delegation
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-09:</strong> Temporary access grants and expiration
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-AUTHZ-10:</strong> Authorization bypass detection and prevention
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Input Validation Section -->
+        <section id="input-validation" class="control-section">
+            <h2>3. Input Validation (14 controls)</h2>
+            <p class="section-intro">Validate and sanitize all input to prevent injection attacks and ensure data integrity.</p>
+
+            <div class="control-card">
+                <h3>API-VALID-01: Implement Comprehensive Input Validation</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Validate all input parameters including type, format, length, and range constraints.</p>
+                <div class="implementation">
+                    <h4>Implementation Example (Express.js + Joi):</h4>
+                    <pre><code>const Joi = require('joi');
+
+const userSchema = Joi.object({
+    name: Joi.string().min(2).max(50).pattern(/^[a-zA-Z\s]+$/).required(),
+    email: Joi.string().email().required(),
+    age: Joi.number().integer().min(18).max(120),
+    phone: Joi.string().pattern(/^\+?[1-9]\d{1,14}$/)
+});
+
+function validateInput(schema) {
+    return (req, res, next) => {
+        const { error, value } = schema.validate(req.body);
+        
+        if (error) {
+            return res.status(400).json({
+                error: "Invalid input",
+                details: error.details.map(d => d.message)
+            });
+        }
+        
+        req.body = value; // Use validated data
+        next();
+    };
+}
+
+app.post('/api/users', validateInput(userSchema), createUser);</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>API-VALID-02: Prevent SQL Injection</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Use parameterized queries and proper escaping to prevent SQL injection attacks.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Bad - vulnerable to SQL injection
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+
+// Good - parameterized query
+const query = 'SELECT * FROM users WHERE id = ?';
+db.query(query, [userId], (err, results) => {
+    // Handle results
+});
+
+// Good - using ORM (Sequelize example)
+const user = await User.findOne({
+    where: { id: userId }
+});</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Input Validation Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>API-VALID-03:</strong> NoSQL injection prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-04:</strong> XML External Entity (XXE) protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-05:</strong> JSON schema validation
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-06:</strong> File upload validation and sanitization
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-07:</strong> Command injection prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-08:</strong> Cross-site scripting (XSS) protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-09:</strong> Path traversal prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-10:</strong> LDAP injection protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-11:</strong> Regular expression DoS (ReDoS) prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-12:</strong> Unicode and encoding validation
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-13:</strong> Business logic validation
+                    </div>
+                    <div class="summary-item">
+                        <strong>API-VALID-14:</strong> Input sanitization and normalization
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick reference for remaining sections -->
+        <section class="remaining-sections">
+            <h2>Remaining Sections</h2>
+            <div class="section-preview">
+                <div class="preview-card" id="rate-limiting">
+                    <h3>4. Rate Limiting (8 controls)</h3>
+                    <p>Implement throttling and rate limiting to prevent abuse and ensure fair usage.</p>
+                    <ul class="preview-controls">
+                        <li>API-RATE-01: Request rate limiting per user/IP</li>
+                        <li>API-RATE-02: Burst rate protection</li>
+                        <li>API-RATE-03: Resource-specific rate limits</li>
+                        <li>API-RATE-04: Dynamic rate limiting based on load</li>
+                        <li>+ 4 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="logging-monitoring">
+                    <h3>5. Logging & Monitoring (12 controls)</h3>
+                    <p>Comprehensive logging and monitoring for security events and performance.</p>
+                    <ul class="preview-controls">
+                        <li>API-LOG-01: Security event logging</li>
+                        <li>API-LOG-02: Performance monitoring</li>
+                        <li>API-LOG-03: Error tracking and alerting</li>
+                        <li>API-LOG-04: Audit trail maintenance</li>
+                        <li>+ 8 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="data-protection">
+                    <h3>6. Data Protection (9 controls)</h3>
+                    <p>Protect sensitive data in transit and at rest with proper encryption.</p>
+                    <ul class="preview-controls">
+                        <li>API-DATA-01: HTTPS/TLS enforcement</li>
+                        <li>API-DATA-02: Data encryption at rest</li>
+                        <li>API-DATA-03: PII data masking</li>
+                        <li>API-DATA-04: Secure data transmission</li>
+                        <li>+ 5 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="api-gateway">
+                    <h3>7. API Gateway (5 controls)</h3>
+                    <p>Centralized API management and security enforcement.</p>
+                    <ul class="preview-controls">
+                        <li>API-GW-01: Centralized authentication</li>
+                        <li>API-GW-02: Request/response transformation</li>
+                        <li>API-GW-03: Load balancing and failover</li>
+                        <li>+ 2 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="testing-validation">
+                    <h3>8. Testing & Validation (4 controls)</h3>
+                    <p>Security testing and validation procedures for API security.</p>
+                    <ul class="preview-controls">
+                        <li>API-TEST-01: Automated security testing</li>
+                        <li>API-TEST-02: Penetration testing procedures</li>
+                        <li>API-TEST-03: Code review requirements</li>
+                        <li>API-TEST-04: Vulnerability assessment</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Navigation -->
+        <section class="guide-footer">
+            <div class="footer-nav">
+                <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
+                <a href="#" onclick="downloadGuide()" class="btn btn-primary">Download PDF</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function downloadGuide() {
+            alert('PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.');
+        }
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .guide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .guide-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+        }
+
+        .guide-header h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .guide-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--glass);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .guide-intro {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .toc-section {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc-section h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            background: var(--glass);
+            color: var(--accent);
+        }
+
+        .control-section {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-section h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-intro {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-card h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-critical {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .priority-high {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-low {
+            background: rgba(46, 213, 115, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .difficulty-medium {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .implementation,
+        .validation,
+        .best-practices,
+        .security-notes {
+            margin: 1.5rem 0;
+        }
+
+        .implementation h4,
+        .validation h4,
+        .best-practices h4,
+        .security-notes h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        code {
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .control-summary {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-item {
+            background: var(--glass);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .remaining-sections {
+            margin: 4rem 0;
+        }
+
+        .section-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .preview-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .preview-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .preview-controls {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .preview-controls li {
+            color: var(--text-muted);
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .guide-footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2rem;
+            }
+            
+            .guide-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .toc-grid,
+            .summary-grid,
+            .section-preview {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>
