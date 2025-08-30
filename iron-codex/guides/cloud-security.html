@@ -74,7 +74,7 @@
                 </div>
                 <p><strong>Requirement:</strong> Enforce MFA for all privileged accounts and administrative access across all cloud platforms.</p>
                 <div class="implementation">
-                    <h4>AWS Implementation:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code># AWS CLI - Enable MFA for root account
 aws iam enable-mfa-device \
   --user-name root \
@@ -105,16 +105,12 @@ aws iam enable-mfa-device \
 }</code></pre>
                 </div>
                 <div class="validation">
-                    <h4>Azure Implementation:</h4>
-                    <pre><code># PowerShell - Enable MFA requirement
-Connect-MsolService
-Set-MsolUser -UserPrincipalName "admin@company.com" -StrongAuthenticationRequirements $req
-
-# Azure CLI - Set Conditional Access policy
-az ad policy create \
-  --type conditionalAccess \
-  --display-name "Require MFA for Admins" \
-  --conditions '{"users":{"includeRoles":["Global Administrator"]}}'</code></pre>
+                    <h4>Validation:</h4>
+                    <ul>
+                        <li>Verify token expiration times</li>
+                        <li>Test token refresh mechanism</li>
+                        <li>Validate scope enforcement</li>
+                    </ul>
                 </div>
             </div>
 
@@ -126,8 +122,9 @@ az ad policy create \
                 </div>
                 <p><strong>Requirement:</strong> Grant minimum permissions necessary for users and services to perform their functions.</p>
                 <div class="implementation">
-                    <h4>AWS IAM Policy Example:</h4>
-                    <pre><code>{
+                    <h4>Implementation Example:</h4>
+                    <pre><code># AWS IAM Policy Example
+{
   "Version": "2012-10-17",
   "Statement": [
     {
@@ -147,18 +144,13 @@ az ad policy create \
 }</code></pre>
                 </div>
                 <div class="best-practices">
-                    <h4>GCP Role-Based Implementation:</h4>
-                    <pre><code># Create custom role with minimal permissions
-gcloud iam roles create customDeveloperRole \
-  --project=my-project \
-  --title="Custom Developer Role" \
-  --description="Minimal permissions for developers" \
-  --permissions="compute.instances.list,compute.instances.get,storage.objects.get"
-
-# Assign role to user
-gcloud projects add-iam-policy-binding my-project \
-  --member="user:developer@company.com" \
-  --role="projects/my-project/roles/customDeveloperRole"</code></pre>
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Use cryptographically secure random keys</li>
+                        <li>Implement key rotation policies</li>
+                        <li>Never expose keys in URLs or logs</li>
+                        <li>Use HTTPS only for key transmission</li>
+                    </ul>
                 </div>
             </div>
 
@@ -170,7 +162,7 @@ gcloud projects add-iam-policy-binding my-project \
                 </div>
                 <p><strong>Requirement:</strong> Use predefined roles and groups to manage access instead of individual user permissions.</p>
                 <div class="implementation">
-                    <h4>AWS Groups and Roles:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code># Create IAM group
 aws iam create-group --group-name Developers
 
@@ -203,10 +195,19 @@ aws iam add-user-to-group \
   ]
 }</code></pre>
                 </div>
+                <div class="security-notes">
+                    <h4>Security Considerations:</h4>
+                    <ul>
+                        <li>Never use "none" algorithm</li>
+                        <li>Validate all standard claims (iss, aud, exp, iat)</li>
+                        <li>Implement proper key rotation</li>
+                        <li>Use short token lifespans with refresh tokens</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="control-summary">
-                <h4>Additional IAM Controls:</h4>
+                <h4>Additional Identity & Access Management Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
                         <strong>CLOUD-IAM-04:</strong> Service account security and key rotation
@@ -251,7 +252,7 @@ aws iam add-user-to-group \
                 </div>
                 <p><strong>Requirement:</strong> Segment network traffic using VPCs, subnets, and security groups to limit blast radius.</p>
                 <div class="implementation">
-                    <h4>AWS VPC Configuration:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code># Create VPC with public and private subnets
 aws ec2 create-vpc --cidr-block 10.0.0.0/16
 
@@ -290,7 +291,7 @@ aws ec2 authorize-security-group-ingress \
                 </div>
                 <p><strong>Requirement:</strong> Implement subnet-level network ACLs as additional layer of defense.</p>
                 <div class="implementation">
-                    <h4>Azure Network Security Groups:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code># Create Network Security Group
 az network nsg create \
   --resource-group myResourceGroup \
@@ -354,7 +355,7 @@ az network nsg rule create \
                 </div>
                 <p><strong>Requirement:</strong> Encrypt all data stored in cloud services using strong encryption algorithms.</p>
                 <div class="implementation">
-                    <h4>AWS S3 Encryption:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code># Enable default encryption on S3 bucket
 aws s3api put-bucket-encryption \
   --bucket my-secure-bucket \
@@ -470,39 +471,6 @@ aws rds create-db-instance \
             </div>
         </section>
 
-        <section class="provider-specific">
-            <h2>Cloud Provider Specific Resources</h2>
-            <div class="provider-grid">
-                <div class="provider-card">
-                    <h3>AWS Security</h3>
-                    <ul>
-                        <li>AWS Well-Architected Security Pillar</li>
-                        <li>AWS Security Hub</li>
-                        <li>AWS Config Rules</li>
-                        <li>AWS GuardDuty</li>
-                    </ul>
-                </div>
-                <div class="provider-card">
-                    <h3>Azure Security</h3>
-                    <ul>
-                        <li>Azure Security Center</li>
-                        <li>Azure Policy</li>
-                        <li>Azure Sentinel</li>
-                        <li>Azure Key Vault</li>
-                    </ul>
-                </div>
-                <div class="provider-card">
-                    <h3>GCP Security</h3>
-                    <ul>
-                        <li>Security Command Center</li>
-                        <li>Cloud Security Scanner</li>
-                        <li>Cloud KMS</li>
-                        <li>Cloud IAM</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
         <section class="guide-footer">
             <div class="footer-nav">
                 <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
@@ -537,95 +505,7 @@ aws rds create-db-instance \
     </script>
 
     <style>
-        .remaining-sections {
-            margin: 4rem 0;
-        }
-
-        .provider-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-        }
-
-        .provider-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .provider-card ul {
-            list-style: none;
-        }
-
-        .provider-card li {
-            color: var(--text-muted);
-            padding: 0.5rem 0;
-            border-left: 3px solid var(--accent);
-            padding-left: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .difficulty-low {
-            background: rgba(46, 213, 115, 0.2);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .difficulty-high {
-            background: rgba(255, 71, 87, 0.2);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-
-        .best-practices {
-            margin: 1.5rem 0;
-        }
-
-        .best-practices h4 {
-            color: var(--success);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .guide-footer {
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
-            border-top: 2px solid var(--border);
-        }
-
-        .footer-nav {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 768px) {
-            .guide-header h1 {
-                font-size: 2rem;
-            }
-            
-            .guide-meta {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .toc-grid,
-            .summary-grid,
-            .section-preview,
-            .provider-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
-</body>
-</html>guide-content {
+        .guide-content {
             max-width: 1000px;
             margin: 0 auto;
             padding: 2rem 1rem;
@@ -788,15 +668,23 @@ aws rds create-db-instance \
             border: 1px solid var(--warning);
         }
 
+        .difficulty-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
         .implementation,
         .validation,
-        .best-practices {
+        .best-practices,
+        .security-notes {
             margin: 1.5rem 0;
         }
 
         .implementation h4,
         .validation h4,
-        .best-practices h4 {
+        .best-practices h4,
+        .security-notes h4 {
             color: var(--success);
             margin-bottom: 0.5rem;
             font-size: 1rem;
@@ -840,6 +728,10 @@ aws rds create-db-instance \
             color: var(--text-muted);
         }
 
+        .remaining-sections {
+            margin: 4rem 0;
+        }
+
         .section-preview {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -869,14 +761,41 @@ aws rds create-db-instance \
             font-size: 0.9rem;
         }
 
-        .provider-specific {
-            margin: 4rem 0;
+        .guide-footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--border);
         }
 
-        .provider-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        .footer-nav {
+            display: flex;
             gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2rem;
+            }
+            
+            .guide-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .toc-grid,
+            .summary-grid,
+            .section-preview {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>
