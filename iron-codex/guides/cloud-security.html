@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security CDN - Iron Codex</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <meta name="description" content="Comprehensive cloud security guide with 59 controls for AWS, Azure, GCP infrastructure security">
+</head>
+<body data-page="guide">
+    <header class="header">
+        <nav class="nav container">
+            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../topics.html" class="nav-link">Topics</a></li>
+                <li><a href="../guides.html" class="nav-link">Guides</a></li>
+                <li><a href="../tools.html" class="nav-link">Tools</a></li>
+                <li><a href="../about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container guide-content">
+        <section class="guide-header">
+            <nav class="breadcrumb">
+                <a href="../guides.html">Guides</a> / <span>Cloud Security CDN</span>
+            </nav>
+            <h1>Cloud Security CDN</h1>
+            <div class="guide-meta">
+                <span class="meta-item">59 Controls</span>
+                <span class="meta-item">Advanced Level</span>
+                <span class="meta-item">Last Updated: December 2024</span>
+            </div>
+            <p class="guide-intro">Comprehensive cloud infrastructure security covering AWS, Azure, GCP with practical implementation guides for containers, serverless, and multi-cloud environments.</p>
+        </section>
+
+        <section class="toc-section">
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <div class="toc-column">
+                    <ul class="toc-list">
+                        <li><a href="#identity-access">1. Identity & Access Management (12 controls)</a></li>
+                        <li><a href="#network-security">2. Network Security (10 controls)</a></li>
+                        <li><a href="#data-protection">3. Data Protection (9 controls)</a></li>
+                        <li><a href="#compute-security">4. Compute Security (8 controls)</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul class="toc-list">
+                        <li><a href="#storage-security">5. Storage Security (7 controls)</a></li>
+                        <li><a href="#logging-monitoring">6. Logging & Monitoring (6 controls)</a></li>
+                        <li><a href="#compliance-governance">7. Compliance & Governance (4 controls)</a></li>
+                        <li><a href="#disaster-recovery">8. Disaster Recovery (3 controls)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="identity-access" class="control-section">
+            <h2>1. Identity & Access Management (12 controls)</h2>
+            <p class="section-intro">Implement robust IAM controls across cloud providers with least privilege and zero trust principles.</p>
+
+            <div class="control-card">
+                <h3>CLOUD-IAM-01: Implement Multi-Factor Authentication</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-low">Low Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Enforce MFA for all privileged accounts and administrative access across all cloud platforms.</p>
+                <div class="implementation">
+                    <h4>AWS Implementation:</h4>
+                    <pre><code># AWS CLI - Enable MFA for root account
+aws iam enable-mfa-device \
+  --user-name root \
+  --serial-number arn:aws:iam::123456789012:mfa/root-account-mfa-device \
+  --authentication-code-1 123456 \
+  --authentication-code-2 654321
+
+# IAM Policy requiring MFA
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "NotAction": [
+        "iam:CreateVirtualMFADevice",
+        "iam:EnableMFADevice",
+        "iam:GetUser",
+        "iam:ListMFADevices"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "BoolIfExists": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    }
+  ]
+}</code></pre>
+                </div>
+                <div class="validation">
+                    <h4>Azure Implementation:</h4>
+                    <pre><code># PowerShell - Enable MFA requirement
+Connect-MsolService
+Set-MsolUser -UserPrincipalName "admin@company.com" -StrongAuthenticationRequirements $req
+
+# Azure CLI - Set Conditional Access policy
+az ad policy create \
+  --type conditionalAccess \
+  --display-name "Require MFA for Admins" \
+  --conditions '{"users":{"includeRoles":["Global Administrator"]}}'</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>CLOUD-IAM-02: Implement Least Privilege Access</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Grant minimum permissions necessary for users and services to perform their functions.</p>
+                <div class="implementation">
+                    <h4>AWS IAM Policy Example:</h4>
+                    <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::company-data-bucket/user-uploads/*",
+      "Condition": {
+        "StringEquals": {
+          "s3:ExistingObjectTag/Department": "${aws:PrincipalTag/Department}"
+        }
+      }
+    }
+  ]
+}</code></pre>
+                </div>
+                <div class="best-practices">
+                    <h4>GCP Role-Based Implementation:</h4>
+                    <pre><code># Create custom role with minimal permissions
+gcloud iam roles create customDeveloperRole \
+  --project=my-project \
+  --title="Custom Developer Role" \
+  --description="Minimal permissions for developers" \
+  --permissions="compute.instances.list,compute.instances.get,storage.objects.get"
+
+# Assign role to user
+gcloud projects add-iam-policy-binding my-project \
+  --member="user:developer@company.com" \
+  --role="projects/my-project/roles/customDeveloperRole"</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>CLOUD-IAM-03: Implement Role-Based Access Control</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Use predefined roles and groups to manage access instead of individual user permissions.</p>
+                <div class="implementation">
+                    <h4>AWS Groups and Roles:</h4>
+                    <pre><code># Create IAM group
+aws iam create-group --group-name Developers
+
+# Attach policy to group
+aws iam attach-group-policy \
+  --group-name Developers \
+  --policy-arn arn:aws:iam::aws:policy/PowerUserAccess
+
+# Add user to group
+aws iam add-user-to-group \
+  --group-name Developers \
+  --user-name john.doe
+
+# Cross-account role assumption
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::TRUSTED-ACCOUNT:root"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": "unique-external-id"
+        }
+      }
+    }
+  ]
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional IAM Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-04:</strong> Service account security and key rotation
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-05:</strong> Cross-account access controls
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-06:</strong> Temporary access and time-based permissions
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-07:</strong> API key management and rotation
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-08:</strong> Identity federation and SSO integration
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-09:</strong> Privileged access management (PAM)
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-10:</strong> Access review and certification processes
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-11:</strong> Just-in-time access provisioning
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-IAM-12:</strong> Identity governance and lifecycle management
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="network-security" class="control-section">
+            <h2>2. Network Security (10 controls)</h2>
+            <p class="section-intro">Secure cloud networks with proper segmentation, access controls, and traffic monitoring.</p>
+
+            <div class="control-card">
+                <h3>CLOUD-NET-01: Implement Network Segmentation</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Segment network traffic using VPCs, subnets, and security groups to limit blast radius.</p>
+                <div class="implementation">
+                    <h4>AWS VPC Configuration:</h4>
+                    <pre><code># Create VPC with public and private subnets
+aws ec2 create-vpc --cidr-block 10.0.0.0/16
+
+# Create public subnet
+aws ec2 create-subnet \
+  --vpc-id vpc-12345678 \
+  --cidr-block 10.0.1.0/24 \
+  --availability-zone us-west-2a
+
+# Create private subnet
+aws ec2 create-subnet \
+  --vpc-id vpc-12345678 \
+  --cidr-block 10.0.2.0/24 \
+  --availability-zone us-west-2a
+
+# Security group for web servers (restrictive)
+aws ec2 create-security-group \
+  --group-name web-servers \
+  --description "Web servers security group" \
+  --vpc-id vpc-12345678
+
+# Allow only HTTPS traffic
+aws ec2 authorize-security-group-ingress \
+  --group-id sg-12345678 \
+  --protocol tcp \
+  --port 443 \
+  --cidr 0.0.0.0/0</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>CLOUD-NET-02: Configure Network Access Control Lists</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement subnet-level network ACLs as additional layer of defense.</p>
+                <div class="implementation">
+                    <h4>Azure Network Security Groups:</h4>
+                    <pre><code># Create Network Security Group
+az network nsg create \
+  --resource-group myResourceGroup \
+  --name myNetworkSecurityGroup
+
+# Create security rule
+az network nsg rule create \
+  --resource-group myResourceGroup \
+  --nsg-name myNetworkSecurityGroup \
+  --name allowHTTPS \
+  --protocol tcp \
+  --priority 1000 \
+  --destination-port-range 443 \
+  --source-address-prefixes '*' \
+  --destination-address-prefixes '*' \
+  --access allow \
+  --direction inbound</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Network Security Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-03:</strong> VPN and private connectivity setup
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-04:</strong> DDoS protection and mitigation
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-05:</strong> Web Application Firewall (WAF) configuration
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-06:</strong> Load balancer security configuration
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-07:</strong> DNS security and domain protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-08:</strong> Network traffic analysis and monitoring
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-09:</strong> CDN security and edge protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-NET-10:</strong> Inter-service communication security
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-protection" class="control-section">
+            <h2>3. Data Protection (9 controls)</h2>
+            <p class="section-intro">Protect sensitive data with encryption, classification, and access controls.</p>
+
+            <div class="control-card">
+                <h3>CLOUD-DATA-01: Implement Encryption at Rest</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-low">Low Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Encrypt all data stored in cloud services using strong encryption algorithms.</p>
+                <div class="implementation">
+                    <h4>AWS S3 Encryption:</h4>
+                    <pre><code># Enable default encryption on S3 bucket
+aws s3api put-bucket-encryption \
+  --bucket my-secure-bucket \
+  --server-side-encryption-configuration '{
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms",
+          "KMSMasterKeyID": "arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012"
+        }
+      }
+    ]
+  }'
+
+# RDS encryption
+aws rds create-db-instance \
+  --db-instance-identifier mydbinstance \
+  --storage-encrypted \
+  --kms-key-id arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Data Protection Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-02:</strong> Encryption in transit (TLS/SSL)
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-03:</strong> Key management and rotation
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-04:</strong> Data classification and labeling
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-05:</strong> Data loss prevention (DLP)
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-06:</strong> Backup encryption and security
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-07:</strong> Database security hardening
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-08:</strong> Data residency and sovereignty
+                    </div>
+                    <div class="summary-item">
+                        <strong>CLOUD-DATA-09:</strong> Secure data deletion and retention
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="remaining-sections">
+            <h2>Remaining Sections</h2>
+            <div class="section-preview">
+                <div class="preview-card" id="compute-security">
+                    <h3>4. Compute Security (8 controls)</h3>
+                    <p>Secure compute instances, containers, and serverless functions.</p>
+                    <ul class="preview-controls">
+                        <li>CLOUD-COMPUTE-01: Instance hardening and patching</li>
+                        <li>CLOUD-COMPUTE-02: Container security scanning</li>
+                        <li>CLOUD-COMPUTE-03: Serverless function security</li>
+                        <li>CLOUD-COMPUTE-04: Auto-scaling security configuration</li>
+                        <li>+ 4 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="storage-security">
+                    <h3>5. Storage Security (7 controls)</h3>
+                    <p>Secure cloud storage services and data repositories.</p>
+                    <ul class="preview-controls">
+                        <li>CLOUD-STORAGE-01: Bucket/container access policies</li>
+                        <li>CLOUD-STORAGE-02: Public access prevention</li>
+                        <li>CLOUD-STORAGE-03: Versioning and lifecycle management</li>
+                        <li>CLOUD-STORAGE-04: Cross-region replication security</li>
+                        <li>+ 3 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="logging-monitoring">
+                    <h3>6. Logging & Monitoring (6 controls)</h3>
+                    <p>Comprehensive logging and monitoring across cloud services.</p>
+                    <ul class="preview-controls">
+                        <li>CLOUD-LOG-01: CloudTrail/Activity logging</li>
+                        <li>CLOUD-LOG-02: Security event monitoring</li>
+                        <li>CLOUD-LOG-03: Log aggregation and analysis</li>
+                        <li>CLOUD-LOG-04: Real-time alerting</li>
+                        <li>+ 2 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="compliance-governance">
+                    <h3>7. Compliance & Governance (4 controls)</h3>
+                    <p>Ensure compliance with regulations and governance frameworks.</p>
+                    <ul class="preview-controls">
+                        <li>CLOUD-COMPLY-01: Compliance automation</li>
+                        <li>CLOUD-COMPLY-02: Policy enforcement</li>
+                        <li>CLOUD-COMPLY-03: Audit trail maintenance</li>
+                        <li>CLOUD-COMPLY-04: Risk assessment procedures</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="disaster-recovery">
+                    <h3>8. Disaster Recovery (3 controls)</h3>
+                    <p>Business continuity and disaster recovery planning.</p>
+                    <ul class="preview-controls">
+                        <li>CLOUD-DR-01: Backup and restore procedures</li>
+                        <li>CLOUD-DR-02: Multi-region failover</li>
+                        <li>CLOUD-DR-03: Recovery testing and validation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="provider-specific">
+            <h2>Cloud Provider Specific Resources</h2>
+            <div class="provider-grid">
+                <div class="provider-card">
+                    <h3>AWS Security</h3>
+                    <ul>
+                        <li>AWS Well-Architected Security Pillar</li>
+                        <li>AWS Security Hub</li>
+                        <li>AWS Config Rules</li>
+                        <li>AWS GuardDuty</li>
+                    </ul>
+                </div>
+                <div class="provider-card">
+                    <h3>Azure Security</h3>
+                    <ul>
+                        <li>Azure Security Center</li>
+                        <li>Azure Policy</li>
+                        <li>Azure Sentinel</li>
+                        <li>Azure Key Vault</li>
+                    </ul>
+                </div>
+                <div class="provider-card">
+                    <h3>GCP Security</h3>
+                    <ul>
+                        <li>Security Command Center</li>
+                        <li>Cloud Security Scanner</li>
+                        <li>Cloud KMS</li>
+                        <li>Cloud IAM</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-footer">
+            <div class="footer-nav">
+                <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
+                <a href="#" onclick="downloadGuide()" class="btn btn-primary">Download PDF</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function downloadGuide() {
+            alert('PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.');
+        }
+
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .provider-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .provider-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .provider-card ul {
+            list-style: none;
+        }
+
+        .provider-card li {
+            color: var(--text-muted);
+            padding: 0.5rem 0;
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2rem;
+            }
+            
+            .guide-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .toc-grid,
+            .summary-grid,
+            .section-preview,
+            .provider-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>guide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .guide-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+        }
+
+        .guide-header h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .guide-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--glass);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .guide-intro {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .toc-section {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc-section h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            background: var(--glass);
+            color: var(--accent);
+        }
+
+        .control-section {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-section h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-intro {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-card h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-critical {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .priority-high {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-low {
+            background: rgba(46, 213, 115, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .difficulty-medium {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .implementation,
+        .validation,
+        .best-practices {
+            margin: 1.5rem 0;
+        }
+
+        .implementation h4,
+        .validation h4,
+        .best-practices h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        code {
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .control-summary {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-item {
+            background: var(--glass);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .section-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .preview-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .preview-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .preview-controls {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .preview-controls li {
+            color: var(--text-muted);
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .provider-specific {
+            margin: 4rem 0;
+        }
+
+        .provider-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .
