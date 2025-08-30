@@ -74,7 +74,7 @@
                 </div>
                 <p><strong>Requirement:</strong> Implement robust database isolation using either separate schemas, databases, or row-level security policies.</p>
                 <div class="implementation">
-                    <h4>PostgreSQL Row-Level Security Example:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code>-- Enable RLS on table
 ALTER TABLE customer_data ENABLE ROW LEVEL SECURITY;
 
@@ -99,28 +99,12 @@ const setTenantContext = (req, res, next) => {
 app.use(setTenantContext);</code></pre>
                 </div>
                 <div class="validation">
-                    <h4>Testing Tenant Isolation:</h4>
-                    <pre><code># Test script to verify tenant isolation
-import psycopg2
-
-def test_tenant_isolation():
-    conn = psycopg2.connect(database="saas_db")
-    cur = conn.cursor()
-    
-    # Set tenant context to tenant 1
-    cur.execute("SET app.current_tenant = '1'")
-    cur.execute("SELECT COUNT(*) FROM customer_data")
-    tenant1_count = cur.fetchone()[0]
-    
-    # Set tenant context to tenant 2
-    cur.execute("SET app.current_tenant = '2'")
-    cur.execute("SELECT COUNT(*) FROM customer_data")
-    tenant2_count = cur.fetchone()[0]
-    
-    # Verify isolation - counts should be different
-    assert tenant1_count != tenant2_count
-    
-    conn.close()</code></pre>
+                    <h4>Validation:</h4>
+                    <ul>
+                        <li>Test cross-tenant data access attempts</li>
+                        <li>Verify tenant context isolation</li>
+                        <li>Validate policy enforcement</li>
+                    </ul>
                 </div>
             </div>
 
@@ -132,7 +116,7 @@ def test_tenant_isolation():
                 </div>
                 <p><strong>Requirement:</strong> Implement consistent tenant filtering in all application queries and operations.</p>
                 <div class="implementation">
-                    <h4>ORM-Based Tenant Filtering (Sequelize Example):</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code>// Base model with tenant scoping
 class BaseModel extends Sequelize.Model {
     static init(attributes, options) {
@@ -159,6 +143,15 @@ Customer.init({
 // Usage - automatically filters by current tenant
 const customers = await Customer.findAll(); // Only returns current tenant's customers</code></pre>
                 </div>
+                <div class="best-practices">
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Always include tenant_id in WHERE clauses</li>
+                        <li>Use ORM-level scoping when possible</li>
+                        <li>Implement tenant context middleware</li>
+                        <li>Regular security audits of queries</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="control-card">
@@ -169,7 +162,7 @@ const customers = await Customer.findAll(); // Only returns current tenant's cus
                 </div>
                 <p><strong>Requirement:</strong> Implement network segmentation to isolate tenant traffic and prevent cross-tenant network access.</p>
                 <div class="implementation">
-                    <h4>Kubernetes Network Policies Example:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code>apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -197,10 +190,19 @@ spec:
         matchLabels:
           name: shared-services</code></pre>
                 </div>
+                <div class="security-notes">
+                    <h4>Security Considerations:</h4>
+                    <ul>
+                        <li>Implement defense in depth</li>
+                        <li>Regular penetration testing</li>
+                        <li>Monitor inter-tenant communications</li>
+                        <li>Use encrypted network traffic</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="control-summary">
-                <h4>Additional Tenant Isolation Controls:</h4>
+                <h4>Additional Multi-Tenant Isolation Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
                         <strong>SAAS-TENANT-04:</strong> File storage tenant segregation
@@ -245,7 +247,7 @@ spec:
                 </div>
                 <p><strong>Requirement:</strong> Classify and label data based on sensitivity levels and regulatory requirements.</p>
                 <div class="implementation">
-                    <h4>Data Classification Schema:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code>// Data classification enum
 enum DataClassification {
     PUBLIC = 'public',
@@ -295,7 +297,7 @@ class CustomerData extends BaseModel {
                 </div>
                 <p><strong>Requirement:</strong> Encrypt sensitive data fields using strong encryption with proper key management.</p>
                 <div class="implementation">
-                    <h4>Field-Level Encryption Implementation:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code>const crypto = require('crypto');
 const AWS = require('aws-sdk');
 const kms = new AWS.KMS();
@@ -327,34 +329,12 @@ class FieldEncryption {
         const result = await kms.decrypt(params).promise();
         return result.Plaintext.toString();
     }
-}
-
-// Usage in model
-class Customer extends BaseModel {
-    async setEmail(email) {
-        const encrypted = await FieldEncryption.encrypt(
-            email, 
-            process.env.KMS_KEY_ID,
-            { tenantId: this.tenantId, fieldName: 'email' }
-        );
-        this.setDataValue('email_encrypted', encrypted);
-    }
-    
-    async getEmail() {
-        const encrypted = this.getDataValue('email_encrypted');
-        if (!encrypted) return null;
-        
-        return await FieldEncryption.decrypt(encrypted, {
-            tenantId: this.tenantId,
-            fieldName: 'email'
-        });
-    }
 }</code></pre>
                 </div>
             </div>
 
             <div class="control-summary">
-                <h4>Additional Data Security Controls:</h4>
+                <h4>Additional Data Security & Privacy Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
                         <strong>SAAS-DATA-03:</strong> Data masking for non-production environments
@@ -399,7 +379,7 @@ class Customer extends BaseModel {
                 </div>
                 <p><strong>Requirement:</strong> Define granular roles and permissions for different user types across tenants.</p>
                 <div class="implementation">
-                    <h4>RBAC Implementation:</h4>
+                    <h4>Implementation Example:</h4>
                     <pre><code>// Permission-based authorization
 const permissions = {
     'users:read': 'Read user information',
@@ -439,7 +419,7 @@ app.post('/api/users', requirePermission('users:write'), createUserHandler);</co
             </div>
 
             <div class="control-summary">
-                <h4>Additional Access Control Controls:</h4>
+                <h4>Additional Access Control & IAM Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
                         <strong>SAAS-IAM-02:</strong> Multi-factor authentication enforcement
@@ -527,47 +507,6 @@ app.post('/api/users', requirePermission('users:write'), createUserHandler);</co
                     <ul class="preview-controls">
                         <li>SAAS-3P-01: Vendor risk assessment</li>
                         <li>SAAS-3P-02: Supply chain security</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="compliance-frameworks">
-            <h2>SaaS Compliance Frameworks</h2>
-            <div class="framework-grid">
-                <div class="framework-card">
-                    <h3>SOC 2 Type II</h3>
-                    <p>Service Organization Control 2 for SaaS security, availability, and confidentiality.</p>
-                    <ul class="framework-requirements">
-                        <li>Security controls implementation</li>
-                        <li>Availability monitoring</li>
-                        <li>Processing integrity</li>
-                        <li>Confidentiality measures</li>
-                        <li>Privacy protection</li>
-                    </ul>
-                </div>
-                
-                <div class="framework-card">
-                    <h3>GDPR Compliance</h3>
-                    <p>General Data Protection Regulation requirements for EU customer data.</p>
-                    <ul class="framework-requirements">
-                        <li>Data subject rights implementation</li>
-                        <li>Privacy by design</li>
-                        <li>Data processing records</li>
-                        <li>Breach notification procedures</li>
-                        <li>Cross-border transfer controls</li>
-                    </ul>
-                </div>
-                
-                <div class="framework-card">
-                    <h3>ISO 27001</h3>
-                    <p>Information Security Management System for SaaS providers.</p>
-                    <ul class="framework-requirements">
-                        <li>Risk management processes</li>
-                        <li>Security policy framework</li>
-                        <li>Access control procedures</li>
-                        <li>Incident management</li>
-                        <li>Continuous improvement</li>
                     </ul>
                 </div>
             </div>
@@ -743,4 +682,161 @@ app.post('/api/users', requirePermission('users:write'), createUserHandler);</co
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-critical {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .priority-high {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-low {
+            background: rgba(46, 213, 115, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .difficulty-medium {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .implementation,
+        .validation,
+        .best-practices,
+        .security-notes {
+            margin: 1.5rem 0;
+        }
+
+        .implementation h4,
+        .validation h4,
+        .best-practices h4,
+        .security-notes h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        code {
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .control-summary {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-item {
+            background: var(--glass);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .remaining-sections {
+            margin: 4rem 0;
+        }
+
+        .section-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .preview-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .preview-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .preview-controls {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .preview-controls li {
+            color: var(--text-muted);
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .guide-footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2rem;
+            }
             
+            .guide-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .toc-grid,
+            .summary-grid,
+            .section-preview {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>
