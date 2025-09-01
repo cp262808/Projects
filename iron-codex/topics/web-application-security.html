@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application Security - Iron Codex</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <meta name="description" content="OWASP Top 10, input validation, session management, secure coding practices, and application testing">
+</head>
+<body data-page="topic">
+    <header class="header">
+        <nav class="nav container">
+            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../topics.html" class="nav-link active">Topics</a></li>
+                <li><a href="../guides.html" class="nav-link">Guides</a></li>
+                <li><a href="../tools.html" class="nav-link">Tools</a></li>
+                <li><a href="../about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container topic-content">
+        <section class="topic-header">
+            <nav class="breadcrumb">
+                <a href="../topics.html">Topics</a> / <span>Web Application Security</span>
+            </nav>
+            <h1>Web Application Security</h1>
+            <div class="topic-meta">
+                <span class="meta-item">22 Controls</span>
+                <span class="meta-item">Intermediate Level</span>
+                <span class="meta-item">Application</span>
+            </div>
+            <p class="topic-intro">OWASP Top 10, input validation, session management, secure coding practices, and application testing for protecting web applications from common vulnerabilities.</p>
+        </section>
+
+        <section class="topic-overview">
+            <h2>Overview</h2>
+            <p>Web application security focuses on protecting web-based applications from various attack vectors. This includes addressing the most common vulnerabilities identified by OWASP and implementing comprehensive security controls throughout the application lifecycle.</p>
+            
+            <div class="key-concepts">
+                <h3>Key Concepts Covered</h3>
+                <div class="concepts-grid">
+                    <div class="concept-card">
+                        <h4>OWASP Top 10</h4>
+                        <p>Most critical web application security risks and mitigation strategies</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Input Validation</h4>
+                        <p>Comprehensive input sanitization and validation techniques</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Session Management</h4>
+                        <p>Secure session handling and state management</p>
+                    </div>
+                    <div class="concept-card">
+                        <h4>Secure Coding</h4>
+                        <p>Best practices for writing secure application code</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <h2>Security Controls (22)</h2>
+            
+            <div class="control-group">
+                <h3>Input Validation & Sanitization</h3>
+                
+                <div class="control-item">
+                    <h4>Implement Comprehensive Input Validation</h4>
+                    <p>Validate all user inputs on both client and server side using whitelist validation where possible.</p>
+                    <div class="implementation-example">
+                        <strong>Implementation:</strong>
+                        <ul>
+                            <li>Server-side input validation for all parameters</li>
+                            <li>Type, length, format, and range validation</li>
+                            <li>Regular expression validation for specific patterns</li>
+                            <li>File upload validation and restrictions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <h4>Prevent SQL Injection</h4>
+                    <p>Use parameterized queries, stored procedures, and input validation to prevent SQL injection attacks.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Prevent Cross-Site Scripting (XSS)</h4>
+                    <p>Implement proper output encoding and Content Security Policy to prevent XSS attacks.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Implement CSRF Protection</h4>
+                    <p>Use anti-CSRF tokens and proper HTTP methods to prevent cross-site request forgery.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>Authentication & Authorization</h3>
+
+                <div class="control-item">
+                    <h4>Implement Strong Authentication</h4>
+                    <p>Deploy multi-factor authentication and strong password policies.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Secure Session Management</h4>
+                    <p>Implement secure session handling with proper timeout and invalidation.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Role-Based Access Control</h4>
+                    <p>Implement proper authorization checks for all application functions and resources.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Prevent Privilege Escalation</h4>
+                    <p>Ensure users cannot access functions or data beyond their authorization level.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>Data Protection</h3>
+
+                <div class="control-item">
+                    <h4>Implement Data Encryption</h4>
+                    <p>Encrypt sensitive data both in transit and at rest using strong encryption algorithms.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Secure Data Storage</h4>
+                    <p>Implement proper database security and avoid storing sensitive data unnecessarily.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Data Loss Prevention</h4>
+                    <p>Implement controls to prevent unauthorized data exfiltration.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Secure File Handling</h4>
+                    <p>Implement secure file upload, download, and processing mechanisms.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>Application Security</h3>
+
+                <div class="control-item">
+                    <h4>Security Headers Configuration</h4>
+                    <p>Implement security headers like HSTS, CSP, X-Frame-Options, and others.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Error Handling & Logging</h4>
+                    <p>Implement proper error handling that doesn't leak sensitive information.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Rate Limiting & DoS Protection</h4>
+                    <p>Implement rate limiting to prevent abuse and denial of service attacks.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Secure Configuration Management</h4>
+                    <p>Ensure application and server configurations follow security best practices.</p>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>Testing & Validation</h3>
+
+                <div class="control-item">
+                    <h4>Static Application Security Testing (SAST)</h4>
+                    <p>Implement automated static code analysis to identify security vulnerabilities.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Dynamic Application Security Testing (DAST)</h4>
+                    <p>Perform runtime security testing of applications in production-like environments.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Interactive Application Security Testing (IAST)</h4>
+                    <p>Combine static and dynamic testing approaches for comprehensive coverage.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Penetration Testing</h4>
+                    <p>Regular manual security testing by qualified security professionals.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Security Code Review</h4>
+                    <p>Manual review of application code for security vulnerabilities and best practices.</p>
+                </div>
+
+                <div class="control-item">
+                    <h4>Dependency Scanning</h4>
+                    <p>Regular scanning of third-party components and libraries for known vulnerabilities.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="owasp-section">
+            <h2>OWASP Top 10 2021</h2>
+            <div class="owasp-grid">
+                <div class="owasp-item">
+                    <h4>A01:2021 - Broken Access Control</h4>
+                    <p>Failures related to enforcement of proper authorization</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A02:2021 - Cryptographic Failures</h4>
+                    <p>Failures related to cryptography and sensitive data exposure</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A03:2021 - Injection</h4>
+                    <p>SQL injection, NoSQL injection, command injection</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A04:2021 - Insecure Design</h4>
+                    <p>Risks related to design and architectural flaws</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A05:2021 - Security Misconfiguration</h4>
+                    <p>Insecure default configurations and incomplete configurations</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A06:2021 - Vulnerable Components</h4>
+                    <p>Using components with known security vulnerabilities</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A07:2021 - Authentication Failures</h4>
+                    <p>Broken authentication and session management</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A08:2021 - Software Integrity Failures</h4>
+                    <p>Code and infrastructure without integrity verification</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A09:2021 - Logging & Monitoring Failures</h4>
+                    <p>Insufficient logging, monitoring, and incident response</p>
+                </div>
+                <div class="owasp-item">
+                    <h4>A10:2021 - Server-Side Request Forgery</h4>
+                    <p>SSRF flaws allowing attackers to send crafted requests</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="related-topics">
+            <h2>Related Topics</h2>
+            <div class="related-grid">
+                <a href="api-security.html" class="related-card">
+                    <h4>API Security</h4>
+                    <p>Securing application programming interfaces</p>
+                </a>
+                <a href="devsecops.html" class="related-card">
+                    <h4>DevSecOps</h4>
+                    <p>Security in development and deployment pipelines</p>
+                </a>
+                <a href="cryptography.html" class="related-card">
+                    <h4>Cryptography</h4>
+                    <p>Encryption and cryptographic implementations</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="topic-footer">
+            <div class="footer-nav">
+                <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
+                <a href="api-security.html" class="btn btn-primary">Next: API Security →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+
+    <style>
+        .topic-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .topic-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+        }
+
+        .topic-header h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .topic-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--glass);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .topic-intro {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .topic-overview {
+            margin-bottom: 3rem;
+        }
+
+        .topic-overview h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .key-concepts {
+            margin-top: 2rem;
+        }
+
+        .key-concepts h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .concept-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .concept-card h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .concept-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .controls-section {
+            margin-bottom: 3rem;
+        }
+
+        .controls-section h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-group {
+            margin-bottom: 2rem;
+        }
+
+        .control-group h3 {
+            color: var(--warning);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-item h4 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .control-item p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .implementation-example {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid var(--accent);
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .implementation-example strong {
+            color: var(--success);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .implementation-example ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .implementation-example li {
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .owasp-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 167, 38, 0.1);
+            border-radius: 16px;
+            border: 1px solid var(--warning);
+        }
+
+        .owasp-section h2 {
+            color: var(--warning);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .owasp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .owasp-item {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .owasp-item h4 {
+            color: var(--danger);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .owasp-item p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .related-topics {
+            margin-bottom: 3rem;
+        }
+
+        .related-topics h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.15);
+        }
+
+        .related-card h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .topic-footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .topic-header h1 {
+                font-size: 2rem;
+            }
+            
+            .topic-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .concepts-grid,
+            .owasp-grid,
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>
