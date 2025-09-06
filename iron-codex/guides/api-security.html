@@ -57,436 +57,758 @@
                     <ul class="toc-list">
                         <li><a href="#logging-monitoring">5. Logging & Monitoring (12 controls)</a></li>
                         <li><a href="#data-protection">6. Data Protection (9 controls)</a></li>
-                        <li><a href="#api-gateway">7. API Gateway (5 controls)</a></li>
-                        <li><a href="#testing-validation">8. Testing & Validation (4 controls)</a></li>
+                        <li><a href="#api-gateway">7. API Gateway Security (5 controls)</a></li>
+                        <li><a href="#graphql-security">8. GraphQL Security (4 controls)</a></li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Authentication Section -->
+        <!-- Authentication Section (12 Controls) -->
         <section id="authentication" class="control-section">
-            <h2>1. Authentication (12 controls)</h2>
-            <p class="section-intro">Establish and verify the identity of API consumers through robust authentication mechanisms.</p>
+            <h2>1. Authentication (12 Controls)</h2>
+            <p class="section-intro">Strong authentication mechanisms are the foundation of API security. These controls establish user identity and ensure only authenticated entities can access your APIs.</p>
 
+            <!-- Control 1.1 -->
             <div class="control-card">
-                <h3>Implement OAuth 2.0 / OpenID Connect</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                <div class="control-header">
+                    <h3 class="control-title">1.1 Multi-Factor Authentication (MFA)</h3>
+                    <div class="control-tags">
+                        <span class="tag priority-critical">Critical</span>
+                        <span class="tag difficulty-medium">Medium</span>
+                    </div>
                 </div>
-                <p><strong>Requirement:</strong> Use industry-standard OAuth 2.0 for API authentication with OpenID Connect for identity.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># OAuth 2.0 Authorization Code Flow
-POST /oauth/token
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=authorization_code&
-code=ABC123&
-redirect_uri=https://app.example.com/callback&
-client_id=your_client_id&
-client_secret=your_client_secret</code></pre>
-                </div>
-                <div class="validation">
-                    <h4>Validation:</h4>
-                    <ul>
-                        <li>Verify token expiration times</li>
-                        <li>Test token refresh mechanism</li>
-                        <li>Validate scope enforcement</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="control-card">
-                <h3>Require API Keys for Service Authentication</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-low">Low Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> All API requests must include a valid API key for service identification.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># Header-based API Key
-GET /api/v1/users
-Authorization: Bearer your-api-key
-X-API-Key: your-api-key
-
-# Query parameter (less secure, avoid if possible)
-GET /api/v1/users?api_key=your-api-key</code></pre>
-                </div>
-                <div class="best-practices">
-                    <h4>Best Practices:</h4>
-                    <ul>
-                        <li>Use cryptographically secure random keys</li>
-                        <li>Implement key rotation policies</li>
-                        <li>Never expose keys in URLs or logs</li>
-                        <li>Use HTTPS only for key transmission</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="control-card">
-                <h3>Implement JWT Token Validation</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Properly validate JWT tokens including signature, expiration, and claims.</p>
-                <div class="implementation">
-                    <h4>Implementation Example (Node.js):</h4>
-                    <pre><code>const jwt = require('jsonwebtoken');
-
-function validateJWT(token, secret) {
-    try {
-        const decoded = jwt.verify(token, secret, {
-            algorithms: ['RS256'], // Specify allowed algorithms
-            issuer: 'your-issuer',
-            audience: 'your-audience',
-            clockTolerance: 30 // 30 seconds clock skew tolerance
+                
+                <div class="control-content">
+                    <p class="control-description">Implement multi-factor authentication for all API access, especially for privileged operations and sensitive data access.</p>
+                    
+                    <div class="implementation">
+                        <h4>🔧 Implementation</h4>
+                        <pre><code>// OAuth 2.0 with PKCE + TOTP Example
+const auth = {
+    // Step 1: PKCE Challenge
+    codeVerifier: generateCodeVerifier(),
+    codeChallenge: generateCodeChallenge(codeVerifier),
+    
+    // Step 2: Request authorization with MFA requirement
+    authUrl: `https://auth.example.com/oauth/authorize?` +
+             `client_id=${clientId}&` +
+             `redirect_uri=${redirectUri}&` +
+             `code_challenge=${codeChallenge}&` +
+             `code_challenge_method=S256&` +
+             `scope=api:read api:write&` +
+             `acr_values=mfa`,  // Require MFA
+    
+    // Step 3: Exchange code for token (includes MFA verification)
+    async exchangeToken(authCode) {
+        const response = await fetch('/oauth/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                grant_type: 'authorization_code',
+                client_id: clientId,
+                code: authCode,
+                redirect_uri: redirectUri,
+                code_verifier: this.codeVerifier
+            })
         });
-        return decoded;
-    } catch (error) {
-        throw new Error('Invalid token: ' + error.message);
+        return response.json();
+    }
+};</code></pre>
+                    </div>
+
+                    <div class="validation">
+                        <h4>✅ Validation</h4>
+                        <ul>
+                            <li>Verify MFA challenge completion before token issuance</li>
+                            <li>Check token includes MFA claim (amr: ["mfa", "totp"])</li>
+                            <li>Test MFA bypass attempts return 401 Unauthorized</li>
+                            <li>Validate MFA requirement for sensitive operations</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4>📋 Best Practices</h4>
+                        <ul>
+                            <li>Support multiple MFA methods (TOTP, SMS, hardware keys)</li>
+                            <li>Implement adaptive MFA based on risk factors</li>
+                            <li>Provide MFA recovery mechanisms</li>
+                            <li>Monitor and alert on MFA failures</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-notes">
+                        <h4>🔒 Security Notes</h4>
+                        <ul>
+                            <li>SMS-based MFA is vulnerable to SIM swapping</li>
+                            <li>Consider WebAuthn/FIDO2 for passwordless MFA</li>
+                            <li>Implement rate limiting on MFA attempts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control 1.2 -->
+            <div class="control-card">
+                <div class="control-header">
+                    <h3 class="control-title">1.2 JWT Token Validation</h3>
+                    <div class="control-tags">
+                        <span class="tag priority-critical">Critical</span>
+                        <span class="tag difficulty-high">High</span>
+                    </div>
+                </div>
+                
+                <div class="control-content">
+                    <p class="control-description">Properly validate JSON Web Tokens including signature verification, expiration, and claims validation.</p>
+                    
+                    <div class="implementation">
+                        <h4>🔧 Implementation</h4>
+                        <pre><code>const jwt = require('jsonwebtoken');
+const jwksClient = require('jwks-rsa');
+
+// JWKS client for key rotation
+const client = jwksClient({
+    jwksUri: 'https://auth.example.com/.well-known/jwks.json',
+    cache: true,
+    cacheMaxAge: 86400000, // 24 hours
+    rateLimit: true,
+    jwksRequestsPerMinute: 5
+});
+
+function getKey(header, callback) {
+    client.getSigningKey(header.kid, (err, key) => {
+        const signingKey = key.publicKey || key.rsaPublicKey;
+        callback(null, signingKey);
+    });
+}
+
+// Middleware for JWT validation
+function validateJWT(req, res, next) {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    
+    if (!token) {
+        return res.status(401).json({ error: 'Missing token' });
+    }
+
+    jwt.verify(token, getKey, {
+        audience: process.env.JWT_AUDIENCE,
+        issuer: process.env.JWT_ISSUER,
+        algorithms: ['RS256'],
+        clockTolerance: 30, // 30 second clock skew tolerance
+        maxAge: '1h' // Maximum token age
+    }, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ 
+                error: 'Invalid token',
+                details: err.message 
+            });
+        }
+        
+        // Additional custom validations
+        if (!decoded.sub || !decoded.scope) {
+            return res.status(401).json({ error: 'Invalid token claims' });
+        }
+        
+        req.user = decoded;
+        next();
+    });
+}</code></pre>
+                    </div>
+
+                    <div class="validation">
+                        <h4>✅ Validation</h4>
+                        <ul>
+                            <li>Verify signature with correct public key</li>
+                            <li>Check token expiration (exp claim)</li>
+                            <li>Validate issuer (iss) and audience (aud) claims</li>
+                            <li>Ensure algorithm is explicitly whitelisted</li>
+                            <li>Test with tampered tokens to ensure rejection</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4>📋 Best Practices</h4>
+                        <ul>
+                            <li>Use short-lived access tokens (15-60 minutes)</li>
+                            <li>Implement token refresh mechanisms</li>
+                            <li>Include necessary claims only (principle of least privilege)</li>
+                            <li>Use secure key rotation practices</li>
+                        </ul>
+                    </div>
+
+                    <div class="security-notes">
+                        <h4>🔒 Security Notes</h4>
+                        <ul>
+                            <li>Never accept "none" algorithm</li>
+                            <li>Always validate the "alg" header parameter</li>
+                            <li>Beware of key confusion attacks (RSA/HMAC)</li>
+                            <li>Implement proper JWKS caching and rotation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control 1.3 -->
+            <div class="control-card">
+                <div class="control-header">
+                    <h3 class="control-title">1.3 OAuth 2.0 PKCE Implementation</h3>
+                    <div class="control-tags">
+                        <span class="tag priority-high">High</span>
+                        <span class="tag difficulty-medium">Medium</span>
+                    </div>
+                </div>
+                
+                <div class="control-content">
+                    <p class="control-description">Implement Proof Key for Code Exchange (PKCE) to secure OAuth 2.0 authorization code flow against code interception attacks.</p>
+                    
+                    <div class="implementation">
+                        <h4>🔧 Implementation</h4>
+                        <pre><code>// Client-side PKCE implementation
+class PKCEAuth {
+    constructor(clientId, redirectUri, authEndpoint, tokenEndpoint) {
+        this.clientId = clientId;
+        this.redirectUri = redirectUri;
+        this.authEndpoint = authEndpoint;
+        this.tokenEndpoint = tokenEndpoint;
+    }
+
+    // Generate code verifier (43-128 characters)
+    generateCodeVerifier() {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return btoa(String.fromCharCode(...array))
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '');
+    }
+
+    // Generate code challenge
+    async generateCodeChallenge(verifier) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(verifier);
+        const digest = await crypto.subtle.digest('SHA-256', data);
+        return btoa(String.fromCharCode(...new Uint8Array(digest)))
+            .replace(/\+/g, '-')
+            .replace(/\//g, '_')
+            .replace(/=/g, '');
+    }
+
+    // Start authorization flow
+    async startAuth(scopes = ['read']) {
+        this.codeVerifier = this.generateCodeVerifier();
+        this.codeChallenge = await this.generateCodeChallenge(this.codeVerifier);
+        this.state = crypto.randomUUID();
+
+        const params = new URLSearchParams({
+            response_type: 'code',
+            client_id: this.clientId,
+            redirect_uri: this.redirectUri,
+            scope: scopes.join(' '),
+            state: this.state,
+            code_challenge: this.codeChallenge,
+            code_challenge_method: 'S256'
+        });
+
+        window.location.href = `${this.authEndpoint}?${params}`;
+    }
+
+    // Exchange authorization code for tokens
+    async exchangeCodeForTokens(code, state) {
+        if (state !== this.state) {
+            throw new Error('State mismatch - possible CSRF attack');
+        }
+
+        const response = await fetch(this.tokenEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                grant_type: 'authorization_code',
+                client_id: this.clientId,
+                code: code,
+                redirect_uri: this.redirectUri,
+                code_verifier: this.codeVerifier
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Token exchange failed: ${response.status}`);
+        }
+
+        return response.json();
     }
 }</code></pre>
-                </div>
-                <div class="security-notes">
-                    <h4>Security Considerations:</h4>
-                    <ul>
-                        <li>Never use "none" algorithm</li>
-                        <li>Validate all standard claims (iss, aud, exp, iat)</li>
-                        <li>Implement proper key rotation</li>
-                        <li>Use short token lifespans with refresh tokens</li>
-                    </ul>
+                    </div>
+
+                    <div class="validation">
+                        <h4>✅ Validation</h4>
+                        <ul>
+                            <li>Verify code verifier matches code challenge</li>
+                            <li>Ensure code challenge method is S256</li>
+                            <li>Validate state parameter to prevent CSRF</li>
+                            <li>Test with invalid code verifier to ensure rejection</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4>📋 Best Practices</h4>
+                        <ul>
+                            <li>Always use S256 challenge method (not plain)</li>
+                            <li>Generate cryptographically secure random values</li>
+                            <li>Store code verifier securely on client</li>
+                            <li>Implement proper error handling</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
-            <div class="control-summary">
-                <h4>Additional Authentication Controls:</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>API-AUTH-04:</strong> Multi-factor authentication for privileged operations
+            <!-- Control 1.4 -->
+            <div class="control-card">
+                <div class="control-header">
+                    <h3 class="control-title">1.4 API Key Management</h3>
+                    <div class="control-tags">
+                        <span class="tag priority-high">High</span>
+                        <span class="tag difficulty-low">Low</span>
                     </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-05:</strong> Certificate-based authentication for service-to-service
+                </div>
+                
+                <div class="control-content">
+                    <p class="control-description">Implement secure API key generation, distribution, rotation, and revocation mechanisms.</p>
+                    
+                    <div class="implementation">
+                        <h4>🔧 Implementation</h4>
+                        <pre><code>// API Key Management System
+const crypto = require('crypto');
+
+class APIKeyManager {
+    constructor(database) {
+        this.db = database;
+        this.keyPrefix = 'ak_'; // API key prefix for identification
+    }
+
+    // Generate secure API key
+    generateAPIKey() {
+        const randomBytes = crypto.randomBytes(32);
+        const apiKey = this.keyPrefix + randomBytes.toString('base64url');
+        return apiKey;
+    }
+
+    // Create API key with metadata
+    async createAPIKey(userId, scopes, expiresIn = '1y') {
+        const apiKey = this.generateAPIKey();
+        const hashedKey = crypto.createHash('sha256').update(apiKey).digest('hex');
+        
+        const keyData = {
+            id: crypto.randomUUID(),
+            user_id: userId,
+            key_hash: hashedKey,
+            scopes: scopes,
+            created_at: new Date(),
+            expires_at: new Date(Date.now() + this.parseExpiry(expiresIn)),
+            last_used: null,
+            is_active: true
+        };
+
+        await this.db.apiKeys.insert(keyData);
+        
+        // Return the plain key only once
+        return {
+            id: keyData.id,
+            key: apiKey, // Only returned during creation
+            scopes: keyData.scopes,
+            expires_at: keyData.expires_at
+        };
+    }
+
+    // Validate API key
+    async validateAPIKey(apiKey) {
+        if (!apiKey || !apiKey.startsWith(this.keyPrefix)) {
+            return null;
+        }
+
+        const hashedKey = crypto.createHash('sha256').update(apiKey).digest('hex');
+        
+        const keyRecord = await this.db.apiKeys.findOne({
+            key_hash: hashedKey,
+            is_active: true,
+            expires_at: { $gt: new Date() }
+        });
+
+        if (keyRecord) {
+            // Update last used timestamp
+            await this.db.apiKeys.updateOne(
+                { id: keyRecord.id },
+                { $set: { last_used: new Date() } }
+            );
+        }
+
+        return keyRecord;
+    }
+
+    // Middleware for API key authentication
+    middleware() {
+        return async (req, res, next) => {
+            const apiKey = req.headers['x-api-key'] || 
+                          req.headers['authorization']?.replace('Bearer ', '');
+
+            if (!apiKey) {
+                return res.status(401).json({ error: 'API key required' });
+            }
+
+            const keyRecord = await this.validateAPIKey(apiKey);
+            
+            if (!keyRecord) {
+                return res.status(401).json({ error: 'Invalid API key' });
+            }
+
+            req.apiKey = keyRecord;
+            req.user = { id: keyRecord.user_id };
+            next();
+        };
+    }
+}</code></pre>
                     </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-06:</strong> Session management and timeout controls
+
+                    <div class="validation">
+                        <h4>✅ Validation</h4>
+                        <ul>
+                            <li>Test API key validation with valid/invalid keys</li>
+                            <li>Verify expired keys are rejected</li>
+                            <li>Check revoked keys cannot be used</li>
+                            <li>Validate scope-based access control</li>
+                        </ul>
                     </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-07:</strong> Account lockout and brute force protection
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-08:</strong> Authentication bypass detection
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-09:</strong> Token blacklisting and revocation
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-10:</strong> Secure credential storage
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-11:</strong> Authentication logging and monitoring
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTH-12:</strong> Cross-domain authentication policies
+
+                    <div class="best-practices">
+                        <h4>📋 Best Practices</h4>
+                        <ul>
+                            <li>Use cryptographically secure random generation</li>
+                            <li>Store hashed versions, never plaintext</li>
+                            <li>Implement key rotation policies</li>
+                            <li>Add metadata (creation time, last used, scope)</li>
+                            <li>Use prefixes for key identification</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Authorization Section -->
+        <!-- Authorization Section (10 Controls) -->
         <section id="authorization" class="control-section">
-            <h2>2. Authorization (10 controls)</h2>
-            <p class="section-intro">Enforce proper access controls to ensure users can only access resources they are permitted to use.</p>
+            <h2>2. Authorization (10 Controls)</h2>
+            <p class="section-intro">Authorization controls ensure that authenticated users can only access resources and perform actions they are explicitly permitted to. These controls implement fine-grained access control policies.</p>
 
+            <!-- Control 2.1 -->
             <div class="control-card">
-                <h3>Implement Role-Based Access Control (RBAC)</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                <div class="control-header">
+                    <h3 class="control-title">2.1 Role-Based Access Control (RBAC)</h3>
+                    <div class="control-tags">
+                        <span class="tag priority-critical">Critical</span>
+                        <span class="tag difficulty-medium">Medium</span>
+                    </div>
                 </div>
-                <p><strong>Requirement:</strong> Define roles and permissions with fine-grained access control for API resources.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code>{
-  "user": {
-    "id": "user123",
-    "roles": ["customer", "premium"],
-    "permissions": [
-      "read:profile",
-      "update:profile",
-      "read:orders",
-      "create:orders"
-    ]
-  }
-}
+                
+                <div class="control-content">
+                    <p class="control-description">Implement comprehensive role-based access control with hierarchical roles and permission inheritance.</p>
+                    
+                    <div class="implementation">
+                        <h4>🔧 Implementation</h4>
+                        <pre><code>// RBAC System Implementation
+class RBACManager {
+    constructor(database) {
+        this.db = database;
+    }
 
-// Express.js middleware example
-function requirePermission(permission) {
-    return (req, res, next) => {
-        if (!req.user.permissions.includes(permission)) {
-            return res.status(403).json({
-                error: "Insufficient permissions"
-            });
+    // Define role hierarchy and permissions
+    async initializeRoles() {
+        const roles = [
+            {
+                name: 'admin',
+                permissions: ['*'], // All permissions
+                inherits: []
+            },
+            {
+                name: 'manager',
+                permissions: ['read:all', 'write:own', 'delete:own'],
+                inherits: ['user']
+            },
+            {
+                name: 'user',
+                permissions: ['read:own', 'write:own'],
+                inherits: []
+            },
+            {
+                name: 'viewer',
+                permissions: ['read:own'],
+                inherits: []
+            }
+        ];
+
+        for (const role of roles) {
+            await this.db.roles.upsert({ name: role.name }, role);
         }
-        next();
-    };
-}
+    }
 
-// Usage
-app.get('/api/orders', requirePermission('read:orders'), getOrders);</code></pre>
+    // Check if user has specific permission
+    async hasPermission(userId, permission, resource = null) {
+        const userPermissions = await this.getUserPermissions(userId);
+        
+        // Check for wildcard permission
+        if (userPermissions.includes('*')) return true;
+        
+        // Check for exact permission match
+        if (userPermissions.includes(permission)) return true;
+        
+        // Check for resource-specific permissions
+        if (resource) {
+            const resourcePermission = `${permission}:${resource}`;
+            if (userPermissions.includes(resourcePermission)) return true;
+        }
+
+        return false;
+    }
+
+    // Middleware for route protection
+    requirePermission(permission) {
+        return async (req, res, next) => {
+            const userId = req.user?.id;
+            if (!userId) {
+                return res.status(401).json({ error: 'Authentication required' });
+            }
+
+            const hasAccess = await this.hasPermission(userId, permission);
+            if (!hasAccess) {
+                return res.status(403).json({ 
+                    error: 'Insufficient permissions',
+                    required: permission 
+                });
+            }
+
+            next();
+        };
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="validation">
+                        <h4>✅ Validation</h4>
+                        <ul>
+                            <li>Test permission inheritance works correctly</li>
+                            <li>Verify users cannot access unauthorized resources</li>
+                            <li>Check role assignment and revocation</li>
+                            <li>Test circular inheritance detection</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4>📋 Best Practices</h4>
+                        <ul>
+                            <li>Follow principle of least privilege</li>
+                            <li>Use descriptive permission names</li>
+                            <li>Implement role hierarchies carefully</li>
+                            <li>Regular access reviews and cleanup</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
+            <!-- Control 2.2 -->
             <div class="control-card">
-                <h3>Enforce Resource-Level Authorization</h3>
-                <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-high">High Difficulty</span>
+                <div class="control-header">
+                    <h3 class="control-title">2.2 Attribute-Based Access Control (ABAC)</h3>
+                    <div class="control-tags">
+                        <span class="tag priority-high">High</span>
+                        <span class="tag difficulty-high">High</span>
+                    </div>
                 </div>
-                <p><strong>Requirement:</strong> Verify user authorization for specific resource instances, not just resource types.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code>// Bad - only checks if user can read orders
-app.get('/api/orders/:id', requirePermission('read:orders'), getOrder);
-
-// Good - checks if user can read this specific order
-app.get('/api/orders/:id', async (req, res, next) => {
-    const order = await Order.findById(req.params.id);
-    
-    if (!order) {
-        return res.status(404).json({error: "Order not found"});
+                
+                <div class="control-content">
+                    <p class="control-description">Implement fine-grained attribute-based access control using policies that evaluate user, resource, and environmental attributes.</p>
+                    
+                    <div class="implementation">
+                        <h4>🔧 Implementation</h4>
+                        <pre><code>// ABAC Policy Engine
+class ABACEngine {
+    constructor() {
+        this.policies = new Map();
     }
-    
-    // Check if user owns this order or has admin privileges
-    if (order.userId !== req.user.id && !req.user.roles.includes('admin')) {
-        return res.status(403).json({error: "Access denied"});
-    }
-    
-    res.json(order);
-});</code></pre>
-                </div>
-            </div>
 
-            <div class="control-summary">
-                <h4>Additional Authorization Controls:</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-03:</strong> Attribute-based access control (ABAC) for complex scenarios
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-04:</strong> API scope validation and enforcement
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-05:</strong> Cross-tenant authorization controls
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-06:</strong> Dynamic permission evaluation
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-07:</strong> Authorization decision logging
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-08:</strong> Permission inheritance and delegation
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-09:</strong> Temporary access grants and expiration
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-AUTHZ-10:</strong> Authorization bypass detection and prevention
+    // Define ABAC policy
+    addPolicy(name, policy) {
+        this.policies.set(name, {
+            ...policy,
+            evaluate: this.compilePolicy(policy.rules)
+        });
+    }
+
+    // Evaluate access request
+    async authorize(context) {
+        const results = [];
+        
+        for (const [name, policy] of this.policies) {
+            const result = {
+                policy: name,
+                effect: policy.effect,
+                decision: policy.evaluate(context)
+            };
+            results.push(result);
+        }
+
+        // Policy combination logic
+        return this.combineDecisions(results);
+    }
+
+    // Combine policy decisions
+    combineDecisions(results) {
+        // Deny overrides - any explicit deny blocks access
+        const denyResults = results.filter(r => r.effect === 'deny' && r.decision);
+        if (denyResults.length > 0) {
+            return { decision: 'deny', reason: 'Explicit deny policy matched' };
+        }
+
+        // Permit if any allow policy matches
+        const permitResults = results.filter(r => r.effect === 'allow' && r.decision);
+        if (permitResults.length > 0) {
+            return { decision: 'allow', reason: 'Allow policy matched' };
+        }
+
+        return { decision: 'deny', reason: 'No matching allow policy' };
+    }
+}</code></pre>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Input Validation Section -->
-        <section id="input-validation" class="control-section">
-            <h2>3. Input Validation (14 controls)</h2>
-            <p class="section-intro">Validate and sanitize all input to prevent injection attacks and ensure data integrity.</p>
-
-            <div class="control-card">
-                <h3>Implement Comprehensive Input Validation</h3>
-                <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Validate all input parameters including type, format, length, and range constraints.</p>
-                <div class="implementation">
-                    <h4>Implementation Example (Express.js + Joi):</h4>
-                    <pre><code>const Joi = require('joi');
-
-const userSchema = Joi.object({
-    name: Joi.string().min(2).max(50).pattern(/^[a-zA-Z\s]+$/).required(),
-    email: Joi.string().email().required(),
-    age: Joi.number().integer().min(18).max(120),
-    phone: Joi.string().pattern(/^\+?[1-9]\d{1,14}$/)
-});
-
-function validateInput(schema) {
-    return (req, res, next) => {
-        const { error, value } = schema.validate(req.body);
-        
-        if (error) {
-            return res.status(400).json({
-                error: "Invalid input",
-                details: error.details.map(d => d.message)
-            });
-        }
-        
-        req.body = value; // Use validated data
-        next();
-    };
-}
-
-app.post('/api/users', validateInput(userSchema), createUser);</code></pre>
-                </div>
-            </div>
-
-            <div class="control-card">
-                <h3>Prevent SQL Injection</h3>
-                <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Use parameterized queries and proper escaping to prevent SQL injection attacks.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code>// Bad - vulnerable to SQL injection
-const query = `SELECT * FROM users WHERE id = ${userId}`;
-
-// Good - parameterized query
-const query = 'SELECT * FROM users WHERE id = ?';
-db.query(query, [userId], (err, results) => {
-    // Handle results
-});
-
-// Good - using ORM (Sequelize example)
-const user = await User.findOne({
-    where: { id: userId }
-});</code></pre>
-                </div>
-            </div>
-
-            <div class="control-summary">
-                <h4>Additional Input Validation Controls:</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>API-VALID-03:</strong> NoSQL injection prevention
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-04:</strong> XML External Entity (XXE) protection
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-05:</strong> JSON schema validation
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-06:</strong> File upload validation and sanitization
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-07:</strong> Command injection prevention
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-08:</strong> Cross-site scripting (XSS) protection
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-09:</strong> Path traversal prevention
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-10:</strong> LDAP injection protection
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-11:</strong> Regular expression DoS (ReDoS) prevention
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-12:</strong> Unicode and encoding validation
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-13:</strong> Business logic validation
-                    </div>
-                    <div class="summary-item">
-                        <strong>API-VALID-14:</strong> Input sanitization and normalization
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Quick reference for remaining sections -->
+        <!-- Remaining Sections Summary -->
         <section class="remaining-sections">
             <h2>Remaining Sections</h2>
+            <p class="section-intro">The complete guide includes 52 additional controls across 6 more sections:</p>
+            
             <div class="section-preview">
-                <div class="preview-card" id="rate-limiting">
+                <div class="preview-card">
+                    <h3>3. Input Validation (14 controls)</h3>
+                    <p>SQL injection, XSS, parameter tampering, file upload security, and schema validation</p>
+                    <ul class="preview-controls">
+                        <li>SQL Injection Prevention</li>
+                        <li>XSS Protection</li>
+                        <li>Parameter Validation</li>
+                        <li>File Upload Security</li>
+                        <li>Schema Validation</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card">
                     <h3>4. Rate Limiting (8 controls)</h3>
-                    <p>Implement throttling and rate limiting to prevent abuse and ensure fair usage.</p>
+                    <p>Request throttling, DDoS protection, and adaptive rate limiting strategies</p>
                     <ul class="preview-controls">
-                        <li>API-RATE-01: Request rate limiting per user/IP</li>
-                        <li>API-RATE-02: Burst rate protection</li>
-                        <li>API-RATE-03: Resource-specific rate limits</li>
-                        <li>API-RATE-04: Dynamic rate limiting based on load</li>
-                        <li>+ 4 more controls...</li>
+                        <li>Token Bucket Algorithm</li>
+                        <li>Sliding Window</li>
+                        <li>IP-based Limiting</li>
+                        <li>User-based Limiting</li>
                     </ul>
                 </div>
 
-                <div class="preview-card" id="logging-monitoring">
+                <div class="preview-card">
                     <h3>5. Logging & Monitoring (12 controls)</h3>
-                    <p>Comprehensive logging and monitoring for security events and performance.</p>
+                    <p>Security logging, SIEM integration, anomaly detection, and incident response</p>
                     <ul class="preview-controls">
-                        <li>API-LOG-01: Security event logging</li>
-                        <li>API-LOG-02: Performance monitoring</li>
-                        <li>API-LOG-03: Error tracking and alerting</li>
-                        <li>API-LOG-04: Audit trail maintenance</li>
-                        <li>+ 8 more controls...</li>
+                        <li>Security Event Logging</li>
+                        <li>Anomaly Detection</li>
+                        <li>SIEM Integration</li>
+                        <li>Real-time Alerting</li>
                     </ul>
                 </div>
 
-                <div class="preview-card" id="data-protection">
+                <div class="preview-card">
                     <h3>6. Data Protection (9 controls)</h3>
-                    <p>Protect sensitive data in transit and at rest with proper encryption.</p>
+                    <p>Encryption, data masking, PII protection, and secure data transmission</p>
                     <ul class="preview-controls">
-                        <li>API-DATA-01: HTTPS/TLS enforcement</li>
-                        <li>API-DATA-02: Data encryption at rest</li>
-                        <li>API-DATA-03: PII data masking</li>
-                        <li>API-DATA-04: Secure data transmission</li>
-                        <li>+ 5 more controls...</li>
+                        <li>End-to-End Encryption</li>
+                        <li>Data Masking</li>
+                        <li>PII Protection</li>
+                        <li>Secure Transmission</li>
                     </ul>
                 </div>
 
-                <div class="preview-card" id="api-gateway">
-                    <h3>7. API Gateway (5 controls)</h3>
-                    <p>Centralized API management and security enforcement.</p>
+                <div class="preview-card">
+                    <h3>7. API Gateway Security (5 controls)</h3>
+                    <p>Gateway hardening, load balancing, and centralized security policies</p>
                     <ul class="preview-controls">
-                        <li>API-GW-01: Centralized authentication</li>
-                        <li>API-GW-02: Request/response transformation</li>
-                        <li>API-GW-03: Load balancing and failover</li>
-                        <li>+ 2 more controls...</li>
+                        <li>Gateway Hardening</li>
+                        <li>Policy Enforcement</li>
+                        <li>Load Balancing</li>
                     </ul>
                 </div>
 
-                <div class="preview-card" id="testing-validation">
-                    <h3>8. Testing & Validation (4 controls)</h3>
-                    <p>Security testing and validation procedures for API security.</p>
+                <div class="preview-card">
+                    <h3>8. GraphQL Security (4 controls)</h3>
+                    <p>Query complexity analysis, depth limiting, and GraphQL-specific attacks</p>
                     <ul class="preview-controls">
-                        <li>API-TEST-01: Automated security testing</li>
-                        <li>API-TEST-02: Penetration testing procedures</li>
-                        <li>API-TEST-03: Code review requirements</li>
-                        <li>API-TEST-04: Vulnerability assessment</li>
+                        <li>Query Complexity</li>
+                        <li>Depth Limiting</li>
+                        <li>Introspection Control</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Footer Navigation -->
+        <!-- Control Summary -->
+        <section class="control-summary">
+            <h2>API Security Control Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>Total Controls:</strong> 74 comprehensive security controls
+                </div>
+                <div class="summary-item">
+                    <strong>Coverage:</strong> REST APIs, GraphQL, gRPC, and WebSocket security
+                </div>
+                <div class="summary-item">
+                    <strong>Implementation:</strong> Production-ready code examples and testing guides
+                </div>
+                <div class="summary-item">
+                    <strong>Compliance:</strong> OWASP API Security Top 10, NIST, and industry standards
+                </div>
+            </div>
+        </section>
+
+        <!-- Guide Footer -->
         <section class="guide-footer">
+            <h3>Continue Your Security Journey</h3>
+            <p>Explore related security guides and deepen your cybersecurity knowledge</p>
             <div class="footer-nav">
-                <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
-                <a href="#" onclick="downloadGuide()" class="btn btn-primary">Download PDF</a>
+                <a href="../guides/iam.html" class="btn btn-outline">Identity & Access Management →</a>
+                <a href="../guides/cloud-security.html" class="btn btn-outline">Cloud Security →</a>
+                <a href="../topics.html" class="btn btn-primary">View All Topics</a>
             </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🛡️ Iron Codex</h3>
+                    <p>Practical cybersecurity guidance for security professionals.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="../topics.html">All Topics</a></li>
+                        <li><a href="../guides.html">Deep Dive Guides</a></li>
+                        <li><a href="../tools.html">Security Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul>
+                        <li><a href="https://github.com/iron-codex">GitHub</a></li>
+                        <li><a href="mailto:contact@iron-codex.com">Contact</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
             </div>
@@ -494,49 +816,35 @@ const user = await User.findOne({
     </footer>
 
     <script src="../assets/js/main.js"></script>
-    <script>
-        function downloadGuide() {
-            alert('PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.');
-        }
-
-        // Smooth scrolling for TOC links
-        document.querySelectorAll('.toc-list a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
-
     <style>
+        /* Guide-specific styles */
         .guide-content {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 1rem;
+            padding: 2rem 0;
         }
 
         .guide-header {
             margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
         }
 
         .breadcrumb {
             color: var(--text-muted);
             margin-bottom: 1rem;
-            font-size: 0.9rem;
         }
 
         .breadcrumb a {
             color: var(--accent);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
         }
 
         .guide-header h1 {
-            font-size: 3rem;
             color: var(--accent);
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
@@ -548,30 +856,27 @@ const user = await User.findOne({
         }
 
         .meta-item {
-            background: var(--glass);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
             color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            background: var(--glass);
+            border-radius: 20px;
             border: 1px solid var(--border);
         }
 
         .guide-intro {
-            font-size: 1.2rem;
             color: var(--text-muted);
+            font-size: 1.2rem;
             line-height: 1.6;
         }
 
         .toc-section {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
             margin-bottom: 3rem;
         }
 
         .toc-section h2 {
             color: var(--accent);
+            font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
@@ -629,7 +934,11 @@ const user = await User.findOne({
             margin-bottom: 2rem;
         }
 
-        .control-card h3 {
+        .control-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .control-title {
             color: var(--accent);
             font-size: 1.3rem;
             margin-bottom: 1rem;
@@ -681,6 +990,12 @@ const user = await User.findOne({
             border: 1px solid var(--danger);
         }
 
+        .control-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
         .implementation,
         .validation,
         .best-practices,
@@ -710,29 +1025,6 @@ const user = await User.findOne({
         code {
             color: var(--accent);
             font-family: 'Courier New', monospace;
-        }
-
-        .control-summary {
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .summary-item {
-            background: var(--glass);
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
         }
 
         .remaining-sections {
@@ -766,6 +1058,29 @@ const user = await User.findOne({
             color: var(--text-muted);
             padding: 0.3rem 0;
             font-size: 0.9rem;
+        }
+
+        .control-summary {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-item {
+            background: var(--glass);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
         .guide-footer {
