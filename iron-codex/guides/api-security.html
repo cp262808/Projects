@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Security Expanded - Iron Codex</title>
+    <title>API Security - Iron Codex</title>
     <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="Comprehensive API security guide with 74 practical controls for REST, GraphQL, authentication, and more">
 </head>
@@ -30,9 +30,9 @@
         <!-- Guide Header -->
         <section class="guide-header">
             <nav class="breadcrumb">
-                <a href="../guides.html">Guides</a> / <span>API Security Expanded</span>
+                <a href="../guides.html">Guides</a> / <span>API Security</span>
             </nav>
-            <h1>API Security Expanded</h1>
+            <h1>API Security</h1>
             <div class="guide-meta">
                 <span class="meta-item">74 Controls</span>
                 <span class="meta-item">Expert Level</span>
@@ -66,7 +66,7 @@
 
         <!-- Authentication Section -->
         <section id="authentication" class="control-section">
-            <h2>Authentication (12 controls)</h2>
+            <h2>1. Authentication (12 controls)</h2>
             <p class="section-intro">Establish strong authentication mechanisms for API access with multi-factor authentication, secure token handling, and certificate-based authentication.</p>
 
             <div class="control-card">
@@ -298,7 +298,7 @@ server.listen(8443, () => {
 
         <!-- Authorization Section -->
         <section id="authorization" class="control-section">
-            <h2>Authorization (10 controls)</h2>
+            <h2>2. Authorization (10 controls)</h2>
             <p class="section-intro">Implement fine-grained authorization controls with role-based access control, attribute-based policies, and scope validation.</p>
 
             <div class="control-card">
@@ -542,7 +542,7 @@ function abacAuthorize(req, res, next) {
 
         <!-- Input Validation Section -->
         <section id="input-validation" class="control-section">
-            <h2>Input Validation (14 controls)</h2>
+            <h2>3. Input Validation (14 controls)</h2>
             <p class="section-intro">Comprehensive input validation and sanitization to prevent injection attacks, ensure data integrity, and protect against malicious input.</p>
 
             <div class="control-card">
@@ -813,7 +813,7 @@ class SecureMongoRepository {
 
         <!-- Rate Limiting Section -->
         <section id="rate-limiting" class="control-section">
-            <h2>Rate Limiting (8 controls)</h2>
+            <h2>4. Rate Limiting (8 controls)</h2>
             <p class="section-intro">Implement comprehensive rate limiting strategies to protect against abuse, DDoS attacks, and ensure fair resource usage across API consumers.</p>
 
             <div class="control-card">
@@ -976,7 +976,7 @@ function createRateLimitMiddleware(limiterConfig) {
 
         <!-- Logging & Monitoring Section -->
         <section id="logging-monitoring" class="control-section">
-            <h2>Logging & Monitoring (12 controls)</h2>
+            <h2>5. Logging & Monitoring (12 controls)</h2>
             <p class="section-intro">Comprehensive security event logging, performance monitoring, and real-time threat detection for API security visibility and incident response.</p>
 
             <div class="control-card">
@@ -1239,7 +1239,7 @@ class SecurityLogger {
 
         <!-- Data Protection Section -->
         <section id="data-protection" class="control-section">
-            <h2>Data Protection (9 controls)</h2>
+            <h2>6. Data Protection (9 controls)</h2>
             <p class="section-intro">Comprehensive data protection measures including encryption, PII handling, data loss prevention, and secure data lifecycle management.</p>
 
             <div class="control-card">
@@ -1445,7 +1445,7 @@ class EncryptionService {
 
         <!-- API Gateway Security Section -->
         <section id="api-gateway" class="control-section">
-            <h2>API Gateway Security (5 controls)</h2>
+            <h2>7. API Gateway Security (5 controls)</h2>
             <p class="section-intro">Centralized security enforcement through API gateway configuration including authentication, transformation, load balancing, and monitoring.</p>
 
             <div class="control-card">
@@ -1522,7 +1522,7 @@ curl -X POST http://localhost:8001/services/api-service/plugins \
 
         <!-- GraphQL Security Section -->
         <section id="graphql" class="control-section">
-            <h2>GraphQL Security (4 controls)</h2>
+            <h2>8. GraphQL Security (4 controls)</h2>
             <p class="section-intro">Specialized security controls for GraphQL APIs including query complexity analysis, depth limiting, and field-level authorization.</p>
 
             <div class="control-card">
@@ -1647,6 +1647,23 @@ const server = new ApolloServer({
         </div>
     </footer>
 
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function downloadGuide() {
+            alert('PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.');
+        }
+
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
     <style>
         /* CSS Variables */
         :root {
@@ -1692,24 +1709,37 @@ const server = new ApolloServer({
         }
 
         /* Guide-specific styles */
+        .guide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
         .guide-header {
             margin-bottom: 3rem;
-            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
         }
 
         .guide-header h1 {
             font-size: 3rem;
-            background: linear-gradient(135deg, var(--accent), var(--warning));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent);
             margin-bottom: 1rem;
         }
 
         .guide-meta {
             display: flex;
             gap: 2rem;
-            justify-content: center;
             margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
@@ -1719,25 +1749,26 @@ const server = new ApolloServer({
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
-            color: var(--accent);
+            color: var(--text-muted);
             border: 1px solid var(--border);
         }
 
         .guide-intro {
             font-size: 1.2rem;
             color: var(--text-muted);
-            max-width: 800px;
-            margin: 0 auto;
             line-height: 1.6;
         }
 
         .toc-section {
-            margin-bottom: 4rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
         }
 
         .toc-section h2 {
             color: var(--accent);
-            font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
@@ -1976,7 +2007,5 @@ const server = new ApolloServer({
             }
         }
     </style>
-
-    <script src="../assets/js/main.js"></script>
 </body>
 </html>
