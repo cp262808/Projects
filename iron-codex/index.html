@@ -1,191 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iron Codex - Cybersecurity Learning Hub</title>
-    <link rel="stylesheet" href="assets/css/main.css">
-    <meta name="description" content="Comprehensive cybersecurity learning platform with 22 security topics, deep dive guides, and practical controls.">
-</head>
-<body>
-    <header class="header">
-        <nav class="nav container">
-            <a href="index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="topics.html" class="nav-link">Topics</a></li>
-                <li><a href="guides.html" class="nav-link">Guides</a></li>
-                <li><a href="tools.html" class="nav-link">Tools</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Cyber Cheat Sheet</h1>
-                    <p class="hero-subtitle">Your W3Schools-style hub for practical security architecture & controls</p>
-                    <div class="hero-buttons">
-                        <a href="topics.html" class="btn btn-primary">Browse 22 Topics →</a>
-                        <a href="guides.html" class="btn btn-secondary">Deep Dive Guides</a>
-                    </div>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">22</div>
-                        <div class="stat-label">Security Topics</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">350+</div>
-                        <div class="stat-label">Security Controls</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">6</div>
-                        <div class="stat-label">Deep Dive Guides</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Free & Open</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Guides Section -->
+<!-- Featured Guides Section for index.html -->
         <section class="featured-guides">
             <div class="container">
                 <h2 class="section-title">Featured Guides</h2>
                 <div class="featured-grid">
-                    <a href="guides/api-security.html" class="featured-card">
+                    <a href="guides/api-security.html" class="featured-card available">
                         <div class="card-icon">🔐</div>
                         <h3 class="card-title">API Security Expanded</h3>
                         <p class="card-description">74 essential controls for securing APIs</p>
-                        <span class="badge">Deep dive guide</span>
+                        <div class="card-status">
+                            <span class="badge available">✅ Available</span>
+                            <span class="badge progress">35% Complete</span>
+                        </div>
                     </a>
 
-                    <a href="guides/cloud-security.html" class="featured-card">
+                    <a href="guides/cloud-security.html" class="featured-card" onclick="return showComingSoon(event, 'Cloud Security CDN');">
                         <div class="card-icon">☁️</div>
                         <h3 class="card-title">Cloud Security CDN</h3>
                         <p class="card-description">59 controls for cloud infrastructure</p>
-                        <span class="badge">Deep dive guide</span>
+                        <span class="badge">Coming soon</span>
                     </a>
 
-                    <a href="guides/saas-security.html" class="featured-card">
+                    <a href="guides/saas-security.html" class="featured-card" onclick="return showComingSoon(event, 'SaaS Security');">
                         <div class="card-icon">🏢</div>
                         <h3 class="card-title">SaaS Security</h3>
                         <p class="card-description">59 controls for SaaS platforms</p>
-                        <span class="badge">Deep dive guide</span>
+                        <span class="badge">Coming soon</span>
                     </a>
 
-                    <a href="guides/iam.html" class="featured-card">
+                    <a href="guides/iam.html" class="featured-card" onclick="return showComingSoon(event, 'Identity & Access Management');">
                         <div class="card-icon">🔑</div>
                         <h3 class="card-title">Identity & Access Management</h3>
                         <p class="card-description">47 controls for IAM systems</p>
-                        <span class="badge">Deep dive guide</span>
+                        <span class="badge">Coming soon</span>
                     </a>
 
-                    <a href="guides/containers.html" class="featured-card">
+                    <a href="guides/containers.html" class="featured-card" onclick="return showComingSoon(event, 'Containers & Kubernetes');">
                         <div class="card-icon">📦</div>
                         <h3 class="card-title">Containers & Kubernetes</h3>
                         <p class="card-description">29 controls for container security</p>
-                        <span class="badge">Deep dive guide</span>
+                        <span class="badge">Coming soon</span>
                     </a>
 
-                    <a href="guides/incident-response.html" class="featured-card">
+                    <a href="guides/incident-response.html" class="featured-card" onclick="return showComingSoon(event, 'Logging & Incident Response');">
                         <div class="card-icon">🚨</div>
                         <h3 class="card-title">Logging & Incident Response</h3>
                         <p class="card-description">25 controls for incident management</p>
-                        <span class="badge">Deep dive guide</span>
+                        <span class="badge">Coming soon</span>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Quick Access Section -->
-        <section class="quick-access">
-            <div class="container">
-                <h2 class="section-title">Quick Access</h2>
-                <div class="quick-grid">
-                    <a href="topics.html#fundamentals" class="quick-card">
-                        <div class="quick-icon">🔐</div>
-                        <h3>Security Fundamentals</h3>
-                        <p>Core principles and frameworks</p>
-                    </a>
-                    <a href="topics.html#network" class="quick-card">
-                        <div class="quick-icon">🌐</div>
-                        <h3>Network Security</h3>
-                        <p>Firewalls, VPNs, and protocols</p>
-                    </a>
-                    <a href="topics.html#webapp" class="quick-card">
-                        <div class="quick-icon">🕸️</div>
-                        <h3>Web App Security</h3>
-                        <p>OWASP Top 10 and beyond</p>
-                    </a>
-                    <a href="topics.html#cloud" class="quick-card">
-                        <div class="quick-icon">☁️</div>
-                        <h3>Cloud Security</h3>
-                        <p>AWS, Azure, GCP security</p>
-                    </a>
-                </div>
-            </div>
-        </section>
+<style>
+/* Additional styles for the featured cards on index page */
+.featured-card.available {
+    border: 2px solid var(--success);
+    position: relative;
+}
 
-        <!-- About Section -->
-        <section class="about-preview">
-            <div class="container">
-                <div class="about-content">
-                    <h2>Why Iron Codex?</h2>
-                    <p>Iron Codex provides practical, actionable cybersecurity guidance in a format similar to W3Schools. Our content focuses on real-world implementation of security controls, not just theory.</p>
-                    <ul>
-                        <li>✅ Practical, implementable security controls</li>
-                        <li>✅ Code examples and configuration snippets</li>
-                        <li>✅ Industry best practices and frameworks</li>
-                        <li>✅ Regular updates with latest threats</li>
-                    </ul>
-                    <a href="about.html" class="btn btn-outline">Learn More</a>
-                </div>
-            </div>
-        </section>
-    </main>
+.featured-card.available::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--success), var(--accent));
+    border-radius: 16px 16px 0 0;
+}
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🛡️ Iron Codex</h3>
-                    <p>Practical cybersecurity guidance for security professionals.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="topics.html">All Topics</a></li>
-                        <li><a href="guides.html">Deep Dive Guides</a></li>
-                        <li><a href="tools.html">Security Tools</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Community</h4>
-                    <ul>
-                        <li><a href="https://github.com/iron-codex">GitHub</a></li>
-                        <li><a href="mailto:contact@iron-codex.com">Contact</a></li>
-                        <li><a href="about.html">About</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
-            </div>
-        </div>
-    </footer>
+.card-status {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
 
-    <script src="assets/js/main.js"></script>
-</body>
-</html>
+.badge.available {
+    background: rgba(46, 213, 115, 0.2);
+    color: var(--success);
+    border: 1px solid var(--success);
+}
+
+.badge.progress {
+    background: rgba(0, 212, 255, 0.2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+</style>
+
+<script>
+// Add this to the existing main.js or in a script tag
+function showComingSoon(event, guideName) {
+    event.preventDefault();
+    alert(`${guideName} guide is coming soon! Check back for updates.`);
+    return false;
+}
+</script>
