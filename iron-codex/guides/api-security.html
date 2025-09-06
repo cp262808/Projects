@@ -1648,6 +1648,50 @@ const server = new ApolloServer({
     </footer>
 
     <style>
+        /* CSS Variables */
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-dark: #0099cc;
+            --danger: #ff4757;
+            --warning: #ffa726;
+            --success: #2ed573;
+            --text: #ffffff;
+            --text-muted: #b8c5d6;
+            --border: #2a3447;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--gradient);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Guide-specific styles */
         .guide-header {
             margin-bottom: 3rem;
             text-align: center;
