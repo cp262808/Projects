@@ -36,18 +36,9 @@
             <div class="guide-meta">
                 <span class="meta-item">74 Controls</span>
                 <span class="meta-item">Expert Level</span>
-                <span class="meta-item">Last Updated: December 2024</span>
+                <span class="meta-item">Last Updated: September 2025</span>
             </div>
             <p class="guide-intro">Complete API security framework covering REST, GraphQL, authentication, authorization, rate limiting, and API gateway configuration with practical implementation examples.</p>
-        <!-- Guide Footer -->
-        <section class="guide-footer">
-            <h3>Continue Your Security Journey</h3>
-            <p>Explore related security guides and deepen your cybersecurity knowledge</p>
-            <div class="footer-nav">
-                <a href="iam.html" class="btn btn-outline">Identity & Access Management →</a>
-                <a href="cloud-security.html" class="btn btn-outline">Cloud Security →</a>
-                <a href="../topics.html" class="btn btn-primary">View All Topics</a>
-            </div>
         </section>
 
         <!-- Table of Contents -->
@@ -501,6 +492,37 @@ class APIKeyManager {
                     </div>
                 </div>
             </div>
+
+            <!-- Additional Authentication Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional Authentication Controls (1.5-1.12):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>1.5 Certificate-Based Authentication:</strong> Mutual TLS (mTLS) for service-to-service communication
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.6 Brute Force Protection:</strong> Account lockout and progressive delays for failed attempts
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.7 Token Blacklisting & Revocation:</strong> Real-time token revocation system
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.8 Secure Credential Storage:</strong> Hardware security modules and encrypted storage
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.9 Cross-Domain Authentication:</strong> CORS and domain validation policies
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.10 Authentication Bypass Detection:</strong> Monitoring for bypass attempts
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.11 Authentication Event Logging:</strong> Comprehensive audit trail
+                    </div>
+                    <div class="summary-item">
+                        <strong>1.12 Device Fingerprinting:</strong> Device-based authentication enhancement
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Authorization Section (10 Controls) -->
@@ -688,96 +710,575 @@ class ABACEngine {
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Remaining Sections Summary -->
-        <section class="remaining-sections">
-            <h2>Remaining Sections</h2>
-            <p class="section-intro">The complete guide includes 52 additional controls across 6 more sections:</p>
-            
-            <div class="section-preview">
-                <div class="preview-card">
-                    <h3>3. Input Validation (14 controls)</h3>
-                    <p>SQL injection, XSS, parameter tampering, file upload security, and schema validation</p>
-                    <ul class="preview-controls">
-                        <li>SQL Injection Prevention</li>
-                        <li>XSS Protection</li>
-                        <li>Parameter Validation</li>
-                        <li>File Upload Security</li>
-                        <li>Schema Validation</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card">
-                    <h3>4. Rate Limiting (8 controls)</h3>
-                    <p>Request throttling, DDoS protection, and adaptive rate limiting strategies</p>
-                    <ul class="preview-controls">
-                        <li>Token Bucket Algorithm</li>
-                        <li>Sliding Window</li>
-                        <li>IP-based Limiting</li>
-                        <li>User-based Limiting</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card">
-                    <h3>5. Logging & Monitoring (12 controls)</h3>
-                    <p>Security logging, SIEM integration, anomaly detection, and incident response</p>
-                    <ul class="preview-controls">
-                        <li>Security Event Logging</li>
-                        <li>Anomaly Detection</li>
-                        <li>SIEM Integration</li>
-                        <li>Real-time Alerting</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card">
-                    <h3>6. Data Protection (9 controls)</h3>
-                    <p>Encryption, data masking, PII protection, and secure data transmission</p>
-                    <ul class="preview-controls">
-                        <li>End-to-End Encryption</li>
-                        <li>Data Masking</li>
-                        <li>PII Protection</li>
-                        <li>Secure Transmission</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card">
-                    <h3>7. API Gateway Security (5 controls)</h3>
-                    <p>Gateway hardening, load balancing, and centralized security policies</p>
-                    <ul class="preview-controls">
-                        <li>Gateway Hardening</li>
-                        <li>Policy Enforcement</li>
-                        <li>Load Balancing</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card">
-                    <h3>8. GraphQL Security (4 controls)</h3>
-                    <p>Query complexity analysis, depth limiting, and GraphQL-specific attacks</p>
-                    <ul class="preview-controls">
-                        <li>Query Complexity</li>
-                        <li>Depth Limiting</li>
-                        <li>Introspection Control</li>
-                    </ul>
+            <!-- Additional Authorization Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional Authorization Controls (2.3-2.10):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>2.3 API Scope Validation:</strong> OAuth scope validation and enforcement
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.4 Cross-Tenant Authorization:</strong> Strict tenant isolation and data access control
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.5 Dynamic Permission Evaluation:</strong> Context-aware permission decisions
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.6 Time-Based Access Control:</strong> Temporal access restrictions
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.7 Location-Based Access Control:</strong> Geographic access restrictions
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.8 Permission Inheritance & Delegation:</strong> Advanced permission models
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.9 Authorization Decision Logging:</strong> Audit trail for access decisions
+                    </div>
+                    <div class="summary-item">
+                        <strong>2.10 Authorization Bypass Detection:</strong> Monitoring for bypass attempts
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Control Summary -->
-        <section class="control-summary">
-            <h2>API Security Control Summary</h2>
-            <div class="summary-grid">
-                <div class="summary-item">
-                    <strong>Total Controls:</strong> 74 comprehensive security controls
+        <!-- Input Validation Section (14 Controls) -->
+        <section id="input-validation" class="control-section">
+            <h2>3. Input Validation (14 Controls)</h2>
+            <p class="section-intro">Comprehensive validation and sanitization of all API inputs to prevent injection attacks and data corruption.</p>
+
+            <!-- Control 3.1 -->
+            <div class="control-card">
+                <h3>3.1 SQL Injection Prevention</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium</span>
                 </div>
-                <div class="summary-item">
-                    <strong>Coverage:</strong> REST APIs, GraphQL, gRPC, and WebSocket security
+                <p><strong>Requirement:</strong> Use parameterized queries and prepared statements to prevent SQL injection attacks.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation</h4>
+                    <pre><code>// BAD - Vulnerable to SQL injection
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+
+// GOOD - Parameterized query
+const getUserById = async (userId) => {
+    const query = 'SELECT * FROM users WHERE id = $1';
+    const result = await pool.query(query, [userId]);
+    return result.rows[0];
+};
+
+// GOOD - Using ORM (Sequelize example)
+const user = await User.findOne({
+    where: {
+        id: userId,
+        status: 'active'
+    }
+});
+
+// GOOD - Using query builder (Knex.js)
+const users = await knex('users')
+    .where('email', email)
+    .andWhere('status', 'active')
+    .select('id', 'name', 'email');</code></pre>
                 </div>
-                <div class="summary-item">
-                    <strong>Implementation:</strong> Production-ready code examples and testing guides
+                <div class="validation">
+                    <h4>✅ Validation</h4>
+                    <ul>
+                        <li>Test with malicious SQL payloads</li>
+                        <li>Verify all dynamic queries use parameters</li>
+                        <li>Check stored procedures for dynamic SQL</li>
+                        <li>Audit database logs for suspicious queries</li>
+                    </ul>
                 </div>
-                <div class="summary-item">
-                    <strong>Compliance:</strong> OWASP API Security Top 10, NIST, and industry standards
+            </div>
+
+            <!-- Control 3.2 -->
+            <div class="control-card">
+                <h3>3.2 NoSQL Injection Prevention</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High</span>
+                    <span class="tag difficulty-medium">Medium</span>
+                </div>
+                <p><strong>Requirement:</strong> Sanitize inputs and use safe query methods for NoSQL databases like MongoDB.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation</h4>
+                    <pre><code>const Joi = require('joi');
+const mongoSanitize = require('express-mongo-sanitize');
+
+app.use(mongoSanitize()); // Removes $ and . from req.body
+
+const loginSchema = Joi.object({
+    username: Joi.string().alphanum().min(3).max(30).required(),
+    password: Joi.string().min(8).required()
+});
+
+app.post('/api/login', async (req, res) => {
+    const { error, value } = loginSchema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+    }
+    
+    const { username, password } = value;
+    const user = await User.findOne({
+        username: { $eq: username }, // Explicit operator
+        status: 'active'
+    });
+    
+    if (user && await bcrypt.compare(password, user.hashedPassword)) {
+        // Login successful
+    }
+});</code></pre>
+                </div>
+            </div>
+
+            <!-- Additional Input Validation Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional Input Validation Controls (3.3-3.14):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>3.3 XSS Prevention:</strong> Output encoding and Content Security Policy
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.4 Request Size Limiting:</strong> Payload size restrictions and DoS prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.5 JSON Schema Validation:</strong> Structural validation with Ajv
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.6 XML External Entity (XXE) Prevention:</strong> Secure XML parsing
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.7 File Type Validation:</strong> Magic byte verification and virus scanning
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.8 Parameter Pollution Prevention:</strong> Duplicate parameter handling
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.9 Content-Type Validation:</strong> MIME type verification
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.10 Path Traversal Prevention:</strong> Directory traversal protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.11 Command Injection Prevention:</strong> Safe system command execution
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.12 LDAP Injection Prevention:</strong> LDAP query sanitization
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.13 Email Header Injection:</strong> Email security validation
+                    </div>
+                    <div class="summary-item">
+                        <strong>3.14 Regex DoS Prevention:</strong> Regular expression complexity limits
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Limiting Section (8 Controls) -->
+        <section id="rate-limiting" class="control-section">
+            <h2>4. Rate Limiting (8 Controls)</h2>
+            <p class="section-intro">Implement traffic throttling and abuse prevention mechanisms to protect against DoS attacks and resource exhaustion.</p>
+
+            <!-- Control 4.1 -->
+            <div class="control-card">
+                <h3>4.1 Token Bucket Rate Limiting</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High</span>
+                    <span class="tag difficulty-medium">Medium</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement token bucket algorithm for smooth rate limiting with burst capacity.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation</h4>
+                    <pre><code>class TokenBucketRateLimit {
+    constructor(options) {
+        this.capacity = options.capacity; // Maximum tokens
+        this.refillRate = options.refillRate; // Tokens per second
+        this.keyPrefix = options.keyPrefix || 'rate_limit:';
+        this.redis = redis;
+    }
+
+    async checkRateLimit(identifier) {
+        const key = this.keyPrefix + identifier;
+        const now = Date.now();
+        
+        // Lua script for atomic operation
+        const luaScript = `
+            local key = KEYS[1]
+            local capacity = tonumber(ARGV[1])
+            local refillRate = tonumber(ARGV[2])
+            local now = tonumber(ARGV[3])
+            
+            local bucket = redis.call('HMGET', key, 'tokens', 'lastRefill')
+            local tokens = tonumber(bucket[1]) or capacity
+            local lastRefill = tonumber(bucket[2]) or now
+            
+            -- Calculate tokens to add
+            local timePassed = (now - lastRefill) / 1000
+            local tokensToAdd = math.floor(timePassed * refillRate)
+            tokens = math.min(capacity, tokens + tokensToAdd)
+            
+            if tokens >= 1 then
+                tokens = tokens - 1
+                redis.call('HMSET', key, 'tokens', tokens, 'lastRefill', now)
+                redis.call('EXPIRE', key, 3600)
+                return {1, tokens}
+            else
+                redis.call('HMSET', key, 'tokens', tokens, 'lastRefill', now)
+                redis.call('EXPIRE', key, 3600)
+                return {0, tokens}
+            end
+        `;
+        
+        const result = await this.redis.eval(
+            luaScript, 1, key, 
+            this.capacity, this.refillRate, now
+        );
+        
+        return {
+            allowed: result[0] === 1,
+            tokensRemaining: result[1]
+        };
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Additional Rate Limiting Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional Rate Limiting Controls (4.2-4.8):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>4.2 Sliding Window Rate Limiting:</strong> Precise rate limiting without boundary effects
+                    </div>
+                    <div class="summary-item">
+                        <strong>4.3 User-Based Rate Limiting:</strong> Tiered limits based on subscription levels
+                    </div>
+                    <div class="summary-item">
+                        <strong>4.4 IP-Based Rate Limiting:</strong> Network-level traffic control with CDN support
+                    </div>
+                    <div class="summary-item">
+                        <strong>4.5 Geographic Rate Limiting:</strong> Regional traffic pattern management
+                    </div>
+                    <div class="summary-item">
+                        <strong>4.6 Adaptive Rate Limiting:</strong> Dynamic limits based on system load
+                    </div>
+                    <div class="summary-item">
+                        <strong>4.7 Circuit Breaker Pattern:</strong> Cascading failure prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>4.8 DDoS Attack Detection:</strong> Real-time attack detection and mitigation
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logging & Monitoring Section (12 Controls) -->
+        <section id="logging-monitoring" class="control-section">
+            <h2>5. Logging & Monitoring (12 Controls)</h2>
+            <p class="section-intro">Comprehensive logging and monitoring for security events, performance tracking, and incident response.</p>
+
+            <!-- Control 5.1 -->
+            <div class="control-card">
+                <h3>5.1 Security Event Logging</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium</span>
+                </div>
+                <p><strong>Requirement:</strong> Log all security-relevant events including authentication, authorization failures, and suspicious activities.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation</h4>
+                    <pre><code>const winston = require('winston');
+const { ElasticsearchTransport } = require('winston-elasticsearch');
+
+// Security logger configuration
+const securityLogger = winston.createLogger({
+    level: 'info',
+    format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.json()
+    ),
+    transports: [
+        new winston.transports.File({ filename: 'logs/security.log' }),
+        new ElasticsearchTransport({
+            level: 'info',
+            client: elasticClient,
+            index: 'api-security-logs'
+        })
+    ]
+});
+
+// Security event types
+const SecurityEvents = {
+    AUTH_SUCCESS: 'auth_success',
+    AUTH_FAILURE: 'auth_failure',
+    AUTHORIZATION_FAILURE: 'authorization_failure',
+    RATE_LIMIT_EXCEEDED: 'rate_limit_exceeded',
+    SUSPICIOUS_PAYLOAD: 'suspicious_payload'
+};</code></pre>
+                </div>
+            </div>
+
+            <!-- Additional Logging & Monitoring Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional Logging & Monitoring Controls (5.2-5.12):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>5.2 API Performance Monitoring:</strong> Response time and throughput metrics
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.3 Real-time Anomaly Detection:</strong> ML-based suspicious pattern detection
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.4 SIEM Integration:</strong> Security Information and Event Management
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.5 API Usage Analytics:</strong> Usage patterns and business intelligence
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.6 Error Rate Alerting:</strong> Automated error threshold monitoring
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.7 Data Access Logging:</strong> Comprehensive data audit trails
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.8 Audit Trail Maintenance:</strong> Immutable audit record keeping
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.9 Log Integrity Protection:</strong> Cryptographic log protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.10 Performance Alerting:</strong> System performance monitoring
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.11 Compliance Reporting:</strong> Automated compliance documentation
+                    </div>
+                    <div class="summary-item">
+                        <strong>5.12 Incident Response Integration:</strong> Automated incident workflows
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Protection Section (9 Controls) -->
+        <section id="data-protection" class="control-section">
+            <h2>6. Data Protection (9 Controls)</h2>
+            <p class="section-intro">Protect sensitive data through encryption, masking, and secure transmission protocols.</p>
+
+            <!-- Control 6.1 -->
+            <div class="control-card">
+                <h3>6.1 End-to-End Encryption</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-high">High</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement encryption for data in transit and at rest using industry-standard algorithms.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation</h4>
+                    <pre><code>const crypto = require('crypto');
+
+// Data encryption for storage
+class DataEncryption {
+    constructor() {
+        this.algorithm = 'aes-256-gcm';
+        this.keySize = 32;
+        this.ivSize = 16;
+        this.tagSize = 16;
+        this.key = this.getEncryptionKey();
+    }
+
+    encrypt(data) {
+        const iv = crypto.randomBytes(this.ivSize);
+        const cipher = crypto.createCipher(this.algorithm, this.key, iv);
+        
+        let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
+        encrypted += cipher.final('hex');
+        
+        const tag = cipher.getAuthTag();
+        
+        return {
+            encrypted,
+            iv: iv.toString('hex'),
+            tag: tag.toString('hex')
+        };
+    }
+
+    decrypt(encryptedData) {
+        const { encrypted, iv, tag } = encryptedData;
+        const decipher = crypto.createDecipher(
+            this.algorithm, 
+            this.key, 
+            Buffer.from(iv, 'hex')
+        );
+        
+        decipher.setAuthTag(Buffer.from(tag, 'hex'));
+        
+        let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        
+        return JSON.parse(decrypted);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Additional Data Protection Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional Data Protection Controls (6.2-6.9):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>6.2 PII Data Masking:</strong> Context-aware personal data protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.3 Data Loss Prevention (DLP):</strong> Automated data exfiltration prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.4 Secure Key Management:</strong> Hardware security modules and key rotation
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.5 Data Classification:</strong> Automated data sensitivity labeling
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.6 Backup Encryption:</strong> Secure backup and archive protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.7 Data Retention Policies:</strong> Lifecycle management and deletion
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.8 Secure Data Deletion:</strong> Cryptographic erasure techniques
+                    </div>
+                    <div class="summary-item">
+                        <strong>6.9 Cross-Border Data Protection:</strong> International compliance management
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- API Gateway Security Section (5 Controls) -->
+        <section id="api-gateway" class="control-section">
+            <h2>7. API Gateway Security (5 Controls)</h2>
+            <p class="section-intro">Centralized security policy enforcement through API gateway configuration and hardening.</p>
+
+            <!-- Control 7.1 -->
+            <div class="control-card">
+                <h3>7.1 Gateway Authentication & Authorization</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium</span>
+                </div>
+                <p><strong>Requirement:</strong> Configure API gateway for centralized authentication and authorization policy enforcement.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation (Kong Gateway Example)</h4>
+                    <pre><code># Kong Gateway Configuration
+
+# Enable JWT Plugin
+curl -X POST http://kong:8001/plugins \
+  --data "name=jwt" \
+  --data "config.secret_is_base64=false" \
+  --data "config.claims_to_verify=exp,iat"
+
+# Enable Rate Limiting
+curl -X POST http://kong:8001/plugins \
+  --data "name=rate-limiting" \
+  --data "config.minute=100" \
+  --data "config.hour=1000" \
+  --data "config.policy=redis" \
+  --data "config.redis_host=redis.example.com"
+
+# Configure Service and Route
+curl -X POST http://kong:8001/services \
+  --data "name=api-service" \
+  --data "url=http://api.internal:3000"
+
+curl -X POST http://kong:8001/services/api-service/routes \
+  --data "paths[]=/api" \
+  --data "methods[]=GET" \
+  --data "methods[]=POST"</code></pre>
+                </div>
+            </div>
+
+            <!-- Additional API Gateway Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional API Gateway Controls (7.2-7.5):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>7.2 Request/Response Transformation:</strong> Security header injection and sanitization
+                    </div>
+                    <div class="summary-item">
+                        <strong>7.3 API Versioning Management:</strong> Deprecation policies and migration support
+                    </div>
+                    <div class="summary-item">
+                        <strong>7.4 Load Balancing & Health Checks:</strong> High availability and circuit breakers
+                    </div>
+                    <div class="summary-item">
+                        <strong>7.5 Gateway Monitoring & Analytics:</strong> Centralized API performance monitoring
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GraphQL Security Section (4 Controls) -->
+        <section id="graphql-security" class="control-section">
+            <h2>8. GraphQL Security (4 Controls)</h2>
+            <p class="section-intro">Specialized security controls for GraphQL APIs including query complexity analysis and depth limiting.</p>
+
+            <!-- Control 8.1 -->
+            <div class="control-card">
+                <h3>8.1 Query Complexity Analysis</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High</span>
+                    <span class="tag difficulty-high">High</span>
+                </div>
+                <p><strong>Requirement:</strong> Analyze and limit GraphQL query complexity to prevent resource exhaustion attacks.</p>
+                <div class="implementation">
+                    <h4>🔧 Implementation</h4>
+                    <pre><code>const { GraphQLServer } = require('graphql-yoga');
+const costAnalysis = require('graphql-cost-analysis');
+const depthLimit = require('graphql-depth-limit');
+
+// Query complexity analysis
+const complexityLimitRule = costAnalysis({
+    maximumCost: 1000,
+    defaultCost: 1,
+    scalarCost: 1,
+    objectCost: 5,
+    listFactor: 10,
+    createError: (max, actual) => {
+        throw new Error(
+            `Query cost ${actual} exceeds maximum cost ${max}`
+        );
+    }
+});
+
+const server = new GraphQLServer({
+    typeDefs,
+    resolvers,
+    validationRules: [
+        complexityLimitRule,
+        depthLimit(10)
+    ],
+    context: ({ request }) => ({
+        req: request,
+        user: request.user
+    })
+});</code></pre>
+                </div>
+            </div>
+
+            <!-- Additional GraphQL Security Controls Summary -->
+            <div class="control-summary">
+                <h4>Additional GraphQL Security Controls (8.2-8.4):</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>8.2 Query Depth Limiting:</strong> Nested query depth restrictions
+                    </div>
+                    <div class="summary-item">
+                        <strong>8.3 Introspection Control:</strong> Schema visibility and access control
+                    </div>
+                    <div class="summary-item">
+                        <strong>8.4 Field-Level Authorization:</strong> Fine-grained field access permissions
+                    </div>
                 </div>
             </div>
         </section>
@@ -787,8 +1288,8 @@ class ABACEngine {
             <h3>Continue Your Security Journey</h3>
             <p>Explore related security guides and deepen your cybersecurity knowledge</p>
             <div class="footer-nav">
-                <a href="../guides/iam.html" class="btn btn-outline">Identity & Access Management →</a>
-                <a href="../guides/cloud-security.html" class="btn btn-outline">Cloud Security →</a>
+                <a href="iam.html" class="btn btn-outline">Identity & Access Management →</a>
+                <a href="cloud-security.html" class="btn btn-outline">Cloud Security →</a>
                 <a href="../topics.html" class="btn btn-primary">View All Topics</a>
             </div>
         </section>
@@ -825,308 +1326,5 @@ class ABACEngine {
     </footer>
 
     <script src="../assets/js/main.js"></script>
-    <style>
-        /* Guide-specific styles */
-        .guide-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 0;
-        }
-
-        .guide-header {
-            margin-bottom: 3rem;
-        }
-
-        .breadcrumb {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .breadcrumb a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        .guide-header h1 {
-            color: var(--accent);
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .guide-meta {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .meta-item {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
-            background: var(--glass);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .guide-intro {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            line-height: 1.6;
-        }
-
-        .toc-section {
-            margin-bottom: 3rem;
-        }
-
-        .toc-section h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .toc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .toc-list {
-            list-style: none;
-        }
-
-        .toc-list li {
-            margin-bottom: 0.5rem;
-        }
-
-        .toc-list a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 0.5rem;
-            display: block;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .toc-list a:hover {
-            background: var(--glass);
-            color: var(--accent);
-        }
-
-        .control-section {
-            margin-bottom: 4rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .control-section h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-intro {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .control-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .control-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .control-title {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .control-tags {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .priority-critical {
-            background: rgba(255, 71, 87, 0.2);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-
-        .priority-high {
-            background: rgba(255, 167, 38, 0.2);
-            color: var(--warning);
-            border: 1px solid var(--warning);
-        }
-
-        .difficulty-low {
-            background: rgba(46, 213, 115, 0.2);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .difficulty-medium {
-            background: rgba(255, 167, 38, 0.2);
-            color: var(--warning);
-            border: 1px solid var(--warning);
-        }
-
-        .difficulty-high {
-            background: rgba(255, 71, 87, 0.2);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-
-        .control-description {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .implementation,
-        .validation,
-        .best-practices,
-        .security-notes {
-            margin: 1.5rem 0;
-        }
-
-        .implementation h4,
-        .validation h4,
-        .best-practices h4,
-        .security-notes h4 {
-            color: var(--success);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        pre {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        code {
-            color: var(--accent);
-            font-family: 'Courier New', monospace;
-        }
-
-        .remaining-sections {
-            margin: 4rem 0;
-        }
-
-        .section-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .preview-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .preview-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .preview-controls {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .preview-controls li {
-            color: var(--text-muted);
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
-        }
-
-        .control-summary {
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .summary-item {
-            background: var(--glass);
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .guide-footer {
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
-            border-top: 2px solid var(--border);
-        }
-
-        .footer-nav {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 768px) {
-            .guide-header h1 {
-                font-size: 2rem;
-            }
-            
-            .guide-meta {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .toc-grid,
-            .summary-grid,
-            .section-preview {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
 </body>
 </html>
