@@ -1,0 +1,107 @@
+<!-- CONTROL SECTION TEMPLATE -->
+<section id="{{SECTION_ID}}" class="control-section">
+    <h2>{{SECTION_NUMBER}}. {{SECTION_TITLE}}</h2>
+    <p class="section-intro">{{SECTION_DESCRIPTION}}</p>
+
+    <!-- COPY CONTROL CARDS BELOW INTO THIS SECTION -->
+    
+</section>
+
+<!-- CRITICAL PRIORITY CONTROL CARD -->
+<div class="control-card">
+    <h3>{{CONTROL_TITLE}}</h3>
+    <div class="control-tags">
+        <span class="tag priority-critical">Critical</span>
+        <span class="tag difficulty-medium">Medium Difficulty</span>
+    </div>
+    <p><strong>Requirement:</strong> {{CONTROL_REQUIREMENT}}</p>
+    <div class="implementation">
+        <h4>Implementation Example:</h4>
+        <pre><code>{{IMPLEMENTATION_CODE}}</code></pre>
+    </div>
+    <div class="validation">
+        <h4>Validation:</h4>
+        <ul>
+            <li>{{VALIDATION_POINT_1}}</li>
+            <li>{{VALIDATION_POINT_2}}</li>
+            <li>{{VALIDATION_POINT_3}}</li>
+        </ul>
+    </div>
+</div>
+
+<!-- HIGH PRIORITY CONTROL CARD -->
+<div class="control-card">
+    <h3>{{CONTROL_TITLE}}</h3>
+    <div class="control-tags">
+        <span class="tag priority-high">High Priority</span>
+        <span class="tag difficulty-low">Low Difficulty</span>
+    </div>
+    <p><strong>Requirement:</strong> {{CONTROL_REQUIREMENT}}</p>
+    <div class="implementation">
+        <h4>Implementation Example:</h4>
+        <pre><code>{{IMPLEMENTATION_CODE}}</code></pre>
+    </div>
+</div>
+
+<!-- MEDIUM PRIORITY CONTROL CARD -->
+<div class="control-card">
+    <h3>{{CONTROL_TITLE}}</h3>
+    <div class="control-tags">
+        <span class="tag priority-medium">Medium Priority</span>
+        <span class="tag difficulty-high">High Difficulty</span>
+    </div>
+    <p><strong>Requirement:</strong> {{CONTROL_REQUIREMENT}}</p>
+    <div class="implementation">
+        <h4>Implementation Example:</h4>
+        <pre><code>{{IMPLEMENTATION_CODE}}</code></pre>
+    </div>
+    <div class="best-practices">
+        <h4>Best Practices:</h4>
+        <ul>
+            <li>{{BEST_PRACTICE_1}}</li>
+            <li>{{BEST_PRACTICE_2}}</li>
+        </ul>
+    </div>
+</div>
+
+<!-- SIMPLE CONTROL CARD (No implementation) -->
+<div class="control-card">
+    <h3>{{CONTROL_TITLE}}</h3>
+    <div class="control-tags">
+        <span class="tag priority-medium">Medium Priority</span>
+        <span class="tag difficulty-low">Low Difficulty</span>
+    </div>
+    <p><strong>Requirement:</strong> {{CONTROL_REQUIREMENT}}</p>
+</div>
+
+<!-- CONTROL SUMMARY SECTION (End of section) -->
+<div class="control-summary">
+    <h4>Additional {{SECTION_TITLE}} Controls:</h4>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <strong>{{SUMMARY_TITLE_1}}:</strong> {{SUMMARY_DESCRIPTION_1}}
+        </div>
+        <div class="summary-item">
+            <strong>{{SUMMARY_TITLE_2}}:</strong> {{SUMMARY_DESCRIPTION_2}}
+        </div>
+        <div class="summary-item">
+            <strong>{{SUMMARY_TITLE_3}}:</strong> {{SUMMARY_DESCRIPTION_3}}
+        </div>
+        <div class="summary-item">
+            <strong>{{SUMMARY_TITLE_4}}:</strong> {{SUMMARY_DESCRIPTION_4}}
+        </div>
+    </div>
+</div>
+
+<!-- AVAILABLE TAG COMBINATIONS -->
+<!--
+Priority Tags:
+- priority-critical (red)
+- priority-high (orange) 
+- priority-medium (blue)
+
+Difficulty Tags:
+- difficulty-low (green)
+- difficulty-medium (orange)
+- difficulty-high (red)
+-->
