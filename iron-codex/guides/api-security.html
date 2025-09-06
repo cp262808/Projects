@@ -58,1239 +58,1568 @@
                         <li><a href="#logging-monitoring">5. Logging & Monitoring (12 controls)</a></li>
                         <li><a href="#data-protection">6. Data Protection (9 controls)</a></li>
                         <li><a href="#api-gateway">7. API Gateway Security (5 controls)</a></li>
-                        <li><a href="#graphql-security">8. GraphQL Security (4 controls)</a></li>
+                        <li><a href="#graphql">8. GraphQL Security (4 controls)</a></li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Authentication Section (12 Controls) -->
+        <!-- Authentication Section -->
         <section id="authentication" class="control-section">
-            <h2>1. Authentication (12 Controls)</h2>
-            <p class="section-intro">Strong authentication mechanisms are the foundation of API security. These controls establish user identity and ensure only authenticated entities can access your APIs.</p>
+            <h2>Authentication (12 controls)</h2>
+            <p class="section-intro">Establish strong authentication mechanisms for API access with multi-factor authentication, secure token handling, and certificate-based authentication.</p>
 
-            <!-- Control 1.1 -->
             <div class="control-card">
-                <div class="control-header">
-                    <h3 class="control-title">1.1 Multi-Factor Authentication (MFA)</h3>
-                    <div class="control-tags">
-                        <span class="tag priority-critical">Critical</span>
-                        <span class="tag difficulty-medium">Medium</span>
-                    </div>
+                <h3>Implement Multi-Factor Authentication (MFA)</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
                 </div>
-                
-                <div class="control-content">
-                    <p class="control-description">Implement multi-factor authentication for all API access, especially for privileged operations and sensitive data access.</p>
-                    
-                    <div class="implementation">
-                        <h4>🔧 Implementation</h4>
-                        <pre><code>// OAuth 2.0 with PKCE + TOTP Example
-const auth = {
-    // Step 1: PKCE Challenge
-    codeVerifier: generateCodeVerifier(),
-    codeChallenge: generateCodeChallenge(codeVerifier),
+                <p><strong>Requirement:</strong> Implement OAuth 2.0 with PKCE (Proof Key for Code Exchange) for enhanced security against authorization code interception attacks.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// OAuth 2.0 with PKCE Flow (Node.js)
+const crypto = require('crypto');
+const express = require('express');
+const axios = require('axios');
+
+// Generate PKCE code verifier and challenge
+function generatePKCE() {
+    const codeVerifier = crypto.randomBytes(32).toString('base64url');
+    const codeChallenge = crypto
+        .createHash('sha256')
+        .update(codeVerifier)
+        .digest('base64url');
     
-    // Step 2: Request authorization with MFA requirement
-    authUrl: `https://auth.example.com/oauth/authorize?` +
-             `client_id=${clientId}&` +
-             `redirect_uri=${redirectUri}&` +
-             `code_challenge=${codeChallenge}&` +
-             `code_challenge_method=S256&` +
-             `scope=api:read api:write&` +
-             `acr_values=mfa`,  // Require MFA
+    return { codeVerifier, codeChallenge };
+}
+
+// Authorization URL with PKCE
+app.get('/auth/login', (req, res) => {
+    const { codeVerifier, codeChallenge } = generatePKCE();
     
-    // Step 3: Exchange code for token (includes MFA verification)
-    async exchangeToken(authCode) {
-        const response = await fetch('/oauth/token', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                grant_type: 'authorization_code',
-                client_id: clientId,
-                code: authCode,
-                redirect_uri: redirectUri,
-                code_verifier: this.codeVerifier
-            })
+    // Store code_verifier in session
+    req.session.codeVerifier = codeVerifier;
+    
+    const authUrl = `https://auth.example.com/oauth/authorize?` +
+        `response_type=code&` +
+        `client_id=${CLIENT_ID}&` +
+        `redirect_uri=${REDIRECT_URI}&` +
+        `scope=read write&` +
+        `code_challenge=${codeChallenge}&` +
+        `code_challenge_method=S256&` +
+        `state=${crypto.randomBytes(16).toString('hex')}`;
+    
+    res.redirect(authUrl);
+});
+
+// Token exchange with PKCE
+app.get('/auth/callback', async (req, res) => {
+    const { code, state } = req.query;
+    const codeVerifier = req.session.codeVerifier;
+    
+    try {
+        const tokenResponse = await axios.post('https://auth.example.com/oauth/token', {
+            grant_type: 'authorization_code',
+            client_id: CLIENT_ID,
+            code: code,
+            redirect_uri: REDIRECT_URI,
+            code_verifier: codeVerifier
         });
-        return response.json();
+        
+        // Store access token securely
+        req.session.accessToken = tokenResponse.data.access_token;
+        res.redirect('/dashboard');
+    } catch (error) {
+        res.status(400).json({ error: 'Authentication failed' });
     }
-};</code></pre>
-                    </div>
-
-                    <div class="validation">
-                        <h4>✅ Validation</h4>
-                        <ul>
-                            <li>Verify MFA challenge completion before token issuance</li>
-                            <li>Check token includes MFA claim (amr: ["mfa", "totp"])</li>
-                            <li>Test MFA bypass attempts return 401 Unauthorized</li>
-                            <li>Validate MFA requirement for sensitive operations</li>
-                        </ul>
-                    </div>
-
-                    <div class="best-practices">
-                        <h4>📋 Best Practices</h4>
-                        <ul>
-                            <li>Support multiple MFA methods (TOTP, SMS, hardware keys)</li>
-                            <li>Implement adaptive MFA based on risk factors</li>
-                            <li>Provide MFA recovery mechanisms</li>
-                            <li>Monitor and alert on MFA failures</li>
-                        </ul>
-                    </div>
-
-                    <div class="security-notes">
-                        <h4>🔒 Security Notes</h4>
-                        <ul>
-                            <li>SMS-based MFA is vulnerable to SIM swapping</li>
-                            <li>Consider WebAuthn/FIDO2 for passwordless MFA</li>
-                            <li>Implement rate limiting on MFA attempts</li>
-                        </ul>
-                    </div>
+});</code></pre>
+                </div>
+                <div class="validation">
+                    <h4>Validation:</h4>
+                    <ul>
+                        <li>Verify PKCE code challenge generation</li>
+                        <li>Test authorization code interception protection</li>
+                        <li>Validate state parameter prevents CSRF</li>
+                        <li>Confirm secure token storage</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Control 1.2 -->
             <div class="control-card">
-                <div class="control-header">
-                    <h3 class="control-title">1.2 JWT Token Validation</h3>
-                    <div class="control-tags">
-                        <span class="tag priority-critical">Critical</span>
-                        <span class="tag difficulty-high">High</span>
-                    </div>
+                <h3>Implement JWT Token Validation</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
                 </div>
-                
-                <div class="control-content">
-                    <p class="control-description">Properly validate JSON Web Tokens including signature verification, expiration, and claims validation.</p>
-                    
-                    <div class="implementation">
-                        <h4>🔧 Implementation</h4>
-                        <pre><code>const jwt = require('jsonwebtoken');
+                <p><strong>Requirement:</strong> Validate JWT tokens with proper signature verification, expiration checks, and audience validation using JWKS rotation.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
-// JWKS client for key rotation
 const client = jwksClient({
     jwksUri: 'https://auth.example.com/.well-known/jwks.json',
     cache: true,
-    cacheMaxAge: 86400000, // 24 hours
+    cacheMaxAge: 3600000, // 1 hour
     rateLimit: true,
     jwksRequestsPerMinute: 5
 });
 
 function getKey(header, callback) {
     client.getSigningKey(header.kid, (err, key) => {
+        if (err) return callback(err);
         const signingKey = key.publicKey || key.rsaPublicKey;
         callback(null, signingKey);
     });
 }
 
-// Middleware for JWT validation
 function validateJWT(req, res, next) {
     const token = req.headers.authorization?.replace('Bearer ', '');
     
     if (!token) {
-        return res.status(401).json({ error: 'Missing token' });
+        return res.status(401).json({ error: 'No token provided' });
     }
-
+    
     jwt.verify(token, getKey, {
-        audience: process.env.JWT_AUDIENCE,
-        issuer: process.env.JWT_ISSUER,
-        algorithms: ['RS256'],
-        clockTolerance: 30, // 30 second clock skew tolerance
-        maxAge: '1h' // Maximum token age
+        audience: 'api.example.com',
+        issuer: 'https://auth.example.com',
+        algorithms: ['RS256']
     }, (err, decoded) => {
         if (err) {
-            return res.status(401).json({ 
-                error: 'Invalid token',
-                details: err.message 
-            });
+            return res.status(401).json({ error: 'Invalid token' });
         }
         
-        // Additional custom validations
-        if (!decoded.sub || !decoded.scope) {
-            return res.status(401).json({ error: 'Invalid token claims' });
+        // Additional validation
+        if (decoded.exp < Date.now() / 1000) {
+            return res.status(401).json({ error: 'Token expired' });
         }
         
         req.user = decoded;
         next();
     });
 }</code></pre>
-                    </div>
-
-                    <div class="validation">
-                        <h4>✅ Validation</h4>
-                        <ul>
-                            <li>Verify signature with correct public key</li>
-                            <li>Check token expiration (exp claim)</li>
-                            <li>Validate issuer (iss) and audience (aud) claims</li>
-                            <li>Ensure algorithm is explicitly whitelisted</li>
-                            <li>Test with tampered tokens to ensure rejection</li>
-                        </ul>
-                    </div>
-
-                    <div class="best-practices">
-                        <h4>📋 Best Practices</h4>
-                        <ul>
-                            <li>Use short-lived access tokens (15-60 minutes)</li>
-                            <li>Implement token refresh mechanisms</li>
-                            <li>Include necessary claims only (principle of least privilege)</li>
-                            <li>Use secure key rotation practices</li>
-                        </ul>
-                    </div>
-
-                    <div class="security-notes">
-                        <h4>🔒 Security Notes</h4>
-                        <ul>
-                            <li>Never accept "none" algorithm</li>
-                            <li>Always validate the "alg" header parameter</li>
-                            <li>Beware of key confusion attacks (RSA/HMAC)</li>
-                            <li>Implement proper JWKS caching and rotation</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
 
-            <!-- Control 1.3 -->
             <div class="control-card">
-                <div class="control-header">
-                    <h3 class="control-title">1.3 OAuth 2.0 PKCE Implementation</h3>
-                    <div class="control-tags">
-                        <span class="tag priority-high">High</span>
-                        <span class="tag difficulty-medium">Medium</span>
-                    </div>
-                </div>
-                
-                <div class="control-content">
-                    <p class="control-description">Implement Proof Key for Code Exchange (PKCE) to secure OAuth 2.0 authorization code flow against code interception attacks.</p>
-                    
-                    <div class="implementation">
-                        <h4>🔧 Implementation</h4>
-                        <pre><code>// Client-side PKCE implementation
-class PKCEAuth {
-    constructor(clientId, redirectUri, authEndpoint, tokenEndpoint) {
-        this.clientId = clientId;
-        this.redirectUri = redirectUri;
-        this.authEndpoint = authEndpoint;
-        this.tokenEndpoint = tokenEndpoint;
-    }
-
-    // Generate code verifier (43-128 characters)
-    generateCodeVerifier() {
-        const array = new Uint8Array(32);
-        crypto.getRandomValues(array);
-        return btoa(String.fromCharCode(...array))
-            .replace(/\+/g, '-')
-            .replace(/\//g, '_')
-            .replace(/=/g, '');
-    }
-
-    // Generate code challenge
-    async generateCodeChallenge(verifier) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(verifier);
-        const digest = await crypto.subtle.digest('SHA-256', data);
-        return btoa(String.fromCharCode(...new Uint8Array(digest)))
-            .replace(/\+/g, '-')
-            .replace(/\//g, '_')
-            .replace(/=/g, '');
-    }
-
-    // Start authorization flow
-    async startAuth(scopes = ['read']) {
-        this.codeVerifier = this.generateCodeVerifier();
-        this.codeChallenge = await this.generateCodeChallenge(this.codeVerifier);
-        this.state = crypto.randomUUID();
-
-        const params = new URLSearchParams({
-            response_type: 'code',
-            client_id: this.clientId,
-            redirect_uri: this.redirectUri,
-            scope: scopes.join(' '),
-            state: this.state,
-            code_challenge: this.codeChallenge,
-            code_challenge_method: 'S256'
-        });
-
-        window.location.href = `${this.authEndpoint}?${params}`;
-    }
-
-    // Exchange authorization code for tokens
-    async exchangeCodeForTokens(code, state) {
-        if (state !== this.state) {
-            throw new Error('State mismatch - possible CSRF attack');
-        }
-
-        const response = await fetch(this.tokenEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                grant_type: 'authorization_code',
-                client_id: this.clientId,
-                code: code,
-                redirect_uri: this.redirectUri,
-                code_verifier: this.codeVerifier
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Token exchange failed: ${response.status}`);
-        }
-
-        return response.json();
-    }
-}</code></pre>
-                    </div>
-
-                    <div class="validation">
-                        <h4>✅ Validation</h4>
-                        <ul>
-                            <li>Verify code verifier matches code challenge</li>
-                            <li>Ensure code challenge method is S256</li>
-                            <li>Validate state parameter to prevent CSRF</li>
-                            <li>Test with invalid code verifier to ensure rejection</li>
-                        </ul>
-                    </div>
-
-                    <div class="best-practices">
-                        <h4>📋 Best Practices</h4>
-                        <ul>
-                            <li>Always use S256 challenge method (not plain)</li>
-                            <li>Generate cryptographically secure random values</li>
-                            <li>Store code verifier securely on client</li>
-                            <li>Implement proper error handling</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Control 1.4 -->
-            <div class="control-card">
-                <div class="control-header">
-                    <h3 class="control-title">1.4 API Key Management</h3>
-                    <div class="control-tags">
-                        <span class="tag priority-high">High</span>
-                        <span class="tag difficulty-low">Low</span>
-                    </div>
-                </div>
-                
-                <div class="control-content">
-                    <p class="control-description">Implement secure API key generation, distribution, rotation, and revocation mechanisms.</p>
-                    
-                    <div class="implementation">
-                        <h4>🔧 Implementation</h4>
-                        <pre><code>// API Key Management System
-const crypto = require('crypto');
-
-class APIKeyManager {
-    constructor(database) {
-        this.db = database;
-        this.keyPrefix = 'ak_'; // API key prefix for identification
-    }
-
-    // Generate secure API key
-    generateAPIKey() {
-        const randomBytes = crypto.randomBytes(32);
-        const apiKey = this.keyPrefix + randomBytes.toString('base64url');
-        return apiKey;
-    }
-
-    // Create API key with metadata
-    async createAPIKey(userId, scopes, expiresIn = '1y') {
-        const apiKey = this.generateAPIKey();
-        const hashedKey = crypto.createHash('sha256').update(apiKey).digest('hex');
-        
-        const keyData = {
-            id: crypto.randomUUID(),
-            user_id: userId,
-            key_hash: hashedKey,
-            scopes: scopes,
-            created_at: new Date(),
-            expires_at: new Date(Date.now() + this.parseExpiry(expiresIn)),
-            last_used: null,
-            is_active: true
-        };
-
-        await this.db.apiKeys.insert(keyData);
-        
-        // Return the plain key only once
-        return {
-            id: keyData.id,
-            key: apiKey, // Only returned during creation
-            scopes: keyData.scopes,
-            expires_at: keyData.expires_at
-        };
-    }
-
-    // Validate API key
-    async validateAPIKey(apiKey) {
-        if (!apiKey || !apiKey.startsWith(this.keyPrefix)) {
-            return null;
-        }
-
-        const hashedKey = crypto.createHash('sha256').update(apiKey).digest('hex');
-        
-        const keyRecord = await this.db.apiKeys.findOne({
-            key_hash: hashedKey,
-            is_active: true,
-            expires_at: { $gt: new Date() }
-        });
-
-        if (keyRecord) {
-            // Update last used timestamp
-            await this.db.apiKeys.updateOne(
-                { id: keyRecord.id },
-                { $set: { last_used: new Date() } }
-            );
-        }
-
-        return keyRecord;
-    }
-
-    // Middleware for API key authentication
-    middleware() {
-        return async (req, res, next) => {
-            const apiKey = req.headers['x-api-key'] || 
-                          req.headers['authorization']?.replace('Bearer ', '');
-
-            if (!apiKey) {
-                return res.status(401).json({ error: 'API key required' });
-            }
-
-            const keyRecord = await this.validateAPIKey(apiKey);
-            
-            if (!keyRecord) {
-                return res.status(401).json({ error: 'Invalid API key' });
-            }
-
-            req.apiKey = keyRecord;
-            req.user = { id: keyRecord.user_id };
-            next();
-        };
-    }
-}</code></pre>
-                    </div>
-
-                    <div class="validation">
-                        <h4>✅ Validation</h4>
-                        <ul>
-                            <li>Test API key validation with valid/invalid keys</li>
-                            <li>Verify expired keys are rejected</li>
-                            <li>Check revoked keys cannot be used</li>
-                            <li>Validate scope-based access control</li>
-                        </ul>
-                    </div>
-
-                    <div class="best-practices">
-                        <h4>📋 Best Practices</h4>
-                        <ul>
-                            <li>Use cryptographically secure random generation</li>
-                            <li>Store hashed versions, never plaintext</li>
-                            <li>Implement key rotation policies</li>
-                            <li>Add metadata (creation time, last used, scope)</li>
-                            <li>Use prefixes for key identification</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Additional Authentication Controls Summary -->
-            <div class="control-summary">
-                <h4>Additional Authentication Controls (1.5-1.12):</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>1.5 Certificate-Based Authentication:</strong> Mutual TLS (mTLS) for service-to-service communication
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.6 Brute Force Protection:</strong> Account lockout and progressive delays for failed attempts
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.7 Token Blacklisting & Revocation:</strong> Real-time token revocation system
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.8 Secure Credential Storage:</strong> Hardware security modules and encrypted storage
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.9 Cross-Domain Authentication:</strong> CORS and domain validation policies
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.10 Authentication Bypass Detection:</strong> Monitoring for bypass attempts
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.11 Authentication Event Logging:</strong> Comprehensive audit trail
-                    </div>
-                    <div class="summary-item">
-                        <strong>1.12 Device Fingerprinting:</strong> Device-based authentication enhancement
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Authorization Section (10 Controls) -->
-        <section id="authorization" class="control-section">
-            <h2>2. Authorization (10 Controls)</h2>
-            <p class="section-intro">Authorization controls ensure that authenticated users can only access resources and perform actions they are explicitly permitted to. These controls implement fine-grained access control policies.</p>
-
-            <!-- Control 2.1 -->
-            <div class="control-card">
-                <div class="control-header">
-                    <h3 class="control-title">2.1 Role-Based Access Control (RBAC)</h3>
-                    <div class="control-tags">
-                        <span class="tag priority-critical">Critical</span>
-                        <span class="tag difficulty-medium">Medium</span>
-                    </div>
-                </div>
-                
-                <div class="control-content">
-                    <p class="control-description">Implement comprehensive role-based access control with hierarchical roles and permission inheritance.</p>
-                    
-                    <div class="implementation">
-                        <h4>🔧 Implementation</h4>
-                        <pre><code>// RBAC System Implementation
-class RBACManager {
-    constructor(database) {
-        this.db = database;
-    }
-
-    // Define role hierarchy and permissions
-    async initializeRoles() {
-        const roles = [
-            {
-                name: 'admin',
-                permissions: ['*'], // All permissions
-                inherits: []
-            },
-            {
-                name: 'manager',
-                permissions: ['read:all', 'write:own', 'delete:own'],
-                inherits: ['user']
-            },
-            {
-                name: 'user',
-                permissions: ['read:own', 'write:own'],
-                inherits: []
-            },
-            {
-                name: 'viewer',
-                permissions: ['read:own'],
-                inherits: []
-            }
-        ];
-
-        for (const role of roles) {
-            await this.db.roles.upsert({ name: role.name }, role);
-        }
-    }
-
-    // Check if user has specific permission
-    async hasPermission(userId, permission, resource = null) {
-        const userPermissions = await this.getUserPermissions(userId);
-        
-        // Check for wildcard permission
-        if (userPermissions.includes('*')) return true;
-        
-        // Check for exact permission match
-        if (userPermissions.includes(permission)) return true;
-        
-        // Check for resource-specific permissions
-        if (resource) {
-            const resourcePermission = `${permission}:${resource}`;
-            if (userPermissions.includes(resourcePermission)) return true;
-        }
-
-        return false;
-    }
-
-    // Middleware for route protection
-    requirePermission(permission) {
-        return async (req, res, next) => {
-            const userId = req.user?.id;
-            if (!userId) {
-                return res.status(401).json({ error: 'Authentication required' });
-            }
-
-            const hasAccess = await this.hasPermission(userId, permission);
-            if (!hasAccess) {
-                return res.status(403).json({ 
-                    error: 'Insufficient permissions',
-                    required: permission 
-                });
-            }
-
-            next();
-        };
-    }
-}</code></pre>
-                    </div>
-
-                    <div class="validation">
-                        <h4>✅ Validation</h4>
-                        <ul>
-                            <li>Test permission inheritance works correctly</li>
-                            <li>Verify users cannot access unauthorized resources</li>
-                            <li>Check role assignment and revocation</li>
-                            <li>Test circular inheritance detection</li>
-                        </ul>
-                    </div>
-
-                    <div class="best-practices">
-                        <h4>📋 Best Practices</h4>
-                        <ul>
-                            <li>Follow principle of least privilege</li>
-                            <li>Use descriptive permission names</li>
-                            <li>Implement role hierarchies carefully</li>
-                            <li>Regular access reviews and cleanup</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Control 2.2 -->
-            <div class="control-card">
-                <div class="control-header">
-                    <h3 class="control-title">2.2 Attribute-Based Access Control (ABAC)</h3>
-                    <div class="control-tags">
-                        <span class="tag priority-high">High</span>
-                        <span class="tag difficulty-high">High</span>
-                    </div>
-                </div>
-                
-                <div class="control-content">
-                    <p class="control-description">Implement fine-grained attribute-based access control using policies that evaluate user, resource, and environmental attributes.</p>
-                    
-                    <div class="implementation">
-                        <h4>🔧 Implementation</h4>
-                        <pre><code>// ABAC Policy Engine
-class ABACEngine {
-    constructor() {
-        this.policies = new Map();
-    }
-
-    // Define ABAC policy
-    addPolicy(name, policy) {
-        this.policies.set(name, {
-            ...policy,
-            evaluate: this.compilePolicy(policy.rules)
-        });
-    }
-
-    // Evaluate access request
-    async authorize(context) {
-        const results = [];
-        
-        for (const [name, policy] of this.policies) {
-            const result = {
-                policy: name,
-                effect: policy.effect,
-                decision: policy.evaluate(context)
-            };
-            results.push(result);
-        }
-
-        // Policy combination logic
-        return this.combineDecisions(results);
-    }
-
-    // Combine policy decisions
-    combineDecisions(results) {
-        // Deny overrides - any explicit deny blocks access
-        const denyResults = results.filter(r => r.effect === 'deny' && r.decision);
-        if (denyResults.length > 0) {
-            return { decision: 'deny', reason: 'Explicit deny policy matched' };
-        }
-
-        // Permit if any allow policy matches
-        const permitResults = results.filter(r => r.effect === 'allow' && r.decision);
-        if (permitResults.length > 0) {
-            return { decision: 'allow', reason: 'Allow policy matched' };
-        }
-
-        return { decision: 'deny', reason: 'No matching allow policy' };
-    }
-}</code></pre>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Additional Authorization Controls Summary -->
-            <div class="control-summary">
-                <h4>Additional Authorization Controls (2.3-2.10):</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>2.3 API Scope Validation:</strong> OAuth scope validation and enforcement
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.4 Cross-Tenant Authorization:</strong> Strict tenant isolation and data access control
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.5 Dynamic Permission Evaluation:</strong> Context-aware permission decisions
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.6 Time-Based Access Control:</strong> Temporal access restrictions
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.7 Location-Based Access Control:</strong> Geographic access restrictions
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.8 Permission Inheritance & Delegation:</strong> Advanced permission models
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.9 Authorization Decision Logging:</strong> Audit trail for access decisions
-                    </div>
-                    <div class="summary-item">
-                        <strong>2.10 Authorization Bypass Detection:</strong> Monitoring for bypass attempts
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Input Validation Section (14 Controls) -->
-        <section id="input-validation" class="control-section">
-            <h2>3. Input Validation (14 Controls)</h2>
-            <p class="section-intro">Comprehensive validation and sanitization of all API inputs to prevent injection attacks and data corruption.</p>
-
-            <!-- Control 3.1 -->
-            <div class="control-card">
-                <h3>3.1 SQL Injection Prevention</h3>
+                <h3>Certificate-Based mTLS Authentication</h3>
                 <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium</span>
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
                 </div>
-                <p><strong>Requirement:</strong> Use parameterized queries and prepared statements to prevent SQL injection attacks.</p>
+                <p><strong>Requirement:</strong> Implement mutual TLS authentication for high-security API endpoints requiring client certificate validation.</p>
                 <div class="implementation">
-                    <h4>🔧 Implementation</h4>
-                    <pre><code>// BAD - Vulnerable to SQL injection
-const query = `SELECT * FROM users WHERE id = ${userId}`;
+                    <h4>Implementation Example:</h4>
+                    <pre><code># Generate certificates for mTLS
+# CA certificate
+openssl genrsa -out ca-key.pem 4096
+openssl req -new -x509 -key ca-key.pem -out ca-cert.pem -days 365
 
-// GOOD - Parameterized query
-const getUserById = async (userId) => {
-    const query = 'SELECT * FROM users WHERE id = $1';
-    const result = await pool.query(query, [userId]);
-    return result.rows[0];
+# Client certificate
+openssl genrsa -out client-key.pem 4096
+openssl req -new -key client-key.pem -out client-csr.pem
+openssl x509 -req -in client-csr.pem -CA ca-cert.pem -CAkey ca-key.pem -out client-cert.pem
+
+# Node.js mTLS server
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+    key: fs.readFileSync('server-key.pem'),
+    cert: fs.readFileSync('server-cert.pem'),
+    ca: fs.readFileSync('ca-cert.pem'),
+    requestCert: true,
+    rejectUnauthorized: true
 };
 
-// GOOD - Using ORM (Sequelize example)
-const user = await User.findOne({
-    where: {
-        id: userId,
-        status: 'active'
+const server = https.createServer(options, (req, res) => {
+    const cert = req.connection.getPeerCertificate();
+    
+    if (req.client.authorized) {
+        console.log('Client authenticated:', cert.subject.CN);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'Authenticated successfully' }));
+    } else {
+        console.log('Client authentication failed:', req.client.authorizationError);
+        res.writeHead(401);
+        res.end('Unauthorized');
     }
 });
 
-// GOOD - Using query builder (Knex.js)
-const users = await knex('users')
-    .where('email', email)
-    .andWhere('status', 'active')
-    .select('id', 'name', 'email');</code></pre>
-                </div>
-                <div class="validation">
-                    <h4>✅ Validation</h4>
-                    <ul>
-                        <li>Test with malicious SQL payloads</li>
-                        <li>Verify all dynamic queries use parameters</li>
-                        <li>Check stored procedures for dynamic SQL</li>
-                        <li>Audit database logs for suspicious queries</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Control 3.2 -->
-            <div class="control-card">
-                <h3>3.2 NoSQL Injection Prevention</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High</span>
-                    <span class="tag difficulty-medium">Medium</span>
-                </div>
-                <p><strong>Requirement:</strong> Sanitize inputs and use safe query methods for NoSQL databases like MongoDB.</p>
-                <div class="implementation">
-                    <h4>🔧 Implementation</h4>
-                    <pre><code>const Joi = require('joi');
-const mongoSanitize = require('express-mongo-sanitize');
-
-app.use(mongoSanitize()); // Removes $ and . from req.body
-
-const loginSchema = Joi.object({
-    username: Joi.string().alphanum().min(3).max(30).required(),
-    password: Joi.string().min(8).required()
-});
-
-app.post('/api/login', async (req, res) => {
-    const { error, value } = loginSchema.validate(req.body);
-    if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-    }
-    
-    const { username, password } = value;
-    const user = await User.findOne({
-        username: { $eq: username }, // Explicit operator
-        status: 'active'
-    });
-    
-    if (user && await bcrypt.compare(password, user.hashedPassword)) {
-        // Login successful
-    }
+server.listen(8443, () => {
+    console.log('mTLS server listening on port 8443');
 });</code></pre>
                 </div>
             </div>
 
-            <!-- Additional Input Validation Controls Summary -->
             <div class="control-summary">
-                <h4>Additional Input Validation Controls (3.3-3.14):</h4>
+                <h4>Additional Authentication Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <strong>3.3 XSS Prevention:</strong> Output encoding and Content Security Policy
+                        <h5>API Key Management</h5>
+                        <p>Secure API key generation, rotation, and revocation with cryptographic strength requirements.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.4 Request Size Limiting:</strong> Payload size restrictions and DoS prevention
+                        <h5>Brute Force Protection</h5>
+                        <p>Account lockout with progressive delays, CAPTCHA integration, and suspicious activity detection.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.5 JSON Schema Validation:</strong> Structural validation with Ajv
+                        <h5>Session Management</h5>
+                        <p>Secure session tokens with proper timeout, renewal, and secure storage mechanisms.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.6 XML External Entity (XXE) Prevention:</strong> Secure XML parsing
+                        <h5>SAML Authentication</h5>
+                        <p>SAML 2.0 SSO integration with assertion validation and identity provider trust relationships.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.7 File Type Validation:</strong> Magic byte verification and virus scanning
+                        <h5>Biometric Authentication</h5>
+                        <p>WebAuthn implementation for passwordless authentication using FIDO2 security keys.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.8 Parameter Pollution Prevention:</strong> Duplicate parameter handling
+                        <h5>Risk-Based Authentication</h5>
+                        <p>Adaptive authentication based on user behavior, device fingerprinting, and geolocation analysis.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.9 Content-Type Validation:</strong> MIME type verification
+                        <h5>Token Refresh Security</h5>
+                        <p>Secure refresh token handling with rotation, binding, and replay attack prevention.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.10 Path Traversal Prevention:</strong> Directory traversal protection
+                        <h5>Authentication Audit</h5>
+                        <p>Comprehensive logging of authentication events with anomaly detection and alerting.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>3.11 Command Injection Prevention:</strong> Safe system command execution
-                    </div>
-                    <div class="summary-item">
-                        <strong>3.12 LDAP Injection Prevention:</strong> LDAP query sanitization
-                    </div>
-                    <div class="summary-item">
-                        <strong>3.13 Email Header Injection:</strong> Email security validation
-                    </div>
-                    <div class="summary-item">
-                        <strong>3.14 Regex DoS Prevention:</strong> Regular expression complexity limits
+                        <h5>Multi-Domain Authentication</h5>
+                        <p>Cross-domain authentication with proper CORS configuration and domain validation.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Rate Limiting Section (8 Controls) -->
-        <section id="rate-limiting" class="control-section">
-            <h2>4. Rate Limiting (8 Controls)</h2>
-            <p class="section-intro">Implement traffic throttling and abuse prevention mechanisms to protect against DoS attacks and resource exhaustion.</p>
+        <!-- Authorization Section -->
+        <section id="authorization" class="control-section">
+            <h2>Authorization (10 controls)</h2>
+            <p class="section-intro">Implement fine-grained authorization controls with role-based access control, attribute-based policies, and scope validation.</p>
 
-            <!-- Control 4.1 -->
             <div class="control-card">
-                <h3>4.1 Token Bucket Rate Limiting</h3>
+                <h3>Role-Based Access Control (RBAC)</h3>
                 <div class="control-tags">
-                    <span class="tag priority-high">High</span>
-                    <span class="tag difficulty-medium">Medium</span>
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
                 </div>
-                <p><strong>Requirement:</strong> Implement token bucket algorithm for smooth rate limiting with burst capacity.</p>
+                <p><strong>Requirement:</strong> Implement hierarchical RBAC with role inheritance and principle of least privilege enforcement.</p>
                 <div class="implementation">
-                    <h4>🔧 Implementation</h4>
-                    <pre><code>class TokenBucketRateLimit {
-    constructor(options) {
-        this.capacity = options.capacity; // Maximum tokens
-        this.refillRate = options.refillRate; // Tokens per second
-        this.keyPrefix = options.keyPrefix || 'rate_limit:';
-        this.redis = redis;
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// RBAC Implementation (Node.js)
+class RBACManager {
+    constructor() {
+        this.roles = new Map();
+        this.permissions = new Map();
+        this.userRoles = new Map();
     }
-
-    async checkRateLimit(identifier) {
-        const key = this.keyPrefix + identifier;
-        const now = Date.now();
+    
+    // Define role hierarchy
+    defineRole(roleName, parentRoles = []) {
+        this.roles.set(roleName, {
+            name: roleName,
+            parents: parentRoles,
+            permissions: new Set()
+        });
+    }
+    
+    // Assign permission to role
+    assignPermission(roleName, resource, action) {
+        const role = this.roles.get(roleName);
+        if (role) {
+            role.permissions.add(`${resource}:${action}`);
+        }
+    }
+    
+    // Get all permissions for a role (including inherited)
+    getRolePermissions(roleName) {
+        const role = this.roles.get(roleName);
+        if (!role) return new Set();
         
-        // Lua script for atomic operation
+        let permissions = new Set(role.permissions);
+        
+        // Add inherited permissions
+        for (const parentRole of role.parents) {
+            const parentPermissions = this.getRolePermissions(parentRole);
+            parentPermissions.forEach(perm => permissions.add(perm));
+        }
+        
+        return permissions;
+    }
+    
+    // Check if user has permission
+    hasPermission(userId, resource, action) {
+        const userRoles = this.userRoles.get(userId) || [];
+        const requiredPermission = `${resource}:${action}`;
+        
+        for (const roleName of userRoles) {
+            const permissions = this.getRolePermissions(roleName);
+            if (permissions.has(requiredPermission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+// Express middleware for RBAC
+function requirePermission(resource, action) {
+    return (req, res, next) => {
+        const userId = req.user?.id;
+        
+        if (!userId || !rbac.hasPermission(userId, resource, action)) {
+            return res.status(403).json({ 
+                error: 'Insufficient permissions',
+                required: `${resource}:${action}`
+            });
+        }
+        
+        next();
+    };
+}
+
+// Usage example
+app.get('/api/admin/users', 
+    authenticateJWT,
+    requirePermission('users', 'read'),
+    getUserList
+);</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>Attribute-Based Access Control (ABAC)</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement ABAC with policy engine for context-aware authorization based on user, resource, and environmental attributes.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// ABAC Policy Engine
+class ABACEngine {
+    constructor() {
+        this.policies = [];
+    }
+    
+    addPolicy(policy) {
+        this.policies.push(policy);
+    }
+    
+    evaluate(subject, resource, action, environment) {
+        for (const policy of this.policies) {
+            try {
+                const decision = policy.evaluate(subject, resource, action, environment);
+                if (decision === 'DENY') {
+                    return { decision: 'DENY', policy: policy.id };
+                }
+                if (decision === 'PERMIT') {
+                    return { decision: 'PERMIT', policy: policy.id };
+                }
+            } catch (error) {
+                console.error(`Policy ${policy.id} evaluation error:`, error);
+            }
+        }
+        return { decision: 'DENY', reason: 'No matching policy' };
+    }
+}
+
+// Example Policy: Time-based access control
+const timeBasedPolicy = {
+    id: 'time-based-access',
+    evaluate: (subject, resource, action, environment) => {
+        const currentHour = new Date().getHours();
+        const businessHours = currentHour >= 9 && currentHour <= 17;
+        
+        if (resource.type === 'financial-data' && !businessHours) {
+            if (subject.role !== 'admin' && subject.role !== 'emergency-access') {
+                return 'DENY';
+            }
+        }
+        
+        return 'PERMIT';
+    }
+};
+
+// Example Policy: Data classification access
+const dataClassificationPolicy = {
+    id: 'data-classification',
+    evaluate: (subject, resource, action, environment) => {
+        const userClearance = subject.clearanceLevel || 0;
+        const resourceClassification = resource.classificationLevel || 0;
+        
+        if (action === 'read' && userClearance >= resourceClassification) {
+            return 'PERMIT';
+        }
+        
+        if (action === 'write' && userClearance > resourceClassification) {
+            return 'PERMIT';
+        }
+        
+        return 'DENY';
+    }
+};
+
+// Middleware for ABAC
+function abacAuthorize(req, res, next) {
+    const subject = {
+        id: req.user.id,
+        role: req.user.role,
+        department: req.user.department,
+        clearanceLevel: req.user.clearanceLevel
+    };
+    
+    const resource = {
+        type: req.params.resourceType,
+        id: req.params.resourceId,
+        classificationLevel: req.resource?.classificationLevel
+    };
+    
+    const action = req.method.toLowerCase();
+    const environment = {
+        time: new Date(),
+        ip: req.ip,
+        userAgent: req.headers['user-agent']
+    };
+    
+    const decision = abacEngine.evaluate(subject, resource, action, environment);
+    
+    if (decision.decision === 'DENY') {
+        return res.status(403).json({ 
+            error: 'Access denied',
+            reason: decision.reason,
+            policy: decision.policy
+        });
+    }
+    
+    next();
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Authorization Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h5>API Scope Validation</h5>
+                        <p>OAuth scope enforcement with fine-grained permission checking and scope hierarchy management.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Resource-Level Authorization</h5>
+                        <p>Object-level permissions with ownership validation and resource-specific access rules.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Cross-Tenant Isolation</h5>
+                        <p>Multi-tenant authorization with strict tenant boundary enforcement and data isolation.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Dynamic Permission Assignment</h5>
+                        <p>Runtime permission evaluation with context-aware access control and policy updates.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Delegation and Impersonation</h5>
+                        <p>Secure delegation mechanisms with audit trails and time-limited access grants.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>API Gateway Authorization</h5>
+                        <p>Gateway-level authorization with policy enforcement points and centralized decision making.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Field-Level Authorization</h5>
+                        <p>GraphQL field-level permissions with dynamic field filtering and access control.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Temporal Authorization</h5>
+                        <p>Time-based access control with scheduled permissions and automatic revocation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Input Validation Section -->
+        <section id="input-validation" class="control-section">
+            <h2>Input Validation (14 controls)</h2>
+            <p class="section-intro">Comprehensive input validation and sanitization to prevent injection attacks, ensure data integrity, and protect against malicious input.</p>
+
+            <div class="control-card">
+                <h3>SQL Injection Prevention</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Use parameterized queries, stored procedures, and input validation to prevent SQL injection attacks.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Parameterized Queries (Node.js with mysql2)
+const mysql = require('mysql2/promise');
+
+class SecureUserRepository {
+    constructor(connection) {
+        this.db = connection;
+    }
+    
+    // Safe user lookup with parameterized query
+    async getUserById(userId) {
+        const query = 'SELECT id, username, email, role FROM users WHERE id = ? AND active = 1';
+        const [rows] = await this.db.execute(query, [userId]);
+        return rows[0];
+    }
+    
+    // Safe user search with multiple parameters
+    async searchUsers(searchTerm, role, limit = 20) {
+        const query = `
+            SELECT id, username, email, created_at 
+            FROM users 
+            WHERE (username LIKE ? OR email LIKE ?) 
+            AND role = ? 
+            AND active = 1 
+            ORDER BY created_at DESC 
+            LIMIT ?
+        `;
+        const searchPattern = `%${searchTerm}%`;
+        const [rows] = await this.db.execute(query, [searchPattern, searchPattern, role, limit]);
+        return rows;
+    }
+    
+    // Safe batch operations with transactions
+    async createUsersSecurely(users) {
+        const connection = await this.db.getConnection();
+        await connection.beginTransaction();
+        
+        try {
+            const query = 'INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)';
+            
+            for (const user of users) {
+                // Validate each user before insertion
+                if (!this.validateUserInput(user)) {
+                    throw new Error(`Invalid user data: ${JSON.stringify(user)}`);
+                }
+                
+                await connection.execute(query, [
+                    user.username,
+                    user.email,
+                    user.passwordHash,
+                    user.role
+                ]);
+            }
+            
+            await connection.commit();
+            return { success: true, count: users.length };
+        } catch (error) {
+            await connection.rollback();
+            throw error;
+        } finally {
+            connection.release();
+        }
+    }
+    
+    validateUserInput(user) {
+        // Comprehensive input validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const usernameRegex = /^[a-zA-Z0-9_]{3,30}$/;
+        const validRoles = ['user', 'admin', 'moderator'];
+        
+        return (
+            emailRegex.test(user.email) &&
+            usernameRegex.test(user.username) &&
+            validRoles.includes(user.role) &&
+            user.passwordHash && user.passwordHash.length >= 60 // bcrypt hash length
+        );
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>NoSQL Injection Prevention</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Sanitize NoSQL queries and validate input types to prevent NoSQL injection attacks in MongoDB and similar databases.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// NoSQL Injection Prevention (MongoDB with Mongoose)
+const mongoose = require('mongoose');
+const validator = require('validator');
+
+class SecureMongoRepository {
+    constructor(model) {
+        this.model = model;
+    }
+    
+    // Safe query building with input sanitization
+    async findUsers(filters) {
+        const sanitizedFilters = this.sanitizeMongoQuery(filters);
+        
+        // Use Mongoose query builder to prevent injection
+        let query = this.model.find();
+        
+        if (sanitizedFilters.username) {
+            query = query.where('username').regex(new RegExp(sanitizedFilters.username, 'i'));
+        }
+        
+        if (sanitizedFilters.role) {
+            query = query.where('role').in(sanitizedFilters.role);
+        }
+        
+        if (sanitizedFilters.createdAfter) {
+            query = query.where('createdAt').gte(sanitizedFilters.createdAfter);
+        }
+        
+        return await query.select('-password').limit(100).exec();
+    }
+    
+    // Sanitize MongoDB query objects
+    sanitizeMongoQuery(query) {
+        if (!query || typeof query !== 'object') {
+            return {};
+        }
+        
+        const sanitized = {};
+        
+        for (const [key, value] of Object.entries(query)) {
+            // Remove MongoDB operators from user input
+            if (key.startsWith('$')) {
+                continue;
+            }
+            
+            // Type validation and sanitization
+            switch (key) {
+                case 'username':
+                    if (typeof value === 'string' && validator.isAlphanumeric(value.replace(/[_-]/g, ''))) {
+                        sanitized[key] = validator.escape(value);
+                    }
+                    break;
+                    
+                case 'email':
+                    if (typeof value === 'string' && validator.isEmail(value)) {
+                        sanitized[key] = validator.normalizeEmail(value);
+                    }
+                    break;
+                    
+                case 'role':
+                    const validRoles = ['user', 'admin', 'moderator'];
+                    if (Array.isArray(value)) {
+                        sanitized[key] = value.filter(role => validRoles.includes(role));
+                    } else if (typeof value === 'string' && validRoles.includes(value)) {
+                        sanitized[key] = [value];
+                    }
+                    break;
+                    
+                case 'createdAfter':
+                    if (validator.isISO8601(value)) {
+                        sanitized[key] = new Date(value);
+                    }
+                    break;
+            }
+        }
+        
+        return sanitized;
+    }
+    
+    // Safe aggregation with input validation
+    async getUserStatistics(filters) {
+        const sanitizedFilters = this.sanitizeMongoQuery(filters);
+        
+        const pipeline = [
+            { $match: { active: true } }
+        ];
+        
+        // Add conditional stages based on sanitized input
+        if (sanitizedFilters.role) {
+            pipeline.push({ $match: { role: { $in: sanitizedFilters.role } } });
+        }
+        
+        if (sanitizedFilters.createdAfter) {
+            pipeline.push({ $match: { createdAt: { $gte: sanitizedFilters.createdAfter } } });
+        }
+        
+        pipeline.push(
+            {
+                $group: {
+                    _id: '$role',
+                    count: { $sum: 1 },
+                    lastLogin: { $max: '$lastLoginAt' }
+                }
+            },
+            { $sort: { count: -1 } }
+        );
+        
+        return await this.model.aggregate(pipeline);
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Input Validation Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h5>XSS Prevention</h5>
+                        <p>Content Security Policy headers, input sanitization, and output encoding for XSS attack prevention.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>JSON Schema Validation</h5>
+                        <p>Comprehensive JSON schema validation with Ajv library for request payload verification.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>XML External Entity (XXE) Prevention</h5>
+                        <p>XML parser configuration and input validation to prevent XXE injection attacks.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>File Upload Validation</h5>
+                        <p>File type verification, magic byte checking, and malware scanning for uploaded files.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Parameter Pollution Prevention</h5>
+                        <p>HTTP parameter pollution detection and sanitization to prevent parsing confusion attacks.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Content-Type Validation</h5>
+                        <p>Strict Content-Type header validation and MIME type verification for request processing.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Path Traversal Prevention</h5>
+                        <p>Path sanitization and whitelist validation to prevent directory traversal attacks.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Regular Expression DoS Prevention</h5>
+                        <p>ReDoS protection with timeout limits and complexity analysis for regex validation.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Unicode Normalization</h5>
+                        <p>Unicode string normalization to prevent homograph attacks and encoding bypass attempts.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Business Logic Validation</h5>
+                        <p>Custom validation rules for business constraints and workflow state validation.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Input Length Limits</h5>
+                        <p>Request size limits, field length validation, and payload size restrictions.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Data Type Enforcement</h5>
+                        <p>Strict data type validation with automatic type coercion prevention and format checking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Limiting Section -->
+        <section id="rate-limiting" class="control-section">
+            <h2>Rate Limiting (8 controls)</h2>
+            <p class="section-intro">Implement comprehensive rate limiting strategies to protect against abuse, DDoS attacks, and ensure fair resource usage across API consumers.</p>
+
+            <div class="control-card">
+                <h3>Token Bucket Rate Limiting</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement token bucket algorithm with Redis for distributed rate limiting across multiple API gateway instances.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Token Bucket Rate Limiter with Redis
+const redis = require('redis');
+const client = redis.createClient();
+
+class TokenBucketRateLimiter {
+    constructor(options = {}) {
+        this.capacity = options.capacity || 100;
+        this.refillRate = options.refillRate || 10; // tokens per second
+        this.windowSize = options.windowSize || 60; // seconds
+        this.redis = client;
+    }
+    
+    async checkLimit(key, tokensRequested = 1) {
+        const now = Date.now();
+        const bucketKey = `rate_limit:${key}`;
+        
+        // Lua script for atomic token bucket operations
         const luaScript = `
             local key = KEYS[1]
             local capacity = tonumber(ARGV[1])
-            local refillRate = tonumber(ARGV[2])
-            local now = tonumber(ARGV[3])
+            local tokens_requested = tonumber(ARGV[2])
+            local refill_rate = tonumber(ARGV[3])
+            local now = tonumber(ARGV[4])
             
-            local bucket = redis.call('HMGET', key, 'tokens', 'lastRefill')
+            -- Get current bucket state
+            local bucket = redis.call('HMGET', key, 'tokens', 'last_refill')
             local tokens = tonumber(bucket[1]) or capacity
-            local lastRefill = tonumber(bucket[2]) or now
+            local last_refill = tonumber(bucket[2]) or now
             
-            -- Calculate tokens to add
-            local timePassed = (now - lastRefill) / 1000
-            local tokensToAdd = math.floor(timePassed * refillRate)
-            tokens = math.min(capacity, tokens + tokensToAdd)
+            -- Calculate tokens to add based on time elapsed
+            local elapsed = (now - last_refill) / 1000
+            local tokens_to_add = math.floor(elapsed * refill_rate)
             
-            if tokens >= 1 then
-                tokens = tokens - 1
-                redis.call('HMSET', key, 'tokens', tokens, 'lastRefill', now)
-                redis.call('EXPIRE', key, 3600)
-                return {1, tokens}
+            -- Update token count (don't exceed capacity)
+            tokens = math.min(capacity, tokens + tokens_to_add)
+            
+            -- Check if enough tokens available
+            if tokens >= tokens_requested then
+                tokens = tokens - tokens_requested
+                
+                -- Update bucket state
+                redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
+                redis.call('EXPIRE', key, 3600) -- 1 hour TTL
+                
+                return {1, tokens, capacity}
             else
-                redis.call('HMSET', key, 'tokens', tokens, 'lastRefill', now)
+                -- Update last refill time even on failure
+                redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
                 redis.call('EXPIRE', key, 3600)
-                return {0, tokens}
+                
+                return {0, tokens, capacity}
             end
         `;
         
-        const result = await this.redis.eval(
-            luaScript, 1, key, 
-            this.capacity, this.refillRate, now
-        );
+        const result = await this.redis.eval(luaScript, 1, bucketKey, 
+            this.capacity, tokensRequested, this.refillRate, now);
         
         return {
             allowed: result[0] === 1,
-            tokensRemaining: result[1]
+            tokensRemaining: result[1],
+            capacity: result[2],
+            resetTime: now + ((this.capacity - result[1]) / this.refillRate * 1000)
         };
+    }
+}
+
+// Express middleware for rate limiting
+function createRateLimitMiddleware(limiterConfig) {
+    const limiter = new TokenBucketRateLimiter(limiterConfig);
+    
+    return async (req, res, next) => {
+        // Create rate limit key based on user ID, IP, or API key
+        const key = req.user?.id || req.ip || 'anonymous';
+        const userTier = req.user?.tier || 'basic';
+        
+        // Different limits based on user tier
+        const tierLimits = {
+            basic: { capacity: 100, refillRate: 10 },
+            premium: { capacity: 1000, refillRate: 50 },
+            enterprise: { capacity: 10000, refillRate: 200 }
+        };
+        
+        const config = tierLimits[userTier] || tierLimits.basic;
+        limiter.capacity = config.capacity;
+        limiter.refillRate = config.refillRate;
+        
+        try {
+            const result = await limiter.checkLimit(key);
+            
+            // Add rate limit headers
+            res.set({
+                'X-RateLimit-Limit': limiter.capacity,
+                'X-RateLimit-Remaining': result.tokensRemaining,
+                'X-RateLimit-Reset': Math.ceil(result.resetTime / 1000)
+            });
+            
+            if (!result.allowed) {
+                return res.status(429).json({
+                    error: 'Rate limit exceeded',
+                    retryAfter: Math.ceil((result.resetTime - Date.now()) / 1000)
+                });
+            }
+            
+            next();
+        } catch (error) {
+            console.error('Rate limiting error:', error);
+            // Fail open - allow request if rate limiter is down
+            next();
+        }
+    };
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Rate Limiting Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <h5>Sliding Window Rate Limiting</h5>
+                        <p>Precise sliding window algorithm with Redis sorted sets for smooth request distribution.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>User-Based Rate Limiting</h5>
+                        <p>Per-user rate limits with tier-based quotas and premium user allowances.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>IP-Based Rate Limiting</h5>
+                        <p>IP address rate limiting with proxy detection and geographic IP classification.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Geographic Rate Limiting</h5>
+                        <p>Country-based rate limiting with GeoIP lookup and regional traffic management.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Adaptive Rate Limiting</h5>
+                        <p>Dynamic rate limit adjustment based on system load and response times.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>API Endpoint Rate Limiting</h5>
+                        <p>Endpoint-specific rate limits with different quotas for read vs write operations.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Burst Protection</h5>
+                        <p>Traffic spike protection with burst allowances and penalty mechanisms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logging & Monitoring Section -->
+        <section id="logging-monitoring" class="control-section">
+            <h2>Logging & Monitoring (12 controls)</h2>
+            <p class="section-intro">Comprehensive security event logging, performance monitoring, and real-time threat detection for API security visibility and incident response.</p>
+
+            <div class="control-card">
+                <h3>Security Event Logging</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement comprehensive security event logging with structured logging, correlation IDs, and SIEM integration.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Security Event Logging System
+const winston = require('winston');
+const { ElasticsearchTransport } = require('winston-elasticsearch');
+const crypto = require('crypto');
+
+class SecurityLogger {
+    constructor() {
+        // Configure Winston with multiple transports
+        this.logger = winston.createLogger({
+            level: 'info',
+            format: winston.format.combine(
+                winston.format.timestamp(),
+                winston.format.errors({ stack: true }),
+                winston.format.json(),
+                winston.format.printf(info => {
+                    return JSON.stringify({
+                        ...info,
+                        service: 'api-gateway',
+                        environment: process.env.NODE_ENV || 'development'
+                    });
+                })
+            ),
+            transports: [
+                // Console transport for development
+                new winston.transports.Console(),
+                
+                // File transport for persistent logging
+                new winston.transports.File({ 
+                    filename: 'logs/security-events.log',
+                    maxsize: 10000000, // 10MB
+                    maxFiles: 5
+                }),
+                
+                // Elasticsearch transport for SIEM integration
+                new ElasticsearchTransport({
+                    level: 'info',
+                    clientOpts: {
+                        node: process.env.ELASTICSEARCH_URL || 'http://localhost:9200'
+                    },
+                    index: 'api-security-logs'
+                })
+            ]
+        });
+    }
+    
+    // Authentication events
+    logAuthEvent(event, user, request, success = true, details = {}) {
+        const correlationId = this.getCorrelationId(request);
+        
+        this.logger.info('AUTHENTICATION_EVENT', {
+            eventType: 'authentication',
+            eventSubtype: event,
+            correlationId,
+            success,
+            user: {
+                id: user?.id,
+                username: user?.username,
+                role: user?.role
+            },
+            request: {
+                ip: this.getClientIP(request),
+                userAgent: request.headers['user-agent'],
+                method: request.method,
+                url: request.url
+            },
+            timestamp: new Date().toISOString(),
+            ...details
+        });
+    }
+    
+    // Authorization events
+    logAuthzEvent(resource, action, user, request, success = true, reason = null) {
+        const correlationId = this.getCorrelationId(request);
+        
+        this.logger.info('AUTHORIZATION_EVENT', {
+            eventType: 'authorization',
+            correlationId,
+            success,
+            user: {
+                id: user?.id,
+                role: user?.role,
+                permissions: user?.permissions
+            },
+            resource: {
+                type: resource.type,
+                id: resource.id,
+                classification: resource.classification
+            },
+            action,
+            reason,
+            request: {
+                ip: this.getClientIP(request),
+                method: request.method,
+                url: request.url
+            },
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Security violations
+    logSecurityViolation(violationType, severity, request, details = {}) {
+        const correlationId = this.getCorrelationId(request);
+        
+        this.logger.error('SECURITY_VIOLATION', {
+            eventType: 'security_violation',
+            violationType,
+            severity,
+            correlationId,
+            request: {
+                ip: this.getClientIP(request),
+                userAgent: request.headers['user-agent'],
+                method: request.method,
+                url: request.url,
+                headers: this.sanitizeHeaders(request.headers),
+                body: this.sanitizeRequestBody(request.body)
+            },
+            timestamp: new Date().toISOString(),
+            ...details
+        });
+        
+        // Send alert for high severity violations
+        if (severity === 'HIGH' || severity === 'CRITICAL') {
+            this.sendSecurityAlert(violationType, request, details);
+        }
+    }
+    
+    // Rate limiting events
+    logRateLimitEvent(limitType, user, request, tokensRemaining = 0) {
+        const correlationId = this.getCorrelationId(request);
+        
+        this.logger.warn('RATE_LIMIT_EXCEEDED', {
+            eventType: 'rate_limit',
+            limitType,
+            correlationId,
+            user: {
+                id: user?.id,
+                tier: user?.tier
+            },
+            tokensRemaining,
+            request: {
+                ip: this.getClientIP(request),
+                method: request.method,
+                url: request.url
+            },
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Helper methods
+    getCorrelationId(request) {
+        return request.headers['x-correlation-id'] || 
+               request.correlationId || 
+               crypto.randomUUID();
+    }
+    
+    getClientIP(request) {
+        return request.headers['x-forwarded-for']?.split(',')[0] ||
+               request.headers['x-real-ip'] ||
+               request.connection.remoteAddress ||
+               request.socket.remoteAddress;
+    }
+    
+    sanitizeHeaders(headers) {
+        const sensitiveHeaders = ['authorization', 'cookie', 'x-api-key'];
+        const sanitized = { ...headers };
+        
+        sensitiveHeaders.forEach(header => {
+            if (sanitized[header]) {
+                sanitized[header] = '[REDACTED]';
+            }
+        });
+        
+        return sanitized;
+    }
+    
+    sanitizeRequestBody(body) {
+        if (!body) return body;
+        
+        const sanitized = { ...body };
+        const sensitiveFields = ['password', 'token', 'secret', 'key'];
+        
+        sensitiveFields.forEach(field => {
+            if (sanitized[field]) {
+                sanitized[field] = '[REDACTED]';
+            }
+        });
+        
+        return sanitized;
+    }
+    
+    async sendSecurityAlert(violationType, request, details) {
+        // Integration with alerting system (Slack, PagerDuty, etc.)
+        console.error(`SECURITY ALERT: ${violationType} from ${this.getClientIP(request)}`);
     }
 }</code></pre>
                 </div>
             </div>
 
-            <!-- Additional Rate Limiting Controls Summary -->
             <div class="control-summary">
-                <h4>Additional Rate Limiting Controls (4.2-4.8):</h4>
+                <h4>Additional Logging & Monitoring Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <strong>4.2 Sliding Window Rate Limiting:</strong> Precise rate limiting without boundary effects
+                        <h5>API Performance Monitoring</h5>
+                        <p>Response time tracking, throughput monitoring, and performance alerting with Prometheus metrics.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>4.3 User-Based Rate Limiting:</strong> Tiered limits based on subscription levels
+                        <h5>Real-time Anomaly Detection</h5>
+                        <p>Machine learning-based anomaly detection for unusual API usage patterns and security threats.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>4.4 IP-Based Rate Limiting:</strong> Network-level traffic control with CDN support
+                        <h5>SIEM Integration</h5>
+                        <p>Security Information and Event Management system integration with Syslog, Elastic, and Splunk.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>4.5 Geographic Rate Limiting:</strong> Regional traffic pattern management
+                        <h5>API Usage Analytics</h5>
+                        <p>Usage pattern analysis, endpoint popularity tracking, and business intelligence metrics.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>4.6 Adaptive Rate Limiting:</strong> Dynamic limits based on system load
+                        <h5>Error Rate Monitoring</h5>
+                        <p>HTTP error rate tracking, error classification, and automated alerting for spike detection.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>4.7 Circuit Breaker Pattern:</strong> Cascading failure prevention
+                        <h5>Distributed Tracing</h5>
+                        <p>Request tracing across microservices with OpenTelemetry and Jaeger integration.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>4.8 DDoS Attack Detection:</strong> Real-time attack detection and mitigation
+                        <h5>Security Metrics Dashboard</h5>
+                        <p>Real-time security metrics visualization with Grafana dashboards and custom KPIs.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Audit Trail Compliance</h5>
+                        <p>Immutable audit logs for compliance with GDPR, SOX, and industry regulations.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Log Integrity Protection</h5>
+                        <p>Cryptographic log signing and tamper detection for audit trail integrity.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Incident Response Integration</h5>
+                        <p>Automated incident creation and workflow integration with security orchestration platforms.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Log Retention Management</h5>
+                        <p>Automated log archival, compression, and lifecycle management for long-term storage.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Logging & Monitoring Section (12 Controls) -->
-        <section id="logging-monitoring" class="control-section">
-            <h2>5. Logging & Monitoring (12 Controls)</h2>
-            <p class="section-intro">Comprehensive logging and monitoring for security events, performance tracking, and incident response.</p>
-
-            <!-- Control 5.1 -->
-            <div class="control-card">
-                <h3>5.1 Security Event Logging</h3>
-                <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium</span>
-                </div>
-                <p><strong>Requirement:</strong> Log all security-relevant events including authentication, authorization failures, and suspicious activities.</p>
-                <div class="implementation">
-                    <h4>🔧 Implementation</h4>
-                    <pre><code>const winston = require('winston');
-const { ElasticsearchTransport } = require('winston-elasticsearch');
-
-// Security logger configuration
-const securityLogger = winston.createLogger({
-    level: 'info',
-    format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json()
-    ),
-    transports: [
-        new winston.transports.File({ filename: 'logs/security.log' }),
-        new ElasticsearchTransport({
-            level: 'info',
-            client: elasticClient,
-            index: 'api-security-logs'
-        })
-    ]
-});
-
-// Security event types
-const SecurityEvents = {
-    AUTH_SUCCESS: 'auth_success',
-    AUTH_FAILURE: 'auth_failure',
-    AUTHORIZATION_FAILURE: 'authorization_failure',
-    RATE_LIMIT_EXCEEDED: 'rate_limit_exceeded',
-    SUSPICIOUS_PAYLOAD: 'suspicious_payload'
-};</code></pre>
-                </div>
-            </div>
-
-            <!-- Additional Logging & Monitoring Controls Summary -->
-            <div class="control-summary">
-                <h4>Additional Logging & Monitoring Controls (5.2-5.12):</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>5.2 API Performance Monitoring:</strong> Response time and throughput metrics
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.3 Real-time Anomaly Detection:</strong> ML-based suspicious pattern detection
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.4 SIEM Integration:</strong> Security Information and Event Management
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.5 API Usage Analytics:</strong> Usage patterns and business intelligence
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.6 Error Rate Alerting:</strong> Automated error threshold monitoring
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.7 Data Access Logging:</strong> Comprehensive data audit trails
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.8 Audit Trail Maintenance:</strong> Immutable audit record keeping
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.9 Log Integrity Protection:</strong> Cryptographic log protection
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.10 Performance Alerting:</strong> System performance monitoring
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.11 Compliance Reporting:</strong> Automated compliance documentation
-                    </div>
-                    <div class="summary-item">
-                        <strong>5.12 Incident Response Integration:</strong> Automated incident workflows
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Data Protection Section (9 Controls) -->
+        <!-- Data Protection Section -->
         <section id="data-protection" class="control-section">
-            <h2>6. Data Protection (9 Controls)</h2>
-            <p class="section-intro">Protect sensitive data through encryption, masking, and secure transmission protocols.</p>
+            <h2>Data Protection (9 controls)</h2>
+            <p class="section-intro">Comprehensive data protection measures including encryption, PII handling, data loss prevention, and secure data lifecycle management.</p>
 
-            <!-- Control 6.1 -->
             <div class="control-card">
-                <h3>6.1 End-to-End Encryption</h3>
+                <h3>End-to-End Encryption</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-high">High</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
                 </div>
-                <p><strong>Requirement:</strong> Implement encryption for data in transit and at rest using industry-standard algorithms.</p>
+                <p><strong>Requirement:</strong> Implement AES-256-GCM encryption for data at rest and in transit with proper key management and rotation.</p>
                 <div class="implementation">
-                    <h4>🔧 Implementation</h4>
-                    <pre><code>const crypto = require('crypto');
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// End-to-End Encryption Service
+const crypto = require('crypto');
+const AWS = require('aws-sdk');
 
-// Data encryption for storage
-class DataEncryption {
+class EncryptionService {
     constructor() {
+        this.kms = new AWS.KMS({ region: process.env.AWS_REGION });
         this.algorithm = 'aes-256-gcm';
-        this.keySize = 32;
-        this.ivSize = 16;
-        this.tagSize = 16;
-        this.key = this.getEncryptionKey();
+        this.keyLength = 32; // 256 bits
+        this.ivLength = 12; // 96 bits for GCM
+        this.tagLength = 16; // 128 bits
     }
-
-    encrypt(data) {
-        const iv = crypto.randomBytes(this.ivSize);
-        const cipher = crypto.createCipher(this.algorithm, this.key, iv);
+    
+    // Generate data encryption key using AWS KMS
+    async generateDataKey(keyId) {
+        const params = {
+            KeyId: keyId,
+            KeySpec: 'AES_256'
+        };
         
-        let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
-        encrypted += cipher.final('hex');
+        const result = await this.kms.generateDataKey(params).promise();
+        return {
+            plaintext: result.Plaintext,
+            encrypted: result.CiphertextBlob
+        };
+    }
+    
+    // Decrypt data encryption key
+    async decryptDataKey(encryptedKey) {
+        const params = {
+            CiphertextBlob: encryptedKey
+        };
         
+        const result = await this.kms.decrypt(params).promise();
+        return result.Plaintext;
+    }
+    
+    // Encrypt sensitive data
+    async encryptData(plaintext, keyId, additionalData = null) {
+        // Generate new data encryption key for each encryption operation
+        const dataKey = await this.generateDataKey(keyId);
+        
+        // Create cipher with AES-256-GCM
+        const iv = crypto.randomBytes(this.ivLength);
+        const cipher = crypto.createCipher(this.algorithm, dataKey.plaintext, { iv });
+        
+        if (additionalData) {
+            cipher.setAAD(Buffer.from(additionalData));
+        }
+        
+        // Encrypt the data
+        let encrypted = cipher.update(plaintext, 'utf8');
+        encrypted = Buffer.concat([encrypted, cipher.final()]);
+        
+        // Get the authentication tag
         const tag = cipher.getAuthTag();
         
+        // Clear plaintext key from memory
+        dataKey.plaintext.fill(0);
+        
+        // Return encrypted payload
         return {
-            encrypted,
-            iv: iv.toString('hex'),
-            tag: tag.toString('hex')
+            encrypted: encrypted.toString('base64'),
+            iv: iv.toString('base64'),
+            tag: tag.toString('base64'),
+            encryptedDataKey: dataKey.encrypted.toString('base64'),
+            algorithm: this.algorithm,
+            additionalData: additionalData
         };
     }
-
-    decrypt(encryptedData) {
-        const { encrypted, iv, tag } = encryptedData;
-        const decipher = crypto.createDecipher(
-            this.algorithm, 
-            this.key, 
-            Buffer.from(iv, 'hex')
+    
+    // Decrypt sensitive data
+    async decryptData(encryptedPayload) {
+        const {
+            encrypted,
+            iv,
+            tag,
+            encryptedDataKey,
+            algorithm,
+            additionalData
+        } = encryptedPayload;
+        
+        // Decrypt the data encryption key
+        const dataKey = await this.decryptDataKey(
+            Buffer.from(encryptedDataKey, 'base64')
         );
         
-        decipher.setAuthTag(Buffer.from(tag, 'hex'));
+        // Create decipher
+        const decipher = crypto.createDecipher(
+            algorithm,
+            dataKey,
+            { iv: Buffer.from(iv, 'base64') }
+        );
         
-        let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-        decrypted += decipher.final('utf8');
+        // Set authentication tag
+        decipher.setAuthTag(Buffer.from(tag, 'base64'));
         
-        return JSON.parse(decrypted);
+        if (additionalData) {
+            decipher.setAAD(Buffer.from(additionalData));
+        }
+        
+        // Decrypt the data
+        let decrypted = decipher.update(Buffer.from(encrypted, 'base64'));
+        decrypted = Buffer.concat([decrypted, decipher.final()]);
+        
+        // Clear key from memory
+        dataKey.fill(0);
+        
+        return decrypted.toString('utf8');
+    }
+    
+    // Encrypt field-level data in database models
+    async encryptFields(data, fieldsToEncrypt, keyId) {
+        const encryptedData = { ...data };
+        
+        for (const field of fieldsToEncrypt) {
+            if (data[field]) {
+                const encrypted = await this.encryptData(
+                    JSON.stringify(data[field]),
+                    keyId,
+                    `field:${field}` // Additional authenticated data
+                );
+                encryptedData[field] = encrypted;
+                encryptedData[`${field}_encrypted`] = true;
+            }
+        }
+        
+        return encryptedData;
+    }
+    
+    // Decrypt field-level data
+    async decryptFields(data, fieldsToDecrypt) {
+        const decryptedData = { ...data };
+        
+        for (const field of fieldsToDecrypt) {
+            if (data[field] && data[`${field}_encrypted`]) {
+                try {
+                    const decrypted = await this.decryptData(data[field]);
+                    decryptedData[field] = JSON.parse(decrypted);
+                    delete decryptedData[`${field}_encrypted`];
+                } catch (error) {
+                    console.error(`Failed to decrypt field ${field}:`, error);
+                    decryptedData[field] = '[DECRYPTION_FAILED]';
+                }
+            }
+        }
+        
+        return decryptedData;
     }
 }</code></pre>
                 </div>
             </div>
 
-            <!-- Additional Data Protection Controls Summary -->
             <div class="control-summary">
-                <h4>Additional Data Protection Controls (6.2-6.9):</h4>
+                <h4>Additional Data Protection Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <strong>6.2 PII Data Masking:</strong> Context-aware personal data protection
+                        <h5>PII Data Masking</h5>
+                        <p>Automatic PII detection and masking with context-aware rules and data classification.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.3 Data Loss Prevention (DLP):</strong> Automated data exfiltration prevention
+                        <h5>Data Loss Prevention (DLP)</h5>
+                        <p>Real-time data exfiltration detection with pattern matching and violation reporting.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.4 Secure Key Management:</strong> Hardware security modules and key rotation
+                        <h5>Secure Key Management</h5>
+                        <p>Hardware Security Module (HSM) integration with automated key rotation and escrow.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.5 Data Classification:</strong> Automated data sensitivity labeling
+                        <h5>Database Encryption</h5>
+                        <p>Transparent database encryption with column-level encryption for sensitive fields.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.6 Backup Encryption:</strong> Secure backup and archive protection
+                        <h5>Data Classification</h5>
+                        <p>Automated data discovery and classification with sensitivity labeling and handling rules.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.7 Data Retention Policies:</strong> Lifecycle management and deletion
+                        <h5>Secure Data Deletion</h5>
+                        <p>Cryptographic data shredding and secure deletion with compliance verification.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.8 Secure Data Deletion:</strong> Cryptographic erasure techniques
+                        <h5>Data Backup Protection</h5>
+                        <p>Encrypted backup storage with access controls and integrity verification.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>6.9 Cross-Border Data Protection:</strong> International compliance management
+                        <h5>Cross-Border Data Transfer</h5>
+                        <p>GDPR-compliant data transfer with adequacy decisions and binding corporate rules.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- API Gateway Security Section (5 Controls) -->
+        <!-- API Gateway Security Section -->
         <section id="api-gateway" class="control-section">
-            <h2>7. API Gateway Security (5 Controls)</h2>
-            <p class="section-intro">Centralized security policy enforcement through API gateway configuration and hardening.</p>
+            <h2>API Gateway Security (5 controls)</h2>
+            <p class="section-intro">Centralized security enforcement through API gateway configuration including authentication, transformation, load balancing, and monitoring.</p>
 
-            <!-- Control 7.1 -->
             <div class="control-card">
-                <h3>7.1 Gateway Authentication & Authorization</h3>
+                <h3>Gateway Authentication & Authorization</h3>
                 <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium</span>
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
                 </div>
-                <p><strong>Requirement:</strong> Configure API gateway for centralized authentication and authorization policy enforcement.</p>
+                <p><strong>Requirement:</strong> Configure API gateway for centralized authentication and authorization with policy enforcement and JWT validation.</p>
                 <div class="implementation">
-                    <h4>🔧 Implementation (Kong Gateway Example)</h4>
+                    <h4>Implementation Example (Kong Gateway):</h4>
                     <pre><code># Kong Gateway Configuration
-
-# Enable JWT Plugin
-curl -X POST http://kong:8001/plugins \
+# Add JWT plugin for authentication
+curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=jwt" \
   --data "config.secret_is_base64=false" \
-  --data "config.claims_to_verify=exp,iat"
+  --data "config.claims_to_verify=exp,iat" \
+  --data "config.run_on_preflight=false"
 
-# Enable Rate Limiting
-curl -X POST http://kong:8001/plugins \
+# Add RBAC plugin for authorization
+curl -X POST http://localhost:8001/services/api-service/plugins \
+  --data "name=acl" \
+  --data "config.whitelist=admin,user" \
+  --data "config.hide_groups_header=true"
+
+# Rate limiting plugin
+curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=rate-limiting" \
   --data "config.minute=100" \
   --data "config.hour=1000" \
   --data "config.policy=redis" \
   --data "config.redis_host=redis.example.com"
 
-# Configure Service and Route
-curl -X POST http://kong:8001/services \
-  --data "name=api-service" \
-  --data "url=http://api.internal:3000"
-
-curl -X POST http://kong:8001/services/api-service/routes \
-  --data "paths[]=/api" \
-  --data "methods[]=GET" \
-  --data "methods[]=POST"</code></pre>
+# Request transformation plugin
+curl -X POST http://localhost:8001/services/api-service/plugins \
+  --data "name=request-transformer" \
+  --data "config.add.headers=X-Gateway-ID:kong-001" \
+  --data "config.remove.headers=X-Internal-Secret" \
+  --data "config.add.querystring=source:gateway"</code></pre>
+                </div>
+                <div class="best-practices">
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Implement defense in depth with multiple validation layers</li>
+                        <li>Use centralized policy management for consistent enforcement</li>
+                        <li>Monitor gateway performance and security metrics</li>
+                        <li>Implement circuit breakers for backend service protection</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Additional API Gateway Controls Summary -->
             <div class="control-summary">
-                <h4>Additional API Gateway Controls (7.2-7.5):</h4>
+                <h4>Additional API Gateway Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <strong>7.2 Request/Response Transformation:</strong> Security header injection and sanitization
+                        <h5>Request/Response Transformation</h5>
+                        <p>Header manipulation, payload transformation, and security header injection with sanitization.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>7.3 API Versioning Management:</strong> Deprecation policies and migration support
+                        <h5>API Versioning Management</h5>
+                        <p>Version-based routing with deprecation notices and backward compatibility enforcement.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>7.4 Load Balancing & Health Checks:</strong> High availability and circuit breakers
+                        <h5>Load Balancing & Health Checks</h5>
+                        <p>Intelligent load balancing with circuit breakers and automatic failover mechanisms.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>7.5 Gateway Monitoring & Analytics:</strong> Centralized API performance monitoring
+                        <h5>Gateway Monitoring & Analytics</h5>
+                        <p>Real-time traffic analysis, performance monitoring, and security event correlation.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- GraphQL Security Section (4 Controls) -->
-        <section id="graphql-security" class="control-section">
-            <h2>8. GraphQL Security (4 Controls)</h2>
-            <p class="section-intro">Specialized security controls for GraphQL APIs including query complexity analysis and depth limiting.</p>
+        <!-- GraphQL Security Section -->
+        <section id="graphql" class="control-section">
+            <h2>GraphQL Security (4 controls)</h2>
+            <p class="section-intro">Specialized security controls for GraphQL APIs including query complexity analysis, depth limiting, and field-level authorization.</p>
 
-            <!-- Control 8.1 -->
             <div class="control-card">
-                <h3>8.1 Query Complexity Analysis</h3>
+                <h3>Query Complexity Analysis</h3>
                 <div class="control-tags">
-                    <span class="tag priority-high">High</span>
-                    <span class="tag difficulty-high">High</span>
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
                 </div>
-                <p><strong>Requirement:</strong> Analyze and limit GraphQL query complexity to prevent resource exhaustion attacks.</p>
+                <p><strong>Requirement:</strong> Implement query complexity analysis to prevent resource exhaustion attacks through expensive nested queries.</p>
                 <div class="implementation">
-                    <h4>🔧 Implementation</h4>
-                    <pre><code>const { GraphQLServer } = require('graphql-yoga');
-const costAnalysis = require('graphql-cost-analysis');
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// GraphQL Query Complexity Analysis
+const { createComplexityLimitRule } = require('graphql-query-complexity');
 const depthLimit = require('graphql-depth-limit');
 
-// Query complexity analysis
-const complexityLimitRule = costAnalysis({
-    maximumCost: 1000,
-    defaultCost: 1,
-    scalarCost: 1,
-    objectCost: 5,
-    listFactor: 10,
+// Define complexity costs for different field types
+const complexityAnalyzer = createComplexityLimitRule(1000, {
+    // Field-specific complexity costs
+    maximumComplexity: 1000,
     createError: (max, actual) => {
-        throw new Error(
-            `Query cost ${actual} exceeds maximum cost ${max}`
+        return new Error(
+            `Query complexity ${actual} exceeds maximum allowed complexity ${max}`
         );
-    }
+    },
+    // Calculate complexity based on field resolvers
+    estimators: [
+        // Queries with arguments have higher cost
+        (args, childComplexity) => {
+            if (args.first || args.last) {
+                return childComplexity * (args.first || args.last);
+            }
+            return childComplexity;
+        },
+        
+        // Database queries have base cost
+        (type, field, args, childComplexity) => {
+            if (field.name === 'users' || field.name === 'posts') {
+                return 10 + childComplexity;
+            }
+            return 1 + childComplexity;
+        }
+    ]
 });
 
-const server = new GraphQLServer({
+// Query depth limiting
+const depthLimitRule = depthLimit(10, {
+    ignore: ['__schema', '__type'] // Ignore introspection queries
+});
+
+// GraphQL server with security rules
+const { ApolloServer } = require('apollo-server-express');
+
+const server = new ApolloServer({
     typeDefs,
     resolvers,
     validationRules: [
-        complexityLimitRule,
-        depthLimit(10)
+        complexityAnalyzer,
+        depthLimitRule
     ],
-    context: ({ request }) => ({
-        req: request,
-        user: request.user
-    })
+    plugins: [
+        {
+            requestDidStart() {
+                return {
+                    didResolveOperation(context) {
+                        // Log query complexity
+                        const complexity = getQueryComplexity(context.request.query);
+                        console.log('Query complexity:', complexity);
+                        
+                        // Rate limit based on complexity
+                        if (complexity > 100 && !context.request.user?.isPremium) {
+                            throw new Error('Query too complex for basic tier');
+                        }
+                    }
+                };
+            }
+        }
+    ]
 });</code></pre>
                 </div>
             </div>
 
-            <!-- Additional GraphQL Security Controls Summary -->
             <div class="control-summary">
-                <h4>Additional GraphQL Security Controls (8.2-8.4):</h4>
+                <h4>Additional GraphQL Security Controls:</h4>
                 <div class="summary-grid">
                     <div class="summary-item">
-                        <strong>8.2 Query Depth Limiting:</strong> Nested query depth restrictions
+                        <h5>Query Depth Limiting</h5>
+                        <p>Maximum query depth enforcement with user-based limits and nested query protection.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>8.3 Introspection Control:</strong> Schema visibility and access control
+                        <h5>Introspection Control</h5>
+                        <p>Role-based introspection access with production introspection disabling and schema hiding.</p>
                     </div>
                     <div class="summary-item">
-                        <strong>8.4 Field-Level Authorization:</strong> Fine-grained field access permissions
+                        <h5>Field-Level Authorization</h5>
+                        <p>Fine-grained field access control with dynamic permissions and data filtering.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Guide Footer -->
-        <section class="guide-footer">
-            <h3>Continue Your Security Journey</h3>
-            <p>Explore related security guides and deepen your cybersecurity knowledge</p>
-            <div class="footer-nav">
-                <a href="iam.html" class="btn btn-outline">Identity & Access Management →</a>
-                <a href="cloud-security.html" class="btn btn-outline">Cloud Security →</a>
-                <a href="../topics.html" class="btn btn-primary">View All Topics</a>
             </div>
         </section>
     </main>
@@ -1298,29 +1627,22 @@ const server = new GraphQLServer({
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-brand">
                     <h3>🛡️ Iron Codex</h3>
-                    <p>Practical cybersecurity guidance for security professionals.</p>
+                    <p>Your comprehensive cybersecurity learning platform</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="../topics.html">All Topics</a></li>
+                        <li><a href="../topics.html">Security Topics</a></li>
                         <li><a href="../guides.html">Deep Dive Guides</a></li>
                         <li><a href="../tools.html">Security Tools</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Community</h4>
-                    <ul>
-                        <li><a href="https://github.com/iron-codex">GitHub</a></li>
-                        <li><a href="mailto:contact@iron-codex.com">Contact</a></li>
                         <li><a href="../about.html">About</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+                <p>&copy; 2025 Iron Codex. Open source security education.</p>
             </div>
         </div>
     </footer>
