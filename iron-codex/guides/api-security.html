@@ -391,116 +391,6 @@ app.get('/api/admin/users',
                 </div>
             </div>
 
-            <div class="control-card">
-                <h3>Attribute-Based Access Control (ABAC)</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-high">High Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Implement ABAC with policy engine for context-aware authorization based on user, resource, and environmental attributes.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code>// ABAC Policy Engine
-class ABACEngine {
-    constructor() {
-        this.policies = [];
-    }
-    
-    addPolicy(policy) {
-        this.policies.push(policy);
-    }
-    
-    evaluate(subject, resource, action, environment) {
-        for (const policy of this.policies) {
-            try {
-                const decision = policy.evaluate(subject, resource, action, environment);
-                if (decision === 'DENY') {
-                    return { decision: 'DENY', policy: policy.id };
-                }
-                if (decision === 'PERMIT') {
-                    return { decision: 'PERMIT', policy: policy.id };
-                }
-            } catch (error) {
-                console.error(`Policy ${policy.id} evaluation error:`, error);
-            }
-        }
-        return { decision: 'DENY', reason: 'No matching policy' };
-    }
-}
-
-// Example Policy: Time-based access control
-const timeBasedPolicy = {
-    id: 'time-based-access',
-    evaluate: (subject, resource, action, environment) => {
-        const currentHour = new Date().getHours();
-        const businessHours = currentHour >= 9 && currentHour <= 17;
-        
-        if (resource.type === 'financial-data' && !businessHours) {
-            if (subject.role !== 'admin' && subject.role !== 'emergency-access') {
-                return 'DENY';
-            }
-        }
-        
-        return 'PERMIT';
-    }
-};
-
-// Example Policy: Data classification access
-const dataClassificationPolicy = {
-    id: 'data-classification',
-    evaluate: (subject, resource, action, environment) => {
-        const userClearance = subject.clearanceLevel || 0;
-        const resourceClassification = resource.classificationLevel || 0;
-        
-        if (action === 'read' && userClearance >= resourceClassification) {
-            return 'PERMIT';
-        }
-        
-        if (action === 'write' && userClearance > resourceClassification) {
-            return 'PERMIT';
-        }
-        
-        return 'DENY';
-    }
-};
-
-// Middleware for ABAC
-function abacAuthorize(req, res, next) {
-    const subject = {
-        id: req.user.id,
-        role: req.user.role,
-        department: req.user.department,
-        clearanceLevel: req.user.clearanceLevel
-    };
-    
-    const resource = {
-        type: req.params.resourceType,
-        id: req.params.resourceId,
-        classificationLevel: req.resource?.classificationLevel
-    };
-    
-    const action = req.method.toLowerCase();
-    const environment = {
-        time: new Date(),
-        ip: req.ip,
-        userAgent: req.headers['user-agent']
-    };
-    
-    const decision = abacEngine.evaluate(subject, resource, action, environment);
-    
-    if (decision.decision === 'DENY') {
-        return res.status(403).json({ 
-            error: 'Access denied',
-            reason: decision.reason,
-            policy: decision.policy
-        });
-    }
-    
-    next();
-}</code></pre>
-                </div>
-            </div>
-
             <div class="control-summary">
                 <h4>Additional Authorization Controls:</h4>
                 <div class="summary-grid">
@@ -535,6 +425,10 @@ function abacAuthorize(req, res, next) {
                     <div class="summary-item">
                         <h5>Temporal Authorization</h5>
                         <p>Time-based access control with scheduled permissions and automatic revocation.</p>
+                    </div>
+                    <div class="summary-item">
+                        <h5>Attribute-Based Access Control (ABAC)</h5>
+                        <p>Context-aware authorization based on user, resource, and environmental attributes.</p>
                     </div>
                 </div>
             </div>
@@ -585,38 +479,6 @@ class SecureUserRepository {
         return rows;
     }
     
-    // Safe batch operations with transactions
-    async createUsersSecurely(users) {
-        const connection = await this.db.getConnection();
-        await connection.beginTransaction();
-        
-        try {
-            const query = 'INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)';
-            
-            for (const user of users) {
-                // Validate each user before insertion
-                if (!this.validateUserInput(user)) {
-                    throw new Error(`Invalid user data: ${JSON.stringify(user)}`);
-                }
-                
-                await connection.execute(query, [
-                    user.username,
-                    user.email,
-                    user.passwordHash,
-                    user.role
-                ]);
-            }
-            
-            await connection.commit();
-            return { success: true, count: users.length };
-        } catch (error) {
-            await connection.rollback();
-            throw error;
-        } finally {
-            connection.release();
-        }
-    }
-    
     validateUserInput(user) {
         // Comprehensive input validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -627,130 +489,8 @@ class SecureUserRepository {
             emailRegex.test(user.email) &&
             usernameRegex.test(user.username) &&
             validRoles.includes(user.role) &&
-            user.passwordHash && user.passwordHash.length >= 60 // bcrypt hash length
+            user.passwordHash && user.passwordHash.length >= 60
         );
-    }
-}</code></pre>
-                </div>
-            </div>
-
-            <div class="control-card">
-                <h3>NoSQL Injection Prevention</h3>
-                <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Sanitize NoSQL queries and validate input types to prevent NoSQL injection attacks in MongoDB and similar databases.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code>// NoSQL Injection Prevention (MongoDB with Mongoose)
-const mongoose = require('mongoose');
-const validator = require('validator');
-
-class SecureMongoRepository {
-    constructor(model) {
-        this.model = model;
-    }
-    
-    // Safe query building with input sanitization
-    async findUsers(filters) {
-        const sanitizedFilters = this.sanitizeMongoQuery(filters);
-        
-        // Use Mongoose query builder to prevent injection
-        let query = this.model.find();
-        
-        if (sanitizedFilters.username) {
-            query = query.where('username').regex(new RegExp(sanitizedFilters.username, 'i'));
-        }
-        
-        if (sanitizedFilters.role) {
-            query = query.where('role').in(sanitizedFilters.role);
-        }
-        
-        if (sanitizedFilters.createdAfter) {
-            query = query.where('createdAt').gte(sanitizedFilters.createdAfter);
-        }
-        
-        return await query.select('-password').limit(100).exec();
-    }
-    
-    // Sanitize MongoDB query objects
-    sanitizeMongoQuery(query) {
-        if (!query || typeof query !== 'object') {
-            return {};
-        }
-        
-        const sanitized = {};
-        
-        for (const [key, value] of Object.entries(query)) {
-            // Remove MongoDB operators from user input
-            if (key.startsWith('$')) {
-                continue;
-            }
-            
-            // Type validation and sanitization
-            switch (key) {
-                case 'username':
-                    if (typeof value === 'string' && validator.isAlphanumeric(value.replace(/[_-]/g, ''))) {
-                        sanitized[key] = validator.escape(value);
-                    }
-                    break;
-                    
-                case 'email':
-                    if (typeof value === 'string' && validator.isEmail(value)) {
-                        sanitized[key] = validator.normalizeEmail(value);
-                    }
-                    break;
-                    
-                case 'role':
-                    const validRoles = ['user', 'admin', 'moderator'];
-                    if (Array.isArray(value)) {
-                        sanitized[key] = value.filter(role => validRoles.includes(role));
-                    } else if (typeof value === 'string' && validRoles.includes(value)) {
-                        sanitized[key] = [value];
-                    }
-                    break;
-                    
-                case 'createdAfter':
-                    if (validator.isISO8601(value)) {
-                        sanitized[key] = new Date(value);
-                    }
-                    break;
-            }
-        }
-        
-        return sanitized;
-    }
-    
-    // Safe aggregation with input validation
-    async getUserStatistics(filters) {
-        const sanitizedFilters = this.sanitizeMongoQuery(filters);
-        
-        const pipeline = [
-            { $match: { active: true } }
-        ];
-        
-        // Add conditional stages based on sanitized input
-        if (sanitizedFilters.role) {
-            pipeline.push({ $match: { role: { $in: sanitizedFilters.role } } });
-        }
-        
-        if (sanitizedFilters.createdAfter) {
-            pipeline.push({ $match: { createdAt: { $gte: sanitizedFilters.createdAfter } } });
-        }
-        
-        pipeline.push(
-            {
-                $group: {
-                    _id: '$role',
-                    count: { $sum: 1 },
-                    lastLogin: { $max: '$lastLoginAt' }
-                }
-            },
-            { $sort: { count: -1 } }
-        );
-        
-        return await this.model.aggregate(pipeline);
     }
 }</code></pre>
                 </div>
@@ -759,6 +499,10 @@ class SecureMongoRepository {
             <div class="control-summary">
                 <h4>Additional Input Validation Controls:</h4>
                 <div class="summary-grid">
+                    <div class="summary-item">
+                        <h5>NoSQL Injection Prevention</h5>
+                        <p>MongoDB query sanitization and input type validation to prevent NoSQL injection attacks.</p>
+                    </div>
                     <div class="summary-item">
                         <h5>XSS Prevention</h5>
                         <p>Content Security Policy headers, input sanitization, and output encoding for XSS attack prevention.</p>
@@ -833,7 +577,6 @@ class TokenBucketRateLimiter {
     constructor(options = {}) {
         this.capacity = options.capacity || 100;
         this.refillRate = options.refillRate || 10; // tokens per second
-        this.windowSize = options.windowSize || 60; // seconds
         this.redis = client;
     }
     
@@ -864,17 +607,12 @@ class TokenBucketRateLimiter {
             -- Check if enough tokens available
             if tokens >= tokens_requested then
                 tokens = tokens - tokens_requested
-                
-                -- Update bucket state
-                redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
-                redis.call('EXPIRE', key, 3600) -- 1 hour TTL
-                
-                return {1, tokens, capacity}
-            else
-                -- Update last refill time even on failure
                 redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
                 redis.call('EXPIRE', key, 3600)
-                
+                return {1, tokens, capacity}
+            else
+                redis.call('HMSET', key, 'tokens', tokens, 'last_refill', now)
+                redis.call('EXPIRE', key, 3600)
                 return {0, tokens, capacity}
             end
         `;
@@ -889,52 +627,6 @@ class TokenBucketRateLimiter {
             resetTime: now + ((this.capacity - result[1]) / this.refillRate * 1000)
         };
     }
-}
-
-// Express middleware for rate limiting
-function createRateLimitMiddleware(limiterConfig) {
-    const limiter = new TokenBucketRateLimiter(limiterConfig);
-    
-    return async (req, res, next) => {
-        // Create rate limit key based on user ID, IP, or API key
-        const key = req.user?.id || req.ip || 'anonymous';
-        const userTier = req.user?.tier || 'basic';
-        
-        // Different limits based on user tier
-        const tierLimits = {
-            basic: { capacity: 100, refillRate: 10 },
-            premium: { capacity: 1000, refillRate: 50 },
-            enterprise: { capacity: 10000, refillRate: 200 }
-        };
-        
-        const config = tierLimits[userTier] || tierLimits.basic;
-        limiter.capacity = config.capacity;
-        limiter.refillRate = config.refillRate;
-        
-        try {
-            const result = await limiter.checkLimit(key);
-            
-            // Add rate limit headers
-            res.set({
-                'X-RateLimit-Limit': limiter.capacity,
-                'X-RateLimit-Remaining': result.tokensRemaining,
-                'X-RateLimit-Reset': Math.ceil(result.resetTime / 1000)
-            });
-            
-            if (!result.allowed) {
-                return res.status(429).json({
-                    error: 'Rate limit exceeded',
-                    retryAfter: Math.ceil((result.resetTime - Date.now()) / 1000)
-                });
-            }
-            
-            next();
-        } catch (error) {
-            console.error('Rate limiting error:', error);
-            // Fail open - allow request if rate limiter is down
-            next();
-        }
-    };
 }</code></pre>
                 </div>
             </div>
@@ -991,37 +683,23 @@ function createRateLimitMiddleware(limiterConfig) {
                     <pre><code>// Security Event Logging System
 const winston = require('winston');
 const { ElasticsearchTransport } = require('winston-elasticsearch');
-const crypto = require('crypto');
 
 class SecurityLogger {
     constructor() {
-        // Configure Winston with multiple transports
         this.logger = winston.createLogger({
             level: 'info',
             format: winston.format.combine(
                 winston.format.timestamp(),
                 winston.format.errors({ stack: true }),
-                winston.format.json(),
-                winston.format.printf(info => {
-                    return JSON.stringify({
-                        ...info,
-                        service: 'api-gateway',
-                        environment: process.env.NODE_ENV || 'development'
-                    });
-                })
+                winston.format.json()
             ),
             transports: [
-                // Console transport for development
                 new winston.transports.Console(),
-                
-                // File transport for persistent logging
                 new winston.transports.File({ 
                     filename: 'logs/security-events.log',
-                    maxsize: 10000000, // 10MB
+                    maxsize: 10000000,
                     maxFiles: 5
                 }),
-                
-                // Elasticsearch transport for SIEM integration
                 new ElasticsearchTransport({
                     level: 'info',
                     clientOpts: {
@@ -1033,14 +711,10 @@ class SecurityLogger {
         });
     }
     
-    // Authentication events
     logAuthEvent(event, user, request, success = true, details = {}) {
-        const correlationId = this.getCorrelationId(request);
-        
         this.logger.info('AUTHENTICATION_EVENT', {
             eventType: 'authentication',
             eventSubtype: event,
-            correlationId,
             success,
             user: {
                 id: user?.id,
@@ -1058,129 +732,11 @@ class SecurityLogger {
         });
     }
     
-    // Authorization events
-    logAuthzEvent(resource, action, user, request, success = true, reason = null) {
-        const correlationId = this.getCorrelationId(request);
-        
-        this.logger.info('AUTHORIZATION_EVENT', {
-            eventType: 'authorization',
-            correlationId,
-            success,
-            user: {
-                id: user?.id,
-                role: user?.role,
-                permissions: user?.permissions
-            },
-            resource: {
-                type: resource.type,
-                id: resource.id,
-                classification: resource.classification
-            },
-            action,
-            reason,
-            request: {
-                ip: this.getClientIP(request),
-                method: request.method,
-                url: request.url
-            },
-            timestamp: new Date().toISOString()
-        });
-    }
-    
-    // Security violations
-    logSecurityViolation(violationType, severity, request, details = {}) {
-        const correlationId = this.getCorrelationId(request);
-        
-        this.logger.error('SECURITY_VIOLATION', {
-            eventType: 'security_violation',
-            violationType,
-            severity,
-            correlationId,
-            request: {
-                ip: this.getClientIP(request),
-                userAgent: request.headers['user-agent'],
-                method: request.method,
-                url: request.url,
-                headers: this.sanitizeHeaders(request.headers),
-                body: this.sanitizeRequestBody(request.body)
-            },
-            timestamp: new Date().toISOString(),
-            ...details
-        });
-        
-        // Send alert for high severity violations
-        if (severity === 'HIGH' || severity === 'CRITICAL') {
-            this.sendSecurityAlert(violationType, request, details);
-        }
-    }
-    
-    // Rate limiting events
-    logRateLimitEvent(limitType, user, request, tokensRemaining = 0) {
-        const correlationId = this.getCorrelationId(request);
-        
-        this.logger.warn('RATE_LIMIT_EXCEEDED', {
-            eventType: 'rate_limit',
-            limitType,
-            correlationId,
-            user: {
-                id: user?.id,
-                tier: user?.tier
-            },
-            tokensRemaining,
-            request: {
-                ip: this.getClientIP(request),
-                method: request.method,
-                url: request.url
-            },
-            timestamp: new Date().toISOString()
-        });
-    }
-    
-    // Helper methods
-    getCorrelationId(request) {
-        return request.headers['x-correlation-id'] || 
-               request.correlationId || 
-               crypto.randomUUID();
-    }
-    
     getClientIP(request) {
         return request.headers['x-forwarded-for']?.split(',')[0] ||
                request.headers['x-real-ip'] ||
                request.connection.remoteAddress ||
                request.socket.remoteAddress;
-    }
-    
-    sanitizeHeaders(headers) {
-        const sensitiveHeaders = ['authorization', 'cookie', 'x-api-key'];
-        const sanitized = { ...headers };
-        
-        sensitiveHeaders.forEach(header => {
-            if (sanitized[header]) {
-                sanitized[header] = '[REDACTED]';
-            }
-        });
-        
-        return sanitized;
-    }
-    
-    sanitizeRequestBody(body) {
-        if (!body) return body;
-        
-        const sanitized = { ...body };
-        const sensitiveFields = ['password', 'token', 'secret', 'key'];
-        
-        sensitiveFields.forEach(field => {
-            if (sanitized[field]) {
-                sanitized[field] = '[REDACTED]';
-            }
-        });
-        
-        return sanitized;
-    }
-    
-    async sendSecurityAlert(violationType, request, details) {
-        // Integration with alerting system (Slack, PagerDuty, etc.)
-        console.error(`SECURITY ALERT: ${violationType} from ${this.getClientIP(request)}`);
     }
 }</code></pre>
                 </div>
@@ -1259,18 +815,13 @@ class EncryptionService {
     constructor() {
         this.kms = new AWS.KMS({ region: process.env.AWS_REGION });
         this.algorithm = 'aes-256-gcm';
-        this.keyLength = 32; // 256 bits
-        this.ivLength = 12; // 96 bits for GCM
-        this.tagLength = 16; // 128 bits
     }
     
-    // Generate data encryption key using AWS KMS
     async generateDataKey(keyId) {
         const params = {
             KeyId: keyId,
             KeySpec: 'AES_256'
         };
-        
         const result = await this.kms.generateDataKey(params).promise();
         return {
             plaintext: result.Plaintext,
@@ -1278,127 +829,21 @@ class EncryptionService {
         };
     }
     
-    // Decrypt data encryption key
-    async decryptDataKey(encryptedKey) {
-        const params = {
-            CiphertextBlob: encryptedKey
-        };
-        
-        const result = await this.kms.decrypt(params).promise();
-        return result.Plaintext;
-    }
-    
-    // Encrypt sensitive data
-    async encryptData(plaintext, keyId, additionalData = null) {
-        // Generate new data encryption key for each encryption operation
+    async encryptData(plaintext, keyId) {
         const dataKey = await this.generateDataKey(keyId);
-        
-        // Create cipher with AES-256-GCM
-        const iv = crypto.randomBytes(this.ivLength);
+        const iv = crypto.randomBytes(12);
         const cipher = crypto.createCipher(this.algorithm, dataKey.plaintext, { iv });
         
-        if (additionalData) {
-            cipher.setAAD(Buffer.from(additionalData));
-        }
-        
-        // Encrypt the data
         let encrypted = cipher.update(plaintext, 'utf8');
         encrypted = Buffer.concat([encrypted, cipher.final()]);
-        
-        // Get the authentication tag
         const tag = cipher.getAuthTag();
         
-        // Clear plaintext key from memory
-        dataKey.plaintext.fill(0);
-        
-        // Return encrypted payload
         return {
             encrypted: encrypted.toString('base64'),
             iv: iv.toString('base64'),
             tag: tag.toString('base64'),
-            encryptedDataKey: dataKey.encrypted.toString('base64'),
-            algorithm: this.algorithm,
-            additionalData: additionalData
+            encryptedDataKey: dataKey.encrypted.toString('base64')
         };
-    }
-    
-    // Decrypt sensitive data
-    async decryptData(encryptedPayload) {
-        const {
-            encrypted,
-            iv,
-            tag,
-            encryptedDataKey,
-            algorithm,
-            additionalData
-        } = encryptedPayload;
-        
-        // Decrypt the data encryption key
-        const dataKey = await this.decryptDataKey(
-            Buffer.from(encryptedDataKey, 'base64')
-        );
-        
-        // Create decipher
-        const decipher = crypto.createDecipher(
-            algorithm,
-            dataKey,
-            { iv: Buffer.from(iv, 'base64') }
-        );
-        
-        // Set authentication tag
-        decipher.setAuthTag(Buffer.from(tag, 'base64'));
-        
-        if (additionalData) {
-            decipher.setAAD(Buffer.from(additionalData));
-        }
-        
-        // Decrypt the data
-        let decrypted = decipher.update(Buffer.from(encrypted, 'base64'));
-        decrypted = Buffer.concat([decrypted, decipher.final()]);
-        
-        // Clear key from memory
-        dataKey.fill(0);
-        
-        return decrypted.toString('utf8');
-    }
-    
-    // Encrypt field-level data in database models
-    async encryptFields(data, fieldsToEncrypt, keyId) {
-        const encryptedData = { ...data };
-        
-        for (const field of fieldsToEncrypt) {
-            if (data[field]) {
-                const encrypted = await this.encryptData(
-                    JSON.stringify(data[field]),
-                    keyId,
-                    `field:${field}` // Additional authenticated data
-                );
-                encryptedData[field] = encrypted;
-                encryptedData[`${field}_encrypted`] = true;
-            }
-        }
-        
-        return encryptedData;
-    }
-    
-    // Decrypt field-level data
-    async decryptFields(data, fieldsToDecrypt) {
-        const decryptedData = { ...data };
-        
-        for (const field of fieldsToDecrypt) {
-            if (data[field] && data[`${field}_encrypted`]) {
-                try {
-                    const decrypted = await this.decryptData(data[field]);
-                    decryptedData[field] = JSON.parse(decrypted);
-                    delete decryptedData[`${field}_encrypted`];
-                } catch (error) {
-                    console.error(`Failed to decrypt field ${field}:`, error);
-                    decryptedData[field] = '[DECRYPTION_FAILED]';
-                }
-            }
-        }
-        
-        return decryptedData;
     }
 }</code></pre>
                 </div>
@@ -1462,38 +907,18 @@ class EncryptionService {
 curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=jwt" \
   --data "config.secret_is_base64=false" \
-  --data "config.claims_to_verify=exp,iat" \
-  --data "config.run_on_preflight=false"
+  --data "config.claims_to_verify=exp,iat"
 
 # Add RBAC plugin for authorization
 curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=acl" \
-  --data "config.whitelist=admin,user" \
-  --data "config.hide_groups_header=true"
+  --data "config.whitelist=admin,user"
 
 # Rate limiting plugin
 curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=rate-limiting" \
   --data "config.minute=100" \
-  --data "config.hour=1000" \
-  --data "config.policy=redis" \
-  --data "config.redis_host=redis.example.com"
-
-# Request transformation plugin
-curl -X POST http://localhost:8001/services/api-service/plugins \
-  --data "name=request-transformer" \
-  --data "config.add.headers=X-Gateway-ID:kong-001" \
-  --data "config.remove.headers=X-Internal-Secret" \
-  --data "config.add.querystring=source:gateway"</code></pre>
-                </div>
-                <div class="best-practices">
-                    <h4>Best Practices:</h4>
-                    <ul>
-                        <li>Implement defense in depth with multiple validation layers</li>
-                        <li>Use centralized policy management for consistent enforcement</li>
-                        <li>Monitor gateway performance and security metrics</li>
-                        <li>Implement circuit breakers for backend service protection</li>
-                    </ul>
+  --data "config.hour=1000"</code></pre>
                 </div>
             </div>
 
@@ -1538,41 +963,23 @@ curl -X POST http://localhost:8001/services/api-service/plugins \
 const { createComplexityLimitRule } = require('graphql-query-complexity');
 const depthLimit = require('graphql-depth-limit');
 
-// Define complexity costs for different field types
 const complexityAnalyzer = createComplexityLimitRule(1000, {
-    // Field-specific complexity costs
     maximumComplexity: 1000,
     createError: (max, actual) => {
         return new Error(
             `Query complexity ${actual} exceeds maximum allowed complexity ${max}`
         );
     },
-    // Calculate complexity based on field resolvers
     estimators: [
-        // Queries with arguments have higher cost
         (args, childComplexity) => {
             if (args.first || args.last) {
                 return childComplexity * (args.first || args.last);
             }
             return childComplexity;
-        },
-        
-        // Database queries have base cost
-        (type, field, args, childComplexity) => {
-            if (field.name === 'users' || field.name === 'posts') {
-                return 10 + childComplexity;
-            }
-            return 1 + childComplexity;
         }
     ]
 });
 
-// Query depth limiting
-const depthLimitRule = depthLimit(10, {
-    ignore: ['__schema', '__type'] // Ignore introspection queries
-});
-
-// GraphQL server with security rules
 const { ApolloServer } = require('apollo-server-express');
 
 const server = new ApolloServer({
@@ -1580,25 +987,7 @@ const server = new ApolloServer({
     resolvers,
     validationRules: [
         complexityAnalyzer,
-        depthLimitRule
-    ],
-    plugins: [
-        {
-            requestDidStart() {
-                return {
-                    didResolveOperation(context) {
-                        // Log query complexity
-                        const complexity = getQueryComplexity(context.request.query);
-                        console.log('Query complexity:', complexity);
-                        
-                        // Rate limit based on complexity
-                        if (complexity > 100 && !context.request.user?.isPremium) {
-                            throw new Error('Query too complex for basic tier');
-                        }
-                    }
-                };
-            }
-        }
+        depthLimit(10)
     ]
 });</code></pre>
                 </div>
@@ -1620,6 +1009,14 @@ const server = new ApolloServer({
                         <p>Fine-grained field access control with dynamic permissions and data filtering.</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Footer Navigation -->
+        <section class="guide-footer">
+            <div class="footer-nav">
+                <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
+                <a href="#" onclick="downloadGuide()" class="btn btn-primary">Download PDF</a>
             </div>
         </section>
     </main>
@@ -1938,39 +1335,6 @@ const server = new ApolloServer({
             font-size: 1rem;
         }
 
-        .remaining-sections {
-            margin: 4rem 0;
-        }
-
-        .section-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .preview-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .preview-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .preview-controls {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .preview-controls li {
-            color: var(--text-muted);
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
-        }
-
         .guide-footer {
             text-align: center;
             padding: 3rem 0;
@@ -1985,6 +1349,41 @@ const server = new ApolloServer({
             flex-wrap: wrap;
         }
 
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
         @media (max-width: 768px) {
             .guide-header h1 {
                 font-size: 2rem;
@@ -1996,8 +1395,7 @@ const server = new ApolloServer({
             }
             
             .toc-grid,
-            .summary-grid,
-            .section-preview {
+            .summary-grid {
                 grid-template-columns: 1fr;
             }
             
