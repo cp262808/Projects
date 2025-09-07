@@ -1,16 +1,17 @@
-import createMDX from '@next/mdx';
+import createMDX from '@next/mdx'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Include MDX in page extensions
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   reactStrictMode: true,
-  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
-};
+}
 
 const withMDX = createMDX({
   options: {
     remarkPlugins: [],
     rehypePlugins: [],
   },
-});
+})
 
-export default withMDX(nextConfig);
+export default withMDX(nextConfig)
