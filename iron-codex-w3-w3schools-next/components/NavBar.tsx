@@ -98,9 +98,10 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Topics strip with ghost arrows */}
+      {/* Topics strip with ghost arrows (inset to container) */}
       <div className="relative text-white" style={{backgroundColor:"#282A35"}}>
-        <div className="relative">
+        {/* The container wrapper is *relative*; arrows and fades are positioned within it */}
+        <div className="relative mx-auto max-w-[1200px] px-5">
           {/* Ghost arrows */}
           <button type="button" aria-label="Scroll left" onClick={()=>scrollByAmount("left")} className={`topics-arrow-ghost topics-arrow-left-ghost ${canLeft ? "" : "opacity-0 pointer-events-none"}`}>
             <span aria-hidden>‹</span>
@@ -109,12 +110,12 @@ export default function NavBar(){
             <span aria-hidden>›</span>
           </button>
 
-          {/* Edge fades */}
+          {/* Edge fades, also inside container */}
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
           {/* Scrollable topics */}
-          <div ref={scrollerRef} className="mx-auto max-w-[1200px] px-5 h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap topics-scroll ps-12 pe-12">
+          <div ref={scrollerRef} className="h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap topics-scroll ps-8 pe-8">
             {['HTML','CSS','JAVASCRIPT','SQL','PYTHON','JAVA','PHP','HOW TO','W3.CSS','C','C++','C#','BOOTSTRAP','REACT','MYSQL','JQUERY','EXCEL','XML','DJANGO','NUMPY','PANDAS','NODEJS','DSA'].map((t)=> (
               <Link key={t} href="#" className="whitespace-nowrap hover:text-[#04AA6D]">{t}</Link>
             ))}
@@ -122,9 +123,9 @@ export default function NavBar(){
         </div>
       </div>
 
-      {/* Component-scoped global CSS to avoid editing globals.css */}
+      {/* Component-scoped CSS so you don't need globals changes */}
       <style jsx global>{`
-        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:32px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.75); z-index:25; }
+        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:28px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.75); z-index:25; }
         .topics-arrow-ghost:hover{ color:#fff; }
         .topics-arrow-left-ghost{ left:0; }
         .topics-arrow-right-ghost{ right:0; }
@@ -133,7 +134,7 @@ export default function NavBar(){
         .topics-scroll { scrollbar-width: none; }
         .topics-scroll { -ms-overflow-style: none; }
 
-        .edge-fade { position:absolute; top:0; bottom:0; width:48px; pointer-events:none; }
+        .edge-fade { position:absolute; top:0; bottom:0; width:36px; pointer-events:none; }
         .edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
         .edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
       `}</style>
