@@ -10,11 +10,13 @@ export default function Page(){
   return (
     <>
       <NavBar />
-      <Hero />
-      <Tiles />
-      <Featured />
-      <Example />
-      <Stats />
+      <main id="main">
+        <Hero />
+        <Tiles />
+        <Featured />
+        <Example />
+        <Stats />
+      </main>
       <Footer />
     </>
   )

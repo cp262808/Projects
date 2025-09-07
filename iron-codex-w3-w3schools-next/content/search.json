@@ -1,0 +1,69 @@
+[
+  {
+    "title": "API Security \u2014 References",
+    "url": "/topics/api-security",
+    "keywords": [
+      "jwt",
+      "oauth",
+      "scopes",
+      "rate limit"
+    ]
+  },
+  {
+    "title": "Cloud Security \u2014 References",
+    "url": "/topics/cloud-security",
+    "keywords": [
+      "aws",
+      "kms",
+      "iam",
+      "vpc"
+    ]
+  },
+  {
+    "title": "Identity & Access \u2014 References",
+    "url": "/topics/identity-access",
+    "keywords": [
+      "oidc",
+      "sso",
+      "mfa",
+      "rbac"
+    ]
+  },
+  {
+    "title": "Container Security \u2014 References",
+    "url": "/topics/container-security",
+    "keywords": [
+      "kubernetes",
+      "runtime",
+      "psp",
+      "images"
+    ]
+  },
+  {
+    "title": "Zero Trust \u2014 References",
+    "url": "/topics/zero-trust",
+    "keywords": [
+      "mtls",
+      "device trust",
+      "ztna"
+    ]
+  },
+  {
+    "title": "SaaS Security \u2014 Guide",
+    "url": "/guides/saas-security",
+    "keywords": [
+      "dlp",
+      "sso",
+      "scim"
+    ]
+  },
+  {
+    "title": "NIST 800-53 \u2014 Compliance Map",
+    "url": "/maps/nist-800-53",
+    "keywords": [
+      "nist",
+      "controls",
+      "framework"
+    ]
+  }
+]

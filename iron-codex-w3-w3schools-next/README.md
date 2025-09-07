@@ -1,19 +1,24 @@
-# Iron Codex — W3Schools‑style Site (Next.js + Tailwind)
+# Iron Codex — W3Schools‑style (Next.js + Tailwind + MDX)
 
 Vercel‑ready scaffold mirroring the W3Schools aesthetic: sticky header with mega‑menus, dark domain bar, big hero search, pastel tiles, example blocks, and a clean footer.
 
 ## Deploy (no CLI needed)
-1. Make a new GitHub repo and upload these files (web UI or GitHub Desktop).
+1. Create a new GitHub repo and upload these files at the **repo root**.
 2. In **Vercel**, import the repo → Deploy.
+
+## Preview without production
+- Push to a non-`main` branch; Vercel auto-creates **Preview Deploys**.
 
 ## Tech
 - Next.js App Router (14+)
 - Tailwind CSS
-- TypeScript
+- MDX support
+- Vercel Analytics
 
-## Add content later
-- Place JSON under `/content` or add MDX pages.
-- Topic pages in `app/topics/...`, guides in `app/guides/...`.
+## Search
+- Client UI: `/search`
+- API route: `/api/search` reading from `/content/search.json`
 
-## Common error fix
-If you ever see `ReferenceError: module is not defined in ES module scope`, ensure **PostCSS config uses CommonJS** (`postcss.config.cjs`) like in this repo.
+## Common gotchas
+- If you see `module is not defined in ES module scope`, ensure `postcss.config.cjs` exists (not `.js`).
+- If the site 404s, check that `package.json` is at the **repo root**, or set **Root Directory** in Vercel.
