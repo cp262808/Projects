@@ -65,3 +65,14 @@ html,body{ @apply bg-white text-[var(--ink)]; }
   right: 0;
   background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0));
 }
+
+/* --- Topics scroller arrows (rectangular) --- */
+.topics-arrow {
+  @apply z-20 absolute top-1/2 -translate-y-1/2 h-8 px-3 rounded-md border border-white/20 bg-black/35 hover:bg-black/55 text-white;
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+.topics-arrow-left { left: 6px; }
+.topics-arrow-right { right: 6px; }
+
+/* Increase inner padding so first/last links don't sit under arrows */
+.topics-pad { @apply pl-14 pr-14; }
