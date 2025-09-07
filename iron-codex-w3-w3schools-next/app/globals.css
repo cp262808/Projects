@@ -20,3 +20,27 @@ html,body{ @apply bg-white text-[var(--ink)]; }
 .btn-w3 { @apply bg-w3green text-white hover:brightness-95; }
 .text-w3yellow { color: #FFF4A3; }
 .bg-w3dark-hero { background-color: #282A35; }
+
+/* ---- Top nav spacing polish ---- */
+.nav-wrap { @apply container flex items-center gap-3 h-14; }
+.nav-brand { @apply flex items-center gap-2 shrink-0 whitespace-nowrap; }
+.nav-primary { @apply hidden lg:flex items-center gap-3 xl:gap-4 text-sm font-medium text-gray-700 whitespace-nowrap; }
+.nav-utils { @apply hidden xl:flex items-center gap-4 text-sm font-medium text-gray-700 whitespace-nowrap; }
+.nav-link { @apply px-3 py-2 rounded hover:bg-gray-100; }
+.nav-search { @apply hidden md:flex items-center ml-auto; }
+.nav-search input { @apply input-pill pl-9 pr-10 w-[240px] md:w-[300px] lg:w-[360px]; }
+.nav-mobile { @apply md:hidden ml-auto p-2; }
+
+/* Topics strip */
+.topics-strip { @apply container h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap; }
+.topics-item { @apply hover:text-w3green whitespace-nowrap; }
+
+/* Buttons & pills */
+.input-pill { @apply rounded-full border border-gray-300 bg-white px-4 py-2 leading-5; }
+.input-pill:focus { @apply outline-none ring-2 ring-blue-300; }
+.btn-pill { @apply rounded-full px-4 py-2 font-semibold leading-5; }
+.btn-w3 { @apply bg-w3green text-white hover:brightness-95; }
+
+/* Hero color tokens */
+.text-w3yellow { color: #FFF4A3; }
+.bg-w3dark-hero { background-color: #282A35; }
