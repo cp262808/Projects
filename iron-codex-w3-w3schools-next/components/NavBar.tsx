@@ -34,16 +34,16 @@ export default function NavBar(){
     };
   }, []);
 
-  // Click-to-page
+  // Click-to-page (slightly smaller step)
   const pageScroll = (dir: "left" | "right") => {
     const el = scrollerRef.current;
     if (!el) return;
-    const step = Math.max(260, Math.floor(el.clientWidth * 0.65));
+    const step = Math.max(220, Math.floor(el.clientWidth * 0.5));
     el.scrollBy({ left: dir === "left" ? -step : step, behavior: "smooth" });
-    setTimeout(updateArrows, 260);
+    setTimeout(updateArrows, 220);
   };
 
-  // Hold-to-scroll
+  // Hold-to-scroll (slower)
   const rafRef = useRef<number | null>(null);
   const holdDirRef = useRef<null | "left" | "right">(null);
   const startHold = (dir: "left" | "right") => {
@@ -52,7 +52,7 @@ export default function NavBar(){
     holdDirRef.current = dir;
     const tick = () => {
       if (holdDirRef.current === null) return;
-      const speed = Math.max(6, Math.floor(el.clientWidth * 0.012)); // px per frame
+      const speed = Math.max(3, Math.floor(el.clientWidth * 0.006)); // slower px/frame
       el.scrollLeft += (holdDirRef.current === "left" ? -speed : speed);
       updateArrows();
       rafRef.current = requestAnimationFrame(tick);
@@ -71,17 +71,17 @@ export default function NavBar(){
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Top white nav — spaced */}
+      {/* Top white nav — tightened spacing */}
       <div className="bg-white border-b">
-        <nav className="mx-auto max-w-[1280px] px-6 h-[58px] flex items-center gap-5 justify-between">
+        <nav className="mx-auto max-w-[1240px] px-5 h-[56px] flex items-center gap-4 justify-between">
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 whitespace-nowrap">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
             <img src="/logo-ironcodex.svg" width="28" height="28" alt="Iron Codex" />
             <span className="font-extrabold tracking-tight text-gray-900">Iron Codex</span>
           </Link>
 
           {/* Primary menu */}
-          <ul className="hidden lg:flex items-center gap-5 xl:gap-7 text-[15px] font-medium text-gray-800 whitespace-nowrap">
+          <ul className="hidden lg:flex items-center gap-4 xl:gap-6 text-[14.5px] font-medium text-gray-800 whitespace-nowrap">
             {['Tutorials','References','Exercises','Certifications'].map((label)=> (
               <li key={label}>
                 <button className="topnav-link">{label} ▾</button>
@@ -94,7 +94,7 @@ export default function NavBar(){
             <form action="/search" className="hidden md:flex items-center">
               <label className="sr-only" htmlFor="header-search">Search</label>
               <div className="relative">
-                <input id="header-search" name="q" type="search" placeholder="Search..." className="rounded-full border border-gray-300 bg-white pl-9 pr-10 w-[260px] md:w-[320px] lg:w-[380px] py-2 leading-5 text-[15px]" />
+                <input id="header-search" name="q" type="search" placeholder="Search..." className="rounded-full border border-gray-300 bg-white pl-9 pr-10 w-[240px] md:w-[300px] lg:w-[340px] py-2 leading-5 text-[14.5px]" />
                 <svg aria-hidden className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" viewBox="0 0 24 24" fill="none">
                   <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/>
                   <path d="M20 20L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -108,7 +108,7 @@ export default function NavBar(){
               </div>
             </form>
 
-            <ul className="hidden xl:flex items-center gap-2 text-[15px] font-medium text-gray-800 whitespace-nowrap">
+            <ul className="hidden xl:flex items-center gap-1.5 text-[14.5px] font-medium text-gray-800 whitespace-nowrap">
               <li><Link href="/spaces" className="topnav-link">Spaces</Link></li>
               <li><Link href="/teams" className="topnav-link">For Teams</Link></li>
               <li><Link href="/upgrade" className="topnav-link">Upgrade</Link></li>
@@ -126,9 +126,9 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Topics strip */}
+      {/* Topics strip — smaller type/spacing, inset chevrons, slower hold scroll */}
       <div className="relative text-white" style={{backgroundColor:"#282A35"}}>
-        <div className="relative mx-auto max-w-[1280px] px-6">
+        <div className="relative mx-auto max-w-[1240px] px-5">
           {/* Arrows */}
           <button
             type="button"
@@ -161,10 +161,10 @@ export default function NavBar(){
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
-          {/* Topics chips */}
+          {/* Topics chips (hover-only shadow) */}
           <div
             ref={scrollerRef}
-            className="h-[54px] flex items-center gap-7 md:gap-8 overflow-x-auto uppercase text-[1rem] tracking-wide whitespace-nowrap topics-scroll ps-14 pe-14"
+            className="h-[50px] flex items-center gap-6 md:gap-6.5 overflow-x-auto uppercase text-[0.92rem] tracking-wide whitespace-nowrap topics-scroll ps-12 pe-12"
           >
             {topics.map((t)=> (
               <Link
@@ -181,10 +181,10 @@ export default function NavBar(){
 
       {/* Scoped CSS */}
       <style jsx global>{`
-        .topnav-link{ display:inline-flex; align-items:center; padding: 10px 14px; border-radius: 6px; }
+        .topnav-link{ display:inline-flex; align-items:center; padding: 9px 12px; border-radius: 6px; }
         .topnav-link:hover{ background:#f1f1f1; }
 
-        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:36px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.78); z-index:25; }
+        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:34px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.78); z-index:25; }
         .topics-arrow-ghost:hover{ color:#fff; }
         .topics-arrow-ghost::before{ content:""; position:absolute; inset:0; background: transparent; transition: background .15s ease, box-shadow .15s ease; }
         .topics-arrow-ghost:hover::before{ background: rgba(0,0,0,.10); box-shadow: inset 0 0 0 1px rgba(255,255,255,.10), 0 4px 10px rgba(0,0,0,.25); }
@@ -195,12 +195,13 @@ export default function NavBar(){
         .topics-scroll { scrollbar-width: none; }
         .topics-scroll { -ms-overflow-style: none; }
 
-        .edge-fade { position:absolute; top:0; bottom:0; width:44px; pointer-events:none; }
+        .edge-fade { position:absolute; top:0; bottom:0; width:40px; pointer-events:none; }
         .edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
         .edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
 
-        .topics-chip{ padding: 8px 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,.15); transition: box-shadow .15s ease, background .15s ease, color .15s ease; }
-        .topics-chip:hover{ box-shadow: 0 4px 12px rgba(0,0,0,.28); background: rgba(255,255,255,.03); }
+        /* Topic chips: hover-only shadow (no default outline/border) */
+        .topics-chip{ padding: 7px 10px; border-radius: 8px; transition: box-shadow .15s ease, background .15s ease, color .15s ease; }
+        .topics-chip:hover{ box-shadow: 0 4px 12px rgba(0,0,0,.26); background: rgba(255,255,255,.03); }
       `}</style>
     </header>
   )
