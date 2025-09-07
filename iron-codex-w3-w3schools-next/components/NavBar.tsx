@@ -43,6 +43,8 @@ export default function NavBar(){
     setTimeout(updateArrows, 240);
   };
 
+  const topics = ['API','Cloud','Identity','Containers','Network','SaaS','IR','Crypto','DevSecOps','Threat Intel','Mobile','Web','DB','IoT','AI/ML','Supply','Zero Trust','Compliance','Risk','Arch','Vuln','Pentest'];
+
   return (
     <header className="sticky top-0 z-50">
       {/* Top white nav */}
@@ -100,7 +102,6 @@ export default function NavBar(){
 
       {/* Topics strip with ghost arrows (inset to container) */}
       <div className="relative text-white" style={{backgroundColor:"#282A35"}}>
-        {/* The container wrapper is *relative*; arrows and fades are positioned within it */}
         <div className="relative mx-auto max-w-[1200px] px-5">
           {/* Ghost arrows */}
           <button type="button" aria-label="Scroll left" onClick={()=>scrollByAmount("left")} className={`topics-arrow-ghost topics-arrow-left-ghost ${canLeft ? "" : "opacity-0 pointer-events-none"}`}>
@@ -110,22 +111,22 @@ export default function NavBar(){
             <span aria-hidden>›</span>
           </button>
 
-          {/* Edge fades, also inside container */}
+          {/* Edge fades */}
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
-          {/* Scrollable topics */}
-          <div ref={scrollerRef} className="h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap topics-scroll ps-8 pe-8">
-            {['HTML','CSS','JAVASCRIPT','SQL','PYTHON','JAVA','PHP','HOW TO','W3.CSS','C','C++','C#','BOOTSTRAP','REACT','MYSQL','JQUERY','EXCEL','XML','DJANGO','NUMPY','PANDAS','NODEJS','DSA'].map((t)=> (
-              <Link key={t} href="#" className="whitespace-nowrap hover:text-[#04AA6D]">{t}</Link>
+          {/* Scrollable topics (CYBERSECURITY list restored) */}
+          <div ref={scrollerRef} className="h-11 md:h-12 flex items-center gap-5 md:gap-6 overflow-x-auto uppercase text-sm md:text-[0.95rem] tracking-wide whitespace-nowrap topics-scroll ps-10 pe-10">
+            {topics.map((t)=> (
+              <Link key={t} href={`/topics/${t.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`} className="whitespace-nowrap hover:text-[#04AA6D]">{t}</Link>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Component-scoped CSS so you don't need globals changes */}
+      {/* Scoped CSS (no globals changes needed) */}
       <style jsx global>{`
-        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:28px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.75); z-index:25; }
+        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:30px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.75); z-index:25; }
         .topics-arrow-ghost:hover{ color:#fff; }
         .topics-arrow-left-ghost{ left:0; }
         .topics-arrow-right-ghost{ right:0; }
@@ -134,7 +135,7 @@ export default function NavBar(){
         .topics-scroll { scrollbar-width: none; }
         .topics-scroll { -ms-overflow-style: none; }
 
-        .edge-fade { position:absolute; top:0; bottom:0; width:36px; pointer-events:none; }
+        .edge-fade { position:absolute; top:0; bottom:0; width:40px; pointer-events:none; }
         .edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
         .edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
       `}</style>
