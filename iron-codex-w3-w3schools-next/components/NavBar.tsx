@@ -34,7 +34,7 @@ export default function NavBar(){
     };
   }, []);
 
-  // Click-to-page (slightly smaller step)
+  // Click-to-page (kept modest)
   const pageScroll = (dir: "left" | "right") => {
     const el = scrollerRef.current;
     if (!el) return;
@@ -52,7 +52,7 @@ export default function NavBar(){
     holdDirRef.current = dir;
     const tick = () => {
       if (holdDirRef.current === null) return;
-      const speed = Math.max(3, Math.floor(el.clientWidth * 0.006)); // slower px/frame
+      const speed = Math.max(3, Math.floor(el.clientWidth * 0.006)); // px/frame
       el.scrollLeft += (holdDirRef.current === "left" ? -speed : speed);
       updateArrows();
       rafRef.current = requestAnimationFrame(tick);
@@ -71,54 +71,59 @@ export default function NavBar(){
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Top white nav — tightened spacing */}
+      {/* Top white nav — items line up next to each other */}
       <div className="bg-white border-b">
-        <nav className="mx-auto max-w-[1240px] px-5 h-[56px] flex items-center gap-4 justify-between">
+        <nav className="mx-auto max-w-[1240px] px-5 h-[56px] flex items-stretch gap-0">
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 whitespace-nowrap pr-2">
             <img src="/logo-ironcodex.svg" width="28" height="28" alt="Iron Codex" />
             <span className="font-extrabold tracking-tight text-gray-900">Iron Codex</span>
           </Link>
 
-          {/* Primary menu */}
-          <ul className="hidden lg:flex items-center gap-4 xl:gap-6 text-[14.5px] font-medium text-gray-800 whitespace-nowrap">
+          {/* Primary menu (no gaps; each link fills bar height) */}
+          <ul className="hidden lg:flex items-stretch gap-0 text-[14.5px] font-medium text-gray-800 whitespace-nowrap">
             {['Tutorials','References','Exercises','Certifications'].map((label)=> (
-              <li key={label}>
-                <button className="topnav-link">{label} ▾</button>
+              <li key={label} className="h-full">
+                <button className="topnav-link h-full">{label} ▾</button>
               </li>
             ))}
           </ul>
 
-          {/* Search + utils */}
-          <div className="flex items-center gap-2 md:gap-3 ml-auto">
-            <form action="/search" className="hidden md:flex items-center">
-              <label className="sr-only" htmlFor="header-search">Search</label>
-              <div className="relative">
-                <input id="header-search" name="q" type="search" placeholder="Search..." className="rounded-full border border-gray-300 bg-white pl-9 pr-10 w-[240px] md:w-[300px] lg:w-[340px] py-2 leading-5 text-[14.5px]" />
-                <svg aria-hidden className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" viewBox="0 0 24 24" fill="none">
+          {/* Spacer to push search + utils to the right, but keep single row */}
+          <div className="flex-1 min-w-[8px]" />
+
+          {/* Search */}
+          <form action="/search" className="hidden md:flex items-stretch h-full">
+            <label className="sr-only" htmlFor="header-search">Search</label>
+            <div className="relative my-auto">
+              <input id="header-search" name="q" type="search" placeholder="Search..." className="rounded-full border border-gray-300 bg-white pl-9 pr-10 w-[240px] md:w-[300px] lg:w-[320px] py-2 leading-5 text-[14.5px]" />
+              <svg aria-hidden className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/>
+                <path d="M20 20L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </svg>
+              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-900" aria-label="Search">
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                   <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/>
                   <path d="M20 20L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 </svg>
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-900" aria-label="Search">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
-                    <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M20 20L17 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </button>
-              </div>
-            </form>
+              </button>
+            </div>
+          </form>
 
-            <ul className="hidden xl:flex items-center gap-1.5 text-[14.5px] font-medium text-gray-800 whitespace-nowrap">
-              <li><Link href="/spaces" className="topnav-link">Spaces</Link></li>
-              <li><Link href="/teams" className="topnav-link">For Teams</Link></li>
-              <li><Link href="/upgrade" className="topnav-link">Upgrade</Link></li>
-              <li><Link href="/certified" className="topnav-link">Get Certified</Link></li>
-              <li><Link href="/signin" className="ml-2 px-4 py-2 rounded-full bg-[#04AA6D] text-white font-semibold hover:brightness-95">Sign In</Link></li>
-            </ul>
-          </div>
+          {/* Utility links (no gaps; same height as bar) */}
+          <ul className="hidden xl:flex items-stretch gap-0 text-[14.5px] font-medium text-gray-800 whitespace-nowrap pl-2">
+            {['Spaces','For Teams','Upgrade','Get Certified'].map((label)=> (
+              <li key={label} className="h-full">
+                <Link href={`/${label.toLowerCase().replace(/\s+/g,'-')}`} className="topnav-link h-full">{label}</Link>
+              </li>
+            ))}
+            <li className="h-full">
+              <Link href="/signin" className="px-4 inline-flex items-center h-full rounded-full bg-[#04AA6D] text-white font-semibold hover:brightness-95 ml-2">Sign In</Link>
+            </li>
+          </ul>
 
           {/* Mobile burger */}
-          <button className="md:hidden ml-2 p-2" aria-expanded={open} aria-controls="navmenu" onClick={()=>setOpen(v=>!v)} aria-label="Toggle menu">
+          <button className="md:hidden ml-2 p-2 my-auto" aria-expanded={open} aria-controls="navmenu" onClick={()=>setOpen(v=>!v)} aria-label="Toggle menu">
             <div className="w-6 h-[2px] bg-black mb-1"></div>
             <div className="w-6 h-[2px] bg-black mb-1"></div>
             <div className="w-6 h-[2px] bg-black"></div>
@@ -126,7 +131,7 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Topics strip — smaller type/spacing, inset chevrons, slower hold scroll */}
+      {/* Topics strip — inset chevrons, hover-only chip shadows */}
       <div className="relative text-white" style={{backgroundColor:"#282A35"}}>
         <div className="relative mx-auto max-w-[1240px] px-5">
           {/* Arrows */}
@@ -161,10 +166,10 @@ export default function NavBar(){
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
-          {/* Topics chips (hover-only shadow) */}
+          {/* Topics chips */}
           <div
             ref={scrollerRef}
-            className="h-[50px] flex items-center gap-6 md:gap-6.5 overflow-x-auto uppercase text-[0.92rem] tracking-wide whitespace-nowrap topics-scroll ps-12 pe-12"
+            className="h-[50px] flex items-center gap-5 overflow-x-auto uppercase text-[0.92rem] tracking-wide whitespace-nowrap topics-scroll ps-12 pe-12"
           >
             {topics.map((t)=> (
               <Link
@@ -181,9 +186,11 @@ export default function NavBar(){
 
       {/* Scoped CSS */}
       <style jsx global>{`
-        .topnav-link{ display:inline-flex; align-items:center; padding: 9px 12px; border-radius: 6px; }
+        /* Top nav link: fill bar height so items line up edge-to-edge */
+        .topnav-link{ display:inline-flex; align-items:center; padding: 0 12px; border-radius: 6px; height: 100%; }
         .topnav-link:hover{ background:#f1f1f1; }
 
+        /* Ghost arrows + hover background/shadow */
         .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:34px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.78); z-index:25; }
         .topics-arrow-ghost:hover{ color:#fff; }
         .topics-arrow-ghost::before{ content:""; position:absolute; inset:0; background: transparent; transition: background .15s ease, box-shadow .15s ease; }
@@ -199,8 +206,8 @@ export default function NavBar(){
         .edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
         .edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
 
-        /* Topic chips: hover-only shadow (no default outline/border) */
-        .topics-chip{ padding: 7px 10px; border-radius: 8px; transition: box-shadow .15s ease, background .15s ease, color .15s ease; }
+        /* Topic chips: hover-only shadow */
+        .topics-chip{ display:inline-flex; align-items:center; padding: 7px 10px; border-radius: 8px; transition: box-shadow .15s ease, background .15s ease, color .15s ease; }
         .topics-chip:hover{ box-shadow: 0 4px 12px rgba(0,0,0,.26); background: rgba(255,255,255,.03); }
       `}</style>
     </header>
