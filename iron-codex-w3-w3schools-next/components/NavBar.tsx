@@ -31,7 +31,7 @@ export default function NavBar(){
           <ul id="navmenu" className={`md:flex hidden items-center h-13`}>
             <li><Link className="px-4 h-13 flex items-center text-sm font-medium hover:bg-gray-100" href="/">Home</Link></li>
 
-            <li className="relative group">
+            <li className="relative">
               <button
                 className="px-4 h-13 flex items-center text-sm font-medium hover:bg-gray-100"
                 onMouseEnter={()=>setOpenMega("refs")}
@@ -69,7 +69,7 @@ export default function NavBar(){
               </div>
             </li>
 
-            <li className="relative group">
+            <li className="relative">
               <button
                 className="px-4 h-13 flex items-center text-sm font-medium hover:bg-gray-100"
                 onMouseEnter={()=>setOpenMega("guides")}
@@ -111,7 +111,6 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* mobile drawer */}
       {open && (
         <div className="md:hidden border-b bg-white">
           <ul className="container py-2">
