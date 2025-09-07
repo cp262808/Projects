@@ -1,11 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function NavBar(){
   const [open, setOpen] = useState(false);
   const [openMega, setOpenMega] = useState<string | null>(null);
+
+  // --- Topics scroller state ---
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(true);
+
+  const updateArrows = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanLeft(scrollLeft > 0);
+    setCanRight(scrollLeft + clientWidth < scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    // Ensure we start at far left
+    scrollerRef.current?.scrollTo({ left: 0 });
+    updateArrows();
+    const el = scrollerRef.current;
+    if (!el) return;
+    const onScroll = () => updateArrows();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    const onResize = () => updateArrows();
+    window.addEventListener("resize", onResize);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  const scrollByAmount = (dir: "left" | "right") => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const step = Math.max(220, Math.floor(el.clientWidth * 0.6));
+    const delta = dir === "left" ? -step : step;
+    el.scrollBy({ left: delta, behavior: "smooth" });
+    // A small delayed update to ensure arrows reflect post-scroll state
+    setTimeout(updateArrows, 240);
+  };
 
   return (
     <header className="sticky top-0 z-50">
@@ -104,9 +143,34 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Dark topics strip (non-wrapping, scrollable) */}
-      <div className="bg-w3dark text-white">
-        <div className="topics-strip">
+      {/* Dark topics strip with arrows */}
+      <div className="relative bg-w3dark text-white">
+        {/* Left arrow */}
+        <button
+          type="button"
+          aria-label="Scroll left"
+          onClick={()=>scrollByAmount("left")}
+          className={`absolute left-1 top-1/2 -translate-y-1/2 z-10 rounded-full border border-white/20 bg-black/30 hover:bg-black/50 w-8 h-8 hidden sm:flex items-center justify-center ${canLeft ? "" : "opacity-0 pointer-events-none"}`}
+        >
+          ‹
+        </button>
+
+        {/* Right arrow */}
+        <button
+          type="button"
+          aria-label="Scroll right"
+          onClick={()=>scrollByAmount("right")}
+          className={`absolute right-1 top-1/2 -translate-y-1/2 z-10 rounded-full border border-white/20 bg-black/30 hover:bg-black/50 w-8 h-8 hidden sm:flex items-center justify-center ${canRight ? "" : "opacity-0 pointer-events-none"}`}
+        >
+          ›
+        </button>
+
+        {/* Edge fades */}
+        <div className="edge-fade edge-left" aria-hidden="true"></div>
+        <div className="edge-fade edge-right" aria-hidden="true"></div>
+
+        {/* Scrollable topics */}
+        <div ref={scrollerRef} className="topics-strip topics-scroll pr-10 pl-10">
           {['API','Cloud','Identity','Containers','Network','SaaS','IR','Crypto','DevSecOps','Threat Intel','Mobile','Web','DB','IoT','AI/ML','Supply','Zero Trust','Compliance','Risk','Arch','Vuln','Pentest'].map((t)=> (
             <Link key={t} href="#" className="topics-item">{t}</Link>
           ))}

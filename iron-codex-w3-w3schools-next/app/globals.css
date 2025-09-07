@@ -44,3 +44,24 @@ html,body{ @apply bg-white text-[var(--ink)]; }
 /* Hero color tokens */
 .text-w3yellow { color: #FFF4A3; }
 .bg-w3dark-hero { background-color: #282A35; }
+
+/* Hide horizontal scrollbar in the topics strip while preserving scrollability */
+.topics-scroll::-webkit-scrollbar { height: 0px; }
+.topics-scroll { scrollbar-width: none; } /* Firefox */
+.topics-scroll { -ms-overflow-style: none; } /* IE/Edge */
+
+/* Edge gradient overlays */
+.edge-fade {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 36px;
+  pointer-events: none;
+}
+.edge-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0));
+}
+.edge-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0));
+}
