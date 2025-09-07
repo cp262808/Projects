@@ -1,4 +1,3 @@
-\
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -44,7 +43,7 @@ export default function NavBar(){
     setTimeout(updateArrows, 260);
   };
 
-  // Hold-to-scroll (press & hold to continuously scroll)
+  // Hold-to-scroll
   const rafRef = useRef<number | null>(null);
   const holdDirRef = useRef<null | "left" | "right">(null);
   const startHold = (dir: "left" | "right") => {
@@ -53,7 +52,7 @@ export default function NavBar(){
     holdDirRef.current = dir;
     const tick = () => {
       if (holdDirRef.current === null) return;
-      const speed = Math.max(6, Math.floor(el.clientWidth * 0.012)); // px per frame (~700–1200px/s)
+      const speed = Math.max(6, Math.floor(el.clientWidth * 0.012)); // px per frame
       el.scrollLeft += (holdDirRef.current === "left" ? -speed : speed);
       updateArrows();
       rafRef.current = requestAnimationFrame(tick);
@@ -72,7 +71,7 @@ export default function NavBar(){
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Top white nav — more spaced like W3 */}
+      {/* Top white nav — spaced */}
       <div className="bg-white border-b">
         <nav className="mx-auto max-w-[1280px] px-6 h-[58px] flex items-center gap-5 justify-between">
           {/* Brand */}
@@ -127,10 +126,10 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Topics strip with inset chevrons, hold-to-scroll, and chip shadows */}
+      {/* Topics strip */}
       <div className="relative text-white" style={{backgroundColor:"#282A35"}}>
         <div className="relative mx-auto max-w-[1280px] px-6">
-          {/* Ghost arrows */}
+          {/* Arrows */}
           <button
             type="button"
             aria-label="Scroll left"
@@ -162,7 +161,7 @@ export default function NavBar(){
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
-          {/* Cybersecurity topics */}
+          {/* Topics chips */}
           <div
             ref={scrollerRef}
             className="h-[54px] flex items-center gap-7 md:gap-8 overflow-x-auto uppercase text-[1rem] tracking-wide whitespace-nowrap topics-scroll ps-14 pe-14"
@@ -180,55 +179,28 @@ export default function NavBar(){
         </div>
       </div>
 
-      {/* Scoped CSS for nav, arrows, and chips */}
+      {/* Scoped CSS */}
       <style jsx global>{`
-        /* Top nav link like W3, with a touch more spacing */
-        .topnav-link{
-          display:inline-flex; align-items:center;
-          padding: 10px 14px; border-radius: 6px;
-        }
+        .topnav-link{ display:inline-flex; align-items:center; padding: 10px 14px; border-radius: 6px; }
         .topnav-link:hover{ background:#f1f1f1; }
 
-        /* Ghost arrows + hover background/shadow */
-        .topics-arrow-ghost{
-          position:absolute; top:0; bottom:0; width:36px;
-          display:flex; align-items:center; justify-content:center;
-          color: rgba(255,255,255,.78); z-index:25;
-        }
+        .topics-arrow-ghost{ position:absolute; top:0; bottom:0; width:36px; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.78); z-index:25; }
         .topics-arrow-ghost:hover{ color:#fff; }
-        .topics-arrow-ghost::before{
-          content:""; position:absolute; inset:0;
-          background: transparent;
-          transition: background .15s ease, box-shadow .15s ease;
-        }
-        .topics-arrow-ghost:hover::before{
-          background: rgba(0,0,0,.10);
-          box-shadow: inset 0 0 0 1px rgba(255,255,255,.10), 0 4px 10px rgba(0,0,0,.25);
-        }
+        .topics-arrow-ghost::before{ content:""; position:absolute; inset:0; background: transparent; transition: background .15s ease, box-shadow .15s ease; }
+        .topics-arrow-ghost:hover::before{ background: rgba(0,0,0,.10); box-shadow: inset 0 0 0 1px rgba(255,255,255,.10), 0 4px 10px rgba(0,0,0,.25); }
         .topics-arrow-left-ghost{ left:0; }
         .topics-arrow-right-ghost{ right:0; }
 
-        /* Hide native scrollbar (keep scrollability) */
         .topics-scroll::-webkit-scrollbar { height: 0px; }
         .topics-scroll { scrollbar-width: none; }
         .topics-scroll { -ms-overflow-style: none; }
 
-        /* Edge fades inside container */
         .edge-fade { position:absolute; top:0; bottom:0; width:44px; pointer-events:none; }
         .edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
         .edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
 
-        /* Topic chips (shadow no border) */
-        .topics-chip{
-          padding: 8px 10px;
-          border-radius: 8px;
-          box-shadow: 0 2px 6px rgba(0,0,0,.15);
-          transition: box-shadow .15s ease, background .15s ease, color .15s ease;
-        }
-        .topics-chip:hover{
-          box-shadow: 0 4px 12px rgba(0,0,0,.28);
-          background: rgba(255,255,255,.03);
-        }
+        .topics-chip{ padding: 8px 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,.15); transition: box-shadow .15s ease, background .15s ease, color .15s ease; }
+        .topics-chip:hover{ box-shadow: 0 4px 12px rgba(0,0,0,.28); background: rgba(255,255,255,.03); }
       `}</style>
     </header>
   )
