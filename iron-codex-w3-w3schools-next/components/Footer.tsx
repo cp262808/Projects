@@ -41,7 +41,7 @@ export default function Footer(){
         </div>
       </div>
       <div className="container border-t border-gray-700 mt-6 pt-4 text-center text-gray-400 text-sm">
-        © 2025 Iron Codex. The world's largest cybersecurity reference platform.
+        © 2024 Iron Codex. The world's largest cybersecurity reference platform.
       </div>
     </footer>
   )
