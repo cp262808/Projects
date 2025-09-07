@@ -1,9 +1,5 @@
 import { PropsWithChildren } from "react";
-
-export function Steps({ children }: PropsWithChildren) {
-  return <ol className="counter-reset list-none pl-0">{children}</ol>;
-}
-
+export function Steps({ children }: PropsWithChildren) { return <ol className="counter-reset list-none pl-0">{children}</ol>; }
 export function Step({ children }: PropsWithChildren) {
   return (
     <li className="relative pl-10 mb-4">

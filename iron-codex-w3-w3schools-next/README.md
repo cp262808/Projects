@@ -1,24 +1,20 @@
-# Iron Codex — W3Schools‑style (Next.js + Tailwind + MDX)
+# Iron Codex — W3-style (Next.js + Tailwind + MDX)
 
-Vercel‑ready scaffold mirroring the W3Schools aesthetic: sticky header with mega‑menus, dark domain bar, big hero search, pastel tiles, example blocks, and a clean footer.
+Vercel‑ready scaffold mirroring the W3 design (header + topics scroller + hero), with MDX docs, syntax highlighting, and a search API.
 
-## Deploy (no CLI needed)
-1. Create a new GitHub repo and upload these files at the **repo root**.
-2. In **Vercel**, import the repo → Deploy.
+## Deploy (no CLI)
+1. Upload these files to a GitHub repo at the **root**.
+2. Import the repo in **Vercel** → Deploy.
 
-## Preview without production
+## Preview / PRs
 - Push to a non-`main` branch; Vercel auto-creates **Preview Deploys**.
 
-## Tech
-- Next.js App Router (14+)
-- Tailwind CSS
-- MDX support
-- Vercel Analytics
+## Includes
+- Next.js App Router (14+), Tailwind CSS
+- MDX with remark-gfm + rehype-pretty-code (Shiki)
+- W3-style top nav, ghost-arrow topics scroller, steel-book logo
+- Search UI at `/search` + `/api/search`
 
-## Search
-- Client UI: `/search`
-- API route: `/api/search` reading from `/content/search.json`
-
-## Common gotchas
-- If you see `module is not defined in ES module scope`, ensure `postcss.config.cjs` exists (not `.js`).
-- If the site 404s, check that `package.json` is at the **repo root**, or set **Root Directory** in Vercel.
+## Notes
+- If you hit ESM errors with PostCSS, ensure `postcss.config.cjs` is present (not `.js`).
+- If you see 404s after import, verify `package.json` is at the Vercel **Root Directory**.

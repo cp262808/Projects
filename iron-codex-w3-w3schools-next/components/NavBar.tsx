@@ -7,7 +7,7 @@ export default function NavBar(){
   const [open, setOpen] = useState(false);
   const [openMega, setOpenMega] = useState<string | null>(null);
 
-  // --- Topics scroller state ---
+  // Topics scroller state
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(true);
@@ -21,7 +21,6 @@ export default function NavBar(){
   };
 
   useEffect(() => {
-    // Start at the far left
     scrollerRef.current?.scrollTo({ left: 0 });
     updateArrows();
     const el = scrollerRef.current;
@@ -58,49 +57,13 @@ export default function NavBar(){
 
           {/* Primary nav (spaced, non-wrapping) */}
           <ul className="nav-primary">
-            <li className="relative">
-              <button
-                className="nav-link"
-                onMouseEnter={()=>setOpenMega("guides")}
-                onFocus={()=>setOpenMega("guides")}
-                onMouseLeave={()=>setOpenMega(null)}
-              >
-                Guides ▾
-              </button>
-            </li>
-            <li className="relative">
-              <button
-                className="nav-link"
-                onMouseEnter={()=>setOpenMega("refs")}
-                onFocus={()=>setOpenMega("refs")}
-                onMouseLeave={()=>setOpenMega(null)}
-              >
-                References ▾
-              </button>
-            </li>
-            <li className="relative">
-              <button
-                className="nav-link"
-                onMouseEnter={()=>setOpenMega("examples")}
-                onFocus={()=>setOpenMega("examples")}
-                onMouseLeave={()=>setOpenMega(null)}
-              >
-                Examples ▾
-              </button>
-            </li>
-            <li className="relative">
-              <button
-                className="nav-link"
-                onMouseEnter={()=>setOpenMega("certs")}
-                onFocus={()=>setOpenMega("certs")}
-                onMouseLeave={()=>setOpenMega(null)}
-              >
-                Certifications ▾
-              </button>
-            </li>
+            <li><button className="nav-link" onMouseEnter={()=>setOpenMega("guides")} onFocus={()=>setOpenMega("guides")} onMouseLeave={()=>setOpenMega(null)}>Guides ▾</button></li>
+            <li><button className="nav-link" onMouseEnter={()=>setOpenMega("refs")} onFocus={()=>setOpenMega("refs")} onMouseLeave={()=>setOpenMega(null)}>References ▾</button></li>
+            <li><button className="nav-link" onMouseEnter={()=>setOpenMega("examples")} onFocus={()=>setOpenMega("examples")} onMouseLeave={()=>setOpenMega(null)}>Examples ▾</button></li>
+            <li><button className="nav-link" onMouseEnter={()=>setOpenMega("certs")} onFocus={()=>setOpenMega("certs")} onMouseLeave={()=>setOpenMega(null)}>Certifications ▾</button></li>
           </ul>
 
-          {/* Compact search box with fixed widths per breakpoint */}
+          {/* Compact search */}
           <form action="/search" className="nav-search">
             <label className="sr-only" htmlFor="header-search">Search</label>
             <div className="relative">
@@ -118,7 +81,7 @@ export default function NavBar(){
             </div>
           </form>
 
-          {/* Utility links – only on wide screens */}
+          {/* Utility links */}
           <ul className="nav-utils ml-2">
             <li><Link href="/spaces" className="hover:underline">Spaces</Link></li>
             <li><Link href="/teams" className="hover:underline">For Teams</Link></li>
@@ -128,13 +91,7 @@ export default function NavBar(){
           </ul>
 
           {/* Mobile menu toggle */}
-          <button
-            className="nav-mobile"
-            aria-expanded={open}
-            aria-controls="navmenu"
-            onClick={()=>setOpen(v=>!v)}
-            aria-label="Toggle menu"
-          >
+          <button className="nav-mobile" aria-expanded={open} aria-controls="navmenu" onClick={()=>setOpen(v=>!v)} aria-label="Toggle menu">
             <div className="w-6 h-[2px] bg-black mb-1"></div>
             <div className="w-6 h-[2px] bg-black mb-1"></div>
             <div className="w-6 h-[2px] bg-black"></div>
@@ -142,38 +99,26 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Dark topics strip with arrows ON the scroller */}
+      {/* Dark topics strip with W3-like ghost arrows */}
       <div className="relative bg-w3dark text-white">
         <div className="relative">
-          {/* Left arrow inside the pane */}
-          <button
-            type="button"
-            aria-label="Scroll left"
-            onClick={()=>scrollByAmount("left")}
-            className={`topics-arrow topics-arrow-left ${canLeft ? "" : "opacity-0 pointer-events-none"}`}
-          >
-            ‹
+          {/* Ghost arrows (no button chrome) */}
+          <button type="button" aria-label="Scroll left" onClick={()=>scrollByAmount("left")} className={`topics-arrow-ghost topics-arrow-left-ghost ${canLeft ? "" : "opacity-0 pointer-events-none"}`}>
+            <span aria-hidden>‹</span>
           </button>
-
-          {/* Right arrow inside the pane */}
-          <button
-            type="button"
-            aria-label="Scroll right"
-            onClick={()=>scrollByAmount("right")}
-            className={`topics-arrow topics-arrow-right ${canRight ? "" : "opacity-0 pointer-events-none"}`}
-          >
-            ›
+          <button type="button" aria-label="Scroll right" onClick={()=>scrollByAmount("right")} className={`topics-arrow-ghost topics-arrow-right-ghost ${canRight ? "" : "opacity-0 pointer-events-none"}`}>
+            <span aria-hidden>›</span>
           </button>
 
           {/* Edge fades */}
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
+          {/* Scrollable topics (your cybersecurity topics) */}
           <div ref={scrollerRef} className="topics-strip topics-scroll topics-pad">
             {['API','Cloud','Identity','Containers','Network','SaaS','IR','Crypto','DevSecOps','Threat Intel','Mobile','Web','DB','IoT','AI/ML','Supply','Zero Trust','Compliance','Risk','Arch','Vuln','Pentest'].map((t)=> (
               <Link key={t} href="#" className="topics-item">{t}</Link>
             ))}
-            <span className="text-gray-400">›</span>
           </div>
         </div>
       </div>
