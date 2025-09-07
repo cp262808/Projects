@@ -1,78 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ---- Ghost arrows for topics strip ---- */
+.topics-arrow-ghost{
+  position:absolute; top:0; bottom:0;
+  width:32px;
+  display:flex; align-items:center; justify-content:center;
+  color: rgba(255,255,255,.75);
+  z-index:25;
+}
+.topics-arrow-ghost:hover{ color:#fff; }
+.topics-arrow-left-ghost{ left:0; }
+.topics-arrow-right-ghost{ right:0; }
 
-:root{ --ink:#111827; --muted:#6b7280; }
-html,body{ @apply bg-white text-[var(--ink)]; }
-.container{ @apply max-w-[1200px] mx-auto px-5; }
-
-.btn{@apply inline-flex items-center gap-2 font-semibold rounded-md px-4 py-2 transition;}
-.btn-primary{@apply bg-w3green text-white hover:brightness-95;}
-.btn-outline{@apply border-2 border-white text-white hover:opacity-90;}
-.tile{@apply rounded-xl p-6 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition;}
-.card{@apply bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition;}
-:focus-visible{outline:3px solid #60a5fa; outline-offset:2px; border-radius:6px;}
-
-/* W3-style pills */
-.input-pill { @apply rounded-full border border-gray-300 bg-white px-4 py-2; }
-.input-pill:focus { @apply outline-none ring-2 ring-blue-300; }
-.btn-pill { @apply rounded-full px-4 py-2 font-semibold; }
-.btn-w3 { @apply bg-w3green text-white hover:brightness-95; }
-.text-w3yellow { color: #FFF4A3; }
-.bg-w3dark-hero { background-color: #282A35; }
-
-/* ---- Top nav spacing polish ---- */
-.nav-wrap { @apply container flex items-center gap-3 h-14; }
-.nav-brand { @apply flex items-center gap-2 shrink-0 whitespace-nowrap; }
-.nav-primary { @apply hidden lg:flex items-center gap-3 xl:gap-4 text-sm font-medium text-gray-700 whitespace-nowrap; }
-.nav-utils { @apply hidden xl:flex items-center gap-4 text-sm font-medium text-gray-700 whitespace-nowrap; }
-.nav-link { @apply px-3 py-2 rounded hover:bg-gray-100; }
-.nav-search { @apply hidden md:flex items-center ml-auto; }
-.nav-search input { @apply input-pill pl-9 pr-10 w-[240px] md:w-[300px] lg:w-[360px]; }
-.nav-mobile { @apply md:hidden ml-auto p-2; }
-
-/* Topics strip */
-.topics-strip { @apply container h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap; }
-.topics-item { @apply hover:text-w3green whitespace-nowrap; }
-
-/* Buttons & pills */
-.input-pill { @apply rounded-full border border-gray-300 bg-white px-4 py-2 leading-5; }
-.input-pill:focus { @apply outline-none ring-2 ring-blue-300; }
-.btn-pill { @apply rounded-full px-4 py-2 font-semibold leading-5; }
-.btn-w3 { @apply bg-w3green text-white hover:brightness-95; }
-
-/* Hero color tokens */
-.text-w3yellow { color: #FFF4A3; }
-.bg-w3dark-hero { background-color: #282A35; }
-
-/* Hide horizontal scrollbar in the topics strip while preserving scrollability */
+/* Hide native scrollbar (keep scrollability) */
 .topics-scroll::-webkit-scrollbar { height: 0px; }
 .topics-scroll { scrollbar-width: none; } /* Firefox */
 .topics-scroll { -ms-overflow-style: none; } /* IE/Edge */
 
-/* Edge gradient overlays */
-.edge-fade {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 36px;
-  pointer-events: none;
-}
-.edge-left {
-  left: 0;
-  background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0));
-}
-.edge-right {
-  right: 0;
-  background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0));
-}
+/* W3-like edge fades */
+.edge-fade { position:absolute; top:0; bottom:0; width:48px; pointer-events:none; }
+.edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
+.edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
 
-/* --- Topics scroller arrows (rectangular) --- */
-.topics-arrow {
-  @apply z-20 absolute top-1/2 -translate-y-1/2 h-8 px-3 rounded-md border border-white/20 bg-black/35 hover:bg-black/55 text-white;
-  box-shadow: 0 2px 8px rgba(0,0,0,.35);
-}
-.topics-arrow-left { left: 6px; }
-.topics-arrow-right { right: 6px; }
+/* Padding so the first/last item don't sit under the chevrons */
+.topics-pad{ padding-left: 3rem; padding-right: 3rem; }
 
-/* Increase inner padding so first/last links don't sit under arrows */
-.topics-pad { @apply pl-14 pr-14; }
+/* (Optional, if you haven't already) topics strip spacing */
+.topics-strip{ display:flex; align-items:center; gap:1rem; height:2.5rem; overflow-x:auto; text-transform:uppercase; font-size:.75rem; letter-spacing:.04em; white-space:nowrap; }
+.topics-item{ white-space:nowrap; }
