@@ -73,14 +73,14 @@ export default function NavBar(){
     <header className="sticky top-0 z-50">
       {/* Top white nav — wider but centered */}
       <div className="bg-white border-b">
-        <nav className="mx-auto max-w-[1520px] px-5 md:px-6 h-[56px] flex items-stretch gap-0">
+        <nav className="mx-auto max-w-[1600px] px-5 md:px-6 h-[56px] flex items-stretch gap-0">
           {/* Brand */}
           <Link href="/" className="flex items-center gap-2 shrink-0 whitespace-nowrap pr-2">
             <img src="/logo-ironcodex.svg" width="28" height="28" alt="Iron Codex" />
             <span className="font-extrabold tracking-tight text-gray-900">Iron Codex</span>
           </Link>
 
-          {/* Primary menu (flush buttons, tighter padding) */}
+          {/* Primary menu (flush buttons) */}
           <ul className="hidden lg:flex items-stretch gap-0 text-[14.5px] font-medium text-gray-800 whitespace-nowrap">
             {['Tutorials','References','Exercises','Certifications'].map((label)=> (
               <li key={label} className="h-full">
@@ -110,7 +110,7 @@ export default function NavBar(){
             </div>
           </form>
 
-          {/* Utility links (flush, tighter) */}
+          {/* Utility links (flush) */}
           <ul className="hidden xl:flex items-stretch gap-0 text-[14.5px] font-medium text-gray-800 whitespace-nowrap pl-2">
             {['Spaces','For Teams','Upgrade','Get Certified'].map((label)=> (
               <li key={label} className="h-full">
@@ -131,9 +131,9 @@ export default function NavBar(){
         </nav>
       </div>
 
-      {/* Topics strip — wider container, arrows flush with chips */}
+      {/* Topics strip — wider container, arrows *touch* chips (no spacing) */}
       <div className="relative text-white" style={{backgroundColor:"#282A35"}}>
-        <div className="relative mx-auto max-w-[1520px] px-5 md:px-6">
+        <div className="relative mx-auto max-w-[1600px] px-5 md:px-6">
           {/* Arrows */}
           <button
             type="button"
@@ -162,14 +162,14 @@ export default function NavBar(){
             <span aria-hidden>›</span>
           </button>
 
-          {/* Edge fades */}
+          {/* Edge fades start AFTER arrow zones to avoid visual gap */}
           <div className="edge-fade edge-left" aria-hidden="true"></div>
           <div className="edge-fade edge-right" aria-hidden="true"></div>
 
-          {/* Chips: smaller font, tight chip padding, flush with arrows */}
+          {/* Chips: no side padding so first/last chip abuts arrow zones */}
           <div
             ref={scrollerRef}
-            className="h-[48px] flex items-center gap-4 overflow-x-auto uppercase text-[0.88rem] tracking-wide whitespace-nowrap topics-scroll ps-2 pe-2"
+            className="h-[48px] flex items-center gap-4 overflow-x-auto uppercase text-[0.88rem] tracking-wide whitespace-nowrap topics-scroll ps-0 pe-0"
           >
             {topics.map((t)=> (
               <Link
@@ -186,7 +186,7 @@ export default function NavBar(){
 
       {/* Scoped CSS */}
       <style jsx global>{`
-        /* Top nav link: fill bar height; tighter padding so buttons sit closer */
+        /* Top nav link: fill bar height; tight padding so buttons sit closer */
         .topnav-link{ display:inline-flex; align-items:center; padding: 0 10px; border-radius: 6px; height: 100%; }
         .topnav-link:hover{ background:#f1f1f1; }
 
@@ -203,10 +203,10 @@ export default function NavBar(){
         .topics-scroll { scrollbar-width: none; }
         .topics-scroll { -ms-overflow-style: none; }
 
-        /* Edge fades sized to arrow width */
+        /* Edge fades sized to arrow width, START after arrow zones to avoid the “gap look” */
         .edge-fade { position:absolute; top:0; bottom:0; width:30px; pointer-events:none; }
-        .edge-left { left:0; background: linear-gradient(to right, rgba(40,42,53,1) 25%, rgba(40,42,53,0)); }
-        .edge-right { right:0; background: linear-gradient(to left, rgba(40,42,53,1) 25%, rgba(40,42,53,0)); }
+        .edge-left { left:30px; background: linear-gradient(to right, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
+        .edge-right { right:30px; background: linear-gradient(to left, rgba(40,42,53,1) 20%, rgba(40,42,53,0)); }
 
         /* Topic chips: hover-only shadow; slightly tighter padding */
         .topics-chip{ display:inline-flex; align-items:center; padding: 6px 9px; border-radius: 8px; transition: box-shadow .15s ease, background .15s ease, color .15s ease; }
