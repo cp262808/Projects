@@ -1,34 +1,40 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Deep Dive Guides - Iron Codex</title>
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link href="assets/css/main.css" rel="stylesheet" />
     <meta
-      name="description"
       content="Comprehensive security guides with practical controls and implementation examples"
+      name="description"
     />
   </head>
   <body data-page="guides">
     <header class="header">
       <nav class="nav container">
-        <a href="index.html" class="logo">🛡️ Iron Codex</a>
+        <a class="logo" href="index.html">🛡️ Iron Codex</a>
         <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="topics.html" class="nav-link">Topics</a></li>
-          <li><a href="guides.html" class="nav-link active">Guides</a></li>
-          <li><a href="tools.html" class="nav-link">Tools</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="topics.html">Topics</a></li>
+          <li><a class="nav-link active" href="guides.html">Guides</a></li>
+          <li><a class="nav-link" href="tools.html">Tools</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </nav>
     </header>
-
     <main>
       <!-- Page Header -->
       <section class="hero">
@@ -56,11 +62,9 @@
           </div>
         </div>
       </section>
-
       <!-- Guide Categories -->
       <section class="guide-categories">
         <h2 class="section-title">Choose Your Focus Area</h2>
-
         <!-- Infrastructure Security -->
         <div class="guide-section">
           <h3 class="category-title">Infrastructure Security</h3>
@@ -84,7 +88,7 @@
                 <span class="highlight">Serverless Protection</span>
               </div>
               <div class="guide-actions">
-                <a href="guides/cloud-security.html" class="btn btn-primary"
+                <a class="btn btn-primary" href="guides/cloud-security.html"
                   >View Guide</a
                 >
                 <button
@@ -95,12 +99,11 @@
                 </button>
               </div>
             </div>
-
             <div class="guide-card">
               <div class="guide-header">
                 <div class="guide-icon">📦</div>
                 <div class="guide-info">
-                  <h3>Containers & Kubernetes</h3>
+                  <h3>Containers &amp; Kubernetes</h3>
                   <p class="guide-meta">29 controls • Intermediate level</p>
                 </div>
               </div>
@@ -115,7 +118,7 @@
                 <span class="highlight">Runtime Protection</span>
               </div>
               <div class="guide-actions">
-                <a href="guides/containers.html" class="btn btn-primary"
+                <a class="btn btn-primary" href="guides/containers.html"
                   >View Guide</a
                 >
                 <button
@@ -128,7 +131,6 @@
             </div>
           </div>
         </div>
-
         <!-- Application Security -->
         <div class="guide-section">
           <h3 class="category-title">Application Security</h3>
@@ -147,12 +149,12 @@
                 configuration with code examples.
               </p>
               <div class="guide-highlights">
-                <span class="highlight">REST & GraphQL</span>
+                <span class="highlight">REST &amp; GraphQL</span>
                 <span class="highlight">OAuth 2.0/OIDC</span>
                 <span class="highlight">Rate Limiting</span>
               </div>
               <div class="guide-actions">
-                <a href="guides/api-security.html" class="btn btn-primary"
+                <a class="btn btn-primary" href="guides/api-security.html"
                   >View Guide</a
                 >
                 <button
@@ -163,7 +165,6 @@
                 </button>
               </div>
             </div>
-
             <div class="guide-card">
               <div class="guide-header">
                 <div class="guide-icon">🏢</div>
@@ -183,7 +184,7 @@
                 <span class="highlight">Compliance</span>
               </div>
               <div class="guide-actions">
-                <a href="guides/saas-security.html" class="btn btn-primary"
+                <a class="btn btn-primary" href="guides/saas-security.html"
                   >View Guide</a
                 >
                 <button
@@ -196,16 +197,15 @@
             </div>
           </div>
         </div>
-
         <!-- Identity & Operations -->
         <div class="guide-section">
-          <h3 class="category-title">Identity & Operations</h3>
+          <h3 class="category-title">Identity &amp; Operations</h3>
           <div class="guides-grid">
             <div class="guide-card">
               <div class="guide-header">
                 <div class="guide-icon">🔑</div>
                 <div class="guide-info">
-                  <h3>Identity & Access Management</h3>
+                  <h3>Identity &amp; Access Management</h3>
                   <p class="guide-meta">47 controls • Advanced level</p>
                 </div>
               </div>
@@ -220,18 +220,17 @@
                 <span class="highlight">Identity Governance</span>
               </div>
               <div class="guide-actions">
-                <a href="guides/iam.html" class="btn btn-primary">View Guide</a>
+                <a class="btn btn-primary" href="guides/iam.html">View Guide</a>
                 <button class="btn btn-outline" onclick="copyLink('iam')">
                   Share
                 </button>
               </div>
             </div>
-
             <div class="guide-card">
               <div class="guide-header">
                 <div class="guide-icon">🚨</div>
                 <div class="guide-info">
-                  <h3>Logging & Incident Response</h3>
+                  <h3>Logging &amp; Incident Response</h3>
                   <p class="guide-meta">25 controls • Intermediate level</p>
                 </div>
               </div>
@@ -246,7 +245,7 @@
                 <span class="highlight">Threat Hunting</span>
               </div>
               <div class="guide-actions">
-                <a href="guides/incident-response.html" class="btn btn-primary"
+                <a class="btn btn-primary" href="guides/incident-response.html"
                   >View Guide</a
                 >
                 <button
@@ -260,7 +259,6 @@
           </div>
         </div>
       </section>
-
       <!-- What's Included -->
       <section class="whats-included">
         <div class="container">
@@ -301,7 +299,6 @@
           </div>
         </div>
       </section>
-
       <!-- Coming Soon -->
       <section class="coming-soon">
         <div class="container">
@@ -318,7 +315,7 @@
               </div>
               <div class="upcoming-item">
                 <span class="upcoming-icon">🤖</span>
-                <span>AI/ML Security & Privacy</span>
+                <span>AI/ML Security &amp; Privacy</span>
               </div>
               <div class="upcoming-item">
                 <span class="upcoming-icon">🌐</span>
@@ -329,7 +326,6 @@
         </div>
       </section>
     </main>
-
     <footer class="footer">
       <div class="container">
         <div class="footer-content">
@@ -355,11 +351,10 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
       </div>
     </footer>
-
     <script src="assets/js/main.js"></script>
     <script>
       // Guide-specific functionality
@@ -403,7 +398,6 @@
         });
       });
     </script>
-
     <style>
       .guide-categories {
         padding: 2rem 0 4rem 0;

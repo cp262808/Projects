@@ -1,169 +1,174 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Cryptography - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
     <meta
-      name="description"
       content="Encryption algorithms, hashing, digital signatures, PKI, key management, and crypto implementations"
+      name="description"
     />
   </head>
   <body data-page="topic">
     <header class="header">
       <nav class="nav container">
-        <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+        <a class="logo" href="../index.html">🛡️ Iron Codex</a>
         <ul class="nav-menu">
-          <li><a href="../index.html" class="nav-link">Home</a></li>
-          <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-          <li><a href="../guides.html" class="nav-link">Guides</a></li>
-          <li><a href="../tools.html" class="nav-link">Tools</a></li>
-          <li><a href="../about.html" class="nav-link">About</a></li>
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link active" href="../topics.html">Topics</a></li>
+          <li><a class="nav-link" href="../guides.html">Guides</a></li>
+          <li><a class="nav-link" href="../tools.html">Tools</a></li>
+          <li><a class="nav-link" href="../about.html">About</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </nav>
     </header>
-
-    <main class="container topic-content">
-      <section class="topic-header">
-        <nav class="breadcrumb">
-          <a href="../topics.html">Topics</a> / <span>Cryptography</span>
-        </nav>
-        <h1>Cryptography</h1>
-        <div class="topic-meta">
-          <span class="meta-item">15 Controls</span>
-          <span class="meta-item">Intermediate Level</span>
-          <span class="meta-item">Foundation</span>
-        </div>
-        <p class="topic-intro">
-          Encryption algorithms, hashing, digital signatures, PKI, key
-          management, and crypto implementations for protecting data
-          confidentiality and integrity.
-        </p>
-      </section>
-
-      <section class="controls-section">
-        <h2>Security Controls (15)</h2>
-
-        <div class="control-group">
-          <h3>Encryption</h3>
-          <div class="control-item">
-            <h4>Symmetric Encryption</h4>
-            <p>
-              Implement AES encryption for high-performance data protection.
-            </p>
+    <main class="topic-content">
+      <div class="container">
+        <section class="topic-header">
+          <nav class="breadcrumb">
+            <a href="../topics.html">Topics</a> / <span>Cryptography</span>
+          </nav>
+          <h1>Cryptography</h1>
+          <div class="topic-meta">
+            <span class="meta-item">15 Controls</span>
+            <span class="meta-item">Intermediate Level</span>
+            <span class="meta-item">Foundation</span>
           </div>
-          <div class="control-item">
-            <h4>Asymmetric Encryption</h4>
-            <p>Use RSA/ECC for key exchange and digital signatures.</p>
+          <p class="topic-intro">
+            Encryption algorithms, hashing, digital signatures, PKI, key
+            management, and crypto implementations for protecting data
+            confidentiality and integrity.
+          </p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="controls-section">
+          <h2>Security Controls (15)</h2>
+          <div class="control-group">
+            <h3>Encryption</h3>
+            <div class="control-item">
+              <h4>Symmetric Encryption</h4>
+              <p>
+                Implement AES encryption for high-performance data protection.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Asymmetric Encryption</h4>
+              <p>Use RSA/ECC for key exchange and digital signatures.</p>
+            </div>
+            <div class="control-item">
+              <h4>Hybrid Encryption Systems</h4>
+              <p>
+                Combine symmetric and asymmetric encryption for optimal security
+                and performance.
+              </p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Hybrid Encryption Systems</h4>
-            <p>
-              Combine symmetric and asymmetric encryption for optimal security
-              and performance.
-            </p>
+          <div class="control-group">
+            <h3>Hashing &amp; Integrity</h3>
+            <div class="control-item">
+              <h4>Cryptographic Hash Functions</h4>
+              <p>Use SHA-256 or SHA-3 for data integrity verification.</p>
+            </div>
+            <div class="control-item">
+              <h4>Message Authentication Codes</h4>
+              <p>Implement HMAC for authenticated message integrity.</p>
+            </div>
+            <div class="control-item">
+              <h4>Digital Signatures</h4>
+              <p>Deploy digital signature schemes for non-repudiation.</p>
+            </div>
           </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Hashing & Integrity</h3>
-          <div class="control-item">
-            <h4>Cryptographic Hash Functions</h4>
-            <p>Use SHA-256 or SHA-3 for data integrity verification.</p>
+          <div class="control-group">
+            <h3>Key Management</h3>
+            <div class="control-item">
+              <h4>Key Generation</h4>
+              <p>Use cryptographically secure random number generators.</p>
+            </div>
+            <div class="control-item">
+              <h4>Key Storage</h4>
+              <p>Secure key storage using HSMs or secure key vaults.</p>
+            </div>
+            <div class="control-item">
+              <h4>Key Rotation</h4>
+              <p>Implement regular key rotation and lifecycle management.</p>
+            </div>
+            <div class="control-item">
+              <h4>Key Escrow</h4>
+              <p>Establish key recovery procedures for business continuity.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Message Authentication Codes</h4>
-            <p>Implement HMAC for authenticated message integrity.</p>
+          <div class="control-group">
+            <h3>PKI &amp; Certificates</h3>
+            <div class="control-item">
+              <h4>Public Key Infrastructure</h4>
+              <p>
+                Deploy PKI for certificate-based authentication and encryption.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Certificate Management</h4>
+              <p>
+                Manage certificate lifecycle including issuance, renewal, and
+                revocation.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Certificate Validation</h4>
+              <p>
+                Implement proper certificate chain validation and CRL checking.
+              </p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Digital Signatures</h4>
-            <p>Deploy digital signature schemes for non-repudiation.</p>
+          <div class="control-group">
+            <h3>Implementation Security</h3>
+            <div class="control-item">
+              <h4>Secure Coding Practices</h4>
+              <p>Avoid common cryptographic implementation vulnerabilities.</p>
+            </div>
+            <div class="control-item">
+              <h4>Side-Channel Attack Protection</h4>
+              <p>
+                Implement countermeasures against timing and power analysis
+                attacks.
+              </p>
+            </div>
           </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Key Management</h3>
-          <div class="control-item">
-            <h4>Key Generation</h4>
-            <p>Use cryptographically secure random number generators.</p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="topic-footer">
+          <div class="footer-nav">
+            <a class="btn btn-outline" href="../topics.html"
+              >← Back to Topics</a
+            >
+            <a class="btn btn-primary" href="container-security.html"
+              >Next: Container Security →</a
+            >
           </div>
-          <div class="control-item">
-            <h4>Key Storage</h4>
-            <p>Secure key storage using HSMs or secure key vaults.</p>
-          </div>
-          <div class="control-item">
-            <h4>Key Rotation</h4>
-            <p>Implement regular key rotation and lifecycle management.</p>
-          </div>
-          <div class="control-item">
-            <h4>Key Escrow</h4>
-            <p>Establish key recovery procedures for business continuity.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>PKI & Certificates</h3>
-          <div class="control-item">
-            <h4>Public Key Infrastructure</h4>
-            <p>
-              Deploy PKI for certificate-based authentication and encryption.
-            </p>
-          </div>
-          <div class="control-item">
-            <h4>Certificate Management</h4>
-            <p>
-              Manage certificate lifecycle including issuance, renewal, and
-              revocation.
-            </p>
-          </div>
-          <div class="control-item">
-            <h4>Certificate Validation</h4>
-            <p>
-              Implement proper certificate chain validation and CRL checking.
-            </p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Implementation Security</h3>
-          <div class="control-item">
-            <h4>Secure Coding Practices</h4>
-            <p>Avoid common cryptographic implementation vulnerabilities.</p>
-          </div>
-          <div class="control-item">
-            <h4>Side-Channel Attack Protection</h4>
-            <p>
-              Implement countermeasures against timing and power analysis
-              attacks.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="topic-footer">
-        <div class="footer-nav">
-          <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
-          <a href="container-security.html" class="btn btn-primary"
-            >Next: Container Security →</a
-          >
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
-
     <footer class="footer">
       <div class="container">
         <div class="footer-bottom">
-          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
       </div>
     </footer>
-
     <script src="../assets/js/main.js"></script>
     <style>
       .topic-content {

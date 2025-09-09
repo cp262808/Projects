@@ -1,569 +1,615 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>API Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <meta name="description" content="REST/GraphQL security, authentication, rate limiting, input validation, and API gateway protection">
-</head>
-<body data-page="topic">
+    <link href="../assets/css/main.css" rel="stylesheet" />
+    <meta
+      content="REST/GraphQL security, authentication, rate limiting, input validation, and API gateway protection"
+      name="description"
+    />
+  </head>
+  <body data-page="topic">
     <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
+      <nav class="nav container">
+        <a class="logo" href="../index.html">🛡️ Iron Codex</a>
+        <ul class="nav-menu">
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link active" href="../topics.html">Topics</a></li>
+          <li><a class="nav-link" href="../guides.html">Guides</a></li>
+          <li><a class="nav-link" href="../tools.html">Tools</a></li>
+          <li><a class="nav-link" href="../about.html">About</a></li>
+        </ul>
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
     </header>
-
-    <main class="container topic-content">
+    <main class="topic-content">
+      <div class="container">
         <section class="topic-header">
-            <nav class="breadcrumb">
-                <a href="../topics.html">Topics</a> / <span>API Security</span>
-            </nav>
-            <h1>API Security</h1>
-            <div class="topic-meta">
-                <span class="meta-item">24 Controls</span>
-                <span class="meta-item">Intermediate Level</span>
-                <span class="meta-item">Application</span>
-            </div>
-            <p class="topic-intro">REST/GraphQL security, authentication, rate limiting, input validation, and API gateway protection for securing application programming interfaces.</p>
+          <nav class="breadcrumb">
+            <a href="../topics.html">Topics</a> / <span>API Security</span>
+          </nav>
+          <h1>API Security</h1>
+          <div class="topic-meta">
+            <span class="meta-item">24 Controls</span>
+            <span class="meta-item">Intermediate Level</span>
+            <span class="meta-item">Application</span>
+          </div>
+          <p class="topic-intro">
+            REST/GraphQL security, authentication, rate limiting, input
+            validation, and API gateway protection for securing application
+            programming interfaces.
+          </p>
         </section>
-
+      </div>
+      <div class="container">
         <section class="topic-overview">
-            <h2>Overview</h2>
-            <p>API security is crucial in modern applications where APIs serve as the backbone of digital services. This topic covers comprehensive security measures for REST, GraphQL, and other API types, addressing authentication, authorization, input validation, and threat mitigation.</p>
-            
-            <div class="key-concepts">
-                <h3>Key Concepts Covered</h3>
-                <div class="concepts-grid">
-                    <div class="concept-card">
-                        <h4>Authentication & Authorization</h4>
-                        <p>OAuth 2.0, JWT tokens, API keys, and access control mechanisms</p>
-                    </div>
-                    <div class="concept-card">
-                        <h4>Input Validation</h4>
-                        <p>Comprehensive validation of API requests and data sanitization</p>
-                    </div>
-                    <div class="concept-card">
-                        <h4>Rate Limiting</h4>
-                        <p>Throttling mechanisms to prevent abuse and DDoS attacks</p>
-                    </div>
-                    <div class="concept-card">
-                        <h4>API Gateway Security</h4>
-                        <p>Centralized security policy enforcement and management</p>
-                    </div>
-                </div>
+          <h2>Overview</h2>
+          <p>
+            API security is crucial in modern applications where APIs serve as
+            the backbone of digital services. This topic covers comprehensive
+            security measures for REST, GraphQL, and other API types, addressing
+            authentication, authorization, input validation, and threat
+            mitigation.
+          </p>
+          <div class="key-concepts">
+            <h3>Key Concepts Covered</h3>
+            <div class="concepts-grid">
+              <div class="concept-card">
+                <h4>Authentication &amp; Authorization</h4>
+                <p>
+                  OAuth 2.0, JWT tokens, API keys, and access control mechanisms
+                </p>
+              </div>
+              <div class="concept-card">
+                <h4>Input Validation</h4>
+                <p>
+                  Comprehensive validation of API requests and data sanitization
+                </p>
+              </div>
+              <div class="concept-card">
+                <h4>Rate Limiting</h4>
+                <p>Throttling mechanisms to prevent abuse and DDoS attacks</p>
+              </div>
+              <div class="concept-card">
+                <h4>API Gateway Security</h4>
+                <p>Centralized security policy enforcement and management</p>
+              </div>
             </div>
+          </div>
         </section>
-
+      </div>
+      <div class="container">
         <section class="controls-section">
-            <h2>Security Controls (24)</h2>
-            
-            <div class="control-group">
-                <h3>Authentication & Authorization</h3>
-                
-                <div class="control-item">
-                    <h4>Implement OAuth 2.0 / OpenID Connect</h4>
-                    <p>Use industry-standard OAuth 2.0 for API authentication with OpenID Connect for identity.</p>
-                    <div class="implementation-example">
-                        <strong>Implementation:</strong>
-                        <ul>
-                            <li>Authorization Code Flow for web applications</li>
-                            <li>Client Credentials Flow for service-to-service</li>
-                            <li>Proper scope management and validation</li>
-                            <li>Token refresh and expiration handling</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="control-item">
-                    <h4>JWT Token Security</h4>
-                    <p>Properly implement and validate JSON Web Tokens with strong signing algorithms.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>API Key Management</h4>
-                    <p>Secure generation, distribution, and rotation of API keys.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Fine-Grained Authorization</h4>
-                    <p>Implement resource-level and operation-level access controls.</p>
-                </div>
+          <h2>Security Controls (24)</h2>
+          <div class="control-group">
+            <h3>Authentication &amp; Authorization</h3>
+            <div class="control-item">
+              <h4>Implement OAuth 2.0 / OpenID Connect</h4>
+              <p>
+                Use industry-standard OAuth 2.0 for API authentication with
+                OpenID Connect for identity.
+              </p>
+              <div class="implementation-example">
+                <strong>Implementation:</strong>
+                <ul>
+                  <li>Authorization Code Flow for web applications</li>
+                  <li>Client Credentials Flow for service-to-service</li>
+                  <li>Proper scope management and validation</li>
+                  <li>Token refresh and expiration handling</li>
+                </ul>
+              </div>
             </div>
-
-            <div class="control-group">
-                <h3>Input Validation & Data Protection</h3>
-
-                <div class="control-item">
-                    <h4>Comprehensive Input Validation</h4>
-                    <p>Validate all API inputs including headers, parameters, and request bodies.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Schema Validation</h4>
-                    <p>Use JSON Schema or OpenAPI specifications to validate request/response structure.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>SQL Injection Prevention</h4>
-                    <p>Use parameterized queries and ORM frameworks to prevent injection attacks.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>NoSQL Injection Prevention</h4>
-                    <p>Implement proper input sanitization for NoSQL databases.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Data Encryption</h4>
-                    <p>Encrypt sensitive data in transit and at rest using strong encryption.</p>
-                </div>
+            <div class="control-item">
+              <h4>JWT Token Security</h4>
+              <p>
+                Properly implement and validate JSON Web Tokens with strong
+                signing algorithms.
+              </p>
             </div>
-
-            <div class="control-group">
-                <h3>Rate Limiting & DDoS Protection</h3>
-
-                <div class="control-item">
-                    <h4>Request Rate Limiting</h4>
-                    <p>Implement per-user and per-IP rate limiting to prevent abuse.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Burst Protection</h4>
-                    <p>Handle traffic spikes while maintaining legitimate user access.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Resource-Based Rate Limits</h4>
-                    <p>Different rate limits for different API endpoints based on resource intensity.</p>
-                </div>
+            <div class="control-item">
+              <h4>API Key Management</h4>
+              <p>Secure generation, distribution, and rotation of API keys.</p>
             </div>
-
-            <div class="control-group">
-                <h3>API Gateway & Infrastructure</h3>
-
-                <div class="control-item">
-                    <h4>API Gateway Security</h4>
-                    <p>Centralize security policies through API gateway implementation.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Load Balancing & Failover</h4>
-                    <p>Implement proper load distribution and failover mechanisms.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>API Versioning Security</h4>
-                    <p>Secure handling of API versions and deprecated endpoints.</p>
-                </div>
+            <div class="control-item">
+              <h4>Fine-Grained Authorization</h4>
+              <p>
+                Implement resource-level and operation-level access controls.
+              </p>
             </div>
-
-            <div class="control-group">
-                <h3>Monitoring & Logging</h3>
-
-                <div class="control-item">
-                    <h4>Comprehensive API Logging</h4>
-                    <p>Log all API requests, responses, and security events for monitoring.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Real-time Monitoring</h4>
-                    <p>Monitor API performance, errors, and security threats in real-time.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Anomaly Detection</h4>
-                    <p>Implement behavioral analysis to detect unusual API usage patterns.</p>
-                </div>
+          </div>
+          <div class="control-group">
+            <h3>Input Validation &amp; Data Protection</h3>
+            <div class="control-item">
+              <h4>Comprehensive Input Validation</h4>
+              <p>
+                Validate all API inputs including headers, parameters, and
+                request bodies.
+              </p>
             </div>
-
-            <div class="control-group">
-                <h3>Testing & Validation</h3>
-
-                <div class="control-item">
-                    <h4>Automated Security Testing</h4>
-                    <p>Integrate API security testing into CI/CD pipelines.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Penetration Testing</h4>
-                    <p>Regular manual testing of API security controls.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Vulnerability Scanning</h4>
-                    <p>Automated scanning for known API vulnerabilities and misconfigurations.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>API Documentation Security</h4>
-                    <p>Ensure API documentation doesn't expose sensitive information.</p>
-                </div>
-
-                <div class="control-item">
-                    <h4>Dependency Management</h4>
-                    <p>Regular updates and vulnerability scanning of API dependencies.</p>
-                </div>
+            <div class="control-item">
+              <h4>Schema Validation</h4>
+              <p>
+                Use JSON Schema or OpenAPI specifications to validate
+                request/response structure.
+              </p>
             </div>
+            <div class="control-item">
+              <h4>SQL Injection Prevention</h4>
+              <p>
+                Use parameterized queries and ORM frameworks to prevent
+                injection attacks.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>NoSQL Injection Prevention</h4>
+              <p>Implement proper input sanitization for NoSQL databases.</p>
+            </div>
+            <div class="control-item">
+              <h4>Data Encryption</h4>
+              <p>
+                Encrypt sensitive data in transit and at rest using strong
+                encryption.
+              </p>
+            </div>
+          </div>
+          <div class="control-group">
+            <h3>Rate Limiting &amp; DDoS Protection</h3>
+            <div class="control-item">
+              <h4>Request Rate Limiting</h4>
+              <p>
+                Implement per-user and per-IP rate limiting to prevent abuse.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Burst Protection</h4>
+              <p>
+                Handle traffic spikes while maintaining legitimate user access.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Resource-Based Rate Limits</h4>
+              <p>
+                Different rate limits for different API endpoints based on
+                resource intensity.
+              </p>
+            </div>
+          </div>
+          <div class="control-group">
+            <h3>API Gateway &amp; Infrastructure</h3>
+            <div class="control-item">
+              <h4>API Gateway Security</h4>
+              <p>
+                Centralize security policies through API gateway implementation.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Load Balancing &amp; Failover</h4>
+              <p>Implement proper load distribution and failover mechanisms.</p>
+            </div>
+            <div class="control-item">
+              <h4>API Versioning Security</h4>
+              <p>Secure handling of API versions and deprecated endpoints.</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <h3>Monitoring &amp; Logging</h3>
+            <div class="control-item">
+              <h4>Comprehensive API Logging</h4>
+              <p>
+                Log all API requests, responses, and security events for
+                monitoring.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Real-time Monitoring</h4>
+              <p>
+                Monitor API performance, errors, and security threats in
+                real-time.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Anomaly Detection</h4>
+              <p>
+                Implement behavioral analysis to detect unusual API usage
+                patterns.
+              </p>
+            </div>
+          </div>
+          <div class="control-group">
+            <h3>Testing &amp; Validation</h3>
+            <div class="control-item">
+              <h4>Automated Security Testing</h4>
+              <p>Integrate API security testing into CI/CD pipelines.</p>
+            </div>
+            <div class="control-item">
+              <h4>Penetration Testing</h4>
+              <p>Regular manual testing of API security controls.</p>
+            </div>
+            <div class="control-item">
+              <h4>Vulnerability Scanning</h4>
+              <p>
+                Automated scanning for known API vulnerabilities and
+                misconfigurations.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>API Documentation Security</h4>
+              <p>
+                Ensure API documentation doesn't expose sensitive information.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Dependency Management</h4>
+              <p>
+                Regular updates and vulnerability scanning of API dependencies.
+              </p>
+            </div>
+          </div>
         </section>
-
+      </div>
+      <div class="container">
         <section class="api-types-section">
-            <h2>API Type Considerations</h2>
-            <div class="api-types-grid">
-                <div class="api-type-card">
-                    <h3>REST APIs</h3>
-                    <ul>
-                        <li>Proper HTTP method usage</li>
-                        <li>Resource-based URL design</li>
-                        <li>Status code consistency</li>
-                        <li>HATEOAS implementation</li>
-                    </ul>
-                </div>
-                <div class="api-type-card">
-                    <h3>GraphQL APIs</h3>
-                    <ul>
-                        <li>Query complexity analysis</li>
-                        <li>Depth limiting</li>
-                        <li>Field-level authorization</li>
-                        <li>Introspection controls</li>
-                    </ul>
-                </div>
-                <div class="api-type-card">
-                    <h3>WebSocket APIs</h3>
-                    <ul>
-                        <li>Connection authentication</li>
-                        <li>Message validation</li>
-                        <li>Rate limiting for messages</li>
-                        <li>Connection lifecycle management</li>
-                    </ul>
-                </div>
+          <h2>API Type Considerations</h2>
+          <div class="api-types-grid">
+            <div class="api-type-card">
+              <h3>REST APIs</h3>
+              <ul>
+                <li>Proper HTTP method usage</li>
+                <li>Resource-based URL design</li>
+                <li>Status code consistency</li>
+                <li>HATEOAS implementation</li>
+              </ul>
             </div>
+            <div class="api-type-card">
+              <h3>GraphQL APIs</h3>
+              <ul>
+                <li>Query complexity analysis</li>
+                <li>Depth limiting</li>
+                <li>Field-level authorization</li>
+                <li>Introspection controls</li>
+              </ul>
+            </div>
+            <div class="api-type-card">
+              <h3>WebSocket APIs</h3>
+              <ul>
+                <li>Connection authentication</li>
+                <li>Message validation</li>
+                <li>Rate limiting for messages</li>
+                <li>Connection lifecycle management</li>
+              </ul>
+            </div>
+          </div>
         </section>
-
+      </div>
+      <div class="container">
         <section class="related-topics">
-            <h2>Related Topics</h2>
-            <div class="related-grid">
-                <a href="web-application-security.html" class="related-card">
-                    <h4>Web Application Security</h4>
-                    <p>Core web security principles for APIs</p>
-                </a>
-                <a href="cryptography.html" class="related-card">
-                    <h4>Cryptography</h4>
-                    <p>Encryption and token security</p>
-                </a>
-                <a href="cloud-security.html" class="related-card">
-                    <h4>Cloud Security</h4>
-                    <p>Cloud-hosted API security considerations</p>
-                </a>
-            </div>
+          <h2>Related Topics</h2>
+          <div class="related-grid">
+            <a class="related-card" href="web-application-security.html">
+              <h4>Web Application Security</h4>
+              <p>Core web security principles for APIs</p>
+            </a>
+            <a class="related-card" href="cryptography.html">
+              <h4>Cryptography</h4>
+              <p>Encryption and token security</p>
+            </a>
+            <a class="related-card" href="cloud-security.html">
+              <h4>Cloud Security</h4>
+              <p>Cloud-hosted API security considerations</p>
+            </a>
+          </div>
         </section>
-
+      </div>
+      <div class="container">
         <section class="topic-footer">
-            <div class="footer-nav">
-                <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
-                <a href="cloud-security.html" class="btn btn-primary">Next: Cloud Security →</a>
-            </div>
+          <div class="footer-nav">
+            <a class="btn btn-outline" href="../topics.html"
+              >← Back to Topics</a
+            >
+            <a class="btn btn-primary" href="cloud-security.html"
+              >Next: Cloud Security →</a
+            >
+          </div>
         </section>
+      </div>
     </main>
-
     <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
-            </div>
+      <div class="container">
+        <div class="footer-bottom">
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
+      </div>
     </footer>
-
     <script src="../assets/js/main.js"></script>
-
     <style>
-        .topic-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+      .topic-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
 
-        .topic-header {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
-        }
+      .topic-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border);
+      }
 
-        .breadcrumb {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
+      .breadcrumb {
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
 
-        .breadcrumb a {
-            color: var(--accent);
-        }
+      .breadcrumb a {
+        color: var(--accent);
+      }
 
+      .topic-header h1 {
+        font-size: 3rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      .topic-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .meta-item {
+        background: var(--glass);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+
+      .topic-intro {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .topic-overview {
+        margin-bottom: 3rem;
+      }
+
+      .topic-overview h2 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .key-concepts {
+        margin-top: 2rem;
+      }
+
+      .key-concepts h3 {
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+
+      .concepts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .concept-card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .concept-card h4 {
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .concept-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .controls-section {
+        margin-bottom: 3rem;
+      }
+
+      .controls-section h2 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .control-group {
+        margin-bottom: 2rem;
+      }
+
+      .control-group h3 {
+        color: var(--warning);
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .control-item {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .control-item h4 {
+        color: var(--accent);
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .control-item p {
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+      }
+
+      .implementation-example {
+        background: rgba(0, 212, 255, 0.1);
+        border-left: 3px solid var(--accent);
+        padding: 1rem;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .implementation-example strong {
+        color: var(--success);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .implementation-example ul {
+        margin: 0;
+        padding-left: 1.5rem;
+      }
+
+      .implementation-example li {
+        color: var(--text-muted);
+        margin-bottom: 0.3rem;
+      }
+
+      .api-types-section {
+        margin-bottom: 3rem;
+      }
+
+      .api-types-section h2 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .api-types-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .api-type-card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+      }
+
+      .api-type-card h3 {
+        color: var(--success);
+        margin-bottom: 1rem;
+      }
+
+      .api-type-card ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .api-type-card li {
+        color: var(--text-muted);
+        padding: 0.5rem 0;
+        border-left: 3px solid var(--accent);
+        padding-left: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .related-topics {
+        margin-bottom: 3rem;
+      }
+
+      .related-topics h2 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .related-card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.3s ease;
+      }
+
+      .related-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.15);
+      }
+
+      .related-card h4 {
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .related-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .topic-footer {
+        text-align: center;
+        padding: 3rem 0;
+        margin-top: 4rem;
+        border-top: 2px solid var(--border);
+      }
+
+      .footer-nav {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 768px) {
         .topic-header h1 {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
+          font-size: 2rem;
         }
 
         .topic-meta {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        .meta-item {
-            background: var(--glass);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-        }
-
-        .topic-intro {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .topic-overview {
-            margin-bottom: 3rem;
-        }
-
-        .topic-overview h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .key-concepts {
-            margin-top: 2rem;
-        }
-
-        .key-concepts h3 {
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .concepts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .concept-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .concept-card h4 {
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .concept-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .controls-section {
-            margin-bottom: 3rem;
-        }
-
-        .controls-section h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .control-group {
-            margin-bottom: 2rem;
-        }
-
-        .control-group h3 {
-            color: var(--warning);
-            font-size: 1.4rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .control-item {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .control-item h4 {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .control-item p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .implementation-example {
-            background: rgba(0, 212, 255, 0.1);
-            border-left: 3px solid var(--accent);
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .implementation-example strong {
-            color: var(--success);
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .implementation-example ul {
-            margin: 0;
-            padding-left: 1.5rem;
-        }
-
-        .implementation-example li {
-            color: var(--text-muted);
-            margin-bottom: 0.3rem;
-        }
-
-        .api-types-section {
-            margin-bottom: 3rem;
-        }
-
-        .api-types-section h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .api-types-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .api-type-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .api-type-card h3 {
-            color: var(--success);
-            margin-bottom: 1rem;
-        }
-
-        .api-type-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .api-type-card li {
-            color: var(--text-muted);
-            padding: 0.5rem 0;
-            border-left: 3px solid var(--accent);
-            padding-left: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .related-topics {
-            margin-bottom: 3rem;
-        }
-
-        .related-topics h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 2rem;
-        }
-
+        .concepts-grid,
+        .api-types-grid,
         .related-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .related-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-
-        .related-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.15);
-        }
-
-        .related-card h4 {
-            color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-
-        .related-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .topic-footer {
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
-            border-top: 2px solid var(--border);
+          grid-template-columns: 1fr;
         }
 
         .footer-nav {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
+          flex-direction: column;
+          align-items: center;
         }
-
-        @media (max-width: 768px) {
-            .topic-header h1 {
-                font-size: 2rem;
-            }
-            
-            .topic-meta {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .concepts-grid,
-            .api-types-grid,
-            .related-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
+      }
     </style>
-</body>
+  </body>
 </html>

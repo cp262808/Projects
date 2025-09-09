@@ -1,147 +1,153 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Email Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
     <meta
-      name="description"
       content="SPF, DKIM, DMARC, phishing protection, email encryption, gateway security, and threat detection"
+      name="description"
     />
   </head>
   <body data-page="topic">
     <header class="header">
       <nav class="nav container">
-        <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+        <a class="logo" href="../index.html">🛡️ Iron Codex</a>
         <ul class="nav-menu">
-          <li><a href="../index.html" class="nav-link">Home</a></li>
-          <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-          <li><a href="../guides.html" class="nav-link">Guides</a></li>
-          <li><a href="../tools.html" class="nav-link">Tools</a></li>
-          <li><a href="../about.html" class="nav-link">About</a></li>
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link active" href="../topics.html">Topics</a></li>
+          <li><a class="nav-link" href="../guides.html">Guides</a></li>
+          <li><a class="nav-link" href="../tools.html">Tools</a></li>
+          <li><a class="nav-link" href="../about.html">About</a></li>
         </ul>
       </nav>
     </header>
-
-    <main class="container topic-content">
-      <section class="topic-header">
-        <nav class="breadcrumb">
-          <a href="../topics.html">Topics</a> / <span>Email Security</span>
-        </nav>
-        <h1>Email Security</h1>
-        <div class="topic-meta">
-          <span class="meta-item">13 Controls</span>
-          <span class="meta-item">Intermediate Level</span>
-          <span class="meta-item">Infrastructure</span>
-        </div>
-        <p class="topic-intro">
-          SPF, DKIM, DMARC, phishing protection, email encryption, gateway
-          security, and threat detection for comprehensive email security.
-        </p>
-      </section>
-
-      <section class="controls-section">
-        <h2>Security Controls (13)</h2>
-
-        <div class="control-group">
-          <h3>Email Authentication</h3>
-          <div class="control-item">
-            <h4>SPF Implementation</h4>
-            <p>Configure Sender Policy Framework to prevent email spoofing.</p>
+    <main class="topic-content">
+      <div class="container">
+        <section class="topic-header">
+          <nav class="breadcrumb">
+            <a href="../topics.html">Topics</a> / <span>Email Security</span>
+          </nav>
+          <h1>Email Security</h1>
+          <div class="topic-meta">
+            <span class="meta-item">13 Controls</span>
+            <span class="meta-item">Intermediate Level</span>
+            <span class="meta-item">Infrastructure</span>
           </div>
-          <div class="control-item">
-            <h4>DKIM Signing</h4>
-            <p>
-              Implement DomainKeys Identified Mail for email integrity
-              verification.
-            </p>
+          <p class="topic-intro">
+            SPF, DKIM, DMARC, phishing protection, email encryption, gateway
+            security, and threat detection for comprehensive email security.
+          </p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="controls-section">
+          <h2>Security Controls (13)</h2>
+          <div class="control-group">
+            <h3>Email Authentication</h3>
+            <div class="control-item">
+              <h4>SPF Implementation</h4>
+              <p>
+                Configure Sender Policy Framework to prevent email spoofing.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>DKIM Signing</h4>
+              <p>
+                Implement DomainKeys Identified Mail for email integrity
+                verification.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>DMARC Policy</h4>
+              <p>
+                Deploy Domain-based Message Authentication for comprehensive
+                email authentication.
+              </p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>DMARC Policy</h4>
-            <p>
-              Deploy Domain-based Message Authentication for comprehensive email
-              authentication.
-            </p>
+          <div class="control-group">
+            <h3>Threat Protection</h3>
+            <div class="control-item">
+              <h4>Anti-Phishing</h4>
+              <p>
+                Implement advanced phishing detection and prevention mechanisms.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Malware Scanning</h4>
+              <p>Scan email attachments and content for malware and viruses.</p>
+            </div>
+            <div class="control-item">
+              <h4>URL Protection</h4>
+              <p>Analyze and protect against malicious URLs in emails.</p>
+            </div>
+            <div class="control-item">
+              <h4>Sandboxing</h4>
+              <p>Execute suspicious attachments in isolated environments.</p>
+            </div>
           </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Threat Protection</h3>
-          <div class="control-item">
-            <h4>Anti-Phishing</h4>
-            <p>
-              Implement advanced phishing detection and prevention mechanisms.
-            </p>
+          <div class="control-group">
+            <h3>Encryption &amp; Privacy</h3>
+            <div class="control-item">
+              <h4>TLS Encryption</h4>
+              <p>Enforce TLS encryption for email transmission.</p>
+            </div>
+            <div class="control-item">
+              <h4>End-to-End Encryption</h4>
+              <p>Implement S/MIME or PGP for sensitive email communications.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Malware Scanning</h4>
-            <p>Scan email attachments and content for malware and viruses.</p>
+          <div class="control-group">
+            <h3>Gateway &amp; Filtering</h3>
+            <div class="control-item">
+              <h4>Email Gateway Security</h4>
+              <p>Deploy secure email gateways with comprehensive filtering.</p>
+            </div>
+            <div class="control-item">
+              <h4>Spam Filtering</h4>
+              <p>
+                Implement effective spam detection and filtering mechanisms.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Content Filtering</h4>
+              <p>
+                Filter email content based on policies and compliance
+                requirements.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Data Loss Prevention</h4>
+              <p>
+                Prevent sensitive data leakage through email communications.
+              </p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>URL Protection</h4>
-            <p>Analyze and protect against malicious URLs in emails.</p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="topic-footer">
+          <div class="footer-nav">
+            <a class="btn btn-outline" href="../topics.html"
+              >← Back to Topics</a
+            >
+            <a class="btn btn-primary" href="security-awareness.html"
+              >Next: Security Awareness →</a
+            >
           </div>
-          <div class="control-item">
-            <h4>Sandboxing</h4>
-            <p>Execute suspicious attachments in isolated environments.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Encryption & Privacy</h3>
-          <div class="control-item">
-            <h4>TLS Encryption</h4>
-            <p>Enforce TLS encryption for email transmission.</p>
-          </div>
-          <div class="control-item">
-            <h4>End-to-End Encryption</h4>
-            <p>Implement S/MIME or PGP for sensitive email communications.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Gateway & Filtering</h3>
-          <div class="control-item">
-            <h4>Email Gateway Security</h4>
-            <p>Deploy secure email gateways with comprehensive filtering.</p>
-          </div>
-          <div class="control-item">
-            <h4>Spam Filtering</h4>
-            <p>Implement effective spam detection and filtering mechanisms.</p>
-          </div>
-          <div class="control-item">
-            <h4>Content Filtering</h4>
-            <p>
-              Filter email content based on policies and compliance
-              requirements.
-            </p>
-          </div>
-          <div class="control-item">
-            <h4>Data Loss Prevention</h4>
-            <p>Prevent sensitive data leakage through email communications.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="topic-footer">
-        <div class="footer-nav">
-          <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
-          <a href="security-awareness.html" class="btn btn-primary"
-            >Next: Security Awareness →</a
-          >
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
-
     <footer class="footer">
       <div class="container">
         <div class="footer-bottom">
-          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
       </div>
     </footer>
-
     <script src="../assets/js/main.js"></script>
     <style>
       .topic-content {

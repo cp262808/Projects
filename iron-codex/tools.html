@@ -1,34 +1,40 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Security Tools - Iron Codex</title>
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link href="assets/css/main.css" rel="stylesheet" />
     <meta
-      name="description"
       content="Curated collection of cybersecurity tools and resources for security professionals"
+      name="description"
     />
   </head>
   <body data-page="tools">
     <header class="header">
       <nav class="nav container">
-        <a href="index.html" class="logo">🛡️ Iron Codex</a>
+        <a class="logo" href="index.html">🛡️ Iron Codex</a>
         <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="topics.html" class="nav-link">Topics</a></li>
-          <li><a href="guides.html" class="nav-link">Guides</a></li>
-          <li><a href="tools.html" class="nav-link active">Tools</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="topics.html">Topics</a></li>
+          <li><a class="nav-link" href="guides.html">Guides</a></li>
+          <li><a class="nav-link active" href="tools.html">Tools</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </nav>
     </header>
-
     <main>
       <section class="hero">
         <div class="container">
@@ -49,13 +55,12 @@
               </div>
               <div class="stat">
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Free & Open Source</div>
+                <div class="stat-label">Free &amp; Open Source</div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
       <section class="tools-section">
         <div class="tools-category">
           <h2 class="category-title">Vulnerability Assessment</h2>
@@ -69,11 +74,10 @@
                 <span class="tag">Network</span>
                 <span class="tag">Scanning</span>
               </div>
-              <a href="https://nmap.org" class="btn btn-outline" target="_blank"
+              <a class="btn btn-outline" href="https://nmap.org" target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>OpenVAS</h3>
               <p class="tool-description">
@@ -84,13 +88,12 @@
                 <span class="tag">Scanning</span>
               </div>
               <a
-                href="https://openvas.org"
                 class="btn btn-outline"
+                href="https://openvas.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Nuclei</h3>
               <p class="tool-description">
@@ -101,15 +104,14 @@
                 <span class="tag">Fast</span>
               </div>
               <a
-                href="https://nuclei.projectdiscovery.io"
                 class="btn btn-outline"
+                href="https://nuclei.projectdiscovery.io"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
           <h2 class="category-title">Web Application Security</h2>
           <div class="tools-grid">
@@ -121,13 +123,12 @@
                 <span class="tag">Web</span>
               </div>
               <a
-                href="https://zaproxy.org"
                 class="btn btn-outline"
+                href="https://zaproxy.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Burp Suite</h3>
               <p class="tool-description">
@@ -138,13 +139,12 @@
                 <span class="tag">Proxy</span>
               </div>
               <a
-                href="https://portswigger.net/burp"
                 class="btn btn-outline"
+                href="https://portswigger.net/burp"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Nikto</h3>
               <p class="tool-description">Web server scanner</p>
@@ -153,15 +153,14 @@
                 <span class="tag">Quick</span>
               </div>
               <a
-                href="https://cirt.net/Nikto2"
                 class="btn btn-outline"
+                href="https://cirt.net/Nikto2"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
           <h2 class="category-title">Network Security</h2>
           <div class="tools-grid">
@@ -173,13 +172,12 @@
                 <span class="tag">Analysis</span>
               </div>
               <a
-                href="https://wireshark.org"
                 class="btn btn-outline"
+                href="https://wireshark.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Snort</h3>
               <p class="tool-description">Network intrusion detection system</p>
@@ -188,13 +186,12 @@
                 <span class="tag">Real-time</span>
               </div>
               <a
-                href="https://snort.org"
                 class="btn btn-outline"
+                href="https://snort.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Suricata</h3>
               <p class="tool-description">
@@ -205,15 +202,14 @@
                 <span class="tag">Monitoring</span>
               </div>
               <a
-                href="https://suricata.io"
                 class="btn btn-outline"
+                href="https://suricata.io"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
           <h2 class="category-title">Digital Forensics</h2>
           <div class="tools-grid">
@@ -225,13 +221,12 @@
                 <span class="tag">GUI</span>
               </div>
               <a
-                href="https://sleuthkit.org/autopsy"
                 class="btn btn-outline"
+                href="https://sleuthkit.org/autopsy"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Volatility</h3>
               <p class="tool-description">Memory forensics framework</p>
@@ -240,13 +235,12 @@
                 <span class="tag">Analysis</span>
               </div>
               <a
-                href="https://volatilityfoundation.org"
                 class="btn btn-outline"
+                href="https://volatilityfoundation.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>YARA</h3>
               <p class="tool-description">
@@ -257,15 +251,14 @@
                 <span class="tag">Patterns</span>
               </div>
               <a
-                href="https://virustotal.github.io/yara"
                 class="btn btn-outline"
+                href="https://virustotal.github.io/yara"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
           <h2 class="category-title">Cloud Security</h2>
           <div class="tools-grid">
@@ -277,13 +270,12 @@
                 <span class="tag">Audit</span>
               </div>
               <a
-                href="https://github.com/nccgroup/ScoutSuite"
                 class="btn btn-outline"
+                href="https://github.com/nccgroup/ScoutSuite"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Prowler</h3>
               <p class="tool-description">AWS security assessment tool</p>
@@ -292,13 +284,12 @@
                 <span class="tag">Assessment</span>
               </div>
               <a
-                href="https://prowler.pro"
                 class="btn btn-outline"
+                href="https://prowler.pro"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>CloudMapper</h3>
               <p class="tool-description">
@@ -309,15 +300,14 @@
                 <span class="tag">Visualization</span>
               </div>
               <a
-                href="https://github.com/duo-labs/cloudmapper"
                 class="btn btn-outline"
+                href="https://github.com/duo-labs/cloudmapper"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
           <h2 class="category-title">Container Security</h2>
           <div class="tools-grid">
@@ -329,13 +319,12 @@
                 <span class="tag">Fast</span>
               </div>
               <a
-                href="https://trivy.dev"
                 class="btn btn-outline"
+                href="https://trivy.dev"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Falco</h3>
               <p class="tool-description">
@@ -346,13 +335,12 @@
                 <span class="tag">Monitoring</span>
               </div>
               <a
-                href="https://falco.org"
                 class="btn btn-outline"
+                href="https://falco.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Clair</h3>
               <p class="tool-description">
@@ -363,17 +351,16 @@
                 <span class="tag">Analysis</span>
               </div>
               <a
-                href="https://github.com/quay/clair"
                 class="btn btn-outline"
+                href="https://github.com/quay/clair"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
-          <h2 class="category-title">SIEM & Monitoring</h2>
+          <h2 class="category-title">SIEM &amp; Monitoring</h2>
           <div class="tools-grid">
             <div class="tool-card">
               <h3>ELK Stack</h3>
@@ -385,13 +372,12 @@
                 <span class="tag">Search</span>
               </div>
               <a
-                href="https://elastic.co"
                 class="btn btn-outline"
+                href="https://elastic.co"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Wazuh</h3>
               <p class="tool-description">Open source SIEM and XDR platform</p>
@@ -400,13 +386,12 @@
                 <span class="tag">XDR</span>
               </div>
               <a
-                href="https://wazuh.com"
                 class="btn btn-outline"
+                href="https://wazuh.com"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>OSSEC</h3>
               <p class="tool-description">
@@ -417,17 +402,16 @@
                 <span class="tag">Monitoring</span>
               </div>
               <a
-                href="https://ossec.github.io"
                 class="btn btn-outline"
+                href="https://ossec.github.io"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
           </div>
         </div>
-
         <div class="tools-category">
-          <h2 class="category-title">Cryptography & PKI</h2>
+          <h2 class="category-title">Cryptography &amp; PKI</h2>
           <div class="tools-grid">
             <div class="tool-card">
               <h3>OpenSSL</h3>
@@ -437,13 +421,12 @@
                 <span class="tag">SSL/TLS</span>
               </div>
               <a
-                href="https://openssl.org"
                 class="btn btn-outline"
+                href="https://openssl.org"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>HashiCorp Vault</h3>
               <p class="tool-description">Secrets management and encryption</p>
@@ -452,13 +435,12 @@
                 <span class="tag">Management</span>
               </div>
               <a
-                href="https://vaultproject.io"
                 class="btn btn-outline"
+                href="https://vaultproject.io"
                 target="_blank"
                 >Visit Site</a
               >
             </div>
-
             <div class="tool-card">
               <h3>Let's Encrypt</h3>
               <p class="tool-description">Free SSL/TLS certificates</p>
@@ -467,8 +449,8 @@
                 <span class="tag">Free</span>
               </div>
               <a
-                href="https://letsencrypt.org"
                 class="btn btn-outline"
+                href="https://letsencrypt.org"
                 target="_blank"
                 >Visit Site</a
               >
@@ -476,7 +458,6 @@
           </div>
         </div>
       </section>
-
       <section class="submit-tool">
         <div class="container">
           <h2>Suggest a Tool</h2>
@@ -484,13 +465,12 @@
             Know a great security tool that should be included? We're always
             looking to expand our collection with community recommendations.
           </p>
-          <a href="https://github.com/iron-codex" class="btn btn-primary"
+          <a class="btn btn-primary" href="https://github.com/iron-codex"
             >Submit on GitHub</a
           >
         </div>
       </section>
     </main>
-
     <footer class="footer">
       <div class="container">
         <div class="footer-content">
@@ -516,13 +496,11 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
       </div>
     </footer>
-
     <script src="assets/js/main.js"></script>
-
     <style>
       .tools-section {
         padding: 2rem 0;

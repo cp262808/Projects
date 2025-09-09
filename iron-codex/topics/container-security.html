@@ -1,171 +1,180 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Container Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
     <meta
-      name="description"
       content="Docker security, Kubernetes hardening, image scanning, runtime protection, and orchestration security"
+      name="description"
     />
   </head>
   <body data-page="topic">
     <header class="header">
       <nav class="nav container">
-        <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+        <a class="logo" href="../index.html">🛡️ Iron Codex</a>
         <ul class="nav-menu">
-          <li><a href="../index.html" class="nav-link">Home</a></li>
-          <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-          <li><a href="../guides.html" class="nav-link">Guides</a></li>
-          <li><a href="../tools.html" class="nav-link">Tools</a></li>
-          <li><a href="../about.html" class="nav-link">About</a></li>
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link active" href="../topics.html">Topics</a></li>
+          <li><a class="nav-link" href="../guides.html">Guides</a></li>
+          <li><a class="nav-link" href="../tools.html">Tools</a></li>
+          <li><a class="nav-link" href="../about.html">About</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </nav>
     </header>
-
-    <main class="container topic-content">
-      <section class="topic-header">
-        <nav class="breadcrumb">
-          <a href="../topics.html">Topics</a> / <span>Container Security</span>
-        </nav>
-        <h1>Container Security</h1>
-        <div class="topic-meta">
-          <span class="meta-item">19 Controls</span>
-          <span class="meta-item">Intermediate Level</span>
-          <span class="meta-item">Infrastructure</span>
-        </div>
-        <p class="topic-intro">
-          Docker security, Kubernetes hardening, image scanning, runtime
-          protection, and orchestration security for containerized applications.
-        </p>
-      </section>
-
-      <section class="controls-section">
-        <h2>Security Controls (19)</h2>
-
-        <div class="control-group">
-          <h3>Image Security</h3>
-          <div class="control-item">
-            <h4>Image Vulnerability Scanning</h4>
-            <p>Scan container images for vulnerabilities before deployment.</p>
+    <main class="topic-content">
+      <div class="container">
+        <section class="topic-header">
+          <nav class="breadcrumb">
+            <a href="../topics.html">Topics</a> /
+            <span>Container Security</span>
+          </nav>
+          <h1>Container Security</h1>
+          <div class="topic-meta">
+            <span class="meta-item">19 Controls</span>
+            <span class="meta-item">Intermediate Level</span>
+            <span class="meta-item">Infrastructure</span>
           </div>
-          <div class="control-item">
-            <h4>Base Image Security</h4>
-            <p>Use minimal, distroless, or hardened base images.</p>
+          <p class="topic-intro">
+            Docker security, Kubernetes hardening, image scanning, runtime
+            protection, and orchestration security for containerized
+            applications.
+          </p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="controls-section">
+          <h2>Security Controls (19)</h2>
+          <div class="control-group">
+            <h3>Image Security</h3>
+            <div class="control-item">
+              <h4>Image Vulnerability Scanning</h4>
+              <p>
+                Scan container images for vulnerabilities before deployment.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>Base Image Security</h4>
+              <p>Use minimal, distroless, or hardened base images.</p>
+            </div>
+            <div class="control-item">
+              <h4>Image Signing</h4>
+              <p>Sign and verify container image integrity.</p>
+            </div>
+            <div class="control-item">
+              <h4>Registry Security</h4>
+              <p>Secure container registries with access controls.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Image Signing</h4>
-            <p>Sign and verify container image integrity.</p>
+          <div class="control-group">
+            <h3>Runtime Security</h3>
+            <div class="control-item">
+              <h4>Container Runtime Hardening</h4>
+              <p>Configure secure container runtime settings.</p>
+            </div>
+            <div class="control-item">
+              <h4>Security Contexts</h4>
+              <p>Implement proper security contexts and capabilities.</p>
+            </div>
+            <div class="control-item">
+              <h4>Resource Limits</h4>
+              <p>Set CPU, memory, and I/O resource constraints.</p>
+            </div>
+            <div class="control-item">
+              <h4>Runtime Monitoring</h4>
+              <p>Monitor container behavior for anomalies.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Registry Security</h4>
-            <p>Secure container registries with access controls.</p>
+          <div class="control-group">
+            <h3>Kubernetes Security</h3>
+            <div class="control-item">
+              <h4>RBAC Implementation</h4>
+              <p>Implement role-based access control in Kubernetes.</p>
+            </div>
+            <div class="control-item">
+              <h4>Pod Security Standards</h4>
+              <p>Enforce pod security policies and standards.</p>
+            </div>
+            <div class="control-item">
+              <h4>Network Policies</h4>
+              <p>Control network traffic between pods and services.</p>
+            </div>
+            <div class="control-item">
+              <h4>API Server Security</h4>
+              <p>Secure Kubernetes API server configuration.</p>
+            </div>
           </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Runtime Security</h3>
-          <div class="control-item">
-            <h4>Container Runtime Hardening</h4>
-            <p>Configure secure container runtime settings.</p>
+          <div class="control-group">
+            <h3>Secrets &amp; Configuration</h3>
+            <div class="control-item">
+              <h4>Secrets Management</h4>
+              <p>Secure handling of sensitive configuration data.</p>
+            </div>
+            <div class="control-item">
+              <h4>Configuration Security</h4>
+              <p>Secure container and orchestrator configuration.</p>
+            </div>
+            <div class="control-item">
+              <h4>Environment Isolation</h4>
+              <p>
+                Proper isolation between development, staging, and production.
+              </p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Security Contexts</h4>
-            <p>Implement proper security contexts and capabilities.</p>
+          <div class="control-group">
+            <h3>Monitoring &amp; Compliance</h3>
+            <div class="control-item">
+              <h4>Audit Logging</h4>
+              <p>Comprehensive logging of container and orchestrator events.</p>
+            </div>
+            <div class="control-item">
+              <h4>Compliance Scanning</h4>
+              <p>Regular compliance checks against security benchmarks.</p>
+            </div>
+            <div class="control-item">
+              <h4>Incident Response</h4>
+              <p>Container-specific incident response procedures.</p>
+            </div>
+            <div class="control-item">
+              <h4>Backup and Recovery</h4>
+              <p>Secure backup strategies for containerized applications.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Resource Limits</h4>
-            <p>Set CPU, memory, and I/O resource constraints.</p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="topic-footer">
+          <div class="footer-nav">
+            <a class="btn btn-outline" href="../topics.html"
+              >← Back to Topics</a
+            >
+            <a class="btn btn-primary" href="zero-trust.html"
+              >Next: Zero Trust Architecture →</a
+            >
           </div>
-          <div class="control-item">
-            <h4>Runtime Monitoring</h4>
-            <p>Monitor container behavior for anomalies.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Kubernetes Security</h3>
-          <div class="control-item">
-            <h4>RBAC Implementation</h4>
-            <p>Implement role-based access control in Kubernetes.</p>
-          </div>
-          <div class="control-item">
-            <h4>Pod Security Standards</h4>
-            <p>Enforce pod security policies and standards.</p>
-          </div>
-          <div class="control-item">
-            <h4>Network Policies</h4>
-            <p>Control network traffic between pods and services.</p>
-          </div>
-          <div class="control-item">
-            <h4>API Server Security</h4>
-            <p>Secure Kubernetes API server configuration.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Secrets & Configuration</h3>
-          <div class="control-item">
-            <h4>Secrets Management</h4>
-            <p>Secure handling of sensitive configuration data.</p>
-          </div>
-          <div class="control-item">
-            <h4>Configuration Security</h4>
-            <p>Secure container and orchestrator configuration.</p>
-          </div>
-          <div class="control-item">
-            <h4>Environment Isolation</h4>
-            <p>
-              Proper isolation between development, staging, and production.
-            </p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Monitoring & Compliance</h3>
-          <div class="control-item">
-            <h4>Audit Logging</h4>
-            <p>Comprehensive logging of container and orchestrator events.</p>
-          </div>
-          <div class="control-item">
-            <h4>Compliance Scanning</h4>
-            <p>Regular compliance checks against security benchmarks.</p>
-          </div>
-          <div class="control-item">
-            <h4>Incident Response</h4>
-            <p>Container-specific incident response procedures.</p>
-          </div>
-          <div class="control-item">
-            <h4>Backup and Recovery</h4>
-            <p>Secure backup strategies for containerized applications.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="topic-footer">
-        <div class="footer-nav">
-          <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
-          <a href="zero-trust.html" class="btn btn-primary"
-            >Next: Zero Trust Architecture →</a
-          >
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
-
     <footer class="footer">
       <div class="container">
         <div class="footer-bottom">
-          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
       </div>
     </footer>
-
     <script src="../assets/js/main.js"></script>
     <style>
       .topic-content {

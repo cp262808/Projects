@@ -16,15 +16,20 @@ function initializeNavigation() {
 
   // Create mobile nav toggle for pages that lack it
   if (!navToggle && nav) {
-    navToggle = document.createElement("div");
+    navToggle = document.createElement("button");
+    navToggle.type = "button";
     navToggle.id = "navToggle";
     navToggle.className = "nav-toggle";
+    navToggle.setAttribute("aria-label", "Toggle navigation");
+    navToggle.setAttribute("aria-expanded", "false");
     navToggle.innerHTML = "<span></span><span></span><span></span>";
     nav.appendChild(navToggle);
   }
 
   if (navToggle && navMenu) {
     navToggle.addEventListener("click", function () {
+      const expanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!expanded));
       navToggle.classList.toggle("active");
       navMenu.classList.toggle("active");
     });
@@ -37,6 +42,7 @@ function initializeNavigation() {
       if (navToggle && navMenu) {
         navToggle.classList.remove("active");
         navMenu.classList.remove("active");
+        navToggle.setAttribute("aria-expanded", "false");
       }
     });
   });
@@ -52,6 +58,7 @@ function initializeNavigation() {
       if (navMenu.classList.contains("active")) {
         navToggle.classList.remove("active");
         navMenu.classList.remove("active");
+        navToggle.setAttribute("aria-expanded", "false");
       }
     }
   });
@@ -113,7 +120,7 @@ function initializeInteractiveElements() {
 
 // Theme handling (for future light/dark mode toggle)
 function initializeTheme() {
-  const savedTheme = localStorage.getItem("iron-codex-theme") || "dark";
+  const savedTheme = localStorage.getItem("iron-codex-theme") || "light";
   document.documentElement.setAttribute("data-theme", savedTheme);
 }
 

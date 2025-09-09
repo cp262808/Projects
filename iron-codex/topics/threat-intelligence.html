@@ -1,140 +1,151 @@
 <!doctype html>
+
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Threat Intelligence - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
     <meta
+      content="Threat hunting, IOCs, TTPs, MITRE ATT&amp;CK, threat modeling, and intelligence sharing platforms"
       name="description"
-      content="Threat hunting, IOCs, TTPs, MITRE ATT&CK, threat modeling, and intelligence sharing platforms"
     />
   </head>
   <body data-page="topic">
     <header class="header">
       <nav class="nav container">
-        <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+        <a class="logo" href="../index.html">🛡️ Iron Codex</a>
         <ul class="nav-menu">
-          <li><a href="../index.html" class="nav-link">Home</a></li>
-          <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-          <li><a href="../guides.html" class="nav-link">Guides</a></li>
-          <li><a href="../tools.html" class="nav-link">Tools</a></li>
-          <li><a href="../about.html" class="nav-link">About</a></li>
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link active" href="../topics.html">Topics</a></li>
+          <li><a class="nav-link" href="../guides.html">Guides</a></li>
+          <li><a class="nav-link" href="../tools.html">Tools</a></li>
+          <li><a class="nav-link" href="../about.html">About</a></li>
         </ul>
-        <div class="nav-toggle" id="navToggle">
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </nav>
     </header>
-
-    <main class="container topic-content">
-      <section class="topic-header">
-        <nav class="breadcrumb">
-          <a href="../topics.html">Topics</a> / <span>Threat Intelligence</span>
-        </nav>
-        <h1>Threat Intelligence</h1>
-        <div class="topic-meta">
-          <span class="meta-item">21 Controls</span>
-          <span class="meta-item">Advanced Level</span>
-          <span class="meta-item">Operations</span>
-        </div>
-        <p class="topic-intro">
-          Threat hunting, IOCs, TTPs, MITRE ATT&CK, threat modeling, and
-          intelligence sharing platforms for proactive threat detection and
-          analysis.
-        </p>
-      </section>
-
-      <section class="controls-section">
-        <h2>Security Controls (21)</h2>
-
-        <div class="control-group">
-          <h3>Threat Intelligence Collection</h3>
-          <div class="control-item">
-            <h4>Intelligence Sources</h4>
-            <p>Establish multiple threat intelligence feeds and sources.</p>
+    <main class="topic-content">
+      <div class="container">
+        <section class="topic-header">
+          <nav class="breadcrumb">
+            <a href="../topics.html">Topics</a> /
+            <span>Threat Intelligence</span>
+          </nav>
+          <h1>Threat Intelligence</h1>
+          <div class="topic-meta">
+            <span class="meta-item">21 Controls</span>
+            <span class="meta-item">Advanced Level</span>
+            <span class="meta-item">Operations</span>
           </div>
-          <div class="control-item">
-            <h4>IOC Management</h4>
-            <p>Collect and manage indicators of compromise effectively.</p>
+          <p class="topic-intro">
+            Threat hunting, IOCs, TTPs, MITRE ATT&amp;CK, threat modeling, and
+            intelligence sharing platforms for proactive threat detection and
+            analysis.
+          </p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="controls-section">
+          <h2>Security Controls (21)</h2>
+          <div class="control-group">
+            <h3>Threat Intelligence Collection</h3>
+            <div class="control-item">
+              <h4>Intelligence Sources</h4>
+              <p>Establish multiple threat intelligence feeds and sources.</p>
+            </div>
+            <div class="control-item">
+              <h4>IOC Management</h4>
+              <p>Collect and manage indicators of compromise effectively.</p>
+            </div>
+            <div class="control-item">
+              <h4>TTP Analysis</h4>
+              <p>
+                Analyze tactics, techniques, and procedures of threat actors.
+              </p>
+            </div>
+            <div class="control-item">
+              <h4>MITRE ATT&amp;CK Framework</h4>
+              <p>Use MITRE ATT&amp;CK for threat modeling and detection.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>TTP Analysis</h4>
-            <p>Analyze tactics, techniques, and procedures of threat actors.</p>
+          <div class="control-group">
+            <h3>Threat Hunting</h3>
+            <div class="control-item">
+              <h4>Proactive Hunting</h4>
+              <p>Actively search for threats within the environment.</p>
+            </div>
+            <div class="control-item">
+              <h4>Hypothesis-Driven Hunting</h4>
+              <p>Develop and test threat hypotheses systematically.</p>
+            </div>
+            <div class="control-item">
+              <h4>Behavioral Analysis</h4>
+              <p>Analyze user and system behavior for anomalies.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>MITRE ATT&CK Framework</h4>
-            <p>Use MITRE ATT&CK for threat modeling and detection.</p>
+          <div class="control-group">
+            <h3>Intelligence Analysis</h3>
+            <div class="control-item">
+              <h4>Threat Attribution</h4>
+              <p>Identify and attribute threats to specific threat actors.</p>
+            </div>
+            <div class="control-item">
+              <h4>Campaign Tracking</h4>
+              <p>Track and monitor threat campaign activities.</p>
+            </div>
+            <div class="control-item">
+              <h4>Risk Assessment</h4>
+              <p>Assess threat risk levels and potential impact.</p>
+            </div>
           </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Threat Hunting</h3>
-          <div class="control-item">
-            <h4>Proactive Hunting</h4>
-            <p>Actively search for threats within the environment.</p>
+          <div class="control-group">
+            <h3>Intelligence Sharing</h3>
+            <div class="control-item">
+              <h4>Information Sharing</h4>
+              <p>Share threat intelligence with relevant stakeholders.</p>
+            </div>
+            <div class="control-item">
+              <h4>STIX/TAXII Implementation</h4>
+              <p>Use structured threat information exchange standards.</p>
+            </div>
+            <div class="control-item">
+              <h4>Industry Collaboration</h4>
+              <p>Participate in industry threat sharing initiatives.</p>
+            </div>
           </div>
-          <div class="control-item">
-            <h4>Hypothesis-Driven Hunting</h4>
-            <p>Develop and test threat hypotheses systematically.</p>
+        </section>
+      </div>
+      <div class="container">
+        <section class="topic-footer">
+          <div class="footer-nav">
+            <a class="btn btn-outline" href="../topics.html"
+              >← Back to Topics</a
+            >
+            <a class="btn btn-primary" href="devsecops.html"
+              >Next: DevSecOps →</a
+            >
           </div>
-          <div class="control-item">
-            <h4>Behavioral Analysis</h4>
-            <p>Analyze user and system behavior for anomalies.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Intelligence Analysis</h3>
-          <div class="control-item">
-            <h4>Threat Attribution</h4>
-            <p>Identify and attribute threats to specific threat actors.</p>
-          </div>
-          <div class="control-item">
-            <h4>Campaign Tracking</h4>
-            <p>Track and monitor threat campaign activities.</p>
-          </div>
-          <div class="control-item">
-            <h4>Risk Assessment</h4>
-            <p>Assess threat risk levels and potential impact.</p>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <h3>Intelligence Sharing</h3>
-          <div class="control-item">
-            <h4>Information Sharing</h4>
-            <p>Share threat intelligence with relevant stakeholders.</p>
-          </div>
-          <div class="control-item">
-            <h4>STIX/TAXII Implementation</h4>
-            <p>Use structured threat information exchange standards.</p>
-          </div>
-          <div class="control-item">
-            <h4>Industry Collaboration</h4>
-            <p>Participate in industry threat sharing initiatives.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="topic-footer">
-        <div class="footer-nav">
-          <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
-          <a href="devsecops.html" class="btn btn-primary">Next: DevSecOps →</a>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
-
     <footer class="footer">
       <div class="container">
         <div class="footer-bottom">
-          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
       </div>
     </footer>
-
     <script src="../assets/js/main.js"></script>
     <style>
       .topic-content {

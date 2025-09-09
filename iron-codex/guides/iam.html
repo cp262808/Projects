@@ -1,80 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Identity & Access Management - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <meta name="description" content="Comprehensive IAM guide with 47 controls for RBAC, PBAC, SSO, MFA, and identity governance">
-</head>
-<body data-page="guide">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Identity &amp; Access Management - Iron Codex</title>
+    <link href="../assets/css/main.css" rel="stylesheet" />
+    <meta
+      content="Comprehensive IAM guide with 47 controls for RBAC, PBAC, SSO, MFA, and identity governance"
+      name="description"
+    />
+  </head>
+  <body data-page="guide">
     <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
+      <nav class="nav container">
+        <a class="logo" href="../index.html">🛡️ Iron Codex</a>
+        <ul class="nav-menu">
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link" href="../topics.html">Topics</a></li>
+          <li><a class="nav-link" href="../guides.html">Guides</a></li>
+          <li><a class="nav-link" href="../tools.html">Tools</a></li>
+          <li><a class="nav-link" href="../about.html">About</a></li>
+        </ul>
+        <button
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </nav>
     </header>
-
-    <main class="container guide-content">
+    <main class="guide-content">
+      <div class="container">
         <section class="guide-header">
-            <nav class="breadcrumb">
-                <a href="../guides.html">Guides</a> / <span>Identity & Access Management</span>
-            </nav>
-            <h1>Identity & Access Management</h1>
-            <div class="guide-meta">
-                <span class="meta-item">47 Controls</span>
-                <span class="meta-item">Advanced Level</span>
-                <span class="meta-item">Last Updated: December 2024</span>
-            </div>
-            <p class="guide-intro">Complete IAM implementation covering RBAC, PBAC, SSO, MFA, privileged access management, and identity governance frameworks for enterprise environments.</p>
+          <nav class="breadcrumb">
+            <a href="../guides.html">Guides</a> /
+            <span>Identity &amp; Access Management</span>
+          </nav>
+          <h1>Identity &amp; Access Management</h1>
+          <div class="guide-meta">
+            <span class="meta-item">47 Controls</span>
+            <span class="meta-item">Advanced Level</span>
+            <span class="meta-item">Last Updated: December 2024</span>
+          </div>
+          <p class="guide-intro">
+            Complete IAM implementation covering RBAC, PBAC, SSO, MFA,
+            privileged access management, and identity governance frameworks for
+            enterprise environments.
+          </p>
         </section>
-
+      </div>
+      <div class="container">
         <section class="toc-section">
-            <h2>Table of Contents</h2>
-            <div class="toc-grid">
-                <div class="toc-column">
-                    <ul class="toc-list">
-                        <li><a href="#authentication">1. Authentication Framework (12 controls)</a></li>
-                        <li><a href="#authorization">2. Authorization Models (10 controls)</a></li>
-                        <li><a href="#privileged-access">3. Privileged Access Management (8 controls)</a></li>
-                        <li><a href="#identity-lifecycle">4. Identity Lifecycle (7 controls)</a></li>
-                    </ul>
-                </div>
-                <div class="toc-column">
-                    <ul class="toc-list">
-                        <li><a href="#governance">5. Identity Governance (5 controls)</a></li>
-                        <li><a href="#federation">6. Identity Federation (3 controls)</a></li>
-                        <li><a href="#monitoring">7. Monitoring & Auditing (2 controls)</a></li>
-                    </ul>
-                </div>
+          <h2>Table of Contents</h2>
+          <div class="toc-grid">
+            <div class="toc-column">
+              <ul class="toc-list">
+                <li>
+                  <a href="#authentication"
+                    >1. Authentication Framework (12 controls)</a
+                  >
+                </li>
+                <li>
+                  <a href="#authorization"
+                    >2. Authorization Models (10 controls)</a
+                  >
+                </li>
+                <li>
+                  <a href="#privileged-access"
+                    >3. Privileged Access Management (8 controls)</a
+                  >
+                </li>
+                <li>
+                  <a href="#identity-lifecycle"
+                    >4. Identity Lifecycle (7 controls)</a
+                  >
+                </li>
+              </ul>
             </div>
+            <div class="toc-column">
+              <ul class="toc-list">
+                <li>
+                  <a href="#governance">5. Identity Governance (5 controls)</a>
+                </li>
+                <li>
+                  <a href="#federation">6. Identity Federation (3 controls)</a>
+                </li>
+                <li>
+                  <a href="#monitoring"
+                    >7. Monitoring &amp; Auditing (2 controls)</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
         </section>
-
-        <section id="authentication" class="control-section">
-            <h2>1. Authentication Framework (12 controls)</h2>
-            <p class="section-intro">Establish robust authentication mechanisms with multi-factor authentication and adaptive security.</p>
-
-            <div class="control-card">
-                <h3>Implement Multi-Factor Authentication (MFA)</h3>
-                <div class="control-tags">
-                    <span class="tag priority-critical">Critical</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Enforce MFA for all user accounts with support for multiple authentication factors.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># Azure AD Conditional Access Policy
+      </div>
+      <div class="container">
+        <section class="control-section" id="authentication">
+          <h2>1. Authentication Framework (12 controls)</h2>
+          <p class="section-intro">
+            Establish robust authentication mechanisms with multi-factor
+            authentication and adaptive security.
+          </p>
+          <div class="control-card">
+            <h3>Implement Multi-Factor Authentication (MFA)</h3>
+            <div class="control-tags">
+              <span class="tag priority-critical">Critical</span>
+              <span class="tag difficulty-medium">Medium Difficulty</span>
+            </div>
+            <p>
+              <strong>Requirement:</strong> Enforce MFA for all user accounts
+              with support for multiple authentication factors.
+            </p>
+            <div class="implementation">
+              <h4>Implementation Example:</h4>
+              <pre><code># Azure AD Conditional Access Policy
 {
   "displayName": "Require MFA for All Users",
   "state": "enabled",
@@ -116,43 +162,42 @@ function verifyMFAToken(userSecret, token) {
         window: 2
     });
 }</code></pre>
-                </div>
-                <div class="validation">
-                    <h4>Validation:</h4>
-                    <ul>
-                        <li>Test all MFA methods (TOTP, SMS, push notifications)</li>
-                        <li>Verify backup recovery codes work</li>
-                        <li>Test MFA bypass scenarios for emergencies</li>
-                        <li>Validate MFA enforcement across all applications</li>
-                    </ul>
-                </div>
             </div>
-
-            <div class="control-card">
-                <h3>Implement Single Sign-On (SSO)</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-high">High Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Deploy enterprise SSO solution with SAML 2.0 or OpenID Connect support.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># SAML 2.0 Configuration (XML)
-<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
-                  entityID="https://myapp.com/saml/metadata">
-  <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-    <KeyDescriptor use="signing">
-      <KeyInfo>
-        <X509Data>
-          <X509Certificate>MIICertificateData...</X509Certificate>
-        </X509Data>
-      </KeyInfo>
-    </KeyDescriptor>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
-                              Location="https://myapp.com/saml/acs"
-                              index="0" />
-  </SPSSODescriptor>
-</EntityDescriptor>
+            <div class="validation">
+              <h4>Validation:</h4>
+              <ul>
+                <li>Test all MFA methods (TOTP, SMS, push notifications)</li>
+                <li>Verify backup recovery codes work</li>
+                <li>Test MFA bypass scenarios for emergencies</li>
+                <li>Validate MFA enforcement across all applications</li>
+              </ul>
+            </div>
+          </div>
+          <div class="control-card">
+            <h3>Implement Single Sign-On (SSO)</h3>
+            <div class="control-tags">
+              <span class="tag priority-high">High Priority</span>
+              <span class="tag difficulty-high">High Difficulty</span>
+            </div>
+            <p>
+              <strong>Requirement:</strong> Deploy enterprise SSO solution with
+              SAML 2.0 or OpenID Connect support.
+            </p>
+            <div class="implementation">
+              <h4>Implementation Example:</h4>
+              <pre><code># SAML 2.0 Configuration (XML)
+<entitydescriptor entityid="https://myapp.com/saml/metadata" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+  <spssodescriptor protocolsupportenumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <keydescriptor use="signing">
+      <keyinfo>
+        <x509data>
+          <x509certificate>MIICertificateData...</x509certificate>
+        </x509data>
+      </keyinfo>
+    </keydescriptor>
+    <assertionconsumerservice binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" index="0" location="https://myapp.com/saml/acs"></assertionconsumerservice>
+  </spssodescriptor>
+</entitydescriptor>
 
 # OpenID Connect Implementation (Node.js)
 const { Issuer, Strategy } = require('openid-client');
@@ -167,32 +212,34 @@ async function setupOIDC() {
         response_types: ['code']
     });
     
-    return new Strategy({ client }, (tokenSet, userinfo, done) => {
+    return new Strategy({ client }, (tokenSet, userinfo, done) =&gt; {
         return done(null, userinfo);
     });
 }</code></pre>
-                </div>
-                <div class="best-practices">
-                    <h4>Best Practices:</h4>
-                    <ul>
-                        <li>Use industry-standard protocols (SAML 2.0, OIDC)</li>
-                        <li>Implement proper session management</li>
-                        <li>Configure secure logout across all applications</li>
-                        <li>Regular certificate rotation and validation</li>
-                    </ul>
-                </div>
             </div>
-
-            <div class="control-card">
-                <h3>Implement Adaptive Authentication</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-high">High Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Deploy risk-based authentication that adapts security requirements based on context.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># Risk Assessment Engine (Python)
+            <div class="best-practices">
+              <h4>Best Practices:</h4>
+              <ul>
+                <li>Use industry-standard protocols (SAML 2.0, OIDC)</li>
+                <li>Implement proper session management</li>
+                <li>Configure secure logout across all applications</li>
+                <li>Regular certificate rotation and validation</li>
+              </ul>
+            </div>
+          </div>
+          <div class="control-card">
+            <h3>Implement Adaptive Authentication</h3>
+            <div class="control-tags">
+              <span class="tag priority-high">High Priority</span>
+              <span class="tag difficulty-high">High Difficulty</span>
+            </div>
+            <p>
+              <strong>Requirement:</strong> Deploy risk-based authentication
+              that adapts security requirements based on context.
+            </p>
+            <div class="implementation">
+              <h4>Implementation Example:</h4>
+              <pre><code># Risk Assessment Engine (Python)
 import geoip2.database
 from datetime import datetime, timedelta
 
@@ -221,7 +268,7 @@ class AdaptiveAuthEngine:
             
         # Failed attempts
         recent_failures = self.get_recent_failures(user)
-        if recent_failures > 3:
+        if recent_failures &gt; 3:
             risk_score += 25
             risk_factors.append("multiple_failures")
             
@@ -233,72 +280,90 @@ class AdaptiveAuthEngine:
         }
     
     def get_required_factors(self, risk_score):
-        if risk_score >= 50:
+        if risk_score &gt;= 50:
             return ['password', 'mfa', 'admin_approval']
-        elif risk_score >= 30:
+        elif risk_score &gt;= 30:
             return ['password', 'mfa']
         else:
             return ['password']</code></pre>
-                </div>
-                <div class="security-notes">
-                    <h4>Security Considerations:</h4>
-                    <ul>
-                        <li>Balance security with user experience</li>
-                        <li>Implement machine learning for better risk assessment</li>
-                        <li>Regularly update risk models based on threat intelligence</li>
-                        <li>Provide clear feedback to users about security decisions</li>
-                    </ul>
-                </div>
             </div>
-
-            <div class="control-summary">
-                <h4>Additional Authentication Framework Controls:</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>Password Policy Enforcement:</strong> Complex password requirements with regular rotation
-                    </div>
-                    <div class="summary-item">
-                        <strong>Passwordless Authentication:</strong> FIDO2/WebAuthn implementation
-                    </div>
-                    <div class="summary-item">
-                        <strong>Account Lockout Protection:</strong> Automated lockout after failed attempts
-                    </div>
-                    <div class="summary-item">
-                        <strong>Session Management:</strong> Secure session handling and timeout controls
-                    </div>
-                    <div class="summary-item">
-                        <strong>Certificate-Based Authentication:</strong> PKI-based authentication for high-security access
-                    </div>
-                    <div class="summary-item">
-                        <strong>Biometric Authentication:</strong> Fingerprint and facial recognition integration
-                    </div>
-                    <div class="summary-item">
-                        <strong>Emergency Access Procedures:</strong> Break-glass access for critical situations
-                    </div>
-                    <div class="summary-item">
-                        <strong>Authentication Logging:</strong> Comprehensive audit trails for all authentication events
-                    </div>
-                    <div class="summary-item">
-                        <strong>Cross-Platform Integration:</strong> Consistent authentication across all platforms
-                    </div>
-                </div>
+            <div class="security-notes">
+              <h4>Security Considerations:</h4>
+              <ul>
+                <li>Balance security with user experience</li>
+                <li>Implement machine learning for better risk assessment</li>
+                <li>
+                  Regularly update risk models based on threat intelligence
+                </li>
+                <li>
+                  Provide clear feedback to users about security decisions
+                </li>
+              </ul>
             </div>
+          </div>
+          <div class="control-summary">
+            <h4>Additional Authentication Framework Controls:</h4>
+            <div class="summary-grid">
+              <div class="summary-item">
+                <strong>Password Policy Enforcement:</strong> Complex password
+                requirements with regular rotation
+              </div>
+              <div class="summary-item">
+                <strong>Passwordless Authentication:</strong> FIDO2/WebAuthn
+                implementation
+              </div>
+              <div class="summary-item">
+                <strong>Account Lockout Protection:</strong> Automated lockout
+                after failed attempts
+              </div>
+              <div class="summary-item">
+                <strong>Session Management:</strong> Secure session handling and
+                timeout controls
+              </div>
+              <div class="summary-item">
+                <strong>Certificate-Based Authentication:</strong> PKI-based
+                authentication for high-security access
+              </div>
+              <div class="summary-item">
+                <strong>Biometric Authentication:</strong> Fingerprint and
+                facial recognition integration
+              </div>
+              <div class="summary-item">
+                <strong>Emergency Access Procedures:</strong> Break-glass access
+                for critical situations
+              </div>
+              <div class="summary-item">
+                <strong>Authentication Logging:</strong> Comprehensive audit
+                trails for all authentication events
+              </div>
+              <div class="summary-item">
+                <strong>Cross-Platform Integration:</strong> Consistent
+                authentication across all platforms
+              </div>
+            </div>
+          </div>
         </section>
-
-        <section id="authorization" class="control-section">
-            <h2>2. Authorization Models (10 controls)</h2>
-            <p class="section-intro">Implement comprehensive authorization with RBAC, ABAC, and fine-grained access controls.</p>
-
-            <div class="control-card">
-                <h3>Implement Role-Based Access Control (RBAC)</h3>
-                <div class="control-tags">
-                    <span class="tag priority-high">High Priority</span>
-                    <span class="tag difficulty-medium">Medium Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Deploy hierarchical RBAC system with inheritance and role separation.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># RBAC Database Schema
+      </div>
+      <div class="container">
+        <section class="control-section" id="authorization">
+          <h2>2. Authorization Models (10 controls)</h2>
+          <p class="section-intro">
+            Implement comprehensive authorization with RBAC, ABAC, and
+            fine-grained access controls.
+          </p>
+          <div class="control-card">
+            <h3>Implement Role-Based Access Control (RBAC)</h3>
+            <div class="control-tags">
+              <span class="tag priority-high">High Priority</span>
+              <span class="tag difficulty-medium">Medium Difficulty</span>
+            </div>
+            <p>
+              <strong>Requirement:</strong> Deploy hierarchical RBAC system with
+              inheritance and role separation.
+            </p>
+            <div class="implementation">
+              <h4>Implementation Example:</h4>
+              <pre><code># RBAC Database Schema
 CREATE TABLE roles (
     id UUID PRIMARY KEY,
     name VARCHAR(100) UNIQUE NOT NULL,
@@ -342,7 +407,7 @@ class RBACEngine:
             FROM roles r
             JOIN user_roles ur ON r.id = ur.role_id
             WHERE ur.user_id = %s 
-              AND (ur.expires_at IS NULL OR ur.expires_at > NOW())
+              AND (ur.expires_at IS NULL OR ur.expires_at &gt; NOW())
             
             UNION ALL
             
@@ -350,7 +415,7 @@ class RBACEngine:
             FROM roles r
             JOIN role_hierarchy rh ON r.id = rh.parent_role_id
         )
-        SELECT COUNT(*) > 0 as has_permission
+        SELECT COUNT(*) &gt; 0 as has_permission
         FROM role_hierarchy rh
         JOIN role_permissions rp ON rh.id = rp.role_id
         JOIN permissions p ON rp.permission_id = p.id
@@ -359,477 +424,491 @@ class RBACEngine:
         
         result = self.db.execute(query, (user_id, resource, action))
         return result.fetchone()['has_permission']</code></pre>
-                </div>
             </div>
-
-            <div class="control-card">
-                <h3>Implement Attribute-Based Access Control (ABAC)</h3>
-                <div class="control-tags">
-                    <span class="tag priority-medium">Medium Priority</span>
-                    <span class="tag difficulty-high">High Difficulty</span>
-                </div>
-                <p><strong>Requirement:</strong> Deploy ABAC for complex authorization scenarios with dynamic policies.</p>
-                <div class="implementation">
-                    <h4>Implementation Example:</h4>
-                    <pre><code># XACML Policy Example
-<Policy PolicyId="DocumentAccess" RuleCombiningAlgId="first-applicable">
-  <Rule RuleId="OwnerAccess" Effect="Permit">
-    <Condition>
-      <Apply FunctionId="string-equal">
-        <AttributeValue DataType="string">owner</AttributeValue>
-        <Apply FunctionId="string-one-and-only">
-          <SubjectAttributeDesignator AttributeId="relationship" DataType="string"/>
-        </Apply>
-      </Apply>
-    </Condition>
-  </Rule>
+          </div>
+          <div class="control-card">
+            <h3>Implement Attribute-Based Access Control (ABAC)</h3>
+            <div class="control-tags">
+              <span class="tag priority-medium">Medium Priority</span>
+              <span class="tag difficulty-high">High Difficulty</span>
+            </div>
+            <p>
+              <strong>Requirement:</strong> Deploy ABAC for complex
+              authorization scenarios with dynamic policies.
+            </p>
+            <div class="implementation">
+              <h4>Implementation Example:</h4>
+              <pre><code># XACML Policy Example
+<policy policyid="DocumentAccess" rulecombiningalgid="first-applicable">
+  <rule effect="Permit" ruleid="OwnerAccess">
+    <condition>
+      <apply functionid="string-equal">
+        <attributevalue datatype="string">owner</attributevalue>
+        <apply functionid="string-one-and-only">
+          <subjectattributedesignator attributeid="relationship" datatype="string"></subjectattributedesignator>
+        </apply>
+      </apply>
+    </condition>
+  </rule>
   
-  <Rule RuleId="DepartmentAccess" Effect="Permit">
-    <Condition>
-      <Apply FunctionId="and">
-        <Apply FunctionId="string-equal">
-          <AttributeValue DataType="string">read</AttributeValue>
-          <Apply FunctionId="string-one-and-only">
-            <ActionAttributeDesignator AttributeId="action" DataType="string"/>
-          </Apply>
-        </Apply>
-        <Apply FunctionId="string-equal">
-          <Apply FunctionId="string-one-and-only">
-            <SubjectAttributeDesignator AttributeId="department" DataType="string"/>
-          </Apply>
-          <Apply FunctionId="string-one-and-only">
-            <ResourceAttributeDesignator AttributeId="department" DataType="string"/>
-          </Apply>
-        </Apply>
-      </Apply>
-    </Condition>
-  </Rule>
-</Policy></code></pre>
-                </div>
+  <rule effect="Permit" ruleid="DepartmentAccess">
+    <condition>
+      <apply functionid="and">
+        <apply functionid="string-equal">
+          <attributevalue datatype="string">read</attributevalue>
+          <apply functionid="string-one-and-only">
+            <actionattributedesignator attributeid="action" datatype="string"></actionattributedesignator>
+          </apply>
+        </apply>
+        <apply functionid="string-equal">
+          <apply functionid="string-one-and-only">
+            <subjectattributedesignator attributeid="department" datatype="string"></subjectattributedesignator>
+          </apply>
+          <apply functionid="string-one-and-only">
+            <resourceattributedesignator attributeid="department" datatype="string"></resourceattributedesignator>
+          </apply>
+        </apply>
+      </apply>
+    </condition>
+  </rule>
+</policy></code></pre>
             </div>
-
-            <div class="control-summary">
-                <h4>Additional Authorization Model Controls:</h4>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <strong>Just-in-Time Access:</strong> Temporary privilege elevation with approval workflows
-                    </div>
-                    <div class="summary-item">
-                        <strong>Zero Trust Authorization:</strong> Continuous verification and least privilege enforcement
-                    </div>
-                    <div class="summary-item">
-                        <strong>Policy-Based Access Control:</strong> Centralized policy management and enforcement
-                    </div>
-                    <div class="summary-item">
-                        <strong>Resource-Level Authorization:</strong> Fine-grained permissions on individual resources
-                    </div>
-                    <div class="summary-item">
-                        <strong>Dynamic Authorization:</strong> Context-aware access decisions
-                    </div>
-                    <div class="summary-item">
-                        <strong>Delegation Models:</strong> Temporary permission delegation with audit trails
-                    </div>
-                    <div class="summary-item">
-                        <strong>Group-Based Access:</strong> Efficient permission management through groups
-                    </div>
-                    <div class="summary-item">
-                        <strong>Cross-Domain Authorization:</strong> Federated authorization across organizational boundaries
-                    </div>
-                </div>
+          </div>
+          <div class="control-summary">
+            <h4>Additional Authorization Model Controls:</h4>
+            <div class="summary-grid">
+              <div class="summary-item">
+                <strong>Just-in-Time Access:</strong> Temporary privilege
+                elevation with approval workflows
+              </div>
+              <div class="summary-item">
+                <strong>Zero Trust Authorization:</strong> Continuous
+                verification and least privilege enforcement
+              </div>
+              <div class="summary-item">
+                <strong>Policy-Based Access Control:</strong> Centralized policy
+                management and enforcement
+              </div>
+              <div class="summary-item">
+                <strong>Resource-Level Authorization:</strong> Fine-grained
+                permissions on individual resources
+              </div>
+              <div class="summary-item">
+                <strong>Dynamic Authorization:</strong> Context-aware access
+                decisions
+              </div>
+              <div class="summary-item">
+                <strong>Delegation Models:</strong> Temporary permission
+                delegation with audit trails
+              </div>
+              <div class="summary-item">
+                <strong>Group-Based Access:</strong> Efficient permission
+                management through groups
+              </div>
+              <div class="summary-item">
+                <strong>Cross-Domain Authorization:</strong> Federated
+                authorization across organizational boundaries
+              </div>
             </div>
+          </div>
         </section>
-
+      </div>
+      <div class="container">
         <section class="remaining-sections">
-            <h2>Remaining Sections</h2>
-            <div class="section-preview">
-                <div class="preview-card" id="privileged-access">
-                    <h3>3. Privileged Access Management (8 controls)</h3>
-                    <p>Secure privileged accounts and administrative access.</p>
-                    <ul class="preview-controls">
-                        <li>Privileged Account Management</li>
-                        <li>Admin Account Separation</li>
-                        <li>Privileged Session Management</li>
-                        <li>Emergency Access Procedures</li>
-                        <li>+ 4 more controls...</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card" id="identity-lifecycle">
-                    <h3>4. Identity Lifecycle (7 controls)</h3>
-                    <p>Manage complete identity lifecycle from provisioning to deprovisioning.</p>
-                    <ul class="preview-controls">
-                        <li>Automated User Provisioning</li>
-                        <li>Identity Synchronization</li>
-                        <li>Account Deprovisioning</li>
-                        <li>Access Recertification</li>
-                        <li>+ 3 more controls...</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card" id="governance">
-                    <h3>5. Identity Governance (5 controls)</h3>
-                    <p>Governance frameworks and compliance management.</p>
-                    <ul class="preview-controls">
-                        <li>Identity Governance Framework</li>
-                        <li>Compliance Reporting</li>
-                        <li>Risk Assessment Procedures</li>
-                        <li>Policy Management</li>
-                        <li>Audit and Compliance Controls</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card" id="federation">
-                    <h3>6. Identity Federation (3 controls)</h3>
-                    <p>Cross-organizational identity federation and trust.</p>
-                    <ul class="preview-controls">
-                        <li>SAML Federation Setup</li>
-                        <li>Trust Relationship Management</li>
-                        <li>Cross-Domain Attribute Mapping</li>
-                    </ul>
-                </div>
-
-                <div class="preview-card" id="monitoring">
-                    <h3>7. Monitoring & Auditing (2 controls)</h3>
-                    <p>Comprehensive IAM monitoring and audit capabilities.</p>
-                    <ul class="preview-controls">
-                        <li>Identity Analytics and Monitoring</li>
-                        <li>Audit Trail Management</li>
-                    </ul>
-                </div>
+          <h2>Remaining Sections</h2>
+          <div class="section-preview">
+            <div class="preview-card" id="privileged-access">
+              <h3>3. Privileged Access Management (8 controls)</h3>
+              <p>Secure privileged accounts and administrative access.</p>
+              <ul class="preview-controls">
+                <li>Privileged Account Management</li>
+                <li>Admin Account Separation</li>
+                <li>Privileged Session Management</li>
+                <li>Emergency Access Procedures</li>
+                <li>+ 4 more controls...</li>
+              </ul>
             </div>
+            <div class="preview-card" id="identity-lifecycle">
+              <h3>4. Identity Lifecycle (7 controls)</h3>
+              <p>
+                Manage complete identity lifecycle from provisioning to
+                deprovisioning.
+              </p>
+              <ul class="preview-controls">
+                <li>Automated User Provisioning</li>
+                <li>Identity Synchronization</li>
+                <li>Account Deprovisioning</li>
+                <li>Access Recertification</li>
+                <li>+ 3 more controls...</li>
+              </ul>
+            </div>
+            <div class="preview-card" id="governance">
+              <h3>5. Identity Governance (5 controls)</h3>
+              <p>Governance frameworks and compliance management.</p>
+              <ul class="preview-controls">
+                <li>Identity Governance Framework</li>
+                <li>Compliance Reporting</li>
+                <li>Risk Assessment Procedures</li>
+                <li>Policy Management</li>
+                <li>Audit and Compliance Controls</li>
+              </ul>
+            </div>
+            <div class="preview-card" id="federation">
+              <h3>6. Identity Federation (3 controls)</h3>
+              <p>Cross-organizational identity federation and trust.</p>
+              <ul class="preview-controls">
+                <li>SAML Federation Setup</li>
+                <li>Trust Relationship Management</li>
+                <li>Cross-Domain Attribute Mapping</li>
+              </ul>
+            </div>
+            <div class="preview-card" id="monitoring">
+              <h3>7. Monitoring &amp; Auditing (2 controls)</h3>
+              <p>Comprehensive IAM monitoring and audit capabilities.</p>
+              <ul class="preview-controls">
+                <li>Identity Analytics and Monitoring</li>
+                <li>Audit Trail Management</li>
+              </ul>
+            </div>
+          </div>
         </section>
-
+      </div>
+      <div class="container">
         <section class="guide-footer">
-            <div class="footer-nav">
-                <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
-                <a href="#" onclick="downloadGuide()" class="btn btn-primary">Download PDF</a>
-            </div>
+          <div class="footer-nav">
+            <a class="btn btn-outline" href="../guides.html"
+              >← Back to Guides</a
+            >
+            <a class="btn btn-primary" href="#" onclick="downloadGuide()"
+              >Download PDF</a
+            >
+          </div>
         </section>
+      </div>
     </main>
-
     <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
-            </div>
+      <div class="container">
+        <div class="footer-bottom">
+          <p>© 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
+      </div>
     </footer>
-
     <script src="../assets/js/main.js"></script>
     <script>
-        function downloadGuide() {
-            alert('PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.');
-        }
+      function downloadGuide() {
+        alert(
+          "PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.",
+        );
+      }
 
-        document.querySelectorAll('.toc-list a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+      document.querySelectorAll(".toc-list a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
         });
+      });
     </script>
-
     <style>
-        .guide-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+      .guide-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
 
-        .guide-header {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
-        }
+      .guide-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border);
+      }
 
-        .breadcrumb {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
+      .breadcrumb {
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
 
-        .breadcrumb a {
-            color: var(--accent);
-        }
+      .breadcrumb a {
+        color: var(--accent);
+      }
 
+      .guide-header h1 {
+        font-size: 3rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      .guide-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .meta-item {
+        background: var(--glass);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+
+      .guide-intro {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      .toc-section {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .toc-section h2 {
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+
+      .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .toc-list {
+        list-style: none;
+      }
+
+      .toc-list li {
+        margin-bottom: 0.5rem;
+      }
+
+      .toc-list a {
+        color: var(--text);
+        text-decoration: none;
+        padding: 0.5rem;
+        display: block;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .toc-list a:hover {
+        background: var(--glass);
+        color: var(--accent);
+      }
+
+      .control-section {
+        margin-bottom: 4rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .control-section h2 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-intro {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+
+      .control-card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .control-card h3 {
+        color: var(--accent);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+      }
+
+      .control-tags {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .priority-critical {
+        background: rgba(255, 71, 87, 0.2);
+        color: var(--danger);
+        border: 1px solid var(--danger);
+      }
+
+      .priority-high {
+        background: rgba(255, 167, 38, 0.2);
+        color: var(--warning);
+        border: 1px solid var(--warning);
+      }
+
+      .priority-medium {
+        background: rgba(0, 212, 255, 0.2);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+      }
+
+      .difficulty-low {
+        background: rgba(46, 213, 115, 0.2);
+        color: var(--success);
+        border: 1px solid var(--success);
+      }
+
+      .difficulty-medium {
+        background: rgba(255, 167, 38, 0.2);
+        color: var(--warning);
+        border: 1px solid var(--warning);
+      }
+
+      .difficulty-high {
+        background: rgba(255, 71, 87, 0.2);
+        color: var(--danger);
+        border: 1px solid var(--danger);
+      }
+
+      .implementation,
+      .validation,
+      .best-practices,
+      .security-notes {
+        margin: 1.5rem 0;
+      }
+
+      .implementation h4,
+      .validation h4,
+      .best-practices h4,
+      .security-notes h4 {
+        color: var(--success);
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      pre {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1rem;
+        overflow-x: auto;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+
+      code {
+        color: var(--accent);
+        font-family: "Courier New", monospace;
+      }
+
+      .control-summary {
+        background: rgba(0, 212, 255, 0.05);
+        border: 1px solid var(--accent);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-top: 2rem;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .summary-item {
+        background: var(--glass);
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+
+      .remaining-sections {
+        margin: 4rem 0;
+      }
+
+      .section-preview {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .preview-card {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem;
+      }
+
+      .preview-card h3 {
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      .preview-controls {
+        list-style: none;
+        margin-top: 1rem;
+      }
+
+      .preview-controls li {
+        color: var(--text-muted);
+        padding: 0.3rem 0;
+        font-size: 0.9rem;
+      }
+
+      .guide-footer {
+        text-align: center;
+        padding: 3rem 0;
+        margin-top: 4rem;
+        border-top: 2px solid var(--border);
+      }
+
+      .footer-nav {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 768px) {
         .guide-header h1 {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
+          font-size: 2rem;
         }
 
         .guide-meta {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
+          flex-direction: column;
+          gap: 1rem;
         }
 
-        .meta-item {
-            background: var(--glass);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            border: 1px solid var(--border);
-        }
-
-        .guide-intro {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .toc-section {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .toc-section h2 {
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .toc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .toc-list {
-            list-style: none;
-        }
-
-        .toc-list li {
-            margin-bottom: 0.5rem;
-        }
-
-        .toc-list a {
-            color: var(--text);
-            text-decoration: none;
-            padding: 0.5rem;
-            display: block;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .toc-list a:hover {
-            background: var(--glass);
-            color: var(--accent);
-        }
-
-        .control-section {
-            margin-bottom: 4rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .control-section h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-intro {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .control-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .control-card h3 {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .control-tags {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .priority-critical {
-            background: rgba(255, 71, 87, 0.2);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-
-        .priority-high {
-            background: rgba(255, 167, 38, 0.2);
-            color: var(--warning);
-            border: 1px solid var(--warning);
-        }
-
-        .priority-medium {
-            background: rgba(0, 212, 255, 0.2);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-        }
-
-        .difficulty-low {
-            background: rgba(46, 213, 115, 0.2);
-            color: var(--success);
-            border: 1px solid var(--success);
-        }
-
-        .difficulty-medium {
-            background: rgba(255, 167, 38, 0.2);
-            color: var(--warning);
-            border: 1px solid var(--warning);
-        }
-
-        .difficulty-high {
-            background: rgba(255, 71, 87, 0.2);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-        }
-
-        .implementation,
-        .validation,
-        .best-practices,
-        .security-notes {
-            margin: 1.5rem 0;
-        }
-
-        .implementation h4,
-        .validation h4,
-        .best-practices h4,
-        .security-notes h4 {
-            color: var(--success);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        pre {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            overflow-x: auto;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        code {
-            color: var(--accent);
-            font-family: 'Courier New', monospace;
-        }
-
-        .control-summary {
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .summary-item {
-            background: var(--glass);
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .remaining-sections {
-            margin: 4rem 0;
-        }
-
+        .toc-grid,
+        .summary-grid,
         .section-preview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .preview-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .preview-card h3 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .preview-controls {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .preview-controls li {
-            color: var(--text-muted);
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
-        }
-
-        .guide-footer {
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 4rem;
-            border-top: 2px solid var(--border);
+          grid-template-columns: 1fr;
         }
 
         .footer-nav {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
+          flex-direction: column;
+          align-items: center;
         }
-
-        @media (max-width: 768px) {
-            .guide-header h1 {
-                font-size: 2rem;
-            }
-            
-            .guide-meta {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .toc-grid,
-            .summary-grid,
-            .section-preview {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-nav {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
+      }
     </style>
-</body>
+  </body>
 </html>
