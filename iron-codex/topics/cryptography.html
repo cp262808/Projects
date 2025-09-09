@@ -1,169 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cryptography - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <meta name="description" content="Encryption algorithms, hashing, digital signatures, PKI, key management, and crypto implementations">
-</head>
-<body data-page="topic">
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <meta
+      name="description"
+      content="Encryption algorithms, hashing, digital signatures, PKI, key management, and crypto implementations"
+    />
+  </head>
+  <body data-page="topic">
     <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
+      <nav class="nav container">
+        <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+        <ul class="nav-menu">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="../topics.html" class="nav-link active">Topics</a></li>
+          <li><a href="../guides.html" class="nav-link">Guides</a></li>
+          <li><a href="../tools.html" class="nav-link">Tools</a></li>
+          <li><a href="../about.html" class="nav-link">About</a></li>
+        </ul>
+        <div class="nav-toggle" id="navToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
     </header>
 
     <main class="container topic-content">
-        <section class="topic-header">
-            <nav class="breadcrumb">
-                <a href="../topics.html">Topics</a> / <span>Cryptography</span>
-            </nav>
-            <h1>Cryptography</h1>
-            <div class="topic-meta">
-                <span class="meta-item">15 Controls</span>
-                <span class="meta-item">Intermediate Level</span>
-                <span class="meta-item">Foundation</span>
-            </div>
-            <p class="topic-intro">Encryption algorithms, hashing, digital signatures, PKI, key management, and crypto implementations for protecting data confidentiality and integrity.</p>
-        </section>
+      <section class="topic-header">
+        <nav class="breadcrumb">
+          <a href="../topics.html">Topics</a> / <span>Cryptography</span>
+        </nav>
+        <h1>Cryptography</h1>
+        <div class="topic-meta">
+          <span class="meta-item">15 Controls</span>
+          <span class="meta-item">Intermediate Level</span>
+          <span class="meta-item">Foundation</span>
+        </div>
+        <p class="topic-intro">
+          Encryption algorithms, hashing, digital signatures, PKI, key
+          management, and crypto implementations for protecting data
+          confidentiality and integrity.
+        </p>
+      </section>
 
-        <section class="controls-section">
-            <h2>Security Controls (15)</h2>
-            
-            <div class="control-group">
-                <h3>Encryption</h3>
-                <div class="control-item">
-                    <h4>Symmetric Encryption</h4>
-                    <p>Implement AES encryption for high-performance data protection.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Asymmetric Encryption</h4>
-                    <p>Use RSA/ECC for key exchange and digital signatures.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Hybrid Encryption Systems</h4>
-                    <p>Combine symmetric and asymmetric encryption for optimal security and performance.</p>
-                </div>
-            </div>
+      <section class="controls-section">
+        <h2>Security Controls (15)</h2>
 
-            <div class="control-group">
-                <h3>Hashing & Integrity</h3>
-                <div class="control-item">
-                    <h4>Cryptographic Hash Functions</h4>
-                    <p>Use SHA-256 or SHA-3 for data integrity verification.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Message Authentication Codes</h4>
-                    <p>Implement HMAC for authenticated message integrity.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Digital Signatures</h4>
-                    <p>Deploy digital signature schemes for non-repudiation.</p>
-                </div>
-            </div>
+        <div class="control-group">
+          <h3>Encryption</h3>
+          <div class="control-item">
+            <h4>Symmetric Encryption</h4>
+            <p>
+              Implement AES encryption for high-performance data protection.
+            </p>
+          </div>
+          <div class="control-item">
+            <h4>Asymmetric Encryption</h4>
+            <p>Use RSA/ECC for key exchange and digital signatures.</p>
+          </div>
+          <div class="control-item">
+            <h4>Hybrid Encryption Systems</h4>
+            <p>
+              Combine symmetric and asymmetric encryption for optimal security
+              and performance.
+            </p>
+          </div>
+        </div>
 
-            <div class="control-group">
-                <h3>Key Management</h3>
-                <div class="control-item">
-                    <h4>Key Generation</h4>
-                    <p>Use cryptographically secure random number generators.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Key Storage</h4>
-                    <p>Secure key storage using HSMs or secure key vaults.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Key Rotation</h4>
-                    <p>Implement regular key rotation and lifecycle management.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Key Escrow</h4>
-                    <p>Establish key recovery procedures for business continuity.</p>
-                </div>
-            </div>
+        <div class="control-group">
+          <h3>Hashing & Integrity</h3>
+          <div class="control-item">
+            <h4>Cryptographic Hash Functions</h4>
+            <p>Use SHA-256 or SHA-3 for data integrity verification.</p>
+          </div>
+          <div class="control-item">
+            <h4>Message Authentication Codes</h4>
+            <p>Implement HMAC for authenticated message integrity.</p>
+          </div>
+          <div class="control-item">
+            <h4>Digital Signatures</h4>
+            <p>Deploy digital signature schemes for non-repudiation.</p>
+          </div>
+        </div>
 
-            <div class="control-group">
-                <h3>PKI & Certificates</h3>
-                <div class="control-item">
-                    <h4>Public Key Infrastructure</h4>
-                    <p>Deploy PKI for certificate-based authentication and encryption.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Certificate Management</h4>
-                    <p>Manage certificate lifecycle including issuance, renewal, and revocation.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Certificate Validation</h4>
-                    <p>Implement proper certificate chain validation and CRL checking.</p>
-                </div>
-            </div>
+        <div class="control-group">
+          <h3>Key Management</h3>
+          <div class="control-item">
+            <h4>Key Generation</h4>
+            <p>Use cryptographically secure random number generators.</p>
+          </div>
+          <div class="control-item">
+            <h4>Key Storage</h4>
+            <p>Secure key storage using HSMs or secure key vaults.</p>
+          </div>
+          <div class="control-item">
+            <h4>Key Rotation</h4>
+            <p>Implement regular key rotation and lifecycle management.</p>
+          </div>
+          <div class="control-item">
+            <h4>Key Escrow</h4>
+            <p>Establish key recovery procedures for business continuity.</p>
+          </div>
+        </div>
 
-            <div class="control-group">
-                <h3>Implementation Security</h3>
-                <div class="control-item">
-                    <h4>Secure Coding Practices</h4>
-                    <p>Avoid common cryptographic implementation vulnerabilities.</p>
-                </div>
-                <div class="control-item">
-                    <h4>Side-Channel Attack Protection</h4>
-                    <p>Implement countermeasures against timing and power analysis attacks.</p>
-                </div>
-            </div>
-        </section>
+        <div class="control-group">
+          <h3>PKI & Certificates</h3>
+          <div class="control-item">
+            <h4>Public Key Infrastructure</h4>
+            <p>
+              Deploy PKI for certificate-based authentication and encryption.
+            </p>
+          </div>
+          <div class="control-item">
+            <h4>Certificate Management</h4>
+            <p>
+              Manage certificate lifecycle including issuance, renewal, and
+              revocation.
+            </p>
+          </div>
+          <div class="control-item">
+            <h4>Certificate Validation</h4>
+            <p>
+              Implement proper certificate chain validation and CRL checking.
+            </p>
+          </div>
+        </div>
 
-        <section class="topic-footer">
-            <div class="footer-nav">
-                <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
-                <a href="container-security" class="btn btn-primary">Next: Container Security →</a>
-            </div>
-        </section>
+        <div class="control-group">
+          <h3>Implementation Security</h3>
+          <div class="control-item">
+            <h4>Secure Coding Practices</h4>
+            <p>Avoid common cryptographic implementation vulnerabilities.</p>
+          </div>
+          <div class="control-item">
+            <h4>Side-Channel Attack Protection</h4>
+            <p>
+              Implement countermeasures against timing and power analysis
+              attacks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="topic-footer">
+        <div class="footer-nav">
+          <a href="../topics.html" class="btn btn-outline">← Back to Topics</a>
+          <a href="container-security.html" class="btn btn-primary"
+            >Next: Container Security →</a
+          >
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
-            </div>
+      <div class="container">
+        <div class="footer-bottom">
+          <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
         </div>
+      </div>
     </footer>
 
     <script src="../assets/js/main.js"></script>
     <style>
-        .topic-content {max-width: 1000px;margin: 0 auto;padding: 2rem 1rem;}
-        .topic-header {margin-bottom: 3rem;padding-bottom: 2rem;border-bottom: 2px solid var(--border);}
-        .breadcrumb {color: var(--text-muted);margin-bottom: 1rem;font-size: 0.9rem;}
-        .breadcrumb a {color: var(--accent);}
-        .topic-header h1 {font-size: 3rem;color: var(--accent);margin-bottom: 1rem;}
-        .topic-meta {display: flex;gap: 2rem;margin-bottom: 1.5rem;flex-wrap: wrap;}
-        .meta-item {background: var(--glass);padding: 0.5rem 1rem;border-radius: 20px;font-size: 0.9rem;color: var(--text-muted);border: 1px solid var(--border);}
-        .topic-intro {font-size: 1.2rem;color: var(--text-muted);line-height: 1.6;}
-        .controls-section {margin-bottom: 3rem;}
-        .controls-section h2 {color: var(--accent);font-size: 2rem;margin-bottom: 2rem;}
-        .control-group {margin-bottom: 2rem;}
-        .control-group h3 {color: var(--warning);font-size: 1.4rem;margin-bottom: 1.5rem;padding-bottom: 0.5rem;border-bottom: 1px solid var(--border);}
-        .control-item {background: var(--glass);border: 1px solid var(--border);border-radius: 12px;padding: 1.5rem;margin-bottom: 1rem;}
-        .control-item h4 {color: var(--accent);font-size: 1.2rem;margin-bottom: 0.5rem;}
-        .control-item p {color: var(--text-muted);}
-        .topic-footer {text-align: center;padding: 3rem 0;margin-top: 4rem;border-top: 2px solid var(--border);}
-        .footer-nav {display: flex;gap: 2rem;justify-content: center;flex-wrap: wrap;}
-        @media (max-width: 768px) {
-            .topic-header h1 {font-size: 2rem;}
-            .topic-meta {flex-direction: column;gap: 1rem;}
-            .footer-nav {flex-direction: column;align-items: center;}
+      .topic-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+      .topic-header {
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border);
+      }
+      .breadcrumb {
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+      .breadcrumb a {
+        color: var(--accent);
+      }
+      .topic-header h1 {
+        font-size: 3rem;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+      .topic-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .meta-item {
+        background: var(--glass);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+      }
+      .topic-intro {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+      .controls-section {
+        margin-bottom: 3rem;
+      }
+      .controls-section h2 {
+        color: var(--accent);
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+      .control-group {
+        margin-bottom: 2rem;
+      }
+      .control-group h3 {
+        color: var(--warning);
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .control-item {
+        background: var(--glass);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .control-item h4 {
+        color: var(--accent);
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+      .control-item p {
+        color: var(--text-muted);
+      }
+      .topic-footer {
+        text-align: center;
+        padding: 3rem 0;
+        margin-top: 4rem;
+        border-top: 2px solid var(--border);
+      }
+      .footer-nav {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 768px) {
+        .topic-header h1 {
+          font-size: 2rem;
         }
+        .topic-meta {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        .footer-nav {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
     </style>
-</body>
+  </body>
 </html>
