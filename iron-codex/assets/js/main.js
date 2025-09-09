@@ -17,6 +17,8 @@ function initializeNavigation() {
         navToggle.addEventListener('click', function() {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
+            const isActive = navMenu.classList.contains('active');
+            navToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
         });
     }
 
@@ -27,6 +29,7 @@ function initializeNavigation() {
             if (navToggle) {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
             }
         });
     });
@@ -37,6 +40,7 @@ function initializeNavigation() {
             if (navMenu.classList.contains('active')) {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
             }
         }
     });
