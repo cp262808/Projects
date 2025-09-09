@@ -1,10 +1,10 @@
 export default function Footer(){
   return (
-    <footer className="bg-[#111827] text-white pt-12 pb-6">
-      <div className="container grid gap-6 md:grid-cols-4">
-        <div>
-          <h3 className="text-sky-400 font-semibold mb-2">Security References</h3>
-          <ul className="space-y-2 text-gray-300">
+    <footer className="w3-container w3-center w3-padding-32 w3-light-grey">
+      <div className="w3-row">
+        <div className="w3-third">
+          <h3>Security References</h3>
+          <ul className="w3-ul">
             <li><a href="/topics/api-security">API Security</a></li>
             <li><a href="/topics/cloud-security">Cloud Security</a></li>
             <li><a href="/topics/container-security">Container Security</a></li>
@@ -12,27 +12,27 @@ export default function Footer(){
             <li><a href="/topics">All References</a></li>
           </ul>
         </div>
-        <div>
-          <h3 className="text-sky-400 font-semibold mb-2">Implementation Guides</h3>
-          <ul className="space-y-2 text-gray-300">
+        <div className="w3-third">
+          <h3>Implementation Guides</h3>
+          <ul className="w3-ul">
             <li><a href="/guides">Getting Started</a></li>
             <li><a href="/guides/best-practices">Best Practices</a></li>
             <li><a href="/maps">Compliance Mapping</a></li>
             <li><a href="/guides/tools">Tool Integration</a></li>
           </ul>
         </div>
-        <div>
-          <h3 className="text-sky-400 font-semibold mb-2">Resources</h3>
-          <ul className="space-y-2 text-gray-300">
+        <div className="w3-third">
+          <h3>Resources</h3>
+          <ul className="w3-ul">
             <li><a href="/tools">Security Tools</a></li>
             <li><a href="/vendors">Vendor Documentation</a></li>
             <li><a href="/standards">Standards & Frameworks</a></li>
             <li><a href="/community">Community</a></li>
           </ul>
         </div>
-        <div>
-          <h3 className="text-sky-400 font-semibold mb-2">About</h3>
-          <ul className="space-y-2 text-gray-300">
+        <div className="w3-third">
+          <h3>About</h3>
+          <ul className="w3-ul">
             <li><a href="/about">Our Mission</a></li>
             <li><a href="/contributing">Contributing</a></li>
             <li><a href="/contact">Contact</a></li>
@@ -40,9 +40,13 @@ export default function Footer(){
           </ul>
         </div>
       </div>
-      <div className="container border-t border-gray-700 mt-6 pt-4 text-center text-gray-400 text-sm">
-        © 2024 Iron Codex. The world's largest cybersecurity reference platform.
+      <div className="w3-xlarge w3-section">
+        <i className="fa fa-facebook-official w3-hover-opacity"></i>
+        <i className="fa fa-instagram w3-hover-opacity"></i>
+        <i className="fa fa-twitter w3-hover-opacity"></i>
+        <i className="fa fa-linkedin w3-hover-opacity"></i>
       </div>
+      <p className="w3-small">© 2024 Iron Codex. The world's largest cybersecurity reference platform.</p>
     </footer>
   )
 }
