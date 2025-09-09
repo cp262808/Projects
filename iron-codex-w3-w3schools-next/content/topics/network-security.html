@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Network Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="Firewalls, VPNs, IDS/IPS systems, network segmentation, and secure protocol implementation">
 </head>
 <body data-page="topic">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container topic-content">
+    <main class="w3-container">
         <section class="topic-header">
             <nav class="breadcrumb">
                 <a href="../topics.html">Topics</a> / <span>Network Security</span>
@@ -46,20 +27,20 @@
             
             <div class="key-concepts">
                 <h3>Key Concepts Covered</h3>
-                <div class="concepts-grid">
-                    <div class="concept-card">
+                <div class="w3-row">
+                    <div class="w3-col">
                         <h4>Perimeter Security</h4>
                         <p>Firewalls, DMZ, and network boundary protection mechanisms</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Network Segmentation</h4>
                         <p>VLANs, subnets, and micro-segmentation for isolation</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Traffic Monitoring</h4>
                         <p>IDS/IPS, network monitoring, and traffic analysis</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Secure Protocols</h4>
                         <p>VPNs, TLS/SSL, and encrypted communication channels</p>
                     </div>
@@ -73,7 +54,7 @@
             <div class="control-group">
                 <h3>Perimeter Defense</h3>
                 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Deploy Next-Generation Firewalls</h4>
                     <p>Implement advanced firewalls with deep packet inspection, application awareness, and threat intelligence integration.</p>
                     <div class="implementation-example">
@@ -87,17 +68,17 @@
                     </div>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Configure DMZ Architecture</h4>
                     <p>Establish demilitarized zones to isolate public-facing services from internal networks.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Network Access Control (NAC)</h4>
                     <p>Control device access to network resources based on device compliance and identity verification.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Deploy Web Application Firewalls</h4>
                     <p>Protect web applications from common attacks like SQL injection and XSS.</p>
                 </div>
@@ -106,7 +87,7 @@
             <div class="control-group">
                 <h3>Network Segmentation</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Network Segmentation</h4>
                     <p>Divide networks into smaller segments to limit attack spread and improve security monitoring.</p>
                     <div class="implementation-example">
@@ -120,12 +101,12 @@
                     </div>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Configure Access Control Lists (ACLs)</h4>
                     <p>Define and enforce network traffic rules at various network layers.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Network Isolation</h4>
                     <p>Separate critical systems and sensitive data networks from general user networks.</p>
                 </div>
@@ -134,22 +115,22 @@
             <div class="control-group">
                 <h3>Monitoring & Detection</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Deploy Intrusion Detection Systems (IDS)</h4>
                     <p>Monitor network traffic for suspicious activities and known attack patterns.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Network Traffic Analysis</h4>
                     <p>Continuously analyze network flows to detect anomalies and potential threats.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Configure SIEM Integration</h4>
                     <p>Integrate network security devices with SIEM for centralized monitoring and correlation.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Deploy Honeypots and Honeynets</h4>
                     <p>Use deception technology to detect and analyze attack methods.</p>
                 </div>
@@ -158,22 +139,22 @@
             <div class="control-group">
                 <h3>Secure Communications</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement VPN Solutions</h4>
                     <p>Provide secure remote access through encrypted tunnels and strong authentication.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Configure Network Encryption</h4>
                     <p>Encrypt sensitive network communications using strong cryptographic protocols.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Secure Wireless Networks</h4>
                     <p>Implement WPA3 encryption and proper wireless network segmentation.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Network Protocol Security</h4>
                     <p>Disable insecure protocols and implement secure alternatives.</p>
                 </div>
@@ -182,17 +163,17 @@
             <div class="control-group">
                 <h3>Network Management</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Network Device Hardening</h4>
                     <p>Secure network infrastructure devices with proper configuration and access controls.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Configure Network Redundancy</h4>
                     <p>Implement redundant network paths and failover mechanisms for availability.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Network Change Management</h4>
                     <p>Establish controlled processes for network configuration changes.</p>
                 </div>

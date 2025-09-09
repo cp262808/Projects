@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="Comprehensive API security guide with 74 practical controls for REST, GraphQL, authentication, and more">
 </head>
 <body data-page="guide">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container guide-content">
+    <main class="w3-container">
         <!-- Guide Header -->
         <section class="guide-header">
             <nav class="breadcrumb">
@@ -44,8 +25,8 @@
         <!-- Table of Contents -->
         <section class="toc-section">
             <h2>Table of Contents</h2>
-            <div class="toc-grid">
-                <div class="toc-column">
+            <div class="w3-row">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#authentication">1. Authentication (12 controls)</a></li>
                         <li><a href="#authorization">2. Authorization (10 controls)</a></li>
@@ -53,7 +34,7 @@
                         <li><a href="#rate-limiting">4. Rate Limiting (8 controls)</a></li>
                     </ul>
                 </div>
-                <div class="toc-column">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#logging-monitoring">5. Logging & Monitoring (12 controls)</a></li>
                         <li><a href="#data-protection">6. Data Protection (9 controls)</a></li>
@@ -69,7 +50,7 @@
             <h2>1. Authentication (12 controls)</h2>
             <p class="section-intro">Establish strong authentication mechanisms for API access with multi-factor authentication, secure token handling, and certificate-based authentication.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Multi-Factor Authentication (MFA)</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -78,7 +59,7 @@
                 <p><strong>Requirement:</strong> Implement OAuth 2.0 with PKCE (Proof Key for Code Exchange) for enhanced security against authorization code interception attacks.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// OAuth 2.0 with PKCE Flow (Node.js)
+                    <div class="w3-example"><pre class="w3-code">// OAuth 2.0 with PKCE Flow (Node.js)
 const crypto = require('crypto');
 const express = require('express');
 const axios = require('axios');
@@ -133,7 +114,7 @@ app.get('/auth/callback', async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: 'Authentication failed' });
     }
-});</code></pre>
+});</pre></div>
                 </div>
                 <div class="validation">
                     <h4>Validation:</h4>
@@ -146,7 +127,7 @@ app.get('/auth/callback', async (req, res) => {
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement JWT Token Validation</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -155,7 +136,7 @@ app.get('/auth/callback', async (req, res) => {
                 <p><strong>Requirement:</strong> Validate JWT tokens with proper signature verification, expiration checks, and audience validation using JWKS rotation.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>const jwt = require('jsonwebtoken');
+                    <div class="w3-example"><pre class="w3-code">const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 
 const client = jwksClient({
@@ -198,11 +179,11 @@ function validateJWT(req, res, next) {
         req.user = decoded;
         next();
     });
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Certificate-Based mTLS Authentication</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -211,7 +192,7 @@ function validateJWT(req, res, next) {
                 <p><strong>Requirement:</strong> Implement mutual TLS authentication for high-security API endpoints requiring client certificate validation.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Generate certificates for mTLS
+                    <div class="w3-example"><pre class="w3-code"># Generate certificates for mTLS
 # CA certificate
 openssl genrsa -out ca-key.pem 4096
 openssl req -new -x509 -key ca-key.pem -out ca-cert.pem -days 365
@@ -249,7 +230,7 @@ const server = https.createServer(options, (req, res) => {
 
 server.listen(8443, () => {
     console.log('mTLS server listening on port 8443');
-});</code></pre>
+});</pre></div>
                 </div>
             </div>
 
@@ -301,7 +282,7 @@ server.listen(8443, () => {
             <h2>2. Authorization (10 controls)</h2>
             <p class="section-intro">Implement fine-grained authorization controls with role-based access control, attribute-based policies, and scope validation.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Role-Based Access Control (RBAC)</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -310,7 +291,7 @@ server.listen(8443, () => {
                 <p><strong>Requirement:</strong> Implement hierarchical RBAC with role inheritance and principle of least privilege enforcement.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// RBAC Implementation (Node.js)
+                    <div class="w3-example"><pre class="w3-code">// RBAC Implementation (Node.js)
 class RBACManager {
     constructor() {
         this.roles = new Map();
@@ -387,7 +368,7 @@ app.get('/api/admin/users',
     authenticateJWT,
     requirePermission('users', 'read'),
     getUserList
-);</code></pre>
+);</pre></div>
                 </div>
             </div>
 
@@ -439,7 +420,7 @@ app.get('/api/admin/users',
             <h2>3. Input Validation (14 controls)</h2>
             <p class="section-intro">Comprehensive input validation and sanitization to prevent injection attacks, ensure data integrity, and protect against malicious input.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>SQL Injection Prevention</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -448,7 +429,7 @@ app.get('/api/admin/users',
                 <p><strong>Requirement:</strong> Use parameterized queries, stored procedures, and input validation to prevent SQL injection attacks.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// Parameterized Queries (Node.js with mysql2)
+                    <div class="w3-example"><pre class="w3-code">// Parameterized Queries (Node.js with mysql2)
 const mysql = require('mysql2/promise');
 
 class SecureUserRepository {
@@ -492,7 +473,7 @@ class SecureUserRepository {
             user.passwordHash && user.passwordHash.length >= 60
         );
     }
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
@@ -560,7 +541,7 @@ class SecureUserRepository {
             <h2>4. Rate Limiting (8 controls)</h2>
             <p class="section-intro">Implement comprehensive rate limiting strategies to protect against abuse, DDoS attacks, and ensure fair resource usage across API consumers.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Token Bucket Rate Limiting</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -569,7 +550,7 @@ class SecureUserRepository {
                 <p><strong>Requirement:</strong> Implement token bucket algorithm with Redis for distributed rate limiting across multiple API gateway instances.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// Token Bucket Rate Limiter with Redis
+                    <div class="w3-example"><pre class="w3-code">// Token Bucket Rate Limiter with Redis
 const redis = require('redis');
 const client = redis.createClient();
 
@@ -627,7 +608,7 @@ class TokenBucketRateLimiter {
             resetTime: now + ((this.capacity - result[1]) / this.refillRate * 1000)
         };
     }
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
@@ -671,7 +652,7 @@ class TokenBucketRateLimiter {
             <h2>5. Logging & Monitoring (12 controls)</h2>
             <p class="section-intro">Comprehensive security event logging, performance monitoring, and real-time threat detection for API security visibility and incident response.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Security Event Logging</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -680,7 +661,7 @@ class TokenBucketRateLimiter {
                 <p><strong>Requirement:</strong> Implement comprehensive security event logging with structured logging, correlation IDs, and SIEM integration.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// Security Event Logging System
+                    <div class="w3-example"><pre class="w3-code">// Security Event Logging System
 const winston = require('winston');
 const { ElasticsearchTransport } = require('winston-elasticsearch');
 
@@ -738,7 +719,7 @@ class SecurityLogger {
                request.connection.remoteAddress ||
                request.socket.remoteAddress;
     }
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
@@ -798,7 +779,7 @@ class SecurityLogger {
             <h2>6. Data Protection (9 controls)</h2>
             <p class="section-intro">Comprehensive data protection measures including encryption, PII handling, data loss prevention, and secure data lifecycle management.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>End-to-End Encryption</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -807,7 +788,7 @@ class SecurityLogger {
                 <p><strong>Requirement:</strong> Implement AES-256-GCM encryption for data at rest and in transit with proper key management and rotation.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// End-to-End Encryption Service
+                    <div class="w3-example"><pre class="w3-code">// End-to-End Encryption Service
 const crypto = require('crypto');
 const AWS = require('aws-sdk');
 
@@ -845,7 +826,7 @@ class EncryptionService {
             encryptedDataKey: dataKey.encrypted.toString('base64')
         };
     }
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
@@ -893,7 +874,7 @@ class EncryptionService {
             <h2>7. API Gateway Security (5 controls)</h2>
             <p class="section-intro">Centralized security enforcement through API gateway configuration including authentication, transformation, load balancing, and monitoring.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Gateway Authentication & Authorization</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -902,7 +883,7 @@ class EncryptionService {
                 <p><strong>Requirement:</strong> Configure API gateway for centralized authentication and authorization with policy enforcement and JWT validation.</p>
                 <div class="implementation">
                     <h4>Implementation Example (Kong Gateway):</h4>
-                    <pre><code># Kong Gateway Configuration
+                    <div class="w3-example"><pre class="w3-code"># Kong Gateway Configuration
 # Add JWT plugin for authentication
 curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=jwt" \
@@ -918,7 +899,7 @@ curl -X POST http://localhost:8001/services/api-service/plugins \
 curl -X POST http://localhost:8001/services/api-service/plugins \
   --data "name=rate-limiting" \
   --data "config.minute=100" \
-  --data "config.hour=1000"</code></pre>
+  --data "config.hour=1000"</pre></div>
                 </div>
             </div>
 
@@ -950,7 +931,7 @@ curl -X POST http://localhost:8001/services/api-service/plugins \
             <h2>8. GraphQL Security (4 controls)</h2>
             <p class="section-intro">Specialized security controls for GraphQL APIs including query complexity analysis, depth limiting, and field-level authorization.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Query Complexity Analysis</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -959,7 +940,7 @@ curl -X POST http://localhost:8001/services/api-service/plugins \
                 <p><strong>Requirement:</strong> Implement query complexity analysis to prevent resource exhaustion attacks through expensive nested queries.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// GraphQL Query Complexity Analysis
+                    <div class="w3-example"><pre class="w3-code">// GraphQL Query Complexity Analysis
 const { createComplexityLimitRule } = require('graphql-query-complexity');
 const depthLimit = require('graphql-depth-limit');
 
@@ -989,7 +970,7 @@ const server = new ApolloServer({
         complexityAnalyzer,
         depthLimit(10)
     ]
-});</code></pre>
+});</pre></div>
                 </div>
             </div>
 

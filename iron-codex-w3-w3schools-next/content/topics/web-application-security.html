@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Application Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="OWASP Top 10, input validation, session management, secure coding practices, and application testing">
 </head>
 <body data-page="topic">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container topic-content">
+    <main class="w3-container">
         <section class="topic-header">
             <nav class="breadcrumb">
                 <a href="../topics.html">Topics</a> / <span>Web Application Security</span>
@@ -46,20 +27,20 @@
             
             <div class="key-concepts">
                 <h3>Key Concepts Covered</h3>
-                <div class="concepts-grid">
-                    <div class="concept-card">
+                <div class="w3-row">
+                    <div class="w3-col">
                         <h4>OWASP Top 10</h4>
                         <p>Most critical web application security risks and mitigation strategies</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Input Validation</h4>
                         <p>Comprehensive input sanitization and validation techniques</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Session Management</h4>
                         <p>Secure session handling and state management</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Secure Coding</h4>
                         <p>Best practices for writing secure application code</p>
                     </div>
@@ -73,7 +54,7 @@
             <div class="control-group">
                 <h3>Input Validation & Sanitization</h3>
                 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Comprehensive Input Validation</h4>
                     <p>Validate all user inputs on both client and server side using whitelist validation where possible.</p>
                     <div class="implementation-example">
@@ -87,17 +68,17 @@
                     </div>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Prevent SQL Injection</h4>
                     <p>Use parameterized queries, stored procedures, and input validation to prevent SQL injection attacks.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Prevent Cross-Site Scripting (XSS)</h4>
                     <p>Implement proper output encoding and Content Security Policy to prevent XSS attacks.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement CSRF Protection</h4>
                     <p>Use anti-CSRF tokens and proper HTTP methods to prevent cross-site request forgery.</p>
                 </div>
@@ -106,22 +87,22 @@
             <div class="control-group">
                 <h3>Authentication & Authorization</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Strong Authentication</h4>
                     <p>Deploy multi-factor authentication and strong password policies.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Secure Session Management</h4>
                     <p>Implement secure session handling with proper timeout and invalidation.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Role-Based Access Control</h4>
                     <p>Implement proper authorization checks for all application functions and resources.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Prevent Privilege Escalation</h4>
                     <p>Ensure users cannot access functions or data beyond their authorization level.</p>
                 </div>
@@ -130,22 +111,22 @@
             <div class="control-group">
                 <h3>Data Protection</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement Data Encryption</h4>
                     <p>Encrypt sensitive data both in transit and at rest using strong encryption algorithms.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Secure Data Storage</h4>
                     <p>Implement proper database security and avoid storing sensitive data unnecessarily.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Data Loss Prevention</h4>
                     <p>Implement controls to prevent unauthorized data exfiltration.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Secure File Handling</h4>
                     <p>Implement secure file upload, download, and processing mechanisms.</p>
                 </div>
@@ -154,22 +135,22 @@
             <div class="control-group">
                 <h3>Application Security</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Security Headers Configuration</h4>
                     <p>Implement security headers like HSTS, CSP, X-Frame-Options, and others.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Error Handling & Logging</h4>
                     <p>Implement proper error handling that doesn't leak sensitive information.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Rate Limiting & DoS Protection</h4>
                     <p>Implement rate limiting to prevent abuse and denial of service attacks.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Secure Configuration Management</h4>
                     <p>Ensure application and server configurations follow security best practices.</p>
                 </div>
@@ -178,32 +159,32 @@
             <div class="control-group">
                 <h3>Testing & Validation</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Static Application Security Testing (SAST)</h4>
                     <p>Implement automated static code analysis to identify security vulnerabilities.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Dynamic Application Security Testing (DAST)</h4>
                     <p>Perform runtime security testing of applications in production-like environments.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Interactive Application Security Testing (IAST)</h4>
                     <p>Combine static and dynamic testing approaches for comprehensive coverage.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Penetration Testing</h4>
                     <p>Regular manual security testing by qualified security professionals.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Security Code Review</h4>
                     <p>Manual review of application code for security vulnerabilities and best practices.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Dependency Scanning</h4>
                     <p>Regular scanning of third-party components and libraries for known vulnerabilities.</p>
                 </div>

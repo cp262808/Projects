@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cloud Security CDN - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="Comprehensive cloud security guide with 59 controls for AWS, Azure, GCP infrastructure security">
 </head>
 <body data-page="guide">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container guide-content">
+    <main class="w3-container">
         <section class="guide-header">
             <nav class="breadcrumb">
                 <a href="../guides.html">Guides</a> / <span>Cloud Security CDN</span>
@@ -42,8 +23,8 @@
 
         <section class="toc-section">
             <h2>Table of Contents</h2>
-            <div class="toc-grid">
-                <div class="toc-column">
+            <div class="w3-row">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#identity-access">1. Identity & Access Management (12 controls)</a></li>
                         <li><a href="#network-security">2. Network Security (10 controls)</a></li>
@@ -51,7 +32,7 @@
                         <li><a href="#compute-security">4. Compute Security (8 controls)</a></li>
                     </ul>
                 </div>
-                <div class="toc-column">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#storage-security">5. Storage Security (7 controls)</a></li>
                         <li><a href="#logging-monitoring">6. Logging & Monitoring (6 controls)</a></li>
@@ -66,7 +47,7 @@
             <h2>1. Identity & Access Management (12 controls)</h2>
             <p class="section-intro">Implement robust IAM controls across cloud providers with least privilege and zero trust principles.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Multi-Factor Authentication</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -75,7 +56,7 @@
                 <p><strong>Requirement:</strong> Enforce MFA for all privileged accounts and administrative access across all cloud platforms.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># AWS CLI - Enable MFA for root account
+                    <div class="w3-example"><pre class="w3-code"># AWS CLI - Enable MFA for root account
 aws iam enable-mfa-device \
   --user-name root \
   --serial-number arn:aws:iam::123456789012:mfa/root-account-mfa-device \
@@ -102,7 +83,7 @@ aws iam enable-mfa-device \
       }
     }
   ]
-}</code></pre>
+}</pre></div>
                 </div>
                 <div class="validation">
                     <h4>Validation:</h4>
@@ -114,7 +95,7 @@ aws iam enable-mfa-device \
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Least Privilege Access</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -123,7 +104,7 @@ aws iam enable-mfa-device \
                 <p><strong>Requirement:</strong> Grant minimum permissions necessary for users and services to perform their functions.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># AWS IAM Policy Example
+                    <div class="w3-example"><pre class="w3-code"># AWS IAM Policy Example
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -141,7 +122,7 @@ aws iam enable-mfa-device \
       }
     }
   ]
-}</code></pre>
+}</pre></div>
                 </div>
                 <div class="best-practices">
                     <h4>Best Practices:</h4>
@@ -154,7 +135,7 @@ aws iam enable-mfa-device \
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Role-Based Access Control</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -163,7 +144,7 @@ aws iam enable-mfa-device \
                 <p><strong>Requirement:</strong> Use predefined roles and groups to manage access instead of individual user permissions.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Create IAM group
+                    <div class="w3-example"><pre class="w3-code"># Create IAM group
 aws iam create-group --group-name Developers
 
 # Attach policy to group
@@ -193,7 +174,7 @@ aws iam add-user-to-group \
       }
     }
   ]
-}</code></pre>
+}</pre></div>
                 </div>
                 <div class="security-notes">
                     <h4>Security Considerations:</h4>
@@ -244,7 +225,7 @@ aws iam add-user-to-group \
             <h2>2. Network Security (10 controls)</h2>
             <p class="section-intro">Secure cloud networks with proper segmentation, access controls, and traffic monitoring.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Network Segmentation</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -253,7 +234,7 @@ aws iam add-user-to-group \
                 <p><strong>Requirement:</strong> Segment network traffic using VPCs, subnets, and security groups to limit blast radius.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Create VPC with public and private subnets
+                    <div class="w3-example"><pre class="w3-code"># Create VPC with public and private subnets
 aws ec2 create-vpc --cidr-block 10.0.0.0/16
 
 # Create public subnet
@@ -279,11 +260,11 @@ aws ec2 authorize-security-group-ingress \
   --group-id sg-12345678 \
   --protocol tcp \
   --port 443 \
-  --cidr 0.0.0.0/0</code></pre>
+  --cidr 0.0.0.0/0</pre></div>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Configure Network Access Control Lists</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -292,7 +273,7 @@ aws ec2 authorize-security-group-ingress \
                 <p><strong>Requirement:</strong> Implement subnet-level network ACLs as additional layer of defense.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Create Network Security Group
+                    <div class="w3-example"><pre class="w3-code"># Create Network Security Group
 az network nsg create \
   --resource-group myResourceGroup \
   --name myNetworkSecurityGroup
@@ -308,7 +289,7 @@ az network nsg rule create \
   --source-address-prefixes '*' \
   --destination-address-prefixes '*' \
   --access allow \
-  --direction inbound</code></pre>
+  --direction inbound</pre></div>
                 </div>
             </div>
 
@@ -347,7 +328,7 @@ az network nsg rule create \
             <h2>3. Data Protection (9 controls)</h2>
             <p class="section-intro">Protect sensitive data with encryption, classification, and access controls.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Encryption at Rest</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -356,7 +337,7 @@ az network nsg rule create \
                 <p><strong>Requirement:</strong> Encrypt all data stored in cloud services using strong encryption algorithms.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Enable default encryption on S3 bucket
+                    <div class="w3-example"><pre class="w3-code"># Enable default encryption on S3 bucket
 aws s3api put-bucket-encryption \
   --bucket my-secure-bucket \
   --server-side-encryption-configuration '{
@@ -374,7 +355,7 @@ aws s3api put-bucket-encryption \
 aws rds create-db-instance \
   --db-instance-identifier mydbinstance \
   --storage-encrypted \
-  --kms-key-id arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012</code></pre>
+  --kms-key-id arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012</pre></div>
                 </div>
             </div>
 

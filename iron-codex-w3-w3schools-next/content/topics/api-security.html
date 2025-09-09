@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="REST/GraphQL security, authentication, rate limiting, input validation, and API gateway protection">
 </head>
 <body data-page="topic">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link active">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container topic-content">
+    <main class="w3-container">
         <section class="topic-header">
             <nav class="breadcrumb">
                 <a href="../topics.html">Topics</a> / <span>API Security</span>
@@ -46,20 +27,20 @@
             
             <div class="key-concepts">
                 <h3>Key Concepts Covered</h3>
-                <div class="concepts-grid">
-                    <div class="concept-card">
+                <div class="w3-row">
+                    <div class="w3-col">
                         <h4>Authentication & Authorization</h4>
                         <p>OAuth 2.0, JWT tokens, API keys, and access control mechanisms</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Input Validation</h4>
                         <p>Comprehensive validation of API requests and data sanitization</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>Rate Limiting</h4>
                         <p>Throttling mechanisms to prevent abuse and DDoS attacks</p>
                     </div>
-                    <div class="concept-card">
+                    <div class="w3-col">
                         <h4>API Gateway Security</h4>
                         <p>Centralized security policy enforcement and management</p>
                     </div>
@@ -73,7 +54,7 @@
             <div class="control-group">
                 <h3>Authentication & Authorization</h3>
                 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Implement OAuth 2.0 / OpenID Connect</h4>
                     <p>Use industry-standard OAuth 2.0 for API authentication with OpenID Connect for identity.</p>
                     <div class="implementation-example">
@@ -87,17 +68,17 @@
                     </div>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>JWT Token Security</h4>
                     <p>Properly implement and validate JSON Web Tokens with strong signing algorithms.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>API Key Management</h4>
                     <p>Secure generation, distribution, and rotation of API keys.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Fine-Grained Authorization</h4>
                     <p>Implement resource-level and operation-level access controls.</p>
                 </div>
@@ -106,27 +87,27 @@
             <div class="control-group">
                 <h3>Input Validation & Data Protection</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Comprehensive Input Validation</h4>
                     <p>Validate all API inputs including headers, parameters, and request bodies.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Schema Validation</h4>
                     <p>Use JSON Schema or OpenAPI specifications to validate request/response structure.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>SQL Injection Prevention</h4>
                     <p>Use parameterized queries and ORM frameworks to prevent injection attacks.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>NoSQL Injection Prevention</h4>
                     <p>Implement proper input sanitization for NoSQL databases.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Data Encryption</h4>
                     <p>Encrypt sensitive data in transit and at rest using strong encryption.</p>
                 </div>
@@ -135,17 +116,17 @@
             <div class="control-group">
                 <h3>Rate Limiting & DDoS Protection</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Request Rate Limiting</h4>
                     <p>Implement per-user and per-IP rate limiting to prevent abuse.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Burst Protection</h4>
                     <p>Handle traffic spikes while maintaining legitimate user access.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Resource-Based Rate Limits</h4>
                     <p>Different rate limits for different API endpoints based on resource intensity.</p>
                 </div>
@@ -154,17 +135,17 @@
             <div class="control-group">
                 <h3>API Gateway & Infrastructure</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>API Gateway Security</h4>
                     <p>Centralize security policies through API gateway implementation.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Load Balancing & Failover</h4>
                     <p>Implement proper load distribution and failover mechanisms.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>API Versioning Security</h4>
                     <p>Secure handling of API versions and deprecated endpoints.</p>
                 </div>
@@ -173,17 +154,17 @@
             <div class="control-group">
                 <h3>Monitoring & Logging</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Comprehensive API Logging</h4>
                     <p>Log all API requests, responses, and security events for monitoring.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Real-time Monitoring</h4>
                     <p>Monitor API performance, errors, and security threats in real-time.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Anomaly Detection</h4>
                     <p>Implement behavioral analysis to detect unusual API usage patterns.</p>
                 </div>
@@ -192,27 +173,27 @@
             <div class="control-group">
                 <h3>Testing & Validation</h3>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Automated Security Testing</h4>
                     <p>Integrate API security testing into CI/CD pipelines.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Penetration Testing</h4>
                     <p>Regular manual testing of API security controls.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Vulnerability Scanning</h4>
                     <p>Automated scanning for known API vulnerabilities and misconfigurations.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>API Documentation Security</h4>
                     <p>Ensure API documentation doesn't expose sensitive information.</p>
                 </div>
 
-                <div class="control-item">
+                <div class="w3-panel">
                     <h4>Dependency Management</h4>
                     <p>Regular updates and vulnerability scanning of API dependencies.</p>
                 </div>

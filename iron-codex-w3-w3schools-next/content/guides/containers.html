@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Containers & Kubernetes - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="Comprehensive container security guide with 29 controls for Docker, Kubernetes hardening, and runtime protection">
 </head>
 <body data-page="guide">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container guide-content">
+    <main class="w3-container">
         <section class="guide-header">
             <nav class="breadcrumb">
                 <a href="../guides.html">Guides</a> / <span>Containers & Kubernetes</span>
@@ -42,8 +23,8 @@
 
         <section class="toc-section">
             <h2>Table of Contents</h2>
-            <div class="toc-grid">
-                <div class="toc-column">
+            <div class="w3-row">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#image-security">1. Image Security (8 controls)</a></li>
                         <li><a href="#runtime-security">2. Runtime Security (7 controls)</a></li>
@@ -51,7 +32,7 @@
                         <li><a href="#network-policies">4. Network Policies (4 controls)</a></li>
                     </ul>
                 </div>
-                <div class="toc-column">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#secrets-management">5. Secrets Management (2 controls)</a></li>
                         <li><a href="#monitoring">6. Monitoring & Logging (2 controls)</a></li>
@@ -64,7 +45,7 @@
             <h2>1. Image Security (8 controls)</h2>
             <p class="section-intro">Secure container images through vulnerability scanning, minimal base images, and secure build practices.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Container Image Scanning</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -73,7 +54,7 @@
                 <p><strong>Requirement:</strong> Scan all container images for vulnerabilities before deployment using automated tools.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Trivy scanning in CI/CD pipeline
+                    <div class="w3-example"><pre class="w3-code"># Trivy scanning in CI/CD pipeline
 name: Container Security Scan
 on: [push, pull_request]
 
@@ -118,7 +99,7 @@ services:
     image: postgres:13
     environment:
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: clair</code></pre>
+      POSTGRES_DB: clair</pre></div>
                 </div>
                 <div class="validation">
                     <h4>Validation:</h4>
@@ -131,7 +112,7 @@ services:
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Use Minimal Base Images</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -140,7 +121,7 @@ services:
                 <p><strong>Requirement:</strong> Use distroless or minimal base images to reduce attack surface and vulnerabilities.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Multi-stage Dockerfile with distroless final image
+                    <div class="w3-example"><pre class="w3-code"># Multi-stage Dockerfile with distroless final image
 FROM golang:1.19-alpine AS builder
 WORKDIR /app
 COPY go.mod go.sum ./
@@ -167,7 +148,7 @@ ENTRYPOINT ["/usr/local/bin/myapp"]
 FROM scratch
 COPY ca-certificates.crt /etc/ssl/certs/
 COPY myapp /myapp
-ENTRYPOINT ["/myapp"]</code></pre>
+ENTRYPOINT ["/myapp"]</pre></div>
                 </div>
                 <div name="best-practices">
                     <h4>Best Practices:</h4>
@@ -180,7 +161,7 @@ ENTRYPOINT ["/myapp"]</code></pre>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Image Signing and Verification</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -189,7 +170,7 @@ ENTRYPOINT ["/myapp"]</code></pre>
                 <p><strong>Requirement:</strong> Sign container images and verify signatures before deployment to ensure integrity.</p>
                 <div name="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Docker Content Trust (Notary)
+                    <div class="w3-example"><pre class="w3-code"># Docker Content Trust (Notary)
 export DOCKER_CONTENT_TRUST=1
 docker push myregistry.com/myapp:v1.0
 
@@ -220,7 +201,7 @@ spec:
       key: |-
         -----BEGIN PUBLIC KEY-----
         MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE...
-        -----END PUBLIC KEY-----</code></pre>
+        -----END PUBLIC KEY-----</pre></div>
                 </div>
             </div>
 
@@ -250,7 +231,7 @@ spec:
             <h2>2. Runtime Security (7 controls)</h2>
             <p class="section-intro">Secure container runtime with proper isolation, resource limits, and security contexts.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Security Contexts</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -259,7 +240,7 @@ spec:
                 <p><strong>Requirement:</strong> Configure proper security contexts to run containers with minimal privileges.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Kubernetes Pod Security Context
+                    <div class="w3-example"><pre class="w3-code"># Kubernetes Pod Security Context
 apiVersion: v1
 kind: Pod
 metadata:
@@ -299,11 +280,11 @@ spec:
       mountPath: /tmp
   volumes:
   - name: tmp-volume
-    emptyDir: {}</code></pre>
+    emptyDir: {}</pre></div>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Enable Runtime Protection</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -312,7 +293,7 @@ spec:
                 <p><strong>Requirement:</strong> Deploy runtime security tools to detect and prevent malicious activity.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Falco runtime security rules
+                    <div class="w3-example"><pre class="w3-code"># Falco runtime security rules
 - rule: Container with Sensitive Mount
   desc: Detect container with sensitive host paths mounted
   condition: >
@@ -350,7 +331,7 @@ profile docker-default flags=(attach_disconnected,mediate_deleted) {
   deny /sys/fs/cg[^r]*/** wklx,
   deny /sys/firmware/** rwklx,
   deny /sys/kernel/security/** rwklx,
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
@@ -380,7 +361,7 @@ profile docker-default flags=(attach_disconnected,mediate_deleted) {
             <h2>3. Kubernetes Hardening (6 controls)</h2>
             <p class="section-intro">Harden Kubernetes clusters with RBAC, admission controllers, and security policies.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Configure RBAC Properly</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -389,7 +370,7 @@ profile docker-default flags=(attach_disconnected,mediate_deleted) {
                 <p><strong>Requirement:</strong> Implement least privilege RBAC with proper role separation.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Service Account with minimal permissions
+                    <div class="w3-example"><pre class="w3-code"># Service Account with minimal permissions
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -433,11 +414,11 @@ metadata:
   namespace: production
 spec:
   serviceAccountName: app-service-account
-  automountServiceAccountToken: false  # Disable if not needed</code></pre>
+  automountServiceAccountToken: false  # Disable if not needed</pre></div>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Pod Security Standards</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -446,7 +427,7 @@ spec:
                 <p><strong>Requirement:</strong> Use Pod Security Standards to enforce security policies at the namespace level.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code># Namespace with Pod Security Standards
+                    <div class="w3-example"><pre class="w3-code"># Namespace with Pod Security Standards
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -484,7 +465,7 @@ spec:
           container := input.review.object.spec.containers[_]
           not container.securityContext.allowPrivilegeEscalation == false
           msg := "Containers must not allow privilege escalation"
-        }</code></pre>
+        }</pre></div>
                 </div>
             </div>
 

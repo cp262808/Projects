@@ -4,29 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaaS Security - Iron Codex</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <meta name="description" content="Comprehensive SaaS security guide with 59 controls for multi-tenant platforms, data isolation, and enterprise security">
 </head>
 <body data-page="guide">
-    <header class="header">
-        <nav class="nav container">
-            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
-            <ul class="nav-menu">
-                <li><a href="../index.html" class="nav-link">Home</a></li>
-                <li><a href="../topics.html" class="nav-link">Topics</a></li>
-                <li><a href="../guides.html" class="nav-link">Guides</a></li>
-                <li><a href="../tools.html" class="nav-link">Tools</a></li>
-                <li><a href="../about.html" class="nav-link">About</a></li>
-            </ul>
-            <div class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
-    </header>
-
-    <main class="container guide-content">
+    <main class="w3-container">
         <section class="guide-header">
             <nav class="breadcrumb">
                 <a href="../guides.html">Guides</a> / <span>SaaS Security</span>
@@ -42,8 +23,8 @@
 
         <section class="toc-section">
             <h2>Table of Contents</h2>
-            <div class="toc-grid">
-                <div class="toc-column">
+            <div class="w3-row">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#tenant-isolation">1. Multi-Tenant Isolation (12 controls)</a></li>
                         <li><a href="#data-security">2. Data Security & Privacy (11 controls)</a></li>
@@ -51,7 +32,7 @@
                         <li><a href="#api-security">4. API & Integration Security (8 controls)</a></li>
                     </ul>
                 </div>
-                <div class="toc-column">
+                <div class="w3-col">
                     <ul class="toc-list">
                         <li><a href="#compliance">5. Compliance & Governance (7 controls)</a></li>
                         <li><a href="#monitoring">6. Monitoring & Logging (6 controls)</a></li>
@@ -66,7 +47,7 @@
             <h2>1. Multi-Tenant Isolation (12 controls)</h2>
             <p class="section-intro">Ensure complete isolation between tenants to prevent data leakage and unauthorized access across customer boundaries.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Database-Level Tenant Isolation</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -75,7 +56,7 @@
                 <p><strong>Requirement:</strong> Implement robust database isolation using either separate schemas, databases, or row-level security policies.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>-- Enable RLS on table
+                    <div class="w3-example"><pre class="w3-code">-- Enable RLS on table
 ALTER TABLE customer_data ENABLE ROW LEVEL SECURITY;
 
 -- Create policy for tenant isolation
@@ -96,7 +77,7 @@ const setTenantContext = (req, res, next) => {
     });
 };
 
-app.use(setTenantContext);</code></pre>
+app.use(setTenantContext);</pre></div>
                 </div>
                 <div class="validation">
                     <h4>Validation:</h4>
@@ -108,7 +89,7 @@ app.use(setTenantContext);</code></pre>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Application-Level Tenant Filtering</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -117,7 +98,7 @@ app.use(setTenantContext);</code></pre>
                 <p><strong>Requirement:</strong> Implement consistent tenant filtering in all application queries and operations.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// Base model with tenant scoping
+                    <div class="w3-example"><pre class="w3-code">// Base model with tenant scoping
 class BaseModel extends Sequelize.Model {
     static init(attributes, options) {
         return super.init(attributes, {
@@ -141,7 +122,7 @@ Customer.init({
 }, { sequelize });
 
 // Usage - automatically filters by current tenant
-const customers = await Customer.findAll(); // Only returns current tenant's customers</code></pre>
+const customers = await Customer.findAll(); // Only returns current tenant's customers</pre></div>
                 </div>
                 <div class="best-practices">
                     <h4>Best Practices:</h4>
@@ -154,7 +135,7 @@ const customers = await Customer.findAll(); // Only returns current tenant's cus
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Network-Level Tenant Isolation</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -163,7 +144,7 @@ const customers = await Customer.findAll(); // Only returns current tenant's cus
                 <p><strong>Requirement:</strong> Implement network segmentation to isolate tenant traffic and prevent cross-tenant network access.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>apiVersion: networking.k8s.io/v1
+                    <div class="w3-example"><pre class="w3-code">apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: tenant-isolation-policy
@@ -188,7 +169,7 @@ spec:
           name: tenant-123
     - namespaceSelector:
         matchLabels:
-          name: shared-services</code></pre>
+          name: shared-services</pre></div>
                 </div>
                 <div class="security-notes">
                     <h4>Security Considerations:</h4>
@@ -239,7 +220,7 @@ spec:
             <h2>2. Data Security & Privacy (11 controls)</h2>
             <p class="section-intro">Protect sensitive customer data with encryption, classification, and privacy controls.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Data Classification and Labeling</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -248,7 +229,7 @@ spec:
                 <p><strong>Requirement:</strong> Classify and label data based on sensitivity levels and regulatory requirements.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// Data classification enum
+                    <div class="w3-example"><pre class="w3-code">// Data classification enum
 enum DataClassification {
     PUBLIC = 'public',
     INTERNAL = 'internal',
@@ -285,11 +266,11 @@ class CustomerData extends BaseModel {
         if (data.ssn && /^\d{3}-\d{2}-\d{4}$/.test(data.ssn)) piiFields.push('ssn');
         return piiFields;
     }
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Field-Level Encryption</h3>
                 <div class="control-tags">
                     <span class="tag priority-critical">Critical</span>
@@ -298,7 +279,7 @@ class CustomerData extends BaseModel {
                 <p><strong>Requirement:</strong> Encrypt sensitive data fields using strong encryption with proper key management.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>const crypto = require('crypto');
+                    <div class="w3-example"><pre class="w3-code">const crypto = require('crypto');
 const AWS = require('aws-sdk');
 const kms = new AWS.KMS();
 
@@ -329,7 +310,7 @@ class FieldEncryption {
         const result = await kms.decrypt(params).promise();
         return result.Plaintext.toString();
     }
-}</code></pre>
+}</pre></div>
                 </div>
             </div>
 
@@ -371,7 +352,7 @@ class FieldEncryption {
             <h2>3. Access Control & IAM (10 controls)</h2>
             <p class="section-intro">Implement comprehensive access controls with role-based permissions and multi-factor authentication.</p>
 
-            <div class="control-card">
+            <div class="w3-panel">
                 <h3>Implement Role-Based Access Control (RBAC)</h3>
                 <div class="control-tags">
                     <span class="tag priority-high">High Priority</span>
@@ -380,7 +361,7 @@ class FieldEncryption {
                 <p><strong>Requirement:</strong> Define granular roles and permissions for different user types across tenants.</p>
                 <div class="implementation">
                     <h4>Implementation Example:</h4>
-                    <pre><code>// Permission-based authorization
+                    <div class="w3-example"><pre class="w3-code">// Permission-based authorization
 const permissions = {
     'users:read': 'Read user information',
     'users:write': 'Create and update users',
@@ -414,7 +395,7 @@ const requirePermission = (permission) => {
 
 // Usage
 app.get('/api/users', requirePermission('users:read'), getUsersHandler);
-app.post('/api/users', requirePermission('users:write'), createUserHandler);</code></pre>
+app.post('/api/users', requirePermission('users:write'), createUserHandler);</pre></div>
                 </div>
             </div>
 
