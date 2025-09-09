@@ -3,8 +3,8 @@ import Footer from "@/components/Footer";
 import fs from "fs";
 import path from "path";
 
-export default function ToolsPage(){
-  const rawHtml = fs.readFileSync(path.join(process.cwd(), "content", "tools.html"), "utf-8");
+export default function AboutPage(){
+  const rawHtml = fs.readFileSync(path.join(process.cwd(), "content", "about.html"), "utf-8");
   const match = rawHtml.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
   const contentHtml = match ? match[1] : "";
 

@@ -1,6 +1,7 @@
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import stats from "@/content/index.json";
 
 export default function HomePage() {
   // Data for the guides
@@ -97,7 +98,7 @@ export default function HomePage() {
             
             <div className="flex gap-4 justify-center mb-12 flex-wrap">
               <Link href="/topics" className="btn bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-lg font-bold text-lg">
-                Browse 22 Topics →
+                Browse {stats.topics_count} Topics →
               </Link>
               <Link href="/guides" className="btn border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-900 px-8 py-4 rounded-lg font-bold text-lg">
                 Deep Dive Guides
@@ -107,15 +108,15 @@ export default function HomePage() {
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               <div className="glass-card p-6 rounded-xl">
-                <div className="text-4xl font-bold text-cyan-400">22</div>
+                <div className="text-4xl font-bold text-cyan-400">{stats.topics_count}</div>
                 <div className="text-gray-300">Security Topics</div>
               </div>
               <div className="glass-card p-6 rounded-xl">
-                <div className="text-4xl font-bold text-purple-400">350+</div>
+                <div className="text-4xl font-bold text-purple-400">{stats.controls_count}+</div>
                 <div className="text-gray-300">Security Controls</div>
               </div>
               <div className="glass-card p-6 rounded-xl">
-                <div className="text-4xl font-bold text-pink-400">6</div>
+                <div className="text-4xl font-bold text-pink-400">{stats.guides_count}</div>
                 <div className="text-gray-300">Deep Dive Guides</div>
               </div>
               <div className="glass-card p-6 rounded-xl">

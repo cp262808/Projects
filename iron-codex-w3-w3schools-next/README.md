@@ -2,6 +2,8 @@
 
 Vercel‑ready scaffold mirroring the W3Schools aesthetic: sticky header with mega‑menus, dark domain bar, big hero search, pastel tiles, example blocks, and a clean footer.
 
+This fork dynamically renders guides and topics from Iron Codex HTML exports and feeds homepage stats from `content/index.json`.
+
 ## Deploy (no CLI needed)
 1. Create a new GitHub repo and upload these files at the **repo root**.
 2. In **Vercel**, import the repo → Deploy.
