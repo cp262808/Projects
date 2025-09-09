@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { 
-  --ink:#111827; 
+:root {
+  --ink:#111827;
   --muted:#6b7280;
   --primary: #0a0e27;
   --secondary: #1a1f3a;
@@ -12,6 +12,12 @@
   --danger: #ff4757;
   --warning: #ffa726;
   --success: #2ed573;
+  /* Legacy variable names used in imported HTML guides/topics */
+  --text: var(--ink);
+  --text-muted: var(--muted);
+  --border: #e5e7eb;
+  --glass: rgba(0,0,0,0.03);
+  --glass-border: rgba(0,0,0,0.05);
 }
 
 html,body { 

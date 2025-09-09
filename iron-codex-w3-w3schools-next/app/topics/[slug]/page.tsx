@@ -6,11 +6,16 @@ import { notFound } from "next/navigation";
 
 export default function TopicPage({ params }: { params: { slug: string } }) {
   const filePath = path.join(process.cwd(), "content", "topics", `${params.slug}.html`);
+  let mainClass = "";
   let contentHtml: string | null = null;
+  let styleHtml = "";
   try {
     const rawHtml = fs.readFileSync(filePath, "utf-8");
-    const match = rawHtml.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
-    contentHtml = match ? match[1] : null;
+    const mainMatch = rawHtml.match(/<main[^>]*class="([^"]*)"[^>]*>([\s\S]*?)<\/main>/i);
+    const styleMatch = rawHtml.match(/<style[^>]*>([\s\S]*?)<\/style>/i);
+    mainClass = mainMatch ? mainMatch[1] : "";
+    contentHtml = mainMatch ? mainMatch[2] : null;
+    styleHtml = styleMatch ? styleMatch[1] : "";
   } catch {
     contentHtml = null;
   }
@@ -22,11 +27,8 @@ export default function TopicPage({ params }: { params: { slug: string } }) {
   return (
     <>
       <NavBar />
-      <main className="container py-12" id="main">
-        <div className="max-w-4xl mx-auto prose">
-          <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-        </div>
-      </main>
+      <main id="main" className={mainClass} dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      {styleHtml && <style dangerouslySetInnerHTML={{ __html: styleHtml }} />}
       <Footer />
     </>
   );
