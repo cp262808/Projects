@@ -1,21 +1,15 @@
-@tailwind base;
-@tailwind components;
 @tailwind utilities;
 
-:root { 
-  --ink:#111827; 
-  --muted:#6b7280;
-  --primary: #0a0e27;
-  --secondary: #1a1f3a;
-  --accent: #00d4ff;
-  --accent-dark: #0099cc;
-  --danger: #ff4757;
-  --warning: #ffa726;
-  --success: #2ed573;
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url("https://fonts.gstatic.com/s/sourcesanspro/v14/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7luj6Er24.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
-
-html,body { 
-  @apply bg-white text-[var(--ink)]; 
+body {
+  @apply bg-white text-w3dark;
+  font-family: "Source Sans Pro", "Segoe UI", Arial, sans-serif;
 }
 
 .container { 
@@ -86,8 +80,8 @@ html,body {
 .bg-w3dark-hero { background-color: #282A35; }
 
 /* Navigation improvements */
-.nav-wrap { 
-  @apply container flex items-center gap-3 h-14; 
+.nav-wrap {
+  @apply max-w-[1200px] mx-auto px-5 flex items-center gap-3 h-14;
 }
 .nav-brand { 
   @apply flex items-center gap-2 shrink-0 whitespace-nowrap; 
@@ -100,8 +94,8 @@ html,body {
 }
 
 /* Topics strip */
-.topics-strip { 
-  @apply container h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap; 
+.topics-strip {
+  @apply max-w-[1200px] mx-auto px-5 h-10 flex items-center gap-4 md:gap-5 overflow-x-auto uppercase text-xs tracking-wide whitespace-nowrap;
 }
 .topics-item { 
   @apply hover:text-w3green whitespace-nowrap; 
