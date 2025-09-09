@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Security - Iron Codex</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <meta name="description" content="Comprehensive SaaS security guide with 59 controls for multi-tenant platforms, data isolation, and enterprise security">
+</head>
+<body data-page="guide">
+    <header class="header">
+        <nav class="nav container">
+            <a href="../index.html" class="logo">🛡️ Iron Codex</a>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../topics.html" class="nav-link">Topics</a></li>
+                <li><a href="../guides.html" class="nav-link">Guides</a></li>
+                <li><a href="../tools.html" class="nav-link">Tools</a></li>
+                <li><a href="../about.html" class="nav-link">About</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container guide-content">
+        <section class="guide-header">
+            <nav class="breadcrumb">
+                <a href="../guides.html">Guides</a> / <span>SaaS Security</span>
+            </nav>
+            <h1>SaaS Security</h1>
+            <div class="guide-meta">
+                <span class="meta-item">59 Controls</span>
+                <span class="meta-item">Intermediate Level</span>
+                <span class="meta-item">Last Updated: December 2024</span>
+            </div>
+            <p class="guide-intro">Enterprise SaaS platform security including tenant isolation, data protection, compliance frameworks, and third-party integrations for software-as-a-service providers.</p>
+        </section>
+
+        <section class="toc-section">
+            <h2>Table of Contents</h2>
+            <div class="toc-grid">
+                <div class="toc-column">
+                    <ul class="toc-list">
+                        <li><a href="#tenant-isolation">1. Multi-Tenant Isolation (12 controls)</a></li>
+                        <li><a href="#data-security">2. Data Security & Privacy (11 controls)</a></li>
+                        <li><a href="#access-control">3. Access Control & IAM (10 controls)</a></li>
+                        <li><a href="#api-security">4. API & Integration Security (8 controls)</a></li>
+                    </ul>
+                </div>
+                <div class="toc-column">
+                    <ul class="toc-list">
+                        <li><a href="#compliance">5. Compliance & Governance (7 controls)</a></li>
+                        <li><a href="#monitoring">6. Monitoring & Logging (6 controls)</a></li>
+                        <li><a href="#business-continuity">7. Business Continuity (3 controls)</a></li>
+                        <li><a href="#third-party">8. Third-Party Security (2 controls)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="tenant-isolation" class="control-section">
+            <h2>1. Multi-Tenant Isolation (12 controls)</h2>
+            <p class="section-intro">Ensure complete isolation between tenants to prevent data leakage and unauthorized access across customer boundaries.</p>
+
+            <div class="control-card">
+                <h3>Implement Database-Level Tenant Isolation</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement robust database isolation using either separate schemas, databases, or row-level security policies.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>-- Enable RLS on table
+ALTER TABLE customer_data ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for tenant isolation
+CREATE POLICY tenant_isolation ON customer_data
+    FOR ALL
+    TO application_role
+    USING (tenant_id = current_setting('app.current_tenant')::INTEGER);
+
+-- Set tenant context in application
+SET app.current_tenant = '12345';
+
+-- Application code (Node.js example)
+const setTenantContext = (req, res, next) => {
+    const tenantId = req.user.tenantId;
+    req.db.query('SET app.current_tenant = $1', [tenantId], (err) => {
+        if (err) return next(err);
+        next();
+    });
+};
+
+app.use(setTenantContext);</code></pre>
+                </div>
+                <div class="validation">
+                    <h4>Validation:</h4>
+                    <ul>
+                        <li>Test cross-tenant data access attempts</li>
+                        <li>Verify tenant context isolation</li>
+                        <li>Validate policy enforcement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>Application-Level Tenant Filtering</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement consistent tenant filtering in all application queries and operations.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Base model with tenant scoping
+class BaseModel extends Sequelize.Model {
+    static init(attributes, options) {
+        return super.init(attributes, {
+            ...options,
+            defaultScope: {
+                where: {
+                    tenantId: () => getCurrentTenant()
+                }
+            }
+        });
+    }
+}
+
+// Customer model with automatic tenant filtering
+class Customer extends BaseModel {}
+Customer.init({
+    id: DataTypes.INTEGER,
+    tenantId: DataTypes.INTEGER,
+    name: DataTypes.STRING,
+    email: DataTypes.STRING
+}, { sequelize });
+
+// Usage - automatically filters by current tenant
+const customers = await Customer.findAll(); // Only returns current tenant's customers</code></pre>
+                </div>
+                <div class="best-practices">
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Always include tenant_id in WHERE clauses</li>
+                        <li>Use ORM-level scoping when possible</li>
+                        <li>Implement tenant context middleware</li>
+                        <li>Regular security audits of queries</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>Network-Level Tenant Isolation</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Implement network segmentation to isolate tenant traffic and prevent cross-tenant network access.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-isolation-policy
+  namespace: tenant-123
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: tenant-123
+    - namespaceSelector:
+        matchLabels:
+          name: shared-services
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: tenant-123
+    - namespaceSelector:
+        matchLabels:
+          name: shared-services</code></pre>
+                </div>
+                <div class="security-notes">
+                    <h4>Security Considerations:</h4>
+                    <ul>
+                        <li>Implement defense in depth</li>
+                        <li>Regular penetration testing</li>
+                        <li>Monitor inter-tenant communications</li>
+                        <li>Use encrypted network traffic</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Multi-Tenant Isolation Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-04:</strong> File storage tenant segregation
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-05:</strong> Cache isolation and key namespacing
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-06:</strong> Message queue tenant separation
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-07:</strong> Background job tenant context
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-08:</strong> Search index tenant isolation
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-09:</strong> CDN and static asset isolation
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-10:</strong> Cross-tenant operation prevention
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-11:</strong> Tenant resource quotas and limits
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-TENANT-12:</strong> Tenant onboarding security validation
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="data-security" class="control-section">
+            <h2>2. Data Security & Privacy (11 controls)</h2>
+            <p class="section-intro">Protect sensitive customer data with encryption, classification, and privacy controls.</p>
+
+            <div class="control-card">
+                <h3>Implement Data Classification and Labeling</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Classify and label data based on sensitivity levels and regulatory requirements.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Data classification enum
+enum DataClassification {
+    PUBLIC = 'public',
+    INTERNAL = 'internal',
+    CONFIDENTIAL = 'confidential',
+    RESTRICTED = 'restricted'
+}
+
+// Database schema with classification
+CREATE TABLE customer_data (
+    id SERIAL PRIMARY KEY,
+    tenant_id INTEGER NOT NULL,
+    data_classification VARCHAR(20) NOT NULL DEFAULT 'confidential',
+    pii_fields JSONB, -- Track which fields contain PII
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+// Application model with automatic classification
+class CustomerData extends BaseModel {
+    static associate(models) {
+        // Define associations
+    }
+    
+    // Automatic PII detection
+    static async create(data, options) {
+        data.pii_fields = this.detectPII(data);
+        data.data_classification = this.classifyData(data);
+        return super.create(data, options);
+    }
+    
+    static detectPII(data) {
+        const piiFields = [];
+        if (data.email && /\S+@\S+\.\S+/.test(data.email)) piiFields.push('email');
+        if (data.phone && /^\d{10}$/.test(data.phone)) piiFields.push('phone');
+        if (data.ssn && /^\d{3}-\d{2}-\d{4}$/.test(data.ssn)) piiFields.push('ssn');
+        return piiFields;
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-card">
+                <h3>Implement Field-Level Encryption</h3>
+                <div class="control-tags">
+                    <span class="tag priority-critical">Critical</span>
+                    <span class="tag difficulty-high">High Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Encrypt sensitive data fields using strong encryption with proper key management.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>const crypto = require('crypto');
+const AWS = require('aws-sdk');
+const kms = new AWS.KMS();
+
+class FieldEncryption {
+    static async encrypt(plaintext, keyId, context = {}) {
+        const params = {
+            KeyId: keyId,
+            Plaintext: Buffer.from(plaintext),
+            EncryptionContext: {
+                tenant: context.tenantId,
+                field: context.fieldName
+            }
+        };
+        
+        const result = await kms.encrypt(params).promise();
+        return result.CiphertextBlob.toString('base64');
+    }
+    
+    static async decrypt(ciphertext, context = {}) {
+        const params = {
+            CiphertextBlob: Buffer.from(ciphertext, 'base64'),
+            EncryptionContext: {
+                tenant: context.tenantId,
+                field: context.fieldName
+            }
+        };
+        
+        const result = await kms.decrypt(params).promise();
+        return result.Plaintext.toString();
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Data Security & Privacy Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-03:</strong> Data masking for non-production environments
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-04:</strong> Data retention and automated deletion
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-05:</strong> Backup encryption and access controls
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-06:</strong> Data export and portability security
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-07:</strong> Data loss prevention (DLP) implementation
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-08:</strong> Privacy by design principles
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-09:</strong> Cross-border data transfer controls
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-10:</strong> Data anonymization and pseudonymization
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-DATA-11:</strong> Right to be forgotten implementation
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="access-control" class="control-section">
+            <h2>3. Access Control & IAM (10 controls)</h2>
+            <p class="section-intro">Implement comprehensive access controls with role-based permissions and multi-factor authentication.</p>
+
+            <div class="control-card">
+                <h3>Implement Role-Based Access Control (RBAC)</h3>
+                <div class="control-tags">
+                    <span class="tag priority-high">High Priority</span>
+                    <span class="tag difficulty-medium">Medium Difficulty</span>
+                </div>
+                <p><strong>Requirement:</strong> Define granular roles and permissions for different user types across tenants.</p>
+                <div class="implementation">
+                    <h4>Implementation Example:</h4>
+                    <pre><code>// Permission-based authorization
+const permissions = {
+    'users:read': 'Read user information',
+    'users:write': 'Create and update users',
+    'users:delete': 'Delete users',
+    'reports:read': 'View reports',
+    'reports:write': 'Create reports',
+    'admin:manage': 'Administrative functions'
+};
+
+// Role definitions
+const roles = {
+    'viewer': ['users:read', 'reports:read'],
+    'editor': ['users:read', 'users:write', 'reports:read', 'reports:write'],
+    'admin': ['users:read', 'users:write', 'users:delete', 'reports:read', 'reports:write', 'admin:manage'],
+    'tenant_admin': ['users:read', 'users:write', 'users:delete', 'reports:read', 'reports:write']
+};
+
+// Middleware to check permissions
+const requirePermission = (permission) => {
+    return (req, res, next) => {
+        const userRoles = req.user.roles || [];
+        const userPermissions = userRoles.flatMap(role => roles[role] || []);
+        
+        if (!userPermissions.includes(permission)) {
+            return res.status(403).json({ error: 'Insufficient permissions' });
+        }
+        
+        next();
+    };
+};
+
+// Usage
+app.get('/api/users', requirePermission('users:read'), getUsersHandler);
+app.post('/api/users', requirePermission('users:write'), createUserHandler);</code></pre>
+                </div>
+            </div>
+
+            <div class="control-summary">
+                <h4>Additional Access Control & IAM Controls:</h4>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-02:</strong> Multi-factor authentication enforcement
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-03:</strong> Single sign-on (SSO) integration
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-04:</strong> Session management and timeout
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-05:</strong> Password policy enforcement
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-06:</strong> Account lockout and brute force protection
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-07:</strong> Privileged access management (PAM)
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-08:</strong> Just-in-time access provisioning
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-09:</strong> Access review and recertification
+                    </div>
+                    <div class="summary-item">
+                        <strong>SAAS-IAM-10:</strong> Service account security
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="remaining-sections">
+            <h2>Remaining Sections</h2>
+            <div class="section-preview">
+                <div class="preview-card" id="api-security">
+                    <h3>4. API & Integration Security (8 controls)</h3>
+                    <p>Secure APIs, webhooks, and third-party integrations.</p>
+                    <ul class="preview-controls">
+                        <li>SAAS-API-01: API authentication and authorization</li>
+                        <li>SAAS-API-02: Rate limiting and throttling</li>
+                        <li>SAAS-API-03: Webhook security validation</li>
+                        <li>SAAS-API-04: Third-party integration security</li>
+                        <li>+ 4 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="compliance">
+                    <h3>5. Compliance & Governance (7 controls)</h3>
+                    <p>Meet regulatory requirements and governance standards.</p>
+                    <ul class="preview-controls">
+                        <li>SAAS-COMPLY-01: GDPR compliance implementation</li>
+                        <li>SAAS-COMPLY-02: SOC 2 Type II controls</li>
+                        <li>SAAS-COMPLY-03: HIPAA compliance (if applicable)</li>
+                        <li>SAAS-COMPLY-04: Data processing agreements</li>
+                        <li>+ 3 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="monitoring">
+                    <h3>6. Monitoring & Logging (6 controls)</h3>
+                    <p>Comprehensive security monitoring and audit logging.</p>
+                    <ul class="preview-controls">
+                        <li>SAAS-LOG-01: Security event logging</li>
+                        <li>SAAS-LOG-02: User activity monitoring</li>
+                        <li>SAAS-LOG-03: Anomaly detection</li>
+                        <li>SAAS-LOG-04: Audit trail integrity</li>
+                        <li>+ 2 more controls...</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="business-continuity">
+                    <h3>7. Business Continuity (3 controls)</h3>
+                    <p>Disaster recovery and business continuity planning.</p>
+                    <ul class="preview-controls">
+                        <li>SAAS-BC-01: Disaster recovery procedures</li>
+                        <li>SAAS-BC-02: High availability architecture</li>
+                        <li>SAAS-BC-03: Incident response planning</li>
+                    </ul>
+                </div>
+
+                <div class="preview-card" id="third-party">
+                    <h3>8. Third-Party Security (2 controls)</h3>
+                    <p>Secure integration with external services and vendors.</p>
+                    <ul class="preview-controls">
+                        <li>SAAS-3P-01: Vendor risk assessment</li>
+                        <li>SAAS-3P-02: Supply chain security</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="guide-footer">
+            <div class="footer-nav">
+                <a href="../guides.html" class="btn btn-outline">← Back to Guides</a>
+                <a href="#" onclick="downloadGuide()" class="btn btn-primary">Download PDF</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 Iron Codex. Open source cybersecurity education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function downloadGuide() {
+            alert('PDF download feature coming soon! For now, you can bookmark this page or print to PDF using your browser.');
+        }
+
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .guide-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .guide-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+        }
+
+        .guide-header h1 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .guide-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--glass);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .guide-intro {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .toc-section {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc-section h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-list a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            background: var(--glass);
+            color: var(--accent);
+        }
+
+        .control-section {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-section h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-intro {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .control-card h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .priority-critical {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .priority-high {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-low {
+            background: rgba(46, 213, 115, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .difficulty-medium {
+            background: rgba(255, 167, 38, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .difficulty-high {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .implementation,
+        .validation,
+        .best-practices,
+        .security-notes {
+            margin: 1.5rem 0;
+        }
+
+        .implementation h4,
+        .validation h4,
+        .best-practices h4,
+        .security-notes h4 {
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        code {
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+        }
+
+        .control-summary {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .summary-item {
+            background: var(--glass);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .remaining-sections {
+            margin: 4rem 0;
+        }
+
+        .section-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .preview-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .preview-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .preview-controls {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .preview-controls li {
+            color: var(--text-muted);
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+        }
+
+        .guide-footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--border);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h1 {
+                font-size: 2rem;
+            }
+            
+            .guide-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .toc-grid,
+            .summary-grid,
+            .section-preview {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>

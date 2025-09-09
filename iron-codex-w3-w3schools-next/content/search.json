@@ -65,5 +65,23 @@
       "controls",
       "framework"
     ]
+  },
+  {
+    "title": "Logging & Incident Response \u2014 Guide",
+    "url": "/guides/incident-response",
+    "keywords": [
+      "logging",
+      "monitoring",
+      "incident response"
+    ]
+  },
+  {
+    "title": "Web Application Security \u2014 References",
+    "url": "/topics/web-application-security",
+    "keywords": [
+      "xss",
+      "csrf",
+      "sql injection"
+    ]
   }
 ]
