@@ -7,10 +7,19 @@ import { notFound } from "next/navigation";
 export default function GuidePage({ params }: { params: { slug: string } }) {
   const filePath = path.join(process.cwd(), "content", "guides", `${params.slug}.html`);
   let contentHtml: string | null = null;
+  let mainClass = "w3-container";
   try {
     const rawHtml = fs.readFileSync(filePath, "utf-8");
     const match = rawHtml.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
-    contentHtml = match ? match[1] : null;
+    if (match) {
+      contentHtml = match[1];
+      const classMatch = match[0].match(/class=["']([^"']+)["']/i);
+      if (classMatch) {
+        mainClass = classMatch[1];
+      }
+    } else {
+      contentHtml = null;
+    }
   } catch {
     contentHtml = null;
   }
@@ -19,14 +28,20 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     notFound();
   }
 
+  const hasCodeBlocks = /<pre|<code/i.test(contentHtml);
+
   return (
     <>
       <NavBar />
-      <main className="container py-12" id="main">
-        <div className="max-w-4xl mx-auto prose">
-          <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-        </div>
-      </main>
+      <div className="w3-content w3-margin-top">
+        <main className={mainClass} id="main" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+      </div>
+      {hasCodeBlocks && (
+        <>
+          <script src="https://www.w3schools.com/lib/w3codecolor.js" />
+          <script dangerouslySetInnerHTML={{ __html: "w3CodeColor();" }} />
+        </>
+      )}
       <Footer />
     </>
   );
