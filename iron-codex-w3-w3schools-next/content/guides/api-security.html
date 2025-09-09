@@ -39,6 +39,18 @@
                 <span class="meta-item">Last Updated: September 2025</span>
             </div>
             <p class="guide-intro">Complete API security framework covering REST, GraphQL, authentication, authorization, rate limiting, and API gateway configuration with practical implementation examples.</p>
+            <h2>Summary</h2>
+            <ul>
+                <li>Secure endpoints with strong authentication</li>
+                <li>Validate and sanitize all inputs</li>
+                <li>Monitor usage with rate limiting and logging</li>
+            </ul>
+            <h2 class="w3-text-teal">Try it Yourself</h2>
+            <div class="w3-example">
+                <h3>Express Rate Limiting</h3>
+                <pre><code>const rateLimit = require('express-rate-limit');
+app.use('/api/', rateLimit({ windowMs: 60 * 1000, max: 100 }));</code></pre>
+            </div>
         </section>
 
         <!-- Table of Contents -->

@@ -83,5 +83,25 @@
       "csrf",
       "sql injection"
     ]
+  },
+  {
+    "title": "Endpoint Security \u2014 References",
+    "url": "/topics/endpoint-security",
+    "description": "EDR, antivirus, device hardening, and patch management basics",
+    "keywords": [
+      "edr",
+      "antivirus",
+      "patching"
+    ]
+  },
+  {
+    "title": "API Security \u2014 Guide",
+    "url": "/guides/api-security",
+    "description": "Practical API hardening with authentication, validation and rate limits",
+    "keywords": [
+      "api",
+      "auth",
+      "rate limit"
+    ]
   }
 ]
