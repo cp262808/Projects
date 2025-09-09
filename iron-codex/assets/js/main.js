@@ -96,7 +96,7 @@ function initializeInteractiveElements() {
 
 // Theme handling (for future light/dark mode toggle)
 function initializeTheme() {
-    const savedTheme = localStorage.getItem('iron-codex-theme') || 'dark';
+    const savedTheme = localStorage.getItem('iron-codex-theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 }
 
