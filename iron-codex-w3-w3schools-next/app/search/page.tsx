@@ -1,5 +1,5 @@
 'use client';
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -55,7 +55,7 @@ const typeColors = {
   "Tool": "bg-purple-900 text-purple-200"
 };
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   
@@ -69,7 +69,7 @@ export default function SearchPage() {
     : [];
 
   return (
-    <main id="main" className="min-h-screen bg-slate-950 text-slate-100">
+    <>
       {/* Hero Section */}
       <section className="border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950">
         <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
@@ -201,6 +201,33 @@ export default function SearchPage() {
           </>
         )}
       </section>
+    </>
+  );
+}
+
+function SearchFallback() {
+  return (
+    <section className="border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950">
+      <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
+        <div className="max-w-3xl">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Search
+          </h1>
+          <p className="mt-3 text-slate-300 text-lg">
+            Loading search...
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <main id="main" className="min-h-screen bg-slate-950 text-slate-100">
+      <Suspense fallback={<SearchFallback />}>
+        <SearchContent />
+      </Suspense>
 
       {/* Footer */}
       <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
