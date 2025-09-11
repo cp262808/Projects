@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import NavBar from "../../../components/IronHeader";
+import NavBar from "@/components/IronHeader";
 
 export default function Page() {
   return (
