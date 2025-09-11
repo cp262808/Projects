@@ -1,22 +1,7 @@
-import NavBar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-import fs from "fs";
-import path from "path";
+// Replace app/tools/page.tsx with the clean Tools page we created earlier
+// This removes the old HTML file dependency and uses the new design
 
-export default function ToolsPage(){
-  const rawHtml = fs.readFileSync(path.join(process.cwd(), "content", "tools.html"), "utf-8");
-  const match = rawHtml.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
-  const contentHtml = match ? match[1] : "";
+export { default } from './clean-tools-page';
 
-  return (
-    <>
-      <NavBar />
-      <main className="container py-12" id="main">
-        <div className="max-w-4xl mx-auto prose">
-          <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
-        </div>
-      </main>
-      <Footer />
-    </>
-  )
-}
+// Note: You should replace this file's content with the "Updated Tools Page - Matches Landing Page Design" 
+// artifact from earlier, or simply delete this file since tools page is already created.
