@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/IronHeader"; // Changed from NavBar to IronHeader
 import Footer from "@/components/Footer";
 import fs from "fs";
 import path from "path";
