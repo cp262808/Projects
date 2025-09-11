@@ -1,11 +1,8 @@
 'use client';
 import React, { useState } from "react";
 
-/** Iron Codex Header (App Router)
- *  - Tailwind
- *  - Sticky secondary bar
- *  - Centered/clamped dropdowns
- *  - Tools dropdown populated from your list
+/** Fixed Iron Codex Header - Option 2: Add invisible hover bridge
+ *  Keeps the visual gap but adds an invisible area to maintain hover state
  */
 
 const secondaryLinks: [string, string][] = [
@@ -73,9 +70,11 @@ export default function NavBar() {
         <a href="/" className="font-bold flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition underline-offset-4 hover:underline" data-testid="brand"><span aria-hidden>🛡️</span> <span>Iron Codex</span></a>
 
         <nav className="ml-auto hidden md:flex items-center gap-2 overflow-visible" aria-label="Main">
-          {/* Topics mega-menu */}
+          {/* Topics mega-menu - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible" data-testid="topics-menu">
             <a href="/topics" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Topics</a>
+            {/* Invisible hover bridge */}
+            <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
               <MenuCol title="Fundamentals" items={[["Security Fundamentals","/topics/security-fundamentals"],["Identity & Access","/topics/identity-access"],["Cryptography","/topics/cryptography"],["Risk Management","/topics/risk-management"]]} />
               <MenuCol title="Network & Infra" items={[["Network Security","/topics/network-security"],["Cloud Security","/topics/cloud-security"],["Endpoint Security","/topics/endpoints"],["Supply Chain","/topics/supply-chain"]]} />
@@ -84,9 +83,11 @@ export default function NavBar() {
             </div>
           </div>
 
-          {/* Guides dropdown */}
+          {/* Guides dropdown - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible">
             <a href="/guides" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Guides</a>
+            {/* Invisible hover bridge */}
+            <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[360px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-3 grid grid-cols-1 gap-1">
               <a href="/guides/api-security" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Deep Dive: API Security</a>
               <a href="/guides/cloud-hardening" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Cloud Hardening</a>
@@ -96,9 +97,11 @@ export default function NavBar() {
             </div>
           </div>
 
-          {/* Tools dropdown */}
+          {/* Tools dropdown - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible">
             <a href="/tools" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Tools</a>
+            {/* Invisible hover bridge */}
+            <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
               {toolsCategories.map((cat) => (<MenuCol key={cat.title} title={cat.title} items={cat.items} />))}
             </div>
