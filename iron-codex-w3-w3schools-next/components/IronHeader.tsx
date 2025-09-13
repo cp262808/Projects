@@ -11,7 +11,7 @@ const secondaryLinks: [string, string][] = [
   ["API Security", "/guides/api-security"],
   ["Cloud Security", "/topics/cloud-security"],
   ["Network Security", "/topics/network-security"],
-  ["Identity & Access", "/topics/identity-access"],
+  ["Identity & Access", "/topics/identity-access-management"],
   ["Containers & K8s", "/topics/containers"],
   ["Incident Response", "/guides/incident-response"],
   ["Vendor Reviews", "/guides/vendor-security"],
