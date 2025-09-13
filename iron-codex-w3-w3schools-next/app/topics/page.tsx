@@ -13,7 +13,7 @@ const allTopics = [
   },
   {
     title: "Identity & Access Management", 
-    slug: "identity-access",
+    slug: "identity-access-management",
     description: "Authentication, authorization, SSO, privileged access management, and identity governance.",
     level: "Intermediate",
     controls: 32,
