@@ -8,8 +8,8 @@ const titles: Record<string, string> = { intro: "Introduction" };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const name = titles[params.slug] ?? params.slug.replace(/-/g, " ");
   return {
-    title: `${name} · IAM`,
-    description: `IAM — ${name} section`,
+    title: `${name} · Iam`,
+    description: `Iam — ${name} section`,
   };
 }
 
