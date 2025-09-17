@@ -1,15 +1,14 @@
 'use client';
-
+import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 
 type Section = { id: string; label: string };
 type Group = [string, Section[]];
 
 const ContentBySlug: Record<string, any> = {
-  "intro": dynamic(() => import("@/content/guides/cloud-security/intro.mdx")),
+  intro: dynamic(() => import("@/content/guides/cloud-security/intro.mdx")),
 };
 
 const TOC: Group[] = [
@@ -17,8 +16,8 @@ const TOC: Group[] = [
 ];
 
 export default function Client({ slug }: { slug: string }) {
-  const router = useRouter();
   const [q, setQ] = useState("");
+
   const filtered = useMemo(() => {
     if (!q.trim()) return TOC;
     const ql = q.toLowerCase();
@@ -55,7 +54,7 @@ export default function Client({ slug }: { slug: string }) {
                   {items.map((item) => (
                     <Link
                       key={item.id}
-                      href={`/guides/cloud-security/${{item.id}}`}
+                      href={`/guides/cloud-security/${item.id}`}
                       className={`block px-3 py-1.5 rounded-md border transition-colors ${slug === item.id ? "border-emerald-400/40 bg-emerald-400/10 text-emerald-300" : "border-transparent hover:border-slate-700 text-slate-300 hover:text-slate-200"}`}
                     >
                       {item.label}
@@ -67,6 +66,7 @@ export default function Client({ slug }: { slug: string }) {
           </nav>
         </div>
       </aside>
+
       <main className="px-5 sm:px-8 py-6 max-w-[1100px]">
         <div className="text-sm text-slate-400 mb-2">Guides › Cloud Security</div>
         <h2 className="text-3xl font-bold mb-4">{slug === "intro" ? "Introduction" : slug.replace(/-/g, " ")}</h2>
