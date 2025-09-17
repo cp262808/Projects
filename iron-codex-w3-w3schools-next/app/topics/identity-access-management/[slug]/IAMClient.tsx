@@ -1,3 +1,4 @@
+// FIXID:0cabbbd7-a8f6-4da5-81f7-7d1d612300b0
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
@@ -117,14 +118,7 @@ function Quiz({
 }
 
 // ---------- Content Model ----------------------------------------------------
-export type Slug =
-  | "intro" | "auth-basics" | "mfa" | "adaptive"
-  | "sso" | "federation" | "oauth"
-  | "rbac" | "abac" | "least"
-  | "lifecycle" | "pam" | "monitoring"
-  | "quiz" | "snippets";
-
-type TocItem = { id: Slug; label: string } | { label: string; children: { id: Slug; label: string }[] };
+export type TocItem = { id: string; label: string } | { label: string; children: { id: string; label: string }[] };
 
 const TOC: TocItem[] = [
   { id: "intro", label: "Introduction" },
@@ -200,9 +194,9 @@ const scpRegionAllowlist = `{
 }`;
 
 // ---------- Nav + Search helpers --------------------------------------------
-const hrefFor = (slug: Slug) => `/topics/identity-access-management/${slug}`;
+const hrefFor = (slug: string) => `/topics/identity-access-management/${slug}`;
 
-const ALL_SLUGS: Slug[] = [
+const ALL_SLUGS: string[] = [
   "intro","auth-basics","mfa","adaptive","sso","federation","oauth","rbac","abac","least","lifecycle","pam","monitoring","quiz","snippets"
 ];
 
@@ -224,7 +218,7 @@ const SEARCH_TEXT: Record<Slug, string> = {
   snippets: "snippets aws scp azure conditional access",
 };
 
-function findFirstMatchingSlug(q: string): Slug | null {
+function findFirstMatchingSlug(q: string): string | null {
   const needle = q.trim().toLowerCase();
   if (!needle) return null;
   for (const s of ALL_SLUGS) {
@@ -233,7 +227,7 @@ function findFirstMatchingSlug(q: string): Slug | null {
   return null;
 }
 
-export default function IAMClient({ slug }: { slug: Slug }) {
+export default function IAMClient({ slug }: { slug: string }) {
   const router = useRouter();
   const [q, setQ] = useState("");
 
