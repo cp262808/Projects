@@ -6,20 +6,20 @@ import React, { useState } from "react";
  */
 
 const secondaryLinks: [string, string][] = [
-  ["Security Fundamentals", "/topics/security-fundamentals"],
-  ["AppSec", "/topics/appsec"],
-  ["API Security", "/guides/api-security"],
-  ["Cloud Security", "/topics/cloud-security"],
-  ["Network Security", "/topics/network-security"],
-  ["Identity & Access", "/topics/identity-access-management"],
-  ["Containers & K8s", "/topics/containers"],
+  ["Security Fundamentals", "/topics/security-fundamentals/intro"],
+  ["AppSec", "/topics/application-security/intro"],
+  ["API Security", "/topics/api-security/intro"],
+  ["Cloud Security", "/topics/cloud-security/intro"],
+  ["Network Security", "/topics/network-security/intro"],
+  ["Identity & Access", "/topics/identity-access-management/intro"],
+  ["Containers & K8s", "/topics/container-security/intro"],
   ["Incident Response", "/guides/incident-response"],
   ["Vendor Reviews", "/guides/vendor-security"],
-  ["SaaS Security", "/topics/saas-security"],
-  ["Crypto & Key Mgmt", "/topics/cryptography"],
-  ["Logging & Monitoring", "/topics/logging-monitoring"],
-  ["GenAI Security", "/topics/genai-security"],
-  ["DevSecOps", "/topics/devsecops"],
+  ["SaaS Security", "/topics/saas-security/intro"],
+  ["Crypto & Key Mgmt", "/topics/cryptography/intro"],
+  ["Logging & Monitoring", "/topics/logging-and-monitoring/intro"],
+  ["GenAI Security", "/topics/genai-security/intro"],
+  ["DevSecOps", "/topics/devsecops/intro"],
 ];
 
 const toolsCategories: { title: string; items: [string, string][] }[] = [
@@ -72,7 +72,7 @@ export default function NavBar() {
         <nav className="ml-auto hidden md:flex items-center gap-2 overflow-visible" aria-label="Main">
           {/* Topics mega-menu - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible" data-testid="topics-menu">
-            <a href="/topics" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Topics</a>
+            <a href="/topics/identity-access-management/intro" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Topics</a>
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
@@ -85,7 +85,7 @@ export default function NavBar() {
 
           {/* Guides dropdown - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible">
-            <a href="/guides" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Guides</a>
+            <a href="/topics/api-security/intro" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Guides</a>
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[360px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-3 grid grid-cols-1 gap-1">
@@ -99,7 +99,7 @@ export default function NavBar() {
 
           {/* Tools dropdown - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible">
-            <a href="/tools" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Tools</a>
+            <a href="/topics/cloud-security/intro" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Tools</a>
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
@@ -125,9 +125,9 @@ export default function NavBar() {
       {mobileOpen && (
         <div id="mobile-menu" className="md:hidden border-t border-slate-700 bg-slate-800">
           <div className="mx-auto max-w-6xl px-4 py-3 space-y-2">
-            <a href="/topics" className="block text-emerald-400">Topics</a>
-            <a href="/guides" className="block text-emerald-400">Guides</a>
-            <a href="/tools" className="block text-emerald-400">Tools</a>
+            <a href="/topics/identity-access-management/intro" className="block text-emerald-400">Topics</a>
+            <a href="/topics/api-security/intro" className="block text-emerald-400">Guides</a>
+            <a href="/topics/cloud-security/intro" className="block text-emerald-400">Tools</a>
             <a href="/about" className="block text-emerald-400">About</a>
             <div className="pt-3 border-t border-slate-700">
               <div className="flex flex-wrap gap-2">
