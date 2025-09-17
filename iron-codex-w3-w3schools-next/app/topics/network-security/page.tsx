@@ -1,5 +1,3 @@
 import { redirect } from "next/navigation";
 
-export default function Page() {
-  redirect("/topics/network-security/intro");
-}
+export default function Page() { redirect("/topics/network-security/intro"); }
