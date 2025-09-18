@@ -15,5 +15,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function Page({ params }: Props) {
-  return <Client slug={params.slug} />;
+  return <Client slug={params.slug as any} />;
 }
