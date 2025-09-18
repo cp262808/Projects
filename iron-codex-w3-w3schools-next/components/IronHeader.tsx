@@ -6,20 +6,20 @@ import React, { useState } from "react";
  */
 
 const secondaryLinks: [string, string][] = [
-  ["Security Fundamentals", "/topics/security-fundamentals/intro"],
+  ["Security Fundamentals", "/topics/security-fundamentals"],
   ["AppSec", "/topics/application-security/intro"],
   ["API Security", "/topics/api-security/intro"],
-  ["Cloud Security", "/topics/cloud-security/intro"],
-  ["Network Security", "/topics/network-security/intro"],
-  ["Identity & Access", "/topics/identity-access-management/intro"],
+  ["Cloud Security", "/topics/cloud-security"],
+  ["Network Security", "/topics/network-security"],
+  ["Identity & Access", "/topics/identity-access-management"],
   ["Containers & K8s", "/topics/container-security/intro"],
   ["Incident Response", "/guides/incident-response"],
-  ["Vendor Reviews", "/guides/vendor-security"],
-  ["SaaS Security", "/topics/saas-security/intro"],
-  ["Crypto & Key Mgmt", "/topics/cryptography/intro"],
+  ["Vendor Reviews", "/guides/saas-security"],
+  ["SaaS Security", "/guides/saas-security"],
+  ["Crypto & Key Mgmt", "/topics/cryptography"],
   ["Logging & Monitoring", "/topics/logging-and-monitoring/intro"],
-  ["GenAI Security", "/topics/genai-security/intro"],
-  ["DevSecOps", "/topics/devsecops/intro"],
+  ["GenAI Security", "/topics/ai-ml-security/intro"],
+  ["DevSecOps", "/topics/devsecops"],
 ];
 
 const toolsCategories: { title: string; items: [string, string][] }[] = [
@@ -72,34 +72,34 @@ export default function NavBar() {
         <nav className="ml-auto hidden md:flex items-center gap-2 overflow-visible" aria-label="Main">
           {/* Topics mega-menu - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible" data-testid="topics-menu">
-            <a href="/topics/identity-access-management/intro" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Topics</a>
+            <a href="/topics" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Topics</a>
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
               <MenuCol title="Fundamentals" items={[["Security Fundamentals","/topics/security-fundamentals"],["Identity & Access","/topics/identity-access"],["Cryptography","/topics/cryptography"],["Risk Management","/topics/risk-management"]]} />
               <MenuCol title="Network & Infra" items={[["Network Security","/topics/network-security"],["Cloud Security","/topics/cloud-security"],["Endpoint Security","/topics/endpoints"],["Supply Chain","/topics/supply-chain"]]} />
-              <MenuCol title="AppSec" items={[["Application Security","/topics/appsec"],["API Security","/topics/api-security"],["Threat Modeling","/topics/threat-modeling"],["Vulnerability Mgmt","/topics/vuln-management"]]} />
+              <MenuCol title="AppSec" items={[["Application Security","/topics/application-security/intro"],["API Security","/topics/api-security"],["Threat Modeling","/topics/threat-modeling"],["Vulnerability Mgmt","/topics/vuln-management"]]} />
               <MenuCol title="Governance" items={[["RMF / NIST 800-53","/topics/rmf-800-53"],["ISO 27001","/topics/iso-27001"],["SOC 2","/topics/soc2"],["FedRAMP","/topics/fedramp"]]} />
             </div>
           </div>
 
           {/* Guides dropdown - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible">
-            <a href="/topics/api-security/intro" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Guides</a>
+            <a href="/guides" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Guides</a>
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[360px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-3 grid grid-cols-1 gap-1">
-              <a href="/guides/api-security" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Deep Dive: API Security</a>
-              <a href="/guides/cloud-hardening" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Cloud Hardening</a>
-              <a href="/guides/vendor-security" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Vendor/SaaS Reviews</a>
+              <a href="/topics/api-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Deep Dive: API Security</a>
+              <a href="/topics/cloud-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Cloud Hardening</a>
+              <a href="/guides/saas-security" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Vendor/SaaS Reviews</a>
               <a href="/guides/incident-response" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Incident Response</a>
-              <a href="/guides/zero-trust" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Zero Trust</a>
+              <a href="/topics/zero-trust/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Zero Trust</a>
             </div>
           </div>
 
           {/* Tools dropdown - FIXED: Added hover bridge */}
           <div className="relative group focus-within:visible">
-            <a href="/topics/cloud-security/intro" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Tools</a>
+            <a href="/tools" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline" aria-haspopup="true" aria-expanded="false">Tools</a>
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
@@ -125,9 +125,9 @@ export default function NavBar() {
       {mobileOpen && (
         <div id="mobile-menu" className="md:hidden border-t border-slate-700 bg-slate-800">
           <div className="mx-auto max-w-6xl px-4 py-3 space-y-2">
-            <a href="/topics/identity-access-management/intro" className="block text-emerald-400">Topics</a>
-            <a href="/topics/api-security/intro" className="block text-emerald-400">Guides</a>
-            <a href="/topics/cloud-security/intro" className="block text-emerald-400">Tools</a>
+            <a href="/topics" className="block text-emerald-400">Topics</a>
+            <a href="/guides" className="block text-emerald-400">Guides</a>
+            <a href="/tools" className="block text-emerald-400">Tools</a>
             <a href="/about" className="block text-emerald-400">About</a>
             <div className="pt-3 border-t border-slate-700">
               <div className="flex flex-wrap gap-2">
