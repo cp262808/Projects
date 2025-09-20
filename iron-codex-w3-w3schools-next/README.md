@@ -24,3 +24,8 @@ This fork dynamically renders guides and topics from Iron Codex HTML exports and
 ## Common gotchas
 - If you see `module is not defined in ES module scope`, ensure `postcss.config.cjs` exists (not `.js`).
 - If the site 404s, check that `package.json` is at the **repo root**, or set **Root Directory** in Vercel.
+
+## Tools content workflow
+- Update tool listings in `content/tools.json`. Each entry captures the category, description, platform, type, and outbound URLs used throughout the app.
+- After editing the JSON, run `npm run lint` (and optionally `npm run build`) to ensure the project still passes validation—the tools page parses the file at render time via `lib/loadTools.ts`.
+- Avoid editing `app/tools/page.tsx` for content tweaks—the page now reads from the JSON file through `lib/loadTools.ts`.
