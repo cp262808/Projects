@@ -1,4 +1,3 @@
-import NavBar from "@/components/IronHeader"; // Changed from NavBar to IronHeader
 import Footer from "@/components/Footer";
 import fs from "fs";
 import path from "path";
@@ -21,7 +20,6 @@ export default function TopicPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-      <NavBar />
       <main className="container py-12" id="main">
         <div className="max-w-4xl mx-auto prose">
           <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
