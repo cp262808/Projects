@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:topics": "tsx scripts/generate-topics-index.ts",
+    "check:topics": "tsx scripts/check-topics-index.ts"
   },
   "dependencies": {
     "@vercel/analytics": "1.3.1",
@@ -29,6 +31,7 @@
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "@mdx-js/loader": "3.0.1",
-    "@types/mdx": "2.0.12"
+    "@types/mdx": "2.0.12",
+    "tsx": "4.16.2"
   }
 }
