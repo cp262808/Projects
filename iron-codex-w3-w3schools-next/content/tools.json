@@ -1,0 +1,356 @@
+{
+  "tools": [
+    {
+      "name": "Nmap",
+      "slug": "nmap",
+      "category": "Vulnerability Assessment",
+      "description": "Network discovery and security auditing",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://nmap.org" }
+      ]
+    },
+    {
+      "name": "OpenVAS",
+      "slug": "openvas",
+      "category": "Vulnerability Assessment",
+      "description": "Comprehensive vulnerability scanner",
+      "type": "Open Source",
+      "platform": "Linux",
+      "urls": [
+        { "label": "Website", "url": "https://openvas.org" }
+      ]
+    },
+    {
+      "name": "Nuclei",
+      "slug": "nuclei",
+      "category": "Vulnerability Assessment",
+      "description": "Fast and customizable vulnerability scanner",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://nuclei.projectdiscovery.io" }
+      ]
+    },
+    {
+      "name": "Nessus",
+      "slug": "nessus",
+      "category": "Vulnerability Assessment",
+      "description": "Professional vulnerability assessment",
+      "type": "Commercial",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.tenable.com/products/nessus" }
+      ]
+    },
+    {
+      "name": "OWASP ZAP",
+      "slug": "owasp-zap",
+      "category": "Web Application Security",
+      "description": "Web application security scanner",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.zaproxy.org" }
+      ]
+    },
+    {
+      "name": "Burp Suite",
+      "slug": "burp-suite",
+      "category": "Web Application Security",
+      "description": "Web vulnerability scanner and proxy",
+      "type": "Freemium",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://portswigger.net/burp" }
+      ]
+    },
+    {
+      "name": "Nikto",
+      "slug": "nikto",
+      "category": "Web Application Security",
+      "description": "Web server scanner",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://cirt.net/Nikto2" }
+      ]
+    },
+    {
+      "name": "SQLmap",
+      "slug": "sqlmap",
+      "category": "Web Application Security",
+      "description": "Automatic SQL injection testing tool",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://sqlmap.org" }
+      ]
+    },
+    {
+      "name": "Wireshark",
+      "slug": "wireshark",
+      "category": "Network Security",
+      "description": "Network protocol analyzer",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.wireshark.org" }
+      ]
+    },
+    {
+      "name": "Snort",
+      "slug": "snort",
+      "category": "Network Security",
+      "description": "Network intrusion detection system",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.snort.org" }
+      ]
+    },
+    {
+      "name": "Suricata",
+      "slug": "suricata",
+      "category": "Network Security",
+      "description": "High performance network IDS/IPS",
+      "type": "Open Source",
+      "platform": "Linux",
+      "urls": [
+        { "label": "Website", "url": "https://suricata.io" }
+      ]
+    },
+    {
+      "name": "pfSense",
+      "slug": "pfsense",
+      "category": "Network Security",
+      "description": "Open source firewall and router",
+      "type": "Open Source",
+      "platform": "FreeBSD",
+      "urls": [
+        { "label": "Website", "url": "https://www.pfsense.org" }
+      ]
+    },
+    {
+      "name": "Autopsy",
+      "slug": "autopsy",
+      "category": "Digital Forensics",
+      "description": "Digital forensics platform",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://sleuthkit.org/autopsy" }
+      ]
+    },
+    {
+      "name": "Volatility",
+      "slug": "volatility",
+      "category": "Digital Forensics",
+      "description": "Memory forensics framework",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.volatilityfoundation.org" }
+      ]
+    },
+    {
+      "name": "YARA",
+      "slug": "yara",
+      "category": "Digital Forensics",
+      "description": "Malware identification and classification",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://virustotal.github.io/yara" }
+      ]
+    },
+    {
+      "name": "Sleuth Kit",
+      "slug": "sleuth-kit",
+      "category": "Digital Forensics",
+      "description": "Disk image analysis tools",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://sleuthkit.org" }
+      ]
+    },
+    {
+      "name": "Scout Suite",
+      "slug": "scout-suite",
+      "category": "Cloud Security",
+      "description": "Multi-cloud security auditing tool",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Repository", "url": "https://github.com/nccgroup/ScoutSuite" }
+      ]
+    },
+    {
+      "name": "Prowler",
+      "slug": "prowler",
+      "category": "Cloud Security",
+      "description": "AWS security best practices assessment",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://prowler.pro" }
+      ]
+    },
+    {
+      "name": "CloudMapper",
+      "slug": "cloudmapper",
+      "category": "Cloud Security",
+      "description": "AWS environment analysis",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Repository", "url": "https://github.com/duo-labs/cloudmapper" }
+      ]
+    },
+    {
+      "name": "Pacu",
+      "slug": "pacu",
+      "category": "Cloud Security",
+      "description": "AWS exploitation framework",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Repository", "url": "https://github.com/RhinoSecurityLabs/pacu" }
+      ]
+    },
+    {
+      "name": "Trivy",
+      "slug": "trivy",
+      "category": "Container Security",
+      "description": "Vulnerability scanner for containers",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://trivy.dev" }
+      ]
+    },
+    {
+      "name": "Falco",
+      "slug": "falco",
+      "category": "Container Security",
+      "description": "Runtime security monitoring",
+      "type": "Open Source",
+      "platform": "Linux",
+      "urls": [
+        { "label": "Website", "url": "https://falco.org" }
+      ]
+    },
+    {
+      "name": "Clair",
+      "slug": "clair",
+      "category": "Container Security",
+      "description": "Static analysis of container vulnerabilities",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Repository", "url": "https://github.com/quay/clair" }
+      ]
+    },
+    {
+      "name": "Docker Bench",
+      "slug": "docker-bench",
+      "category": "Container Security",
+      "description": "Docker security configuration checker",
+      "type": "Open Source",
+      "platform": "Linux",
+      "urls": [
+        { "label": "Repository", "url": "https://github.com/docker/docker-bench-security" }
+      ]
+    },
+    {
+      "name": "ELK Stack",
+      "slug": "elk-stack",
+      "category": "SIEM & Monitoring",
+      "description": "Elasticsearch, Logstash, and Kibana",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.elastic.co/elastic-stack" }
+      ]
+    },
+    {
+      "name": "Wazuh",
+      "slug": "wazuh",
+      "category": "SIEM & Monitoring",
+      "description": "Security monitoring platform",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://wazuh.com" }
+      ]
+    },
+    {
+      "name": "OSSEC",
+      "slug": "ossec",
+      "category": "SIEM & Monitoring",
+      "description": "Host-based intrusion detection",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://ossec.github.io" }
+      ]
+    },
+    {
+      "name": "Graylog",
+      "slug": "graylog",
+      "category": "SIEM & Monitoring",
+      "description": "Log management and analysis",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.graylog.org" }
+      ]
+    },
+    {
+      "name": "OpenSSL",
+      "slug": "openssl",
+      "category": "Cryptography & PKI",
+      "description": "Cryptography and SSL/TLS toolkit",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.openssl.org" }
+      ]
+    },
+    {
+      "name": "HashiCorp Vault",
+      "slug": "vault",
+      "category": "Cryptography & PKI",
+      "description": "Secrets management platform",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://www.vaultproject.io" }
+      ]
+    },
+    {
+      "name": "Let's Encrypt",
+      "slug": "lets-encrypt",
+      "category": "Cryptography & PKI",
+      "description": "Free SSL/TLS certificates",
+      "type": "Free Service",
+      "platform": "Web-based",
+      "urls": [
+        { "label": "Website", "url": "https://letsencrypt.org" }
+      ]
+    },
+    {
+      "name": "GnuPG",
+      "slug": "gnupg",
+      "category": "Cryptography & PKI",
+      "description": "GNU Privacy Guard",
+      "type": "Open Source",
+      "platform": "Cross-platform",
+      "urls": [
+        { "label": "Website", "url": "https://gnupg.org" }
+      ]
+    }
+  ]
+}
