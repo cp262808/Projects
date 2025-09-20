@@ -21,7 +21,7 @@ const allTopics = [
   },
   {
     title: "Application Security",
-    slug: "appsec", 
+    slug: "application-security",
     description: "SAST, DAST, secure coding practices, vulnerability management, and application security testing.",
     level: "Intermediate",
     controls: 28,
@@ -53,15 +53,15 @@ const allTopics = [
   },
   {
     title: "Endpoint Security",
-    slug: "endpoints",
+    slug: "endpoint-security",
     description: "EDR, antivirus, device encryption, patch management, and BYOD security.",
     level: "Beginner",
     controls: 16,
     category: "Infrastructure"
   },
   {
-    title: "Container Security", 
-    slug: "containers",
+    title: "Container Security",
+    slug: "container-security",
     description: "Docker, Kubernetes security, image scanning, runtime protection, and container hardening.",
     level: "Advanced",
     controls: 38,
@@ -77,7 +77,7 @@ const allTopics = [
   },
   {
     title: "Risk Management",
-    slug: "risk-management",
+    slug: "governance-risk-compliance",
     description: "Risk assessment, business impact analysis, third-party risk, and security metrics.",
     level: "Intermediate",
     controls: 18,
@@ -85,7 +85,7 @@ const allTopics = [
   },
   {
     title: "Compliance & Governance",
-    slug: "compliance",
+    slug: "compliance-audit",
     description: "SOC 2, ISO 27001, NIST frameworks, audit preparation, and regulatory compliance.",
     level: "Advanced",
     controls: 42,
