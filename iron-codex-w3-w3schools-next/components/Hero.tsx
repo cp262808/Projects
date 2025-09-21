@@ -3,7 +3,7 @@ export default function Hero(){
     <section className="bg-w3dark-hero text-white text-center py-16 md:py-24">
       <div className="container">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Learn Cybersecurity</h1>
-        <p className="text-w3yellow text-lg md:text-xl font-semibold mb-6">With the world's largest cybersecurity reference site.</p>
+        <p className="text-w3yellow text-lg md:text-xl font-semibold mb-6">With the world&rsquo;s largest cybersecurity reference site.</p>
 
         {/* Big W3-style search pill */}
         <form action="/search" className="mx-auto max-w-3xl">
