@@ -11,11 +11,11 @@ import Link from "next/link";
 
 const quickLinks: { label: string; href: string; k: string }[] = [
   { label: "Security Fundamentals", href: "/topics/security-fundamentals", k: "fundamentals" },
-  { label: "AppSec", href: "/topics/appsec", k: "appsec" },
+  { label: "AppSec", href: "/topics/application-security", k: "appsec" },
   { label: "API Security", href: "/guides/api-security", k: "api" },
   { label: "Cloud Security", href: "/topics/cloud-security", k: "cloud" },
   { label: "Network Security", href: "/topics/network-security", k: "network" },
-  { label: "Identity & Access", href: "/topics/identity-access", k: "iam" },
+  { label: "Identity & Access", href: "/topics/identity-access-management", k: "iam" },
 ];
 
 const topicBuckets: { title: string; items: { label: string; href: string }[] }[] = [
@@ -23,9 +23,9 @@ const topicBuckets: { title: string; items: { label: string; href: string }[] }[
     title: "Fundamentals",
     items: [
       { label: "Security Fundamentals", href: "/topics/security-fundamentals" },
-      { label: "Identity & Access", href: "/topics/identity-access" },
+      { label: "Identity & Access", href: "/topics/identity-access-management" },
       { label: "Cryptography", href: "/topics/cryptography" },
-      { label: "Risk Management", href: "/topics/risk-management" },
+      { label: "Risk Management", href: "/topics/governance-risk-compliance" },
     ],
   },
   {
@@ -33,17 +33,17 @@ const topicBuckets: { title: string; items: { label: string; href: string }[] }[
     items: [
       { label: "Network Security", href: "/topics/network-security" },
       { label: "Cloud Security", href: "/topics/cloud-security" },
-      { label: "Endpoint Security", href: "/topics/endpoints" },
-      { label: "Supply Chain", href: "/topics/supply-chain" },
+      { label: "Endpoint Security", href: "/topics/endpoint-security" },
+      { label: "Supply Chain", href: "/topics/supply-chain-security" },
     ],
   },
   {
     title: "AppSec",
     items: [
-      { label: "Application Security", href: "/topics/appsec" },
+      { label: "Application Security", href: "/topics/application-security" },
       { label: "API Security", href: "/topics/api-security" },
       { label: "Threat Modeling", href: "/topics/threat-modeling" },
-      { label: "Vulnerability Mgmt", href: "/topics/vuln-management" },
+      { label: "Vulnerability Mgmt", href: "/topics/vulnerability-management" },
     ],
   },
   {
