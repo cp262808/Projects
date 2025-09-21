@@ -2,73 +2,25 @@
 import React from "react";
 import Link from "next/link";
 
-const allTools = [
-  // Vulnerability Assessment
-  { name: "Nmap", slug: "nmap", category: "Vulnerability Assessment", description: "Network discovery and security auditing", type: "Open Source", platform: "Cross-platform" },
-  { name: "OpenVAS", slug: "openvas", category: "Vulnerability Assessment", description: "Comprehensive vulnerability scanner", type: "Open Source", platform: "Linux" },
-  { name: "Nuclei", slug: "nuclei", category: "Vulnerability Assessment", description: "Fast and customizable vulnerability scanner", type: "Open Source", platform: "Cross-platform" },
-  { name: "Nessus", slug: "nessus", category: "Vulnerability Assessment", description: "Professional vulnerability assessment", type: "Commercial", platform: "Cross-platform" },
-  
-  // Web Application Security
-  { name: "OWASP ZAP", slug: "owasp-zap", category: "Web Application Security", description: "Web application security scanner", type: "Open Source", platform: "Cross-platform" },
-  { name: "Burp Suite", slug: "burp-suite", category: "Web Application Security", description: "Web vulnerability scanner and proxy", type: "Freemium", platform: "Cross-platform" },
-  { name: "Nikto", slug: "nikto", category: "Web Application Security", description: "Web server scanner", type: "Open Source", platform: "Cross-platform" },
-  { name: "SQLmap", slug: "sqlmap", category: "Web Application Security", description: "Automatic SQL injection testing tool", type: "Open Source", platform: "Cross-platform" },
-  
-  // Network Security
-  { name: "Wireshark", slug: "wireshark", category: "Network Security", description: "Network protocol analyzer", type: "Open Source", platform: "Cross-platform" },
-  { name: "Snort", slug: "snort", category: "Network Security", description: "Network intrusion detection system", type: "Open Source", platform: "Cross-platform" },
-  { name: "Suricata", slug: "suricata", category: "Network Security", description: "High performance network IDS/IPS", type: "Open Source", platform: "Linux" },
-  { name: "pfSense", slug: "pfsense", category: "Network Security", description: "Open source firewall and router", type: "Open Source", platform: "FreeBSD" },
-  
-  // Digital Forensics
-  { name: "Autopsy", slug: "autopsy", category: "Digital Forensics", description: "Digital forensics platform", type: "Open Source", platform: "Cross-platform" },
-  { name: "Volatility", slug: "volatility", category: "Digital Forensics", description: "Memory forensics framework", type: "Open Source", platform: "Cross-platform" },
-  { name: "YARA", slug: "yara", category: "Digital Forensics", description: "Malware identification and classification", type: "Open Source", platform: "Cross-platform" },
-  { name: "Sleuth Kit", slug: "sleuth-kit", category: "Digital Forensics", description: "Disk image analysis tools", type: "Open Source", platform: "Cross-platform" },
-  
-  // Cloud Security
-  { name: "Scout Suite", slug: "scout-suite", category: "Cloud Security", description: "Multi-cloud security auditing tool", type: "Open Source", platform: "Cross-platform" },
-  { name: "Prowler", slug: "prowler", category: "Cloud Security", description: "AWS security best practices assessment", type: "Open Source", platform: "Cross-platform" },
-  { name: "CloudMapper", slug: "cloudmapper", category: "Cloud Security", description: "AWS environment analysis", type: "Open Source", platform: "Cross-platform" },
-  { name: "Pacu", slug: "pacu", category: "Cloud Security", description: "AWS exploitation framework", type: "Open Source", platform: "Cross-platform" },
-  
-  // Container Security
-  { name: "Trivy", slug: "trivy", category: "Container Security", description: "Vulnerability scanner for containers", type: "Open Source", platform: "Cross-platform" },
-  { name: "Falco", slug: "falco", category: "Container Security", description: "Runtime security monitoring", type: "Open Source", platform: "Linux" },
-  { name: "Clair", slug: "clair", category: "Container Security", description: "Static analysis of container vulnerabilities", type: "Open Source", platform: "Cross-platform" },
-  { name: "Docker Bench", slug: "docker-bench", category: "Container Security", description: "Docker security configuration checker", type: "Open Source", platform: "Linux" },
-  
-  // SIEM & Monitoring
-  { name: "ELK Stack", slug: "elk-stack", category: "SIEM & Monitoring", description: "Elasticsearch, Logstash, and Kibana", type: "Open Source", platform: "Cross-platform" },
-  { name: "Wazuh", slug: "wazuh", category: "SIEM & Monitoring", description: "Security monitoring platform", type: "Open Source", platform: "Cross-platform" },
-  { name: "OSSEC", slug: "ossec", category: "SIEM & Monitoring", description: "Host-based intrusion detection", type: "Open Source", platform: "Cross-platform" },
-  { name: "Graylog", slug: "graylog", category: "SIEM & Monitoring", description: "Log management and analysis", type: "Open Source", platform: "Cross-platform" },
-  
-  // Cryptography & PKI
-  { name: "OpenSSL", slug: "openssl", category: "Cryptography & PKI", description: "Cryptography and SSL/TLS toolkit", type: "Open Source", platform: "Cross-platform" },
-  { name: "HashiCorp Vault", slug: "vault", category: "Cryptography & PKI", description: "Secrets management platform", type: "Open Source", platform: "Cross-platform" },
-  { name: "Let's Encrypt", slug: "lets-encrypt", category: "Cryptography & PKI", description: "Free SSL/TLS certificates", type: "Free Service", platform: "Web-based" },
-  { name: "GnuPG", slug: "gnupg", category: "Cryptography & PKI", description: "GNU Privacy Guard", type: "Open Source", platform: "Cross-platform" }
-];
+import { toolCategories, tools, toolTypes } from "@/data/tools";
 
-const categories = ["All", "Vulnerability Assessment", "Web Application Security", "Network Security", "Digital Forensics", "Cloud Security", "Container Security", "SIEM & Monitoring", "Cryptography & PKI"];
-const types = ["All", "Open Source", "Commercial", "Freemium", "Free Service"];
+const categories = ["All", ...toolCategories];
+const types = ["All", ...toolTypes];
 
 export default function ToolsPage() {
   const [selectedCategory, setSelectedCategory] = React.useState("All");
   const [selectedType, setSelectedType] = React.useState("All");
   
-  const filteredTools = allTools.filter(tool => {
+  const filteredTools = tools.filter(tool => {
     const categoryMatch = selectedCategory === "All" || tool.category === selectedCategory;
     const typeMatch = selectedType === "All" || tool.type === selectedType;
     return categoryMatch && typeMatch;
   });
 
-  const toolsByCategory = categories.slice(1).map(category => ({
+  const toolsByCategory = toolCategories.map(category => ({
     name: category,
-    tools: allTools.filter(tool => tool.category === category),
-    count: allTools.filter(tool => tool.category === category).length
+    tools: tools.filter(tool => tool.category === category),
+    count: tools.filter(tool => tool.category === category).length
   }));
 
   return (
@@ -149,15 +101,15 @@ export default function ToolsPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
-            <div className="text-2xl font-bold text-emerald-400">{allTools.length}</div>
+            <div className="text-2xl font-bold text-emerald-400">{tools.length}</div>
             <div className="text-sm text-slate-400">Total Tools</div>
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
-            <div className="text-2xl font-bold text-emerald-400">{categories.length - 1}</div>
+            <div className="text-2xl font-bold text-emerald-400">{toolCategories.length}</div>
             <div className="text-sm text-slate-400">Categories</div>
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
-            <div className="text-2xl font-bold text-emerald-400">{allTools.filter(tool => tool.type === "Open Source").length}</div>
+            <div className="text-2xl font-bold text-emerald-400">{tools.filter(tool => tool.type === "Open Source").length}</div>
             <div className="text-sm text-slate-400">Open Source</div>
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
