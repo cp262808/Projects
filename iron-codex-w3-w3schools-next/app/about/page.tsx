@@ -9,7 +9,7 @@ const teamValues = [
   },
   {
     title: "No Fluff",
-    description: "We focus on implementation details and skip the theoretical background that doesn't help practitioners."
+    description: "We focus on implementation details and skip the theoretical background that doesn&rsquo;t help practitioners."
   },
   {
     title: "Community Driven", 
@@ -57,7 +57,7 @@ export default function AboutPage() {
             </p>
             <p className="text-slate-300 text-lg leading-relaxed">
               Too many cybersecurity resources focus on high-level concepts without providing the practical 
-              implementation details needed to actually secure systems. We're changing that by creating 
+              implementation details needed to actually secure systems. We&rsquo;re changing that by creating
               comprehensive, step-by-step guidance that works in the real world.
             </p>
           </div>

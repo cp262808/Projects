@@ -79,7 +79,7 @@ function SearchContent() {
             </h1>
             {query && (
               <p className="mt-3 text-slate-300 text-lg">
-                Showing results for "{query}"
+                Showing results for &ldquo;{query}&rdquo;
               </p>
             )}
             
@@ -132,7 +132,7 @@ function SearchContent() {
           <div className="text-center py-12">
             <h2 className="text-xl font-semibold mb-4">No results found</h2>
             <p className="text-slate-400 mb-8">
-              We couldn't find anything matching "{query}". Try adjusting your search terms.
+              We couldn&rsquo;t find anything matching &ldquo;{query}&rdquo;. Try adjusting your search terms.
             </p>
             
             {/* Search suggestions */}
@@ -159,7 +159,7 @@ function SearchContent() {
                 {results.length} result{results.length !== 1 ? 's' : ''} found
               </h2>
               <div className="text-sm text-slate-400">
-                Showing results for "{query}"
+                Showing results for &ldquo;{query}&rdquo;
               </div>
             </div>
 

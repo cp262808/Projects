@@ -24,7 +24,7 @@ export default function ExamplesPage() {
           <div className="text-6xl mb-4">🚧</div>
           <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
           <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-            We're building a comprehensive collection of practical security implementation examples. 
+            We&rsquo;re building a comprehensive collection of practical security implementation examples.
             This section will include code samples, configuration files, and step-by-step walkthroughs.
           </p>
           

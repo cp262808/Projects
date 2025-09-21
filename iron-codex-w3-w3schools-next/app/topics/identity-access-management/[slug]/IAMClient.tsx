@@ -338,7 +338,7 @@ export default function IAMClient({ slug }: { slug: string }) {
       case "federation":
         return (
           <Card title="Identity Federation">
-            <p>Trust external IdPs ("Login with…") and map claims to local roles with least privilege.</p>
+            <p>Trust external IdPs (&ldquo;Login with…&rdquo;) and map claims to local roles with least privilege.</p>
           </Card>
         );
 

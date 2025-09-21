@@ -24,7 +24,7 @@ export default function MapsPage() {
           <div className="text-6xl mb-4">🗺️</div>
           <h2 className="text-2xl font-bold mb-4">Coming Soon</h2>
           <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-            We're creating interactive learning maps that will guide you through cybersecurity topics 
+            We&rsquo;re creating interactive learning maps that will guide you through cybersecurity topics
             based on your experience level and career goals.
           </p>
           
