@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import Link from "next/link";
+import { PromoBadge, PromoFlare } from "./PromoFlare";
 
 /** Iron Codex Landing (clean, W3-style utility-first, less flashy)
  *  - Hero with primary search
@@ -9,61 +9,61 @@ import Link from "next/link";
  *  - Tools spotlight
  */
 
-const quickLinks: { label: string; href: string; k: string }[] = [
-  { label: "Security Fundamentals", href: "/topics/security-fundamentals", k: "fundamentals" },
-  { label: "AppSec", href: "/topics/application-security", k: "appsec" },
-  { label: "API Security", href: "/guides/api-security", k: "api" },
-  { label: "Cloud Security", href: "/topics/cloud-security", k: "cloud" },
-  { label: "Network Security", href: "/topics/network-security", k: "network" },
-  { label: "Identity & Access", href: "/topics/identity-access-management", k: "iam" },
+const quickLinks: { label: string; eyebrow: string; k: string }[] = [
+  { label: "Security Fundamentals", eyebrow: "Preview Track", k: "fundamentals" },
+  { label: "AppSec", eyebrow: "Preview Track", k: "appsec" },
+  { label: "API Security", eyebrow: "Guide Sneak Peek", k: "api" },
+  { label: "Cloud Security", eyebrow: "Preview Track", k: "cloud" },
+  { label: "Network Security", eyebrow: "Preview Track", k: "network" },
+  { label: "Identity & Access", eyebrow: "Preview Track", k: "iam" },
 ];
 
-const topicBuckets: { title: string; items: { label: string; href: string }[] }[] = [
+const topicBuckets: { title: string; items: { label: string; eyebrow?: string }[] }[] = [
   {
     title: "Fundamentals",
     items: [
-      { label: "Security Fundamentals", href: "/topics/security-fundamentals" },
-      { label: "Identity & Access", href: "/topics/identity-access-management" },
-      { label: "Cryptography", href: "/topics/cryptography" },
-      { label: "Risk Management", href: "/topics/governance-risk-compliance" },
+      { label: "Security Fundamentals", eyebrow: "Curriculum" },
+      { label: "Identity & Access", eyebrow: "Curriculum" },
+      { label: "Cryptography", eyebrow: "Curriculum" },
+      { label: "Risk Management", eyebrow: "Curriculum" },
     ],
   },
   {
     title: "Network & Infra",
     items: [
-      { label: "Network Security", href: "/topics/network-security" },
-      { label: "Cloud Security", href: "/topics/cloud-security" },
-      { label: "Endpoint Security", href: "/topics/endpoint-security" },
-      { label: "Supply Chain", href: "/topics/supply-chain-security" },
+      { label: "Network Security", eyebrow: "Curriculum" },
+      { label: "Cloud Security", eyebrow: "Curriculum" },
+      { label: "Endpoint Security", eyebrow: "Curriculum" },
+      { label: "Supply Chain", eyebrow: "Curriculum" },
     ],
   },
   {
     title: "AppSec",
     items: [
-      { label: "Application Security", href: "/topics/application-security" },
-      { label: "API Security", href: "/topics/api-security" },
-      { label: "Threat Modeling", href: "/topics/threat-modeling" },
-      { label: "Vulnerability Mgmt", href: "/topics/vulnerability-management" },
+      { label: "Application Security", eyebrow: "Curriculum" },
+      { label: "API Security", eyebrow: "Curriculum" },
+      { label: "Threat Modeling", eyebrow: "Curriculum" },
+      { label: "Vulnerability Mgmt", eyebrow: "Curriculum" },
     ],
   },
   {
     title: "Governance",
     items: [
-      { label: "RMF / NIST 800-53", href: "/topics/rmf-800-53" },
-      { label: "ISO 27001", href: "/topics/iso-27001" },
-      { label: "SOC 2", href: "/topics/soc2" },
-      { label: "FedRAMP", href: "/topics/fedramp" },
+      { label: "RMF / NIST 800-53", eyebrow: "Curriculum" },
+      { label: "ISO 27001", eyebrow: "Curriculum" },
+      { label: "SOC 2", eyebrow: "Curriculum" },
+      { label: "FedRAMP", eyebrow: "Curriculum" },
     ],
   },
 ];
 
 const toolsSpotlight = [
-  { label: "Nmap", href: "/tools/nmap" },
-  { label: "Burp Suite", href: "/tools/burp-suite" },
-  { label: "Wireshark", href: "/tools/wireshark" },
-  { label: "Trivy", href: "/tools/trivy" },
-  { label: "Prowler", href: "/tools/prowler" },
-  { label: "HashiCorp Vault", href: "/tools/vault" },
+  { label: "Nmap", eyebrow: "Lab Preview" },
+  { label: "Burp Suite", eyebrow: "Lab Preview" },
+  { label: "Wireshark", eyebrow: "Lab Preview" },
+  { label: "Trivy", eyebrow: "Lab Preview" },
+  { label: "Prowler", eyebrow: "Lab Preview" },
+  { label: "HashiCorp Vault", eyebrow: "Lab Preview" },
 ];
 
 export default function HomeLanding() {
@@ -96,13 +96,14 @@ export default function HomeLanding() {
             <div className="w-full md:w-auto">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {quickLinks.map((q) => (
-                  <Link
+                  <PromoFlare
                     key={q.k}
-                    href={q.href}
-                    className="rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 px-4 py-3 text-slate-100 hover:text-emerald-400 transition text-sm text-center"
-                  >
-                    {q.label}
-                  </Link>
+                    label={q.label}
+                    eyebrow={q.eyebrow}
+                    size="lg"
+                    align="center"
+                    className="h-full"
+                  />
                 ))}
               </div>
             </div>
@@ -117,12 +118,10 @@ export default function HomeLanding() {
           {topicBuckets.map((b) => (
             <div key={b.title} className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
               <h3 className="text-sm uppercase tracking-wide text-emerald-400 mb-2">{b.title}</h3>
-              <ul className="space-y-1 text-sm">
+              <ul className="space-y-2 text-sm">
                 {b.items.map((it) => (
-                  <li key={it.href}>
-                    <Link href={it.href} className="text-slate-200 hover:text-emerald-400">
-                      {it.label}
-                    </Link>
+                  <li key={it.label}>
+                    <PromoFlare label={it.label} eyebrow={it.eyebrow ?? "Curriculum"} size="sm" />
                   </li>
                 ))}
               </ul>
@@ -136,19 +135,17 @@ export default function HomeLanding() {
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold">Popular Tools</h2>
-            <Link href="/tools" className="text-sm text-emerald-400 hover:underline underline-offset-4">
-              View all
-            </Link>
+            <PromoBadge label="Full catalog in preview" tone="active" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {toolsSpotlight.map((t) => (
-              <Link
-                key={t.href}
-                href={t.href}
-                className="rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-center text-slate-200 hover:text-emerald-400 hover:border-emerald-600 transition text-sm"
-              >
-                {t.label}
-              </Link>
+              <PromoFlare
+                key={t.label}
+                label={t.label}
+                eyebrow={t.eyebrow}
+                size="sm"
+                align="center"
+              />
             ))}
           </div>
         </div>

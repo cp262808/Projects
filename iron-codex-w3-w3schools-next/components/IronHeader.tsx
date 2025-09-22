@@ -14,9 +14,9 @@ const secondaryLinks: [string, string][] = [
   ["Network Security", "/topics/network-security/intro"],
   ["Identity & Access", "/topics/identity-access-management/intro"],
   ["Containers & K8s", "/topics/container-security/intro"],
-  ["Incident Response", "/guides/incident-response"],
-  ["Vendor Reviews", "/guides/saas-security"],
-  ["SaaS Security", "/guides/saas-security"],
+  ["Incident Response", "/guides/incident-response/intro"],
+  ["Vendor Reviews", "/guides/saas-security/intro"],
+  ["SaaS Security", "/guides/saas-security/intro"],
   ["Crypto & Key Mgmt", "/topics/cryptography/intro"],
   ["Logging & Monitoring", "/topics/logging-and-monitoring/intro"],
   ["GenAI Security", "/topics/ai-ml-security/intro"],
@@ -41,7 +41,12 @@ function MenuCol({ title, items }: { title: string; items: [string, string][] })
       <ul className="space-y-1 text-sm">
         {items.map(([label, href]) => (
           <li key={href}>
-            <a href={href} className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition">{label}</a>
+            <Link
+              href={href}
+              className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition"
+            >
+              {label}
+            </Link>
           </li>
         ))}
       </ul>
@@ -83,10 +88,10 @@ export default function NavBar() {
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[820px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-4 grid grid-cols-2 sm:grid-cols-4 gap-5">
-              <MenuCol title="Fundamentals" items={[["Security Fundamentals","/topics/security-fundamentals"],["Identity & Access","/topics/identity-access"],["Cryptography","/topics/cryptography"],["Risk Management","/topics/risk-management"]]} />
-              <MenuCol title="Network & Infra" items={[["Network Security","/topics/network-security"],["Cloud Security","/topics/cloud-security"],["Endpoint Security","/topics/endpoints"],["Supply Chain","/topics/supply-chain"]]} />
-              <MenuCol title="AppSec" items={[["Application Security","/topics/application-security/intro"],["API Security","/topics/api-security"],["Threat Modeling","/topics/threat-modeling"],["Vulnerability Mgmt","/topics/vuln-management"]]} />
-              <MenuCol title="Governance" items={[["RMF / NIST 800-53","/topics/rmf-800-53"],["ISO 27001","/topics/iso-27001"],["SOC 2","/topics/soc2"],["FedRAMP","/topics/fedramp"]]} />
+              <MenuCol title="Fundamentals" items={[["Security Fundamentals","/topics/security-fundamentals/intro"],["Identity & Access","/topics/identity-access-management/intro"],["Cryptography","/topics/cryptography/intro"],["Risk Management","/topics/governance-risk-compliance/intro"]]} />
+              <MenuCol title="Network & Infra" items={[["Network Security","/topics/network-security/intro"],["Cloud Security","/topics/cloud-security/intro"],["Endpoint Security","/topics/endpoint-security/intro"],["Supply Chain","/topics/supply-chain-security/intro"]]} />
+              <MenuCol title="AppSec" items={[["Application Security","/topics/application-security/intro"],["API Security","/topics/api-security/intro"],["Threat Modeling","/topics/threat-modeling/intro"],["Vulnerability Mgmt","/topics/vulnerability-management/intro"]]} />
+              <MenuCol title="Governance" items={[["RMF / NIST 800-53","/topics/governance-risk-compliance/intro"],["ISO 27001","/topics/compliance-audit/intro"],["SOC 2","/topics/compliance-audit/intro"],["FedRAMP","/topics/governance-risk-compliance/intro"]]} />
             </div>
           </div>
 
@@ -96,11 +101,11 @@ export default function NavBar() {
             {/* Invisible hover bridge */}
             <div className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full h-2 w-full z-[59]"></div>
             <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition absolute left-1/2 -translate-x-1/2 mt-2 z-[60] w-[360px] max-w-[95vw] px-2 sm:px-0 rounded-xl border border-slate-700 bg-slate-800 shadow-xl ring-1 ring-slate-700 p-3 grid grid-cols-1 gap-1">
-              <a href="/topics/api-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Deep Dive: API Security</a>
-              <a href="/topics/cloud-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Cloud Hardening</a>
-              <a href="/guides/saas-security" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Vendor/SaaS Reviews</a>
-              <a href="/guides/incident-response" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Incident Response</a>
-              <a href="/topics/zero-trust/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Zero Trust</a>
+              <Link href="/guides/api-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Deep Dive: API Security</Link>
+              <Link href="/guides/cloud-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Cloud Hardening</Link>
+              <Link href="/guides/saas-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Vendor/SaaS Reviews</Link>
+              <Link href="/guides/incident-response/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Incident Response</Link>
+              <Link href="/topics/zero-trust/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Zero Trust</Link>
             </div>
           </div>
 
