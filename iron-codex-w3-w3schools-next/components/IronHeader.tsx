@@ -1,25 +1,26 @@
 'use client';
 import React, { useState } from "react";
+import Link from "next/link";
 
 /** Fixed Iron Codex Header - Option 2: Add invisible hover bridge
  *  Keeps the visual gap but adds an invisible area to maintain hover state
  */
 
 const secondaryLinks: [string, string][] = [
-  ["Security Fundamentals", "/topics/security-fundamentals"],
+  ["Security Fundamentals", "/topics/security-fundamentals/intro"],
   ["AppSec", "/topics/application-security/intro"],
   ["API Security", "/topics/api-security/intro"],
-  ["Cloud Security", "/topics/cloud-security"],
-  ["Network Security", "/topics/network-security"],
-  ["Identity & Access", "/topics/identity-access-management"],
+  ["Cloud Security", "/topics/cloud-security/intro"],
+  ["Network Security", "/topics/network-security/intro"],
+  ["Identity & Access", "/topics/identity-access-management/intro"],
   ["Containers & K8s", "/topics/container-security/intro"],
   ["Incident Response", "/guides/incident-response"],
   ["Vendor Reviews", "/guides/saas-security"],
   ["SaaS Security", "/guides/saas-security"],
-  ["Crypto & Key Mgmt", "/topics/cryptography"],
+  ["Crypto & Key Mgmt", "/topics/cryptography/intro"],
   ["Logging & Monitoring", "/topics/logging-and-monitoring/intro"],
   ["GenAI Security", "/topics/ai-ml-security/intro"],
-  ["DevSecOps", "/topics/devsecops"],
+  ["DevSecOps", "/topics/devsecops/intro"],
 ];
 
 const toolsCategories: { title: string; items: [string, string][] }[] = [
@@ -53,7 +54,13 @@ export function SecondaryNav() {
     <div className="hidden md:block sticky top-16 z-40 border-t border-b border-slate-800 bg-slate-900/95 backdrop-blur shadow-sm" data-testid="secondary-nav" aria-label="Secondary navigation">
       <div className="mx-auto max-w-6xl px-4 h-11 flex items-center gap-2 overflow-x-auto whitespace-nowrap">
         {secondaryLinks.map(([label, href]) => (
-          <a key={href} href={href} className="px-3 py-1.5 rounded-md text-slate-100 hover:text-emerald-400 hover:bg-slate-800 border border-transparent hover:border-emerald-700 transition text-sm whitespace-nowrap underline-offset-4 hover:underline">{label}</a>
+          <Link
+            key={href}
+            href={href}
+            className="px-3 py-1.5 rounded-md text-slate-100 hover:text-emerald-400 hover:bg-slate-800 border border-transparent hover:border-emerald-700 transition text-sm whitespace-nowrap underline-offset-4 hover:underline"
+          >
+            {label}
+          </Link>
         ))}
       </div>
     </div>
@@ -131,7 +138,15 @@ export default function NavBar() {
             <a href="/about" className="block text-emerald-400">About</a>
             <div className="pt-3 border-t border-slate-700">
               <div className="flex flex-wrap gap-2">
-                {secondaryLinks.map(([label, href]) => (<a key={href} href={href} className="px-3 py-1 rounded-md border border-slate-700 text-slate-200 hover:text-emerald-400 hover:border-emerald-600 text-sm">{label}</a>))}
+                {secondaryLinks.map(([label, href]) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="px-3 py-1 rounded-md border border-slate-700 text-slate-200 hover:text-emerald-400 hover:border-emerald-600 text-sm"
+                  >
+                    {label}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
