@@ -1,4 +1,5 @@
 /* Iron Codex - Complete Main Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');
 
 /* CSS Variables */
 :root {
@@ -16,6 +17,8 @@
     --glass-border: rgba(255, 255, 255, 0.2);
     --shadow: rgba(0, 0, 0, 0.3);
     --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    --brand-text: #e5f3ff;
+    --brand-glow: rgba(0, 212, 255, 0.35);
 }
 
 /* Reset & Base Styles */
@@ -81,14 +84,102 @@ a:hover {
     padding: 1rem 0;
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: var(--accent);
-    text-decoration: none;
-    display: flex;
+.logo,
+.footer-logo {
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    color: var(--brand-text);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+}
+
+.logo {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.logo:visited {
+    color: var(--brand-text);
+}
+
+.logo:hover {
+    color: var(--accent);
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-logo .logo-icon {
+    width: 36px;
+    height: 36px;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+}
+
+.logo-text {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-size: 1.3rem;
+    color: var(--brand-text);
+    text-shadow: 0 2px 4px rgba(5, 10, 30, 0.8), 0 0 18px var(--brand-glow);
+    white-space: nowrap;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-logo {
+    font-family: 'Cinzel', 'Times New Roman', serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+.footer-logo .logo-text {
+    font-size: 1.1rem;
+}
+
+.logo:hover .logo-text {
+    color: var(--accent);
+    text-shadow: 0 3px 8px rgba(5, 10, 30, 0.85), 0 0 22px rgba(0, 212, 255, 0.55);
+}
+
+.logo:hover .logo-icon {
+    transform: translateY(-1px) scale(1.02);
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 1.1rem;
+        gap: 0.5rem;
+    }
+
+    .logo-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .logo-text {
+        font-size: 1.05rem;
+        letter-spacing: 0.08em;
+    }
+
+    .footer-logo {
+        font-size: 1.05rem;
+        gap: 0.5rem;
+    }
+
+    .footer-logo .logo-icon {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .nav-menu {
@@ -548,6 +639,26 @@ a:hover {
 @media (max-width: 480px) {
     .container {
         padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .logo-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .logo-text {
+        font-size: 0.95rem;
+        letter-spacing: 0.06em;
+        white-space: normal;
+        line-height: 1.25;
+    }
+
+    .footer-logo {
+        font-size: 1rem;
     }
 
     .hero {

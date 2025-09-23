@@ -187,4 +187,4 @@ window.IronCodex = {
     debounce
 };
 
-console.log('🛡️ Iron Codex loaded successfully!');
+console.log('📘 Iron Codex Cybersecurity assets loaded successfully.');
