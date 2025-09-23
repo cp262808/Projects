@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import Link from "next/link";
+import { PromoBadge } from "@/components/PromoFlare";
 
 const allGuides = [
   {
@@ -158,39 +158,44 @@ export default function GuidesPage() {
         {/* Guides Grid */}
         <div className="space-y-6">
           {filteredGuides.map((guide) => (
-            <Link
+            <article
               key={guide.slug}
-              href={`/guides/${guide.slug}`}
-              className="group block rounded-xl border border-slate-800 bg-slate-900/60 p-6 hover:bg-slate-800/60 hover:border-slate-700 transition-all hover:-translate-y-1 hover:shadow-xl"
+              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all cursor-default"
             >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h2 className="text-xl font-bold group-hover:text-emerald-400 transition-colors">
+                    <h2 className="text-xl font-bold text-emerald-200">
                       {guide.title}
                     </h2>
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      guide.level === 'Beginner' ? 'bg-green-900 text-green-200' :
-                      guide.level === 'Intermediate' ? 'bg-yellow-900 text-yellow-200' :
-                      'bg-red-900 text-red-200'
-                    }`}>
-                      {guide.level}
-                    </span>
+                    <PromoBadge
+                      label={guide.level}
+                      tone="active"
+                      className={
+                        guide.level === 'Beginner'
+                          ? 'bg-green-900/60 border-green-500/50 text-green-100'
+                          : guide.level === 'Intermediate'
+                            ? 'bg-yellow-900/60 border-yellow-500/50 text-yellow-100'
+                            : 'bg-red-900/60 border-red-500/50 text-red-100'
+                      }
+                    />
                   </div>
-                  
+
                   <p className="text-slate-300 mb-4 leading-relaxed">
                     {guide.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-3">
                     {guide.topics.map((topic) => (
-                      <span key={topic} className="px-2 py-1 text-xs bg-slate-800 text-slate-300 rounded">
-                        {topic}
-                      </span>
+                      <PromoBadge
+                        key={topic}
+                        label={topic}
+                        className="bg-slate-800/80 border-slate-700/80 text-slate-200"
+                      />
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col items-end gap-2 text-right">
                   <div className="text-sm text-emerald-400 font-medium">
                     {guide.category}
@@ -198,12 +203,10 @@ export default function GuidesPage() {
                   <div className="text-sm text-slate-400">
                     {guide.readTime} read
                   </div>
-                  <div className="text-emerald-400 group-hover:translate-x-2 transition-transform text-sm">
-                    Read guide →
-                  </div>
+                  <div className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</div>
                 </div>
               </div>
-            </Link>
+            </article>
           ))}
         </div>
       </section>

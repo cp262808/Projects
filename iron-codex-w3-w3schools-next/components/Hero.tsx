@@ -1,3 +1,5 @@
+import { PromoBadge } from "./PromoFlare";
+
 export default function Hero(){
   return (
     <section className="bg-w3dark-hero text-white text-center py-16 md:py-24">
@@ -27,9 +29,9 @@ export default function Hero(){
           </div>
         </form>
 
-        <p className="mt-6">
-          <a href="/start" className="underline font-semibold">Not Sure Where To Begin?</a>
-        </p>
+        <div className="mt-6 flex justify-center">
+          <PromoBadge label="Not Sure Where To Begin?" tone="active" className="text-base px-5 py-2" />
+        </div>
       </div>
     </section>
   )
