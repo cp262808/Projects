@@ -10,60 +10,60 @@ import { PromoBadge, PromoFlare } from "./PromoFlare";
  */
 
 const quickLinks: { label: string; eyebrow: string; k: string }[] = [
-  { label: "Security Fundamentals", eyebrow: "Preview Track", k: "fundamentals" },
-  { label: "AppSec", eyebrow: "Preview Track", k: "appsec" },
-  { label: "API Security", eyebrow: "Guide Sneak Peek", k: "api" },
-  { label: "Cloud Security", eyebrow: "Preview Track", k: "cloud" },
-  { label: "Network Security", eyebrow: "Preview Track", k: "network" },
-  { label: "Identity & Access", eyebrow: "Preview Track", k: "iam" },
+  { label: "Bite-size briefs that stick", eyebrow: "Fundamentals Flex", k: "fundamentals" },
+  { label: "Ship secure code with swagger", eyebrow: "AppSec Edge", k: "appsec" },
+  { label: "Every API call, calm & covered", eyebrow: "API Assurance", k: "api" },
+  { label: "Cloud chaos, calmly conquered", eyebrow: "Cloud Confidence", k: "cloud" },
+  { label: "Networks tamed in ten minutes", eyebrow: "Ops Accelerator", k: "network" },
+  { label: "Logins locked tight, always", eyebrow: "Identity Insight", k: "iam" },
 ];
 
 const topicBuckets: { title: string; items: { label: string; eyebrow?: string }[] }[] = [
   {
-    title: "Fundamentals",
+    title: "Launch Security Superpowers",
     items: [
-      { label: "Security Fundamentals", eyebrow: "Curriculum" },
-      { label: "Identity & Access", eyebrow: "Curriculum" },
-      { label: "Cryptography", eyebrow: "Curriculum" },
-      { label: "Risk Management", eyebrow: "Curriculum" },
+      { label: "Start with clarity, not jargon", eyebrow: "Fundamentals" },
+      { label: "Access managed without mayhem", eyebrow: "Identity" },
+      { label: "Crypto concepts made human", eyebrow: "Cryptography" },
+      { label: "Risk briefings you can act on", eyebrow: "Risk" },
     ],
   },
   {
-    title: "Network & Infra",
+    title: "Lock Down Every Layer",
     items: [
-      { label: "Network Security", eyebrow: "Curriculum" },
-      { label: "Cloud Security", eyebrow: "Curriculum" },
-      { label: "Endpoint Security", eyebrow: "Curriculum" },
-      { label: "Supply Chain", eyebrow: "Curriculum" },
+      { label: "Blueprints that harden networks fast", eyebrow: "Network" },
+      { label: "Cloud guardrails ready to copy", eyebrow: "Cloud" },
+      { label: "Endpoints behaving like pros", eyebrow: "Endpoint" },
+      { label: "Supply chain threat? Solved", eyebrow: "Supply Chain" },
     ],
   },
   {
-    title: "AppSec",
+    title: "Champion Every Build",
     items: [
-      { label: "Application Security", eyebrow: "Curriculum" },
-      { label: "API Security", eyebrow: "Curriculum" },
-      { label: "Threat Modeling", eyebrow: "Curriculum" },
-      { label: "Vulnerability Mgmt", eyebrow: "Curriculum" },
+      { label: "Secure patterns your devs love", eyebrow: "AppSec" },
+      { label: "API reviews in record time", eyebrow: "API" },
+      { label: "Threat models that sell themselves", eyebrow: "Threat Modeling" },
+      { label: "Patch plans without the panic", eyebrow: "Vuln Mgmt" },
     ],
   },
   {
-    title: "Governance",
+    title: "Prove Compliance Without the Drag",
     items: [
-      { label: "RMF / NIST 800-53", eyebrow: "Curriculum" },
-      { label: "ISO 27001", eyebrow: "Curriculum" },
-      { label: "SOC 2", eyebrow: "Curriculum" },
-      { label: "FedRAMP", eyebrow: "Curriculum" },
+      { label: "RMF steps, scripted for speed", eyebrow: "RMF" },
+      { label: "ISO controls made copy-paste", eyebrow: "ISO 27001" },
+      { label: "SOC 2 stories that resonate", eyebrow: "SOC 2" },
+      { label: "FedRAMP without the fatigue", eyebrow: "FedRAMP" },
     ],
   },
 ];
 
 const toolsSpotlight = [
-  { label: "Nmap", eyebrow: "Lab Preview" },
-  { label: "Burp Suite", eyebrow: "Lab Preview" },
-  { label: "Wireshark", eyebrow: "Lab Preview" },
-  { label: "Trivy", eyebrow: "Lab Preview" },
-  { label: "Prowler", eyebrow: "Lab Preview" },
-  { label: "HashiCorp Vault", eyebrow: "Lab Preview" },
+  { label: "Spot stealthy hosts with Nmap magic", eyebrow: "Lab Preview" },
+  { label: "Bust bugs faster with Burp", eyebrow: "Lab Preview" },
+  { label: "See packets spill their secrets", eyebrow: "Lab Preview" },
+  { label: "Container checks on autopilot", eyebrow: "Lab Preview" },
+  { label: "Cloud audits in a single swoop", eyebrow: "Lab Preview" },
+  { label: "Secrets stay secret with Vault", eyebrow: "Lab Preview" },
 ];
 
 export default function HomeLanding() {
@@ -75,10 +75,10 @@ export default function HomeLanding() {
           <div className="flex items-start md:items-center justify-between gap-8 flex-col md:flex-row">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Iron Codex — Practical Cybersecurity Knowledge
+                Iron Codex — Security clarity on command
               </h1>
               <p className="mt-3 text-slate-300">
-                Concise, actionable references. W3Schools structure. Security depth.
+                Swipe-ready playbooks, relatable explainers, and copy-paste guardrails for every security sprint.
               </p>
               <form action="/topics" role="search" className="mt-6 flex w-full max-w-xl gap-2">
                 <input
@@ -113,7 +113,7 @@ export default function HomeLanding() {
 
       {/* Topics index */}
       <section className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <h2 className="text-xl font-semibold mb-6">Browse Topics</h2>
+        <h2 className="text-xl font-semibold mb-6">Browse the Codex Advantage</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {topicBuckets.map((b) => (
             <div key={b.title} className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
@@ -134,8 +134,8 @@ export default function HomeLanding() {
       <section className="border-y border-slate-800 bg-slate-900/40">
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold">Popular Tools</h2>
-            <PromoBadge label="Full catalog in preview" tone="active" />
+            <h2 className="text-xl font-semibold">Tools that turbocharge your practice</h2>
+            <PromoBadge label="Full catalog, still growing" tone="active" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {toolsSpotlight.map((t) => (
