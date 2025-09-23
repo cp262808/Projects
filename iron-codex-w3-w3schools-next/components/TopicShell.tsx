@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useMemo, useState } from "react";
-import Link from "next/link";
+import { PromoFlare } from "./PromoFlare";
 
 export type TOCItem = { id: string; label: string };
 export type TOCGroup = [string, TOCItem[]];
@@ -58,17 +58,13 @@ export default function TopicShell({
                 <div className="text-xs uppercase tracking-wide text-slate-400 px-3 pt-2">{group}</div>
                 <div className="p-2 space-y-1">
                   {items.map((item) => (
-                    <Link
+                    <PromoFlare
                       key={item.id}
-                      href={`/${kind}/${topic}/${item.id}`}
-                      className={`block px-3 py-1.5 rounded-md border transition-colors ${
-                        slug === item.id
-                          ? "border-emerald-400/40 bg-emerald-400/10 text-emerald-300"
-                          : "border-transparent hover:border-slate-700 text-slate-300 hover:text-slate-200"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
+                      label={item.label}
+                      tone={slug === item.id ? "active" : "default"}
+                      eyebrow="Preview Series"
+                      size="sm"
+                    />
                   ))}
                 </div>
               </div>

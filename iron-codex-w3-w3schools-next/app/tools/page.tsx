@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import Link from "next/link";
+import { PromoBadge, PromoFlare } from "@/components/PromoFlare";
 
 import { toolCategories, tools, toolTypes } from "@/data/tools";
 
@@ -136,23 +136,27 @@ export default function ToolsPage() {
                   {category.tools
                     .filter(tool => selectedType === "All" || tool.type === selectedType)
                     .map((tool) => (
-                    <Link
+                    <article
                       key={tool.slug}
-                      href={`/tools/${tool.slug}`}
-                      className="group rounded-xl border border-slate-800 bg-slate-900/60 p-4 hover:bg-slate-800/60 hover:border-slate-700 transition-all hover:-translate-y-1 hover:shadow-lg"
+                      className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all cursor-default"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="font-semibold group-hover:text-emerald-400 transition-colors">
+                        <h3 className="font-semibold text-emerald-200">
                           {tool.name}
                         </h3>
-                        <span className={`px-2 py-1 text-xs rounded ${
-                          tool.type === 'Open Source' ? 'bg-green-900 text-green-200' :
-                          tool.type === 'Commercial' ? 'bg-blue-900 text-blue-200' :
-                          tool.type === 'Freemium' ? 'bg-yellow-900 text-yellow-200' :
-                          'bg-purple-900 text-purple-200'
-                        }`}>
-                          {tool.type}
-                        </span>
+                        <PromoBadge
+                          label={tool.type}
+                          tone="active"
+                          className={
+                            tool.type === 'Open Source'
+                              ? 'bg-green-900/60 border-green-500/50 text-green-100'
+                              : tool.type === 'Commercial'
+                                ? 'bg-blue-900/60 border-blue-500/50 text-blue-100'
+                                : tool.type === 'Freemium'
+                                  ? 'bg-yellow-900/60 border-yellow-500/50 text-yellow-100'
+                                  : 'bg-purple-900/60 border-purple-500/50 text-purple-100'
+                          }
+                        />
                       </div>
                       <p className="text-sm text-slate-300 mb-3">
                         {tool.description}
@@ -161,11 +165,9 @@ export default function ToolsPage() {
                         <span className="text-xs text-slate-400">
                           {tool.platform}
                         </span>
-                        <span className="text-emerald-400 group-hover:translate-x-1 transition-transform text-sm">
-                          →
-                        </span>
+                        <span className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</span>
                       </div>
-                    </Link>
+                    </article>
                   ))}
                 </div>
               </div>
@@ -175,23 +177,27 @@ export default function ToolsPage() {
           // Show filtered results when specific category is selected
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredTools.map((tool) => (
-              <Link
+              <article
                 key={tool.slug}
-                href={`/tools/${tool.slug}`}
-                className="group rounded-xl border border-slate-800 bg-slate-900/60 p-4 hover:bg-slate-800/60 hover:border-slate-700 transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all cursor-default"
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold group-hover:text-emerald-400 transition-colors">
+                  <h3 className="font-semibold text-emerald-200">
                     {tool.name}
                   </h3>
-                  <span className={`px-2 py-1 text-xs rounded ${
-                    tool.type === 'Open Source' ? 'bg-green-900 text-green-200' :
-                    tool.type === 'Commercial' ? 'bg-blue-900 text-blue-200' :
-                    tool.type === 'Freemium' ? 'bg-yellow-900 text-yellow-200' :
-                    'bg-purple-900 text-purple-200'
-                  }`}>
-                    {tool.type}
-                  </span>
+                  <PromoBadge
+                    label={tool.type}
+                    tone="active"
+                    className={
+                      tool.type === 'Open Source'
+                        ? 'bg-green-900/60 border-green-500/50 text-green-100'
+                        : tool.type === 'Commercial'
+                          ? 'bg-blue-900/60 border-blue-500/50 text-blue-100'
+                          : tool.type === 'Freemium'
+                            ? 'bg-yellow-900/60 border-yellow-500/50 text-yellow-100'
+                            : 'bg-purple-900/60 border-purple-500/50 text-purple-100'
+                    }
+                  />
                 </div>
                 <p className="text-sm text-slate-300 mb-3">
                   {tool.description}
@@ -200,11 +206,9 @@ export default function ToolsPage() {
                   <span className="text-xs text-slate-400">
                     {tool.platform}
                   </span>
-                  <span className="text-emerald-400 group-hover:translate-x-1 transition-transform text-sm">
-                    →
-                  </span>
+                  <span className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</span>
                 </div>
-              </Link>
+              </article>
             ))}
           </div>
         )}
@@ -215,12 +219,9 @@ export default function ToolsPage() {
           <p className="text-slate-300 mb-6">
             Help us expand our collection with community recommendations.
           </p>
-          <Link
-            href="https://github.com/iron-codex"
-            className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition"
-          >
-            Submit on GitHub
-          </Link>
+          <div className="max-w-sm mx-auto">
+            <PromoFlare label="Submit on GitHub" eyebrow="Community Preview" align="center" />
+          </div>
         </section>
       </section>
 

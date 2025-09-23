@@ -1,6 +1,6 @@
 'use client';
 import React, { Suspense } from "react";
-import Link from "next/link";
+import { PromoBadge } from "@/components/PromoFlare";
 import { useSearchParams } from "next/navigation";
 
 // Mock search results - in a real app, this would come from your search API
@@ -48,12 +48,6 @@ const mockResults = [
     category: "Container Security"
   }
 ];
-
-const typeColors = {
-  "Topic": "bg-blue-900 text-blue-200",
-  "Guide": "bg-green-900 text-green-200", 
-  "Tool": "bg-purple-900 text-purple-200"
-};
 
 function SearchContent() {
   const searchParams = useSearchParams();
@@ -116,13 +110,7 @@ function SearchContent() {
               <h3 className="text-lg font-medium mb-4">Popular Searches</h3>
               <div className="flex flex-wrap gap-2 justify-center">
                 {["API Security", "Container Security", "Zero Trust", "Identity Management", "Cloud Security", "Vulnerability Scanning"].map((term) => (
-                  <Link
-                    key={term}
-                    href={`/search?q=${encodeURIComponent(term)}`}
-                    className="px-3 py-2 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600 hover:text-emerald-400 transition text-sm"
-                  >
-                    {term}
-                  </Link>
+                  <PromoBadge key={term} label={term} tone="active" className="cursor-default" />
                 ))}
               </div>
             </div>
@@ -140,13 +128,7 @@ function SearchContent() {
               <h3 className="text-lg font-medium mb-4">Try searching for:</h3>
               <div className="flex flex-wrap gap-2 justify-center">
                 {["Security fundamentals", "Application security", "Network security", "Cloud security"].map((term) => (
-                  <Link
-                    key={term}
-                    href={`/search?q=${encodeURIComponent(term)}`}
-                    className="px-3 py-2 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600 hover:text-emerald-400 transition text-sm"
-                  >
-                    {term}
-                  </Link>
+                  <PromoBadge key={term} label={term} tone="active" className="cursor-default" />
                 ))}
               </div>
             </div>
@@ -166,36 +148,31 @@ function SearchContent() {
             {/* Results List */}
             <div className="space-y-6">
               {results.map((result, index) => (
-                <Link
+                <article
                   key={index}
-                  href={result.url}
-                  className="group block rounded-xl border border-slate-800 bg-slate-900/60 p-6 hover:bg-slate-800/60 hover:border-slate-700 transition-all hover:-translate-y-1 hover:shadow-xl"
+                  className="group block rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all cursor-default"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold group-hover:text-emerald-400 transition-colors">
+                        <h3 className="text-lg font-semibold text-emerald-200">
                           {result.title}
                         </h3>
-                        <span className={`px-2 py-1 text-xs rounded ${typeColors[result.type as keyof typeof typeColors]}`}>
-                          {result.type}
-                        </span>
+                        <PromoBadge label={result.type} tone="active" />
                       </div>
-                      
+
                       <p className="text-slate-300 mb-3 leading-relaxed">
                         {result.excerpt}
                       </p>
-                      
+
                       <div className="text-sm text-slate-400">
                         {result.category}
                       </div>
                     </div>
-                    
-                    <div className="text-emerald-400 group-hover:translate-x-2 transition-transform">
-                      →
-                    </div>
+
+                    <div className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</div>
                   </div>
-                </Link>
+                </article>
               ))}
             </div>
           </>

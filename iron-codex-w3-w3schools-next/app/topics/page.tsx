@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import Link from "next/link";
+import { PromoBadge } from "@/components/PromoFlare";
 
 const allTopics = [
   {
@@ -182,22 +182,25 @@ export default function TopicsPage() {
         {/* Topics Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredTopics.map((topic) => (
-            <Link
+            <article
               key={topic.slug}
-              href={`/topics/${topic.slug}`}
-              className="group rounded-xl border border-slate-800 bg-slate-900/60 p-6 hover:bg-slate-800/60 hover:border-slate-700 transition-all hover:-translate-y-1 hover:shadow-xl"
+              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all cursor-default"
             >
               <div className="flex justify-between items-start mb-3">
-                <h2 className="text-xl font-bold group-hover:text-emerald-400 transition-colors">
+                <h2 className="text-xl font-bold text-emerald-200">
                   {topic.title}
                 </h2>
-                <span className={`px-2 py-1 text-xs rounded-full ${
-                  topic.level === 'Beginner' ? 'bg-green-900 text-green-200' :
-                  topic.level === 'Intermediate' ? 'bg-yellow-900 text-yellow-200' :
-                  'bg-red-900 text-red-200'
-                }`}>
-                  {topic.level}
-                </span>
+                <PromoBadge
+                  label={topic.level}
+                  tone="active"
+                  className={
+                    topic.level === 'Beginner'
+                      ? 'bg-green-900/60 border-green-500/50 text-green-100'
+                      : topic.level === 'Intermediate'
+                        ? 'bg-yellow-900/60 border-yellow-500/50 text-yellow-100'
+                        : 'bg-red-900/60 border-red-500/50 text-red-100'
+                  }
+                />
               </div>
               <p className="text-slate-300 mb-4 text-sm leading-relaxed">
                 {topic.description}
@@ -206,11 +209,9 @@ export default function TopicsPage() {
                 <span className="text-sm font-medium text-slate-400">
                   {topic.controls} controls
                 </span>
-                <span className="text-emerald-400 group-hover:translate-x-2 transition-transform text-sm">
-                  Learn more →
-                </span>
+                <span className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</span>
               </div>
-            </Link>
+            </article>
           ))}
         </div>
       </section>

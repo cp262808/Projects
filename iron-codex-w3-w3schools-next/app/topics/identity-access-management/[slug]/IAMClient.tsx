@@ -1,7 +1,7 @@
 // FIXID:0cabbbd7-a8f6-4da5-81f7-7d1d612300b0
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import { PromoFlare } from "@/components/PromoFlare";
 import { useRouter } from "next/navigation";
 
 /**
@@ -490,30 +490,19 @@ export default function IAMClient({ slug }: { slug: string }) {
             {filteredToc.map((item, idx) => (
               <div key={idx}>
                 {"id" in item ? (
-                  <Link
-                    href={hrefFor(item.id)}
-                    className={
-                      "block px-3 py-2 rounded-lg hover:bg-slate-800 " +
-                      (slug === item.id ? "border border-emerald-400/40 bg-emerald-400/10" : "")
-                    }
-                  >
-                    {item.label}
-                  </Link>
+                  <PromoFlare label={item.label} tone={slug === item.id ? "active" : "default"} eyebrow="Preview Series" />
                 ) : (
                   <details open className="rounded-xl border border-slate-800 bg-slate-900/40">
                     <summary className="cursor-pointer px-3 py-2 font-semibold">{item.label}</summary>
                     <div className="px-2 pb-2 space-y-1">
                       {item.children.map((c) => (
-                        <Link
+                        <PromoFlare
                           key={c.id}
-                          href={hrefFor(c.id)}
-                          className={
-                            "block px-3 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 " +
-                            (slug === c.id ? "border border-emerald-400/40 bg-emerald-400/10" : "")
-                          }
-                        >
-                          {c.label}
-                        </Link>
+                          label={c.label}
+                          tone={slug === c.id ? "active" : "default"}
+                          size="sm"
+                          eyebrow="Preview Lesson"
+                        />
                       ))}
                     </div>
                   </details>
@@ -522,8 +511,8 @@ export default function IAMClient({ slug }: { slug: string }) {
             ))}
           </div>
           <h4 className="px-2 mt-4 mb-1 text-xs uppercase tracking-widest text-slate-400">Practice</h4>
-          <Link href={hrefFor("quiz")} className="block px-3 py-2 rounded-lg hover:bg-slate-800">Section Quiz</Link>
-          <Link href={hrefFor("snippets")} className="block px-3 py-2 rounded-lg hover:bg-slate-800">Snippets</Link>
+          <PromoFlare label="Section Quiz" eyebrow="Practice Preview" />
+          <PromoFlare label="Snippets" eyebrow="Practice Preview" />
         </nav>
       </aside>
 

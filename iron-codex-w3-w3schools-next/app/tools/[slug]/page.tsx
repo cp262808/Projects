@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PromoBadge } from "@/components/PromoFlare";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -44,13 +44,16 @@ export default function ToolDetailPage({ params }: ToolPageProps) {
     <main id="main" className="min-h-screen bg-slate-950 text-slate-100">
       <section className="border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950">
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-          <Link
-            href="/tools"
-            className="inline-flex items-center text-sm text-emerald-400 hover:text-emerald-300 transition"
-          >
-            <span aria-hidden>←</span>
-            <span className="ml-2">Back to tools</span>
-          </Link>
+          <PromoBadge
+            label={(
+              <span className="flex items-center gap-2">
+                <span aria-hidden>←</span>
+                <span>Back to tools</span>
+              </span>
+            )}
+            tone="active"
+            className="text-sm"
+          />
 
           <div className="mt-6 max-w-3xl">
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-300">
@@ -114,19 +117,18 @@ export default function ToolDetailPage({ params }: ToolPageProps) {
               <div className="mt-4 space-y-3">
                 {relatedTools.length > 0 ? (
                   relatedTools.map((relatedTool) => (
-                    <Link
+                    <article
                       key={relatedTool.slug}
-                      href={`/tools/${relatedTool.slug}`}
-                      className="group block rounded-lg border border-slate-800 bg-slate-900/80 px-4 py-3 hover:border-slate-700 hover:bg-slate-800/70 transition"
+                      className="rounded-lg border border-slate-800 bg-slate-900/80 px-4 py-3 transition cursor-default"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-medium text-slate-200 group-hover:text-emerald-400">
+                        <span className="font-medium text-slate-200 text-emerald-200">
                           {relatedTool.name}
                         </span>
-                        <span className="text-sm text-slate-400">{relatedTool.platform}</span>
+                        <PromoBadge label={relatedTool.platform} className="text-[10px]" />
                       </div>
                       <p className="mt-1 text-xs text-slate-400">{relatedTool.description}</p>
-                    </Link>
+                    </article>
                   ))
                 ) : (
                   <p className="text-sm text-slate-400">More tools in this category are coming soon.</p>
