@@ -93,6 +93,13 @@ a:hover {
     gap: 0.5rem;
 }
 
+.logo-image {
+    width: 2.25rem;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
