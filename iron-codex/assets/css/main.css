@@ -16,6 +16,7 @@
     --glass-border: rgba(255, 255, 255, 0.2);
     --shadow: rgba(0, 0, 0, 0.3);
     --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    --header-height: 110px;
 }
 
 /* Reset & Base Styles */
@@ -72,6 +73,7 @@ a:hover {
     position: sticky;
     top: 0;
     z-index: 1000;
+    min-height: var(--header-height);
 }
 
 .nav {
@@ -481,10 +483,10 @@ a:hover {
 @media (max-width: 768px) {
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: var(--header-height);
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - var(--header-height));
         background: rgba(10, 14, 39, 0.98);
         backdrop-filter: blur(20px);
         flex-direction: column;
