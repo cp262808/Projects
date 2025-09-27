@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /** Fixed Iron Codex Header - Option 2: Add invisible hover bridge
  *  Keeps the visual gap but adds an invisible area to maintain hover state
@@ -78,8 +79,31 @@ export default function NavBar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-emerald-600 bg-slate-900/95 backdrop-blur shadow-sm overflow-visible" data-testid="navbar">
-      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-3">
-        <a href="/" className="font-bold flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition underline-offset-4 hover:underline" data-testid="brand"><span aria-hidden>🛡️</span> <span>Iron Codex</span></a>
+      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
+        <a
+          href="/"
+          className="group flex h-full shrink-0 items-center gap-3 text-slate-100 transition hover:text-slate-100"
+          data-testid="brand"
+        >
+          <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-800/70 ring-1 ring-emerald-500/50 transition group-hover:ring-emerald-400/70">
+            <Image
+              src="/logo-ironcodex.svg"
+              alt="Iron Codex logo"
+              width={48}
+              height={48}
+              priority
+              className="h-10 w-auto"
+            />
+          </span>
+          <span className="flex flex-col leading-tight text-left">
+            <span className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-100 group-hover:text-emerald-300">
+              IRON-CODEX
+            </span>
+            <span className="text-[0.65rem] font-medium uppercase tracking-[0.5em] text-emerald-400">
+              CYBERSECURITY
+            </span>
+          </span>
+        </a>
 
         <nav className="ml-auto hidden md:flex items-center gap-2 overflow-visible" aria-label="Main">
           {/* Topics mega-menu - FIXED: Added hover bridge */}
