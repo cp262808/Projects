@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="44" viewBox="0 0 88 44" role="img" aria-labelledby="title desc">
+  <title id="title">Iron Codex logo</title>
+  <desc id="desc">Stylized digital book with a lock emblem.</desc>
+  <defs>
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1a36" />
+      <stop offset="100%" stop-color="#16365a" />
+    </linearGradient>
+    <linearGradient id="lockGradient" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#78e3ff" />
+      <stop offset="100%" stop-color="#41b8ff" />
+    </linearGradient>
+    <linearGradient id="glowGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#41c2ff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#41c2ff" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#41c2ff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="1.5" y="3" width="85" height="38" rx="10" fill="url(#bookGradient)" stroke="#2d71ff" stroke-width="1.5" />
+    <path d="M18 12h20c3.5 0 5.5 1.6 5.5 4.8V31c0 3.2-2 4.8-5.5 4.8H18c-3.5 0-5.5-1.6-5.5-4.8V16.8C12.5 13.6 14.5 12 18 12z" fill="#10294b" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M70 12H50c-3.5 0-5.5 1.6-5.5 4.8V31c0 3.2 2 4.8 5.5 4.8h20c3.5 0 5.5-1.6 5.5-4.8V16.8C75.5 13.6 73.5 12 70 12z" fill="#10294b" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 21h-8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 26h-8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 31h-8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 16h-8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 21h8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 26h8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 31h8" stroke="#3ca6ff" stroke-width="1.2" />
+    <path d="M44 16h8" stroke="#3ca6ff" stroke-width="1.2" />
+    <rect x="36.5" y="17" width="15" height="18" rx="4" fill="url(#lockGradient)" stroke="#0a152c" stroke-width="1" />
+    <path d="M41 18v-2.4c0-3.2 2.4-5.6 5.5-5.6s5.5 2.4 5.5 5.6V18" stroke="#7fe9ff" stroke-width="1.2" />
+    <circle cx="44" cy="26.5" r="3" fill="#0e1a36" stroke="#9cf0ff" stroke-width="1.2" />
+    <path d="M44 29.5v3" stroke="#9cf0ff" stroke-width="1.2" />
+  </g>
+  <rect x="6" y="34" width="76" height="4" fill="url(#glowGradient)" opacity="0.9" />
+  <g stroke="#44c3ff" stroke-width="1" opacity="0.75">
+    <circle cx="14" cy="9" r="1.3" fill="#44c3ff" />
+    <circle cx="74" cy="9" r="1.3" fill="#44c3ff" />
+    <circle cx="14" cy="35" r="1.3" fill="#44c3ff" />
+    <circle cx="74" cy="35" r="1.3" fill="#44c3ff" />
+  </g>
+</svg>
