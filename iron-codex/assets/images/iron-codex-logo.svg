@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Iron Codex logo</title>
+  <desc id="desc">Stylized digital book with a secure lock emblem</desc>
+  <defs>
+    <linearGradient id="coverGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#2f3a84" />
+      <stop offset="100%" stop-color="#141a3a" />
+    </linearGradient>
+    <linearGradient id="pageGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#dce3ff" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#b8c4ff" stop-opacity="0.9" />
+    </linearGradient>
+    <linearGradient id="lockGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffdf71" />
+      <stop offset="100%" stop-color="#ffb341" />
+    </linearGradient>
+    <clipPath id="bookClip">
+      <rect x="22" y="24" width="76" height="72" rx="10" ry="10" />
+    </clipPath>
+  </defs>
+  <rect x="12" y="12" width="96" height="96" rx="20" fill="url(#coverGradient)" />
+  <g clip-path="url(#bookClip)">
+    <rect x="26" y="28" width="32" height="64" rx="6" fill="url(#pageGradient)" />
+    <rect x="62" y="28" width="32" height="64" rx="6" fill="#d1dcff" opacity="0.9" />
+    <rect x="58" y="28" width="4" height="64" fill="#a2b1ff" />
+    <path d="M36 40h16M36 54h16M36 68h16" fill="none" stroke="#8ea0ff" stroke-width="3" stroke-linecap="round" />
+    <path d="M68 44h16M68 58h16" fill="none" stroke="#9bb0ff" stroke-width="3" stroke-linecap="round" />
+  </g>
+  <g transform="translate(0,-2)">
+    <path d="M60 44c-7.2 0-13 5.8-13 13v6h26v-6c0-7.2-5.8-13-13-13z" fill="#f5f7ff" />
+    <rect x="47" y="61" width="26" height="27" rx="7" fill="url(#lockGradient)" />
+    <circle cx="60" cy="74" r="5" fill="#2f3a84" />
+    <rect x="58.5" y="74" width="3" height="9" rx="1.5" fill="#2f3a84" />
+  </g>
+  <g fill="#7fa4ff">
+    <circle cx="32" cy="96" r="3" />
+    <circle cx="88" cy="32" r="3" />
+    <rect x="85" y="94" width="12" height="3" rx="1.5" />
+    <rect x="28" y="30" width="10" height="3" rx="1.5" />
+  </g>
+</svg>
