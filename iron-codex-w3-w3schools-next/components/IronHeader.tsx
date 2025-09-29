@@ -37,6 +37,11 @@ const toolsCategories: { title: string; items: [string, string][] }[] = [
 
 function MenuCol({ title, items }: { title: string; items: [string, string][] }) {
   return (
+  <header className="sticky top-0 z-50 border-b border-emerald-600 bg-slate-900/95 backdrop-blur shadow-sm overflow-visible" data-testid="navbar">
+    <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
+      <a href="/" className="flex items-center gap-2">
+        <img src="/logo.png" alt="Iron Codex logo" className="h-10 w-auto" />
+      </a>
     <div className="min-w-[12rem]">
       <h4 className="text-xs uppercase tracking-wide text-emerald-400 mb-1">{title}</h4>
       <ul className="space-y-1 text-sm">
@@ -57,6 +62,11 @@ function MenuCol({ title, items }: { title: string; items: [string, string][] })
 
 export function SecondaryNav() {
   return (
+  <header className="sticky top-0 z-50 border-b border-emerald-600 bg-slate-900/95 backdrop-blur shadow-sm overflow-visible" data-testid="navbar">
+    <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
+      <a href="/" className="flex items-center gap-2">
+        <img src="/logo.png" alt="Iron Codex logo" className="h-10 w-auto" />
+      </a>
     <div className="hidden md:block sticky top-16 z-40 border-t border-b border-slate-800 bg-slate-900/95 backdrop-blur shadow-sm" data-testid="secondary-nav" aria-label="Secondary navigation">
       <div className="mx-auto max-w-6xl px-4 h-11 flex items-center gap-2 overflow-x-auto whitespace-nowrap">
         {secondaryLinks.map(([label, href]) => (
@@ -78,7 +88,11 @@ export default function NavBar() {
   const toggle = () => setMobileOpen(v => !v);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-600 bg-slate-900/95 backdrop-blur shadow-sm overflow-visible" data-testid="navbar">
+  <header className="sticky top-0 z-50 border-b border-emerald-600 bg-slate-900/95 backdrop-blur shadow-sm overflow-visible" data-testid="navbar">
+    <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
+      <a href="/" className="flex items-center gap-2">
+        <img src="/logo.png" alt="Iron Codex logo" className="h-10 w-auto" />
+      </a>
       <div className="mx-auto max-w-6xl px-4 h-16 flex items-center gap-4">
         <a
           href="/"
