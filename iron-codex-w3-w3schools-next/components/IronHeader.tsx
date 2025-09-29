@@ -88,7 +88,7 @@ export default function NavBar() {
           <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-800/70 ring-1 ring-emerald-500/50 transition group-hover:ring-emerald-400/70">
             <Image
               src="/logo-ironcodex.svg"
-              alt="Iron Codex logo"
+              <img src="/logo.png" alt="Iron Codex logo" className="h-10 w-auto" />
               width={48}
               height={48}
               priority
