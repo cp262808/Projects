@@ -5,6 +5,7 @@ import NavBar from "@/components/IronHeader";
 
 export const metadata: Metadata = {
   title: "Iron Codex — Cybersecurity Learning Hub",
+  icons: { icon: "/favicon.svg" },
   description: "Hub for practical security architecture & controls.",
 };
 

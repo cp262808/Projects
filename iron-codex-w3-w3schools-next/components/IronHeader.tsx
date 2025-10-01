@@ -37,7 +37,7 @@ const toolsCategories: { title: string; items: [string, string][] }[] = [
 
 function MenuCol({ title, items }: { title: string; items: [string, string][] }) {
   return (
-    <div className="min-w-[12rem]">
+    <div className="w-52 h-auto">
       <h4 className="text-xs uppercase tracking-wide text-emerald-400 mb-1">{title}</h4>
       <ul className="space-y-1 text-sm">
         {items.map(([label, href]) => (
@@ -85,16 +85,14 @@ export default function NavBar() {
           className="group flex h-full shrink-0 items-center gap-3 text-slate-100 transition hover:text-slate-100"
           data-testid="brand"
         >
-          <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-800/70 ring-1 ring-emerald-500/50 transition group-hover:ring-emerald-400/70">
-            <Image
+          <Image
               src="/logo-ironcodex.svg"
               alt="Iron Codex logo"
-              width={48}
-              height={48}
+              width={200}
+              height={80}
               priority
               className="h-10 w-auto"
             />
-          </span>
           <span className="flex flex-col leading-tight text-left">
             <span className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-100 group-hover:text-emerald-300">
               IRON-CODEX
