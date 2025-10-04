@@ -8,7 +8,7 @@ export default function Tiles(){
     { title: "Zero Trust", desc: "mTLS, device trust", color: "bg-teal-200" },
   ];
   return (
-    <section className="py-14 bg-white">
+  <section className="py-14 bg-transparent">
       <div className="container">
         <h2 className="text-2xl md:text-3xl text-blue-900 font-medium text-center mb-6">Explore Major Topics</h2>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

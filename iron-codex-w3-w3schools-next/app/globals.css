@@ -15,7 +15,7 @@
 }
 
 html,body { 
-  @apply bg-white text-[var(--ink)]; 
+  @apply bg-transparent text-[var(--ink)]; 
 }
 
 .container { 
@@ -57,7 +57,7 @@ html,body {
   @apply rounded-xl p-6 shadow-sm hover:-translate-y-0.5 hover:shadow-md transition;
 }
 .card {
-  @apply bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition;
+  @apply bg-transparent border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition;
 }
 
 /* Focus styles */
@@ -69,7 +69,7 @@ html,body {
 
 /* W3-style pills */
 .input-pill { 
-  @apply rounded-full border border-gray-300 bg-white px-4 py-2; 
+  @apply rounded-full border border-gray-300 bg-transparent px-4 py-2; 
 }
 .input-pill:focus { 
   @apply outline-none ring-2 ring-blue-300; 
@@ -136,7 +136,7 @@ pre code {
 
 /* Control cards for guides */
 .control-card {
-  @apply bg-white border border-gray-200 rounded-lg p-6 mb-4 hover:shadow-md transition-shadow;
+  @apply bg-transparent border border-gray-200 rounded-lg p-6 mb-4 hover:shadow-md transition-shadow;
 }
 .control-card h3 {
   @apply text-xl font-bold mb-3 text-slate-800;
