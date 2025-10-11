@@ -1,0 +1,203 @@
+# technology-deep-dives-best-practices18-items
+
+<div className='ic-html'>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<script>
+(function(){
+  try{
+    var theme = localStorage.getItem('theme');
+    if(theme==='dark'){ document.documentElement.classList.add('dark'); }
+  }catch(e){}
+})();
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Technology Deep Dives &amp; Best Practices18 items — Security Review Playbook</title>
+<link href="style.css" rel="stylesheet"/>
+</head>
+<body data-page="technology-deep-dives-best-practices18-items.html">
+<div id="topbar">
+<div class="topbar-inner">
+<div class="logo">
+<div class="brand">COREY POTTER</div>
+<div class="tag">CYBER GENIUS</div>
+</div>
+<button id="themeToggle">Dark Mode</button>
+</div>
+</div>
+<div id="app">
+<nav id="sidebar"><div class="nav-title">Sections</div><a class="nav-link" data-page="index.html" href="index.html"><div class="nav-item"><span class="title">Home</span><span class="count">—</span></div></a><a class="nav-link" data-page="technology-deep-dives-best-practices18-items.html" href="technology-deep-dives-best-practices18-items.html"><div class="nav-item active"><span class="title">Technology Deep Dives &amp; Best Practices18 items</span><span class="count">18</span></div></a><a class="nav-link" data-page="api-security-expanded-74-items.html" href="api-security-expanded-74-items.html"><div class="nav-item"><span class="title">API Security (expanded)74 items</span><span class="count">74</span></div></a><a class="nav-link" data-page="identity-access-management-expanded-47-items.html" href="identity-access-management-expanded-47-items.html"><div class="nav-item"><span class="title">Identity &amp; Access Management (expanded)47 items</span><span class="count">47</span></div></a><a class="nav-link" data-page="saas-security-expanded-59-items.html" href="saas-security-expanded-59-items.html"><div class="nav-item"><span class="title">SaaS Security (expanded)59 items</span><span class="count">59</span></div></a><a class="nav-link" data-page="cloud-security-cdn-expanded-59-items.html" href="cloud-security-cdn-expanded-59-items.html"><div class="nav-item"><span class="title">Cloud Security &amp; CDN (expanded)59 items</span><span class="count">59</span></div></a><a class="nav-link" data-page="key-management-crypto-expanded-21-items.html" href="key-management-crypto-expanded-21-items.html"><div class="nav-item"><span class="title">Key Management &amp; Crypto (expanded)21 items</span><span class="count">21</span></div></a><a class="nav-link" data-page="containers-kubernetes-expanded-29-items.html" href="containers-kubernetes-expanded-29-items.html"><div class="nav-item"><span class="title">Containers &amp; Kubernetes (expanded)29 items</span><span class="count">29</span></div></a><a class="nav-link" data-page="logging-monitoring-incident-response-expanded-25-items.html" href="logging-monitoring-incident-response-expanded-25-items.html"><div class="nav-item"><span class="title">Logging, Monitoring &amp; Incident Response (expanded)25 items</span><span class="count">25</span></div></a><a class="nav-link" data-page="network-on-prem-expanded-24-items.html" href="network-on-prem-expanded-24-items.html"><div class="nav-item"><span class="title">Network &amp; On‑Prem (expanded)24 items</span><span class="count">24</span></div></a><a class="nav-link" data-page="generative-ai-llm-security-apps-data-and-ops-3-items.html" href="generative-ai-llm-security-apps-data-and-ops-3-items.html"><div class="nav-item"><span class="title">Generative AI &amp; LLM Security (Apps, Data, and Ops)3 items</span><span class="count">3</span></div></a><a class="nav-link" data-page="post-quantum-cryptography-pqc-readiness1-items.html" href="post-quantum-cryptography-pqc-readiness1-items.html"><div class="nav-item"><span class="title">Post-Quantum Cryptography (PQC) Readiness1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="secure-sdlc-devsecops-pipeline-hardening1-items.html" href="secure-sdlc-devsecops-pipeline-hardening1-items.html"><div class="nav-item"><span class="title">Secure SDLC &amp; DevSecOps Pipeline Hardening1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="red-blue-purple-team-integration1-items.html" href="red-blue-purple-team-integration1-items.html"><div class="nav-item"><span class="title">Red/Blue/Purple Team Integration1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="emerging-attack-surfaces-edge-iot-ot-5g-1-items.html" href="emerging-attack-surfaces-edge-iot-ot-5g-1-items.html"><div class="nav-item"><span class="title">Emerging Attack Surfaces (Edge / IoT / OT / 5G)1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="cdn-deep-dives-cloudflare-akamai-fastly-1-items.html" href="cdn-deep-dives-cloudflare-akamai-fastly-1-items.html"><div class="nav-item"><span class="title">CDN Deep Dives (Cloudflare, Akamai, Fastly)1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="api-abuse-detection-telemetry1-items.html" href="api-abuse-detection-telemetry1-items.html"><div class="nav-item"><span class="title">API Abuse Detection &amp; Telemetry1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="identity-federation-pitfalls-saml-oidc-1-items.html" href="identity-federation-pitfalls-saml-oidc-1-items.html"><div class="nav-item"><span class="title">Identity Federation Pitfalls (SAML/OIDC)1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="kubernetes-runtime-security-ebpf-gvisor-kata-1-items.html" href="kubernetes-runtime-security-ebpf-gvisor-kata-1-items.html"><div class="nav-item"><span class="title">Kubernetes Runtime Security (eBPF / gVisor / Kata)1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="saas-dlp-enhancements1-items.html" href="saas-dlp-enhancements1-items.html"><div class="nav-item"><span class="title">SaaS DLP Enhancements1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="reference-evidence-shortcuts1-items.html" href="reference-evidence-shortcuts1-items.html"><div class="nav-item"><span class="title">Reference &amp; Evidence Shortcuts1 items</span><span class="count">1</span></div></a><a class="nav-link" data-page="special-review-modes-quick-assessment-risk-scoring-2-items.html" href="special-review-modes-quick-assessment-risk-scoring-2-items.html"><div class="nav-item"><span class="title">Special Review Modes (Quick Assessment &amp; Risk Scoring)2 items</span><span class="count">2</span></div></a><a class="nav-link" data-page="glossary-acronyms-21-items.html" href="glossary-acronyms-21-items.html"><div class="nav-item"><span class="title">Glossary (Acronyms)21 items</span><span class="count">21</span></div></a></nav>
+<main id="main">
+<div class="card" id="searchWrap">
+<input id="searchInput" oninput="filter()" placeholder="Search within this page… (e.g., Cloudflare, BYOK, OAuth)"/>
+<div style="display:flex;gap:8px;margin-top:8px;">
+<button id="expandAll">Expand All</button>
+<button id="collapseAll">Collapse All</button>
+</div>
+</div>
+<div class="card"><h1 style="margin:0">Technology Deep Dives &amp; Best Practices18 items</h1></div>
+<details class="section" id="technology-deep-dives-best-practices"><summary>Technology Deep Dives &amp; Best Practices<span class="badge">18 items</span></summary><details><summary>OAuth2 vs SSO vs JWT — how they interact</summary><p>OAuth2 is an authorization framework. JWT is a token format that may carry claims. SSO is a user experience typically implemented using protocols like SAML or OpenID Connect (OIDC).</p><p>Common pattern: OIDC provides identity (who you are) and OAuth2 provides access (what you can do). The API accepts a JWT access token if it recognizes the issuer and validates signature, audience, and expiry.</p><div>
+<svg height="210" width="680" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#eef" height="40" rx="8" ry="8" stroke="#99f" width="140" x="10" y="20"></rect>
+<text font-family="Arial" font-size="12" text-anchor="middle" x="80" y="45">Client</text>
+<rect fill="#efe" height="40" rx="8" ry="8" stroke="#9c9" width="160" x="180" y="20"></rect>
+<text font-family="Arial" font-size="12" text-anchor="middle" x="260" y="45">Authorization Server</text>
+<rect fill="#fee" height="40" rx="8" ry="8" stroke="#f99" width="140" x="370" y="20"></rect>
+<text font-family="Arial" font-size="12" text-anchor="middle" x="440" y="45">Resource Server (API)</text>
+<rect fill="#ffd" height="40" rx="8" ry="8" stroke="#dd0" width="130" x="540" y="20"></rect>
+<text font-family="Arial" font-size="12" text-anchor="middle" x="605" y="45">Identity Provider (SSO)</text>
+<line marker-end="url(#arrow)" stroke="#333" x1="80" x2="260" y1="70" y2="70"></line>
+<text font-family="Arial" font-size="11" text-anchor="middle" x="170" y="85">OAuth2 Auth Code</text>
+<line marker-end="url(#arrow)" stroke="#333" x1="260" x2="80" y1="90" y2="90"></line>
+<text font-family="Arial" font-size="11" text-anchor="middle" x="170" y="105">Access Token (JWT)</text>
+<line marker-end="url(#arrow)" stroke="#333" x1="80" x2="440" y1="120" y2="120"></line>
+<text font-family="Arial" font-size="11" text-anchor="middle" x="260" y="135">Call API with Bearer</text>
+<line marker-end="url(#arrow)" stroke="#333" x1="260" x2="605" y1="150" y2="150"></line>
+<text font-family="Arial" font-size="11" text-anchor="middle" x="430" y="165">OIDC (SSO identity)</text>
+<defs>
+<marker id="arrow" markerheight="10" markerunits="strokeWidth" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L6,3 z" fill="#333"></path>
+</marker>
+</defs>
+</svg>
+</div><ul><li><a href="https://www.rfc-editor.org/rfc/rfc6749" target="_blank">RFC 6749 (OAuth2)</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc7519" target="_blank">RFC 7519 (JWT)</a></li><li><a href="https://openid.net/specs/openid-connect-core-1_0.html" target="_blank">OpenID Connect Core</a></li></ul><figure id="diag-jwt-structure" style="margin: 10px 0;">
+<svg height="160" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffcccc" height="40" stroke="#f44336" width="180" x="20" y="40"></rect>
+<text font-size="12" text-anchor="middle" x="110" y="65">Header: {alg, typ}</text>
+<rect fill="#ccffcc" height="40" stroke="#4caf50" width="280" x="220" y="40"></rect>
+<text font-size="12" text-anchor="middle" x="360" y="65">Payload: {sub, aud, exp, scope}</text>
+<rect fill="#ccccff" height="40" stroke="#3f51b5" width="180" x="520" y="40"></rect>
+<text font-size="12" text-anchor="middle" x="610" y="65">Signature</text>
+<text font-size="12" text-anchor="middle" x="360" y="20">JWT = base64url(header).base64url(payload).base64url(signature)</text>
+</svg>
+<figcaption>JWT structure</figcaption></figure></details><details><summary>API Gateway Security Layers (edge → auth → validation → observability)</summary><p>API gateways centralize security: edge protection (WAF/bots/DDoS), authentication/authorization (JWT/OIDC, mTLS), input validation and egress controls, and observability (correlation IDs, audit, detections).</p><p>Use the gateway to enforce deny-by-default route policies, scope mapping, and global rate limits. Shift-left with schema validation.</p><div>
+<svg height="220" width="680" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#fafafa" height="180" stroke="#ddd" width="640" x="20" y="20"></rect>
+<rect fill="#eef" height="30" stroke="#99f" width="600" x="40" y="40"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="340" y="60">Edge: WAF/Rate Limiting/Bot Mitigation</text>
+<rect fill="#efe" height="30" stroke="#9c9" width="600" x="40" y="80"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="340" y="100">AuthN/AuthZ: JWT/OIDC, mTLS, Scope &amp; ABAC</text>
+<rect fill="#ffd" height="30" stroke="#dd0" width="600" x="40" y="120"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="340" y="140">Validation: Schema, Size, Canonicalization, SSRF Egress</text>
+<rect fill="#fee" height="30" stroke="#f99" width="600" x="40" y="160"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="340" y="180">Observability: Correlation IDs, Audit, Threat Detection</text>
+</svg>
+</div><ul><li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/security.html" target="_blank">AWS API Gateway Security</a></li><li><a href="https://learn.microsoft.com/azure/api-management/api-management-policies" target="_blank">Azure API Management Policies</a></li><li><a href="https://cloud.google.com/apigee/docs/api-platform/security/best-practices" target="_blank">Apigee Security Best Practices</a></li></ul><figure id="diag-api-gateway" style="margin: 10px 0;">
+<svg height="240" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#cce5ff" height="40" rx="6" stroke="#6ca0dc" width="160" x="20" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="100" y="45">Client</text>
+<rect fill="#ffd" height="40" rx="6" stroke="#cc3" width="220" x="220" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="330" y="45">API Gateway (WAF, Rate, AuthZ)</text>
+<rect fill="#d4edda" height="40" rx="6" stroke="#8bc34a" width="200" x="480" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="580" y="45">Upstream Service</text>
+<line marker-end="url(#arr)" stroke="#333" x1="180" x2="220" y1="40" y2="40"></line>
+<line marker-end="url(#arr)" stroke="#333" x1="440" x2="480" y1="40" y2="40"></line>
+<text font-size="11" text-anchor="middle" x="330" y="75">AuthN (JWT/OIDC/mTLS), Schema Validation, Logging</text>
+<rect fill="#fee" height="30" rx="6" stroke="#e57373" width="220" x="220" y="100"></rect>
+<text font-size="11" text-anchor="middle" x="330" y="120">WAF &amp; Bot Mitigation</text>
+<rect fill="#eef" height="30" rx="6" stroke="#9fa8da" width="220" x="220" y="140"></rect>
+<text font-size="11" text-anchor="middle" x="330" y="160">Rate Limiting / Quotas</text>
+<rect fill="#e0f7fa" height="30" rx="6" stroke="#26c6da" width="220" x="220" y="180"></rect>
+<text font-size="11" text-anchor="middle" x="330" y="200">Request/Response Transform &amp; Redaction</text>
+<defs><marker id="arr" markerheight="10" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L9,3 z" fill="#333"></path>
+</marker></defs>
+</svg>
+<figcaption>API Gateway request path</figcaption></figure></details><details><summary>Key Management Models: SSE, CSE, BYOK, HYOK</summary><p>SSE: The provider encrypts data at rest on the server. CSE: The client encrypts data before sending it to the provider.</p><p>BYOK: You supply the key to the provider's KMS. HYOK: Your keys stay in your HSM boundary; the provider never holds them.</p><div>
+<svg height="220" width="680" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#fafafa" height="180" stroke="#ddd" width="640" x="20" y="20"></rect>
+<rect fill="#eef" height="50" stroke="#99f" width="280" x="40" y="40"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="180" y="65">SSE (Server-Side Encryption)</text>
+<rect fill="#efe" height="50" stroke="#9c9" width="280" x="360" y="40"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="500" y="65">CSE (Client-Side Encryption)</text>
+<rect fill="#ffd" height="50" stroke="#dd0" width="280" x="40" y="110"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="180" y="135">BYOK (Vendor uses your key)</text>
+<rect fill="#fee" height="50" stroke="#f99" width="280" x="360" y="110"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="500" y="135">HYOK (Keys never leave your HSM)</text>
+</svg>
+</div><ul><li><a href="https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final" target="_blank">NIST SP 800-57</a></li></ul></details><details><summary>Zero Trust Architecture (NIST 800-207)</summary><p>Assume breach; verify explicitly. Access decisions are made per request using strong identity, device posture, and context, not network location.</p><p>Replace broad network access (VPN) with per-app ZTNA; log/monitor continuously.</p><div>
+<svg height="220" width="680" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#fafafa" height="180" stroke="#ddd" width="640" x="20" y="20"></rect>
+<rect fill="#eef" height="50" stroke="#99f" width="180" x="40" y="40"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="130" y="65">User/Device</text>
+<rect fill="#efe" height="50" stroke="#9c9" width="180" x="250" y="40"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="340" y="65">Policy Engine</text>
+<rect fill="#ffd" height="50" stroke="#dd0" width="180" x="460" y="40"></rect><text font-family="Arial" font-size="12" text-anchor="middle" x="550" y="65">App/Resource</text>
+<line marker-end="url(#arrow)" stroke="#333" x1="130" x2="340" y1="90" y2="90"></line>
+<line marker-end="url(#arrow)" stroke="#333" x1="340" x2="550" y1="90" y2="90"></line>
+<text font-family="Arial" font-size="12" text-anchor="middle" x="340" y="110">Continuous verification: identity, device, context, posture</text>
+<defs><marker id="arrow" markerheight="10" markerunits="strokeWidth" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L6,3 z" fill="#333"></path></marker></defs>
+</svg>
+</div><ul><li><a href="https://csrc.nist.gov/publications/detail/sp/800-207/final" target="_blank">NIST SP 800-207</a></li></ul></details><details><summary>IAM Role &amp; Policy Hierarchies (AWS vs Azure vs GCP)</summary><p>AWS: Organizations → Accounts → IAM Roles/Policies (SCPs at org).</p><p>Azure: Management Group → Subscription → Resource Group → Resource (Role Assignments; PIM).</p><p>GCP: Organization → Folder → Project → Resource (IAM Roles with Conditions; Org Policies).</p><ul><li><a href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html" target="_blank">AWS Organizations &amp; SCPs</a></li><li><a href="https://learn.microsoft.com/azure/role-based-access-control/overview" target="_blank">Azure RBAC &amp; PIM</a></li><li><a href="https://cloud.google.com/iam/docs/overview" target="_blank">GCP IAM Overview</a></li></ul><figure id="diag-sts-assume-role" style="margin: 10px 0;">
+<svg height="200" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#e1f5fe" height="40" stroke="#4fc3f7" width="200" x="20" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="120" y="45">User (IdP)</text>
+<rect fill="#fff3e0" height="40" stroke="#ffb74d" width="200" x="260" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="360" y="45">AWS STS</text>
+<rect fill="#e8f5e9" height="40" stroke="#81c784" width="200" x="500" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="600" y="45">Role in Account</text>
+<line marker-end="url(#arr)" stroke="#333" x1="220" x2="260" y1="40" y2="40"></line>
+<line marker-end="url(#arr)" stroke="#333" x1="460" x2="500" y1="40" y2="40"></line>
+<text font-size="12" text-anchor="middle" x="360" y="90">AssumeRole → Temp creds</text>
+<defs><marker id="arr" markerheight="10" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L9,3 z" fill="#333"></path>
+</marker></defs>
+</svg>
+<figcaption>AWS STS AssumeRole overview</figcaption></figure></details><details><summary>SAML vs OIDC — choosing the right federation</summary><p>SAML is XML-based and widely used for enterprise SSO; OIDC is JSON/REST-friendly and better for modern apps and mobile.</p><p>Prefer OIDC for new greenfield apps; keep SAML for legacy SaaS where OIDC is not supported.</p><ul><li><a href="https://wiki.oasis-open.org/security/" target="_blank">SAML 2.0 Tech Overview</a></li><li><a href="https://openid.net/specs/openid-connect-core-1_0.html" target="_blank">OpenID Connect Core</a></li></ul><p>SAML uses XML assertions; OIDC uses JSON Web Tokens (JWTs).</p><p>OIDC is a thin identity layer on top of OAuth 2.0, ideal for APIs and SPAs.</p><p>SAML typically operates via browser POSTs and redirects, making it less suitable for mobile apps.</p><p>Migration tip: Use an identity broker that can speak both protocols during transition.</p><ul><li><a href="https://auth0.com/blog/saml-vs-oauth-vs-oidc/" target="_blank">SAML vs OIDC Migration Strategies</a></li></ul></details><details><summary>SSRF Defenses — egress control and parsing hardening</summary><p>Deny outbound to metadata and RFC1918 by default; enforce egress allowlists via proxies.</p><p>Use robust URL parsing; re-resolve redirects; enforce protocol and DNS policies.</p><ul><li><a href="https://owasp.org/www-community/attacks/Server_Side_Request_Forgery" target="_blank">OWASP SSRF Prevention</a></li></ul><p>Mitigate SSRF by enforcing egress filtering at the network layer and using metadata service v2 tokens in AWS.</p><p>Validate and normalize URLs before requests; deny non-HTTP(s) schemes.</p><p>Use DNS resolution after redirects to prevent bypasses.</p><ul><li><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html" target="_blank">AWS IMDSv2</a></li></ul></details><details><summary>Browser Security Headers &amp; CSP</summary><p>Set HSTS, X-Frame-Options/Frame-Ancestors, X-Content-Type-Options, Referrer-Policy, and a strict CSP.</p><p>Avoid unsafe-inline; use nonces/hashes for scripts; separate origins for untrusted content.</p><ul><li><a href="https://owasp.org/www-project-secure-headers/" target="_blank">OWASP Secure Headers Project</a></li></ul><p>Security headers should be combined with application-layer controls.</p><p>HSTS should be preloaded for maximum protection.</p><p>CSP should be deployed in report-only mode first to monitor impact.</p><ul><li><a href="https://csp-evaluator.withgoogle.com/" target="_blank">CSP Evaluator</a></li></ul></details><details><summary>Kubernetes Admission Policy Recipes</summary><p>Deny privileged containers/hostPath; require signed images; enforce resource limits and liveness/readiness probes.</p><p>Restrict egress via NetworkPolicies; require image pulls from trusted registries only.</p><ul><li><a href="https://kyverno.io/policies/" target="_blank">Kyverno Policies</a></li><li><a href="https://github.com/open-policy-agent/gatekeeper-library" target="_blank">OPA Gatekeeper Library</a></li></ul><p>Admission controllers can be validating or mutating; Kyverno and OPA Gatekeeper are validating.</p><p>Centralize policy sets and version them alongside application code.</p><p>Regularly audit policy exceptions.</p><ul><li><a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/" target="_blank">Admission Controllers - K8s Docs</a></li></ul><figure id="diag-k8s-network" style="margin: 10px 0;">
+<svg height="220" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#e8eaf6" height="40" stroke="#5c6bc0" width="220" x="60" y="20"></rect><text font-size="12" text-anchor="middle" x="170" y="45">Namespace A</text>
+<rect fill="#e8eaf6" height="40" stroke="#5c6bc0" width="220" x="360" y="20"></rect><text font-size="12" text-anchor="middle" x="470" y="45">Namespace B</text>
+<text font-size="12" text-anchor="middle" x="360" y="100">Default deny; explicit allow between apps</text>
+</svg>
+<figcaption>K8s network isolation</figcaption></figure></details><details><summary>OAuth2 Grant Types (Auth Code + PKCE, Client Credentials, Device Code)</summary><p>Use Authorization Code + PKCE for public/native clients, Client Credentials for service-to-service, and Device Code for devices without browsers.</p><p>Avoid Implicit flow in modern deployments; enforce short token TTLs and refresh rotation.</p><ul><li><a href="https://oauth.net/2.1/" target="_blank">OAuth 2.1 (draft) guidance</a></li></ul><p>Auth Code with PKCE is the most secure for public clients.</p><p>Device Code flow should poll with exponential backoff to reduce load.</p><p>Client Credentials should be combined with mTLS or private network access.</p><ul><li><a href="https://oauth.net/2/pkce/" target="_blank">PKCE Explained</a></li></ul><figure id="diag-oauth-grants" style="margin: 10px 0;">
+<svg height="180" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#e3f2fd" height="40" stroke="#64b5f6" width="210" x="20" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="125" y="55">Auth Code + PKCE (Public)</text>
+<rect fill="#e8f5e9" height="40" stroke="#81c784" width="200" x="260" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="360" y="55">Client Credentials (S2S)</text>
+<rect fill="#fff8e1" height="40" stroke="#ffd54f" width="220" x="480" y="30"></rect>
+<text font-size="12" text-anchor="middle" x="590" y="55">Device Code (No Browser)</text>
+<text font-size="11" text-anchor="middle" x="125" y="85">Uses redirect + code verifier</text>
+<text font-size="11" text-anchor="middle" x="360" y="85">No user; app identity</text>
+<text font-size="11" text-anchor="middle" x="590" y="85">User types code on another device</text>
+</svg>
+<figcaption>OAuth2 grant types</figcaption></figure></details><details><summary>Token Replay Mitigations</summary><p>Include nonce/timestamp in signatures; bind tokens to TLS channel or client cert where possible.</p><p>Use idempotency keys for writes; strictly enforce clock skew and token TTLs.</p><ul><li><a href="https://datatracker.ietf.org/wg/tokbind/documents/" target="_blank">IETF TLS Channel ID / Token Binding (historical)</a></li></ul><p>Use TLS channel binding to tie the token to the session.</p><p>Include jti (JWT ID) claims and store them server-side to detect reuse.</p><p>Shorten token lifetimes for sensitive scopes.</p><ul><li><a href="https://datatracker.ietf.org/doc/html/rfc8725" target="_blank">JWT Best Current Practices</a></li></ul></details><details><summary>Data Residency &amp; Sovereignty</summary><p>Pin data to required regions; avoid cross-region replication unless mandated; govern subprocessors and cross-border transfers.</p><p>Test restore/DR within residency constraints and maintain processor SCCs/DPA annexes.</p><ul><li><a href="https://edpb.europa.eu/our-work-tools/our-documents/guidelines_en" target="_blank">EDPB Guidelines (EU)</a></li></ul><p>Use cloud provider org policies to restrict resource location creation.</p><p>Ensure backups and replicas also comply with residency rules.</p><p>Perform annual audits of provider compliance certifications.</p><ul><li><a href="https://azure.microsoft.com/explore/global-infrastructure/data-residency/" target="_blank">Azure Data Residency Docs</a></li></ul><figure id="diag-residency" style="margin: 10px 0;">
+<svg height="200" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#e3f2fd" height="40" stroke="#64b5f6" width="220" x="40" y="20"></rect><text font-size="12" text-anchor="middle" x="150" y="45">Region A</text>
+<rect fill="#e8f5e9" height="40" stroke="#81c784" width="220" x="300" y="20"></rect><text font-size="12" text-anchor="middle" x="410" y="45">Region B</text>
+<rect fill="#fff3e0" height="40" stroke="#ffb74d" width="120" x="560" y="20"></rect><text font-size="12" text-anchor="middle" x="620" y="45">Controls</text>
+<text font-size="12" text-anchor="middle" x="360" y="100">Pin primary + backups to compliant regions</text>
+</svg>
+<figcaption>Region pinning &amp; controls</figcaption></figure></details><details><summary>SaaS OAuth App Governance Risks</summary><p>Third-party apps can request broad scopes to read mail, files, and calendars; enforce admin consent workflows and periodic reviews.</p><p>Alert on new app installs and dormancy; restrict high-risk scopes.</p><ul><li><a href="https://learn.microsoft.com/defender-cloud-apps/app-governance-introduction" target="_blank">Microsoft Entra OAuth App Governance</a></li></ul><p>Review app consent logs monthly.</p><p>Restrict risky OAuth scopes like `Mail.ReadWrite` or `Files.ReadWrite.All`.</p><p>Educate users on phishing via malicious OAuth apps.</p><ul><li><a href="https://support.google.com/a/answer/7281227" target="_blank">Google Workspace OAuth App Access Control</a></li></ul><figure id="diag-saas-oauth-consent" style="margin: 10px 0;">
+<svg height="200" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#e8f5e9" height="40" stroke="#81c784" width="180" x="20" y="20"></rect><text font-size="12" text-anchor="middle" x="110" y="45">User</text>
+<rect fill="#e3f2fd" height="40" stroke="#64b5f6" width="200" x="240" y="20"></rect><text font-size="12" text-anchor="middle" x="340" y="45">SaaS App</text>
+<rect fill="#fff3e0" height="40" stroke="#ffb74d" width="220" x="480" y="20"></rect><text font-size="12" text-anchor="middle" x="590" y="45">Provider (Graph/API)</text>
+<text font-size="12" text-anchor="middle" x="360" y="90">Consent → Tokens (access/refresh)</text>
+</svg>
+<figcaption>SaaS OAuth consent &amp; tokens</figcaption></figure></details><details><summary>Secrets Management Patterns</summary><p>Prefer short-lived credentials and workload identities over static secrets.</p><p>Centralize secrets in Vault/KMS; inject at deploy; never bake into images or code.</p><ul><li><a href="https://developer.hashicorp.com/vault/docs/best-practices" target="_blank">HashiCorp Vault Best Practices</a></li></ul><p>Integrate secret rotation into CI/CD pipelines.</p><p>Use sealed secrets for Kubernetes deployments.</p><p>Log and monitor secret access attempts.</p><ul><li><a href="https://github.com/bitnami-labs/sealed-secrets" target="_blank">Kubernetes Sealed Secrets</a></li></ul></details><details><summary>Supply Chain: SBOM, VEX, and SLSA</summary><p>Generate SBOMs during build; attach VEX for exploitability; adopt SLSA levels for provenance.</p><p>Verify signatures on artifacts and enforce provenance at deploy.</p><ul><li><a href="https://slsa.dev/" target="_blank">SLSA Framework</a></li><li><a href="https://cyclonedx.org/" target="_blank">CycloneDX</a></li></ul><p>Integrate SBOM generation into the build process.</p><p>Continuously monitor SBOM for vulnerable components.</p><p>Implement artifact signing with cosign or similar.</p><ul><li><a href="https://docs.sigstore.dev/cosign/overview" target="_blank">Sigstore Cosign</a></li></ul><figure id="diag-supply-chain" style="margin: 10px 0;">
+<svg height="240" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#e0f7fa" height="40" stroke="#26c6da" width="160" x="40" y="20"></rect><text font-size="12" text-anchor="middle" x="120" y="45">Source</text>
+<rect fill="#fff3e0" height="40" stroke="#ffb74d" width="160" x="240" y="20"></rect><text font-size="12" text-anchor="middle" x="320" y="45">Build (SBOM)</text>
+<rect fill="#e8f5e9" height="40" stroke="#81c784" width="160" x="440" y="20"></rect><text font-size="12" text-anchor="middle" x="520" y="45">Sign (Cosign)</text>
+<rect fill="#e1bee7" height="40" stroke="#ab47bc" width="160" x="240" y="90"></rect><text font-size="12" text-anchor="middle" x="320" y="115">Provenance</text>
+<rect fill="#c5cae9" height="40" stroke="#5c6bc0" width="160" x="440" y="90"></rect><text font-size="12" text-anchor="middle" x="520" y="115">Deploy (Verify)</text>
+</svg>
+<figcaption>Supply chain pipeline</figcaption></figure></details><details><summary>Kubernetes Multi-Tenancy Patterns</summary><p>Hard multi-tenancy via separate clusters; soft via namespaces + strong NetworkPolicies + ResourceQuotas.</p><p>Isolate CI/CD and restrict cluster-admin; use Gatekeeper/Kyverno to enforce policies.</p><ul><li><a href="https://github.com/kubernetes-sigs/multi-tenancy" target="_blank">K8s Multi-tenancy WG</a></li></ul><p>Strongly isolate namespaces and RBAC bindings.</p><p>Use network policies to limit cross-tenant communication.</p><p>Provide per-tenant monitoring and logging.</p><ul><li><a href="https://kubernetes.io/blog/2020/08/21/multi-tenancy-kubernetes/" target="_blank">K8s Multi-tenancy Patterns</a></li></ul></details><details><summary>Cloudflare API Shield mTLS &amp; Schema Validation</summary><p>Use client certs for device/server identity; validate schemas at the edge; combine with bot management for abuse control.</p><p>Export logs to SIEM for anomaly detection.</p><ul><li><a href="https://developers.cloudflare.com/api-shield/" target="_blank">Cloudflare API Shield</a></li></ul><p>Combine API Shield with schema validation to block unexpected fields.</p><p>Rotate client certificates regularly.</p><p>Use API Gateway upstream as a second enforcement point.</p><ul><li><a href="https://developers.cloudflare.com/api-shield/schema-validation/" target="_blank">API Shield Schema Validation</a></li></ul><figure id="diag-mtls" style="margin: 10px 0;">
+<svg height="200" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f3e5f5" height="40" stroke="#ba68c8" width="220" x="40" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="150" y="45">Client (cert)</text>
+<rect fill="#f3e5f5" height="40" stroke="#ba68c8" width="220" x="460" y="20"></rect>
+<text font-size="12" text-anchor="middle" x="570" y="45">Server (cert)</text>
+<text font-size="12" text-anchor="middle" x="360" y="90">Mutual validation via CA trust</text>
+<line marker-end="url(#arr)" stroke="#333" x1="260" x2="460" y1="40" y2="40"></line>
+<line marker-end="url(#arr)" stroke="#333" x1="460" x2="260" y1="60" y2="60"></line>
+<defs><marker id="arr" markerheight="10" markerwidth="10" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L9,3 z" fill="#333"></path>
+</marker></defs>
+</svg>
+<figcaption>mTLS handshake (edge↔client)</figcaption></figure></details><details><summary>DDoS Overview: L3/4 vs L7</summary><p>Use provider DDoS protection for volumetric L3/4; WAF/bot for L7 application attacks.</p><p>Rate limiting, caching, and surge queues help absorb bursts.</p><ul><li><a href="https://docs.aws.amazon.com/waf/latest/developerguide/ddos-overview.html" target="_blank">AWS Shield</a></li></ul><p>Layer 3/4: SYN floods, amplification attacks.</p><p>Layer 7: Slowloris, HTTP floods.</p><p>Use autoscaling and rate limiting to absorb surges.</p><ul><li><a href="https://www.cloudflare.com/learning/ddos/ddos-mitigation/" target="_blank">DDoS Mitigation Strategies</a></li></ul></details></details>
+<div class="footer">© Technology Deep Dives &amp; Best Practices18 items • Security Review Playbook — Corey Potter • Built for expert threat modeling</div>
+</main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+
+
+</div>
