@@ -1,20 +1,22 @@
 'use client';
-import dynamic from 'next/dynamic';
-import { notFound } from 'next/navigation';
-import React from 'react';
+import dynamic from "next/dynamic";
+import TopicShell, { TOCGroup } from "@/components/TopicShell";
+
+type Slug = string;
 
 const ContentBySlug: Record<string, any> = {
-  "intro": dynamic(() => import("@/content/topics/red-team-operations/intro.mdx"))
+  "intro": dynamic(() => import("@/content/topics/red-team-operations/intro.mdx")),
 };
 
-export default function Client({ params }: { params: { slug: string } }) {
-  const slug = params?.slug || 'intro';
-  const Content = ContentBySlug[slug] || ContentBySlug["intro"];
-  if (!Content) return notFound();
+const TOC: TOCGroup[] = [
+  ["Red Team Operations", [{ id: "intro", label: "Introduction" }]],
+];
 
+export default function Client({ slug }: { slug: Slug }) {
+  const Content = ContentBySlug[slug];
   return (
-    <main className="prose mx-auto p-6">
-      <Content />
-    </main>
+    <TopicShell kind="topics" topic="red-team-operations" title="Red Team Operations" slug={slug} toc={TOC}>
+      {Content ? <Content /> : <div className="text-slate-400">Section not found.</div>}
+    </TopicShell>
   );
 }
