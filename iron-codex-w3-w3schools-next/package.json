@@ -17,7 +17,8 @@
     "react-dom": "18.3.1",
     "@next/mdx": "14.2.5",
     "@mdx-js/react": "3.0.1",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@tailwindcss/typography": "^0.5.10"
   },
   "devDependencies": {
     "autoprefixer": "10.4.20",
