@@ -2,18 +2,19 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import nav from "@/data/nav.json";
+import nav from "../data/nav.json";
 
 /** Fixed Iron Codex Header - Option 2: Add invisible hover bridge
  *  Keeps the visual gap but adds an invisible area to maintain hover state
  */
 
-const fallbackLinks: [string, string][] = [
-  // fallback only if nav.json is empty
-];
-const secondaryLinks: [string, string][] = (Array.isArray((nav as any)?.items) && (nav as any).items.length)
-  ? (nav as any).items.map((it: any) => [it.label, it.href])
-  : fallbackLinks;
+const fromNav = Array.isArray((nav as any)?.items) ? (nav as any).items : [];
+const secondaryLinks: [string, string][] =
+  fromNav.length
+    ? fromNav.map((it: any) => [String(it.label), String(it.href)])
+    : [
+        // Fallback retained only if nav.json is empty
+      ];
 
 const toolsCategories: { title: string; items: [string, string][] }[] = [
   { title: "Vulnerability Assessment", items: [["Nmap", "/tools/nmap"],["OpenVAS", "/tools/openvas"],["Nuclei", "/tools/nuclei"]] },

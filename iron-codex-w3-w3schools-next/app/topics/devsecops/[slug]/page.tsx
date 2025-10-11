@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Client from "./devsecops_client";
+import Client from './devsecops_client';
 
 type Props = { params: { slug: string } };
 
