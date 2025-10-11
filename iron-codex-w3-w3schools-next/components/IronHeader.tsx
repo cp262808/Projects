@@ -2,19 +2,55 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import nav from "../data/nav.json";
 
 /** Fixed Iron Codex Header - Option 2: Add invisible hover bridge
  *  Keeps the visual gap but adds an invisible area to maintain hover state
  */
 
-const fromNav = Array.isArray((nav as any)?.items) ? (nav as any).items : [];
-const secondaryLinks: [string, string][] =
-  fromNav.length
-    ? fromNav.map((it: any) => [String(it.label), String(it.href)])
-    : [
-        // Fallback retained only if nav.json is empty
-      ];
+const secondaryLinks: [string, string][] = [
+  ["Ai Ml Security", "/topics/ai-ml-security/generative-ai-llm-security-apps-data-and-ops-3-items-2"],
+  ["Api Security", "/topics/api-security/api-abuse-detection-telemetry1-items-2"],
+  ["Application Security", "/topics/application-security/intro"],
+  ["Blockchain Security", "/topics/blockchain-security/intro"],
+  ["Business Continuity", "/topics/business-continuity/intro"],
+  ["Cdn Deep Dives", "/topics/cdn-deep-dives/emerging-attack-surfaces-edge-iot-ot-5g-1-items-2"],
+  ["Cloud Security", "/topics/cloud-security/cdn-deep-dives-cloudflare-akamai-fastly-1-items-2"],
+  ["Compliance Audit", "/topics/compliance-audit/intro"],
+  ["Container Security", "/topics/container-security/containers-kubernetes-expanded-29-items-2"],
+  ["Cryptography", "/topics/cryptography/intro"],
+  ["Data Protection", "/topics/data-protection/intro"],
+  ["Data Security", "/topics/data-security/intro"],
+  ["Database Security", "/topics/database-security/intro"],
+  ["Devsecops", "/topics/devsecops/secure-sdlc-devsecops-pipeline-hardening1-items-2"],
+  ["Digital Forensics", "/topics/digital-forensics/intro"],
+  ["Email Security", "/topics/email-security/intro"],
+  ["Endpoint Security", "/topics/endpoint-security/intro"],
+  ["Governance Risk Compliance", "/topics/governance-risk-compliance/intro"],
+  ["Iam", "/topics/iam/intro"],
+  ["Incident Response", "/topics/incident-response/intro"],
+  ["Iot Security", "/topics/iot-security/intro"],
+  ["Logging And Monitoring", "/topics/logging-and-monitoring/intro"],
+  ["Logging Monitoring Incident Response", "/topics/logging-monitoring-incident-response/logging-monitoring-incident-response-expanded-25-items-2"],
+  ["Misc", "/topics/misc/identity-access-management-expanded-47-items-2"],
+  ["Mobile Security", "/topics/mobile-security/intro"],
+  ["Network Security", "/topics/network-security/network-on-prem-expanded-24-items-2"],
+  ["Physical Security", "/topics/physical-security/intro"],
+  ["Post Quantum Cryptography", "/topics/post-quantum-cryptography/post-quantum-cryptography-pqc-readiness1-items-2"],
+  ["Purple Team Integration", "/topics/purple-team-integration/red-blue-purple-team-integration1-items-2"],
+  ["Red Team Operations", "/topics/red-team-operations/intro"],
+  ["Saas Security", "/topics/saas-security/saas-dlp-enhancements1-items-2"],
+  ["Secrets Management", "/topics/secrets-management/intro"],
+  ["Security Awareness", "/topics/security-awareness/intro"],
+  ["Security Fundamentals", "/topics/security-fundamentals/intro"],
+  ["Security Operations", "/topics/security-operations/intro"],
+  ["Supply Chain Security", "/topics/supply-chain-security/intro"],
+  ["Threat Intelligence", "/topics/threat-intelligence/intro"],
+  ["Threat Modeling", "/topics/threat-modeling/intro"],
+  ["Vulnerability Management", "/topics/vulnerability-management/intro"],
+  ["Web Application Security", "/topics/web-application-security/intro"],
+  ["Zero Trust", "/topics/zero-trust/intro"],
+  ["Zero Trust Architecture", "/topics/zero-trust-architecture/intro"]
+];
 
 const toolsCategories: { title: string; items: [string, string][] }[] = [
   { title: "Vulnerability Assessment", items: [["Nmap", "/tools/nmap"],["OpenVAS", "/tools/openvas"],["Nuclei", "/tools/nuclei"]] },
