@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./content/**/*.{mdx,md}", "./app/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
@@ -13,7 +13,7 @@ const config: Config = {
       boxShadow: { soft: "0 10px 24px rgba(0,0,0,.08)" },
     },
   },
-  plugins: [],
+  plugins: [, require("@tailwindcss/typography")],
 };
 
 export default config;
