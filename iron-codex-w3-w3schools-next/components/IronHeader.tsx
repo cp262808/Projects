@@ -2,17 +2,27 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import nav from "../data/nav.json";
 
 /** Fixed Iron Codex Header - Option 2: Add invisible hover bridge
  *  Keeps the visual gap but adds an invisible area to maintain hover state
  */
 
-const fromNav = Array.isArray((nav as any)?.items) ? (nav as any).items : [];
-const secondaryLinks: [string, string][] =
-  fromNav.length
-    ? fromNav.map((it: any) => [String(it.label), String(it.href)])
-    : [];
+const secondaryLinks: [string, string][] = [
+  ["Security Fundamentals", "/topics/security-fundamentals/intro"],
+  ["AppSec", "/topics/application-security/intro"],
+  ["API Security", "/topics/api-security/intro"],
+  ["Cloud Security", "/topics/cloud-security/intro"],
+  ["Network Security", "/topics/network-security/intro"],
+  ["Identity & Access", "/topics/identity-access-management/intro"],
+  ["Containers & K8s", "/topics/container-security/intro"],
+  ["Incident Response", "/guides/incident-response/intro"],
+  ["Vendor Reviews", "/guides/saas-security/intro"],
+  ["SaaS Security", "/guides/saas-security/intro"],
+  ["Crypto & Key Mgmt", "/topics/cryptography/intro"],
+  ["Logging & Monitoring", "/topics/logging-and-monitoring/intro"],
+  ["GenAI Security", "/topics/ai-ml-security/intro"],
+  ["DevSecOps", "/topics/devsecops/intro"],
+];
 
 const toolsCategories: { title: string; items: [string, string][] }[] = [
   { title: "Vulnerability Assessment", items: [["Nmap", "/tools/nmap"],["OpenVAS", "/tools/openvas"],["Nuclei", "/tools/nuclei"]] },

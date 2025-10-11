@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Client from './logging_and_monitoring_client';
+import Client from "./logging_and_monitoring_client";
 
 type Props = { params: { slug: string } };
 

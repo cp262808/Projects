@@ -1,19 +1,10 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
-  content: ["./content/**/*.{mdx,md}", "./app/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}"],
-  theme: {
-    extend: {
-      colors: {
-        w3green: "#04AA6D",
-        w3dark: "#282A35",
-        w3yellow: "#FFF4A3",
-      },
-      borderRadius: { xl: "12px" },
-      boxShadow: { soft: "0 10px 24px rgba(0,0,0,.08)" },
-    },
-  },
-  plugins: [, require("@tailwindcss/typography")],
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./content/**/*.{mdx,md}"],
+  theme: { extend: {} },
+  plugins: [typography],
 };
 
 export default config;
