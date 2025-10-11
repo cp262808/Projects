@@ -286,7 +286,7 @@ aws apigateway update-usage-plan --usage-plan-id ABC       --patch-operations op
 <li>Deny unmatched paths; emit decision logs.</li>
 </ol>
 <p><b>Example Config / Command:</b></p>
-<div class="copywrap"><pre>{/* APIM rate-limit-by-key policy */}
+<div class="copywrap"><pre><!-- APIM rate-limit-by-key policy -->
 <policies><inbound><rate-limit-by-key calls="100" counter-key="@(context.Subscription.Id)" renewal-period="60"></rate-limit-by-key></inbound></policies>
 </pre><button class="copybtn" type="button">Copy</button></div>
 <details><summary>Deep Dive</summary><ul><li><a href="https://owasp.org/ASVS/" target="_blank">OWASP ASVS</a></li><li><a href="https://www.cisecurity.org/cis-benchmarks" target="_blank">CIS Benchmarks</a></li><li><a href="https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final" target="_blank">NIST SP 800-53 Rev. 5 Controls</a></li></ul></details></details>
@@ -304,7 +304,7 @@ aws apigateway update-usage-plan --usage-plan-id ABC       --patch-operations op
 <li>Reject 'none' alg; validate kid/key presence.</li>
 </ol>
 <p><b>Example Config / Command:</b></p>
-<div class="copywrap"><pre>{/* APIM rate-limit-by-key policy */}
+<div class="copywrap"><pre><!-- APIM rate-limit-by-key policy -->
 <policies><inbound><rate-limit-by-key calls="100" counter-key="@(context.Subscription.Id)" renewal-period="60"></rate-limit-by-key></inbound></policies>
 </pre><button class="copybtn" type="button">Copy</button></div>
 <details><summary>Deep Dive</summary><ul><li>Concept: OAuth2 is an authorization framework; JWT is a token *format*. OAuth2 access tokens may be JWTs, but OAuth2 can use other formats too.</li><li><a href="https://www.rfc-editor.org/rfc/rfc6749" target="_blank">RFC 6749: OAuth 2.0</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc7519" target="_blank">RFC 7519: JSON Web Token (JWT)</a></li><li><a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html" target="_blank">AWS API Gateway: JWT authorizers</a></li><li><a href="https://learn.microsoft.com/azure/api-management/validate-jwt-policy" target="_blank">Azure APIM: validate-jwt policy</a></li><li><a href="https://cloud.google.com/endpoints/docs/openapi/authenticating-users" target="_blank">Google Cloud Endpoints/ESPv2: Auth</a></li></ul></details></details>
@@ -321,7 +321,7 @@ aws apigateway update-usage-plan --usage-plan-id ABC       --patch-operations op
 <li>Header allowlists; PII redaction; consistent error schema.</li>
 </ol>
 <p><b>Example Config / Command:</b></p>
-<div class="copywrap"><pre>{/* APIM rate-limit-by-key policy */}
+<div class="copywrap"><pre><!-- APIM rate-limit-by-key policy -->
 <policies><inbound><rate-limit-by-key calls="100" counter-key="@(context.Subscription.Id)" renewal-period="60"></rate-limit-by-key></inbound></policies>
 </pre><button class="copybtn" type="button">Copy</button></div>
 <details><summary>Deep Dive</summary><ul><li><a href="https://owasp.org/ASVS/" target="_blank">OWASP ASVS</a></li><li><a href="https://www.cisecurity.org/cis-benchmarks" target="_blank">CIS Benchmarks</a></li><li><a href="https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final" target="_blank">NIST SP 800-53 Rev. 5 Controls</a></li></ul></details></details>
@@ -339,7 +339,7 @@ aws apigateway update-usage-plan --usage-plan-id ABC       --patch-operations op
 <li>Deny unmatched paths; emit decision logs.</li>
 </ol>
 <p><b>Example Config / Command:</b></p>
-<div class="copywrap"><pre>{/* Apigee Quota policy */}
+<div class="copywrap"><pre><!-- Apigee Quota policy -->
 <quota name="RateLimit">
   <interval>1</interval><timeunit>minute</timeunit><allow>100</allow>
 </quota>
@@ -359,7 +359,7 @@ aws apigateway update-usage-plan --usage-plan-id ABC       --patch-operations op
 <li>Reject 'none' alg; validate kid/key presence.</li>
 </ol>
 <p><b>Example Config / Command:</b></p>
-<div class="copywrap"><pre>{/* Apigee Quota policy */}
+<div class="copywrap"><pre><!-- Apigee Quota policy -->
 <quota name="RateLimit">
   <interval>1</interval><timeunit>minute</timeunit><allow>100</allow>
 </quota>
@@ -378,7 +378,7 @@ aws apigateway update-usage-plan --usage-plan-id ABC       --patch-operations op
 <li>Header allowlists; PII redaction; consistent error schema.</li>
 </ol>
 <p><b>Example Config / Command:</b></p>
-<div class="copywrap"><pre>{/* Apigee Quota policy */}
+<div class="copywrap"><pre><!-- Apigee Quota policy -->
 <quota name="RateLimit">
   <interval>1</interval><timeunit>minute</timeunit><allow>100</allow>
 </quota>
