@@ -1,8 +1,172 @@
 {
   "items": [
     {
-      "label": "Identity & Access",
-      "href": "/topics/identity-access-management/intro"
+      "label": "Ai Ml Security",
+      "href": "/topics/ai-ml-security/generative-ai-llm-security-apps-data-and-ops-3-items-2"
+    },
+    {
+      "label": "Api Security",
+      "href": "/topics/api-security/api-abuse-detection-telemetry1-items-2"
+    },
+    {
+      "label": "Application Security",
+      "href": "/topics/application-security/intro"
+    },
+    {
+      "label": "Blockchain Security",
+      "href": "/topics/blockchain-security/intro"
+    },
+    {
+      "label": "Business Continuity",
+      "href": "/topics/business-continuity/intro"
+    },
+    {
+      "label": "Cdn Deep Dives",
+      "href": "/topics/cdn-deep-dives/emerging-attack-surfaces-edge-iot-ot-5g-1-items-2"
+    },
+    {
+      "label": "Cloud Security",
+      "href": "/topics/cloud-security/cdn-deep-dives-cloudflare-akamai-fastly-1-items-2"
+    },
+    {
+      "label": "Compliance Audit",
+      "href": "/topics/compliance-audit/intro"
+    },
+    {
+      "label": "Container Security",
+      "href": "/topics/container-security/containers-kubernetes-expanded-29-items-2"
+    },
+    {
+      "label": "Cryptography",
+      "href": "/topics/cryptography/intro"
+    },
+    {
+      "label": "Data Protection",
+      "href": "/topics/data-protection/intro"
+    },
+    {
+      "label": "Data Security",
+      "href": "/topics/data-security/intro"
+    },
+    {
+      "label": "Database Security",
+      "href": "/topics/database-security/intro"
+    },
+    {
+      "label": "Devsecops",
+      "href": "/topics/devsecops/secure-sdlc-devsecops-pipeline-hardening1-items-2"
+    },
+    {
+      "label": "Digital Forensics",
+      "href": "/topics/digital-forensics/intro"
+    },
+    {
+      "label": "Email Security",
+      "href": "/topics/email-security/intro"
+    },
+    {
+      "label": "Endpoint Security",
+      "href": "/topics/endpoint-security/intro"
+    },
+    {
+      "label": "Governance Risk Compliance",
+      "href": "/topics/governance-risk-compliance/intro"
+    },
+    {
+      "label": "Iam",
+      "href": "/topics/iam/intro"
+    },
+    {
+      "label": "Incident Response",
+      "href": "/topics/incident-response/intro"
+    },
+    {
+      "label": "Iot Security",
+      "href": "/topics/iot-security/intro"
+    },
+    {
+      "label": "Logging And Monitoring",
+      "href": "/topics/logging-and-monitoring/intro"
+    },
+    {
+      "label": "Logging Monitoring Incident Response",
+      "href": "/topics/logging-monitoring-incident-response/logging-monitoring-incident-response-expanded-25-items-2"
+    },
+    {
+      "label": "Misc",
+      "href": "/topics/misc/identity-access-management-expanded-47-items-2"
+    },
+    {
+      "label": "Mobile Security",
+      "href": "/topics/mobile-security/intro"
+    },
+    {
+      "label": "Network Security",
+      "href": "/topics/network-security/network-on-prem-expanded-24-items-2"
+    },
+    {
+      "label": "Physical Security",
+      "href": "/topics/physical-security/intro"
+    },
+    {
+      "label": "Post Quantum Cryptography",
+      "href": "/topics/post-quantum-cryptography/post-quantum-cryptography-pqc-readiness1-items-2"
+    },
+    {
+      "label": "Purple Team Integration",
+      "href": "/topics/purple-team-integration/red-blue-purple-team-integration1-items-2"
+    },
+    {
+      "label": "Red Team Operations",
+      "href": "/topics/red-team-operations/intro"
+    },
+    {
+      "label": "Saas Security",
+      "href": "/topics/saas-security/saas-dlp-enhancements1-items-2"
+    },
+    {
+      "label": "Secrets Management",
+      "href": "/topics/secrets-management/intro"
+    },
+    {
+      "label": "Security Awareness",
+      "href": "/topics/security-awareness/intro"
+    },
+    {
+      "label": "Security Fundamentals",
+      "href": "/topics/security-fundamentals/intro"
+    },
+    {
+      "label": "Security Operations",
+      "href": "/topics/security-operations/intro"
+    },
+    {
+      "label": "Supply Chain Security",
+      "href": "/topics/supply-chain-security/intro"
+    },
+    {
+      "label": "Threat Intelligence",
+      "href": "/topics/threat-intelligence/intro"
+    },
+    {
+      "label": "Threat Modeling",
+      "href": "/topics/threat-modeling/intro"
+    },
+    {
+      "label": "Vulnerability Management",
+      "href": "/topics/vulnerability-management/intro"
+    },
+    {
+      "label": "Web Application Security",
+      "href": "/topics/web-application-security/intro"
+    },
+    {
+      "label": "Zero Trust",
+      "href": "/topics/zero-trust/intro"
+    },
+    {
+      "label": "Zero Trust Architecture",
+      "href": "/topics/zero-trust-architecture/intro"
     }
   ]
 }
