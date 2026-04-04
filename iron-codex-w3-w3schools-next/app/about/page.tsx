@@ -1,4 +1,3 @@
-'use client';
 import React from "react";
 
 const teamValues = [
@@ -102,10 +101,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.</p>
-      </footer>
     </main>
   );
 }

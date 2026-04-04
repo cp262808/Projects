@@ -110,7 +110,7 @@ function SearchContent() {
               <h3 className="text-lg font-medium mb-4">Popular Searches</h3>
               <div className="flex flex-wrap gap-2 justify-center">
                 {["API Security", "Container Security", "Zero Trust", "Identity Management", "Cloud Security", "Vulnerability Scanning"].map((term) => (
-                  <PromoBadge key={term} label={term} tone="active" className="cursor-default" />
+                  <PromoBadge key={term} label={term} tone="active" href={`/search?q=${encodeURIComponent(term)}`} />
                 ))}
               </div>
             </div>
@@ -128,7 +128,7 @@ function SearchContent() {
               <h3 className="text-lg font-medium mb-4">Try searching for:</h3>
               <div className="flex flex-wrap gap-2 justify-center">
                 {["Security fundamentals", "Application security", "Network security", "Cloud security"].map((term) => (
-                  <PromoBadge key={term} label={term} tone="active" className="cursor-default" />
+                  <PromoBadge key={term} label={term} tone="active" href={`/search?q=${encodeURIComponent(term)}`} />
                 ))}
               </div>
             </div>
@@ -170,7 +170,7 @@ function SearchContent() {
                       </div>
                     </div>
 
-                    <div className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</div>
+                    <a href={result.url} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors">View →</a>
                   </div>
                 </article>
               ))}
@@ -206,10 +206,6 @@ export default function SearchPage() {
         <SearchContent />
       </Suspense>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.</p>
-      </footer>
     </main>
   );
 }

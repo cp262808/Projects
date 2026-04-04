@@ -1,48 +1,65 @@
-import { PromoFlare } from "./PromoFlare";
+import Link from "next/link";
 
-const sections: { title: string; eyebrow: string; items: string[] }[] = [
+const sections: { title: string; items: { label: string; href: string }[] }[] = [
   {
     title: "Security References",
-    eyebrow: "Preview Index",
-    items: ["API Security", "Cloud Security", "Container Security", "Identity & Access", "All References"],
+    items: [
+      { label: "API Security", href: "/topics/api-security/intro" },
+      { label: "Cloud Security", href: "/topics/cloud-security/intro" },
+      { label: "Container Security", href: "/topics/container-security/intro" },
+      { label: "Identity & Access", href: "/topics/identity-access-management/intro" },
+      { label: "All References", href: "/topics" },
+    ],
   },
   {
     title: "Implementation Guides",
-    eyebrow: "Guide Preview",
-    items: ["Getting Started", "Best Practices", "Compliance Mapping", "Tool Integration"],
+    items: [
+      { label: "API Security Guide", href: "/guides/api-security/intro" },
+      { label: "Cloud Hardening", href: "/guides/cloud-security/intro" },
+      { label: "Incident Response", href: "/guides/incident-response/intro" },
+      { label: "SaaS & Vendor Reviews", href: "/guides/saas-security/intro" },
+    ],
   },
   {
     title: "Resources",
-    eyebrow: "Ecosystem",
-    items: ["Security Tools", "Vendor Documentation", "Standards & Frameworks", "Community"],
+    items: [
+      { label: "Security Tools", href: "/tools" },
+      { label: "Search", href: "/search" },
+    ],
   },
   {
     title: "About",
-    eyebrow: "Team",
-    items: ["Our Mission", "Contributing", "Contact", "GitHub"],
+    items: [
+      { label: "Our Mission", href: "/about" },
+    ],
   },
 ];
 
-export default function Footer(){
+export default function Footer() {
   return (
-    <footer className="bg-[#111827] text-white pt-12 pb-6">
-      <div className="container grid gap-6 md:grid-cols-4">
+    <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 pt-12 pb-6">
+      <div className="mx-auto max-w-6xl px-4 grid gap-8 sm:grid-cols-2 md:grid-cols-4">
         {sections.map((section) => (
           <div key={section.title}>
-            <h3 className="text-sky-400 font-semibold mb-2">{section.title}</h3>
-            <ul className="space-y-2 text-gray-300">
+            <h3 className="text-emerald-400 font-semibold mb-3 text-sm uppercase tracking-wide">{section.title}</h3>
+            <ul className="space-y-2">
               {section.items.map((item) => (
-                <li key={item}>
-                  <PromoFlare label={item} eyebrow={section.eyebrow} size="sm" />
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="text-sm text-slate-400 hover:text-emerald-300 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
         ))}
       </div>
-      <div className="container border-t border-gray-700 mt-6 pt-4 text-center text-gray-400 text-sm">
-        © 2024 Iron Codex. The world&rsquo;s largest cybersecurity reference platform.
+      <div className="mx-auto max-w-6xl px-4 border-t border-slate-800 mt-8 pt-4 text-center text-slate-500 text-sm">
+        © {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.
       </div>
     </footer>
-  )
+  );
 }

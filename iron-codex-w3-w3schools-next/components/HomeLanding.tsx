@@ -1,69 +1,68 @@
-'use client';
 import React from "react";
 import { PromoBadge, PromoFlare } from "./PromoFlare";
 
-/** Iron Codex Landing (clean, W3-style utility-first, less flashy)
+/** Iron Codex Landing
  *  - Hero with primary search
- *  - Quick Access tiles
- *  - Topic index sections (match secondary bar)
+ *  - Quick Access tiles (now clickable)
+ *  - Topic index sections
  *  - Tools spotlight
  */
 
-const quickLinks: { label: string; eyebrow: string; k: string }[] = [
-  { label: "Security Fundamentals", eyebrow: "Preview Track", k: "fundamentals" },
-  { label: "AppSec", eyebrow: "Preview Track", k: "appsec" },
-  { label: "API Security", eyebrow: "Guide Sneak Peek", k: "api" },
-  { label: "Cloud Security", eyebrow: "Preview Track", k: "cloud" },
-  { label: "Network Security", eyebrow: "Preview Track", k: "network" },
-  { label: "Identity & Access", eyebrow: "Preview Track", k: "iam" },
+const quickLinks: { label: string; eyebrow: string; k: string; href: string }[] = [
+  { label: "Security Fundamentals", eyebrow: "Curriculum", k: "fundamentals", href: "/topics/security-fundamentals/intro" },
+  { label: "AppSec", eyebrow: "Curriculum", k: "appsec", href: "/topics/application-security/intro" },
+  { label: "API Security", eyebrow: "Guide", k: "api", href: "/guides/api-security/intro" },
+  { label: "Cloud Security", eyebrow: "Curriculum", k: "cloud", href: "/topics/cloud-security/intro" },
+  { label: "Network Security", eyebrow: "Curriculum", k: "network", href: "/topics/network-security/intro" },
+  { label: "Identity & Access", eyebrow: "Curriculum", k: "iam", href: "/topics/identity-access-management/intro" },
 ];
 
-const topicBuckets: { title: string; items: { label: string; eyebrow?: string }[] }[] = [
+const topicBuckets: { title: string; items: { label: string; eyebrow?: string; href: string }[] }[] = [
   {
     title: "Fundamentals",
     items: [
-      { label: "Security Fundamentals", eyebrow: "Curriculum" },
-      { label: "Identity & Access", eyebrow: "Curriculum" },
-      { label: "Cryptography", eyebrow: "Curriculum" },
-      { label: "Risk Management", eyebrow: "Curriculum" },
+      { label: "Security Fundamentals", href: "/topics/security-fundamentals/intro" },
+      { label: "Identity & Access", href: "/topics/identity-access-management/intro" },
+      { label: "Cryptography", href: "/topics/cryptography/intro" },
+      { label: "Risk Management", href: "/topics/governance-risk-compliance/intro" },
     ],
   },
   {
     title: "Network & Infra",
     items: [
-      { label: "Network Security", eyebrow: "Curriculum" },
-      { label: "Cloud Security", eyebrow: "Curriculum" },
-      { label: "Endpoint Security", eyebrow: "Curriculum" },
-      { label: "Supply Chain", eyebrow: "Curriculum" },
+      { label: "Network Security", href: "/topics/network-security/intro" },
+      { label: "Cloud Security", href: "/topics/cloud-security/intro" },
+      { label: "Endpoint Security", href: "/topics/endpoint-security/intro" },
+      { label: "Supply Chain", href: "/topics/supply-chain-security/intro" },
     ],
   },
   {
     title: "AppSec",
     items: [
-      { label: "Application Security", eyebrow: "Curriculum" },
-      { label: "API Security", eyebrow: "Curriculum" },
-      { label: "Threat Modeling", eyebrow: "Curriculum" },
-      { label: "Vulnerability Mgmt", eyebrow: "Curriculum" },
+      { label: "Application Security", href: "/topics/application-security/intro" },
+      { label: "API Security", href: "/topics/api-security/intro" },
+      { label: "Threat Modeling", href: "/topics/threat-modeling/intro" },
+      { label: "Vulnerability Mgmt", href: "/topics/vulnerability-management/intro" },
     ],
   },
   {
     title: "Governance",
     items: [
-      { label: "RMF / NIST 800-53", eyebrow: "Curriculum" },
-      { label: "ISO 27001", eyebrow: "Curriculum" },
-      { label: "SOC 2", eyebrow: "Curriculum" },
-      { label: "FedRAMP", eyebrow: "Curriculum" },
+      { label: "RMF / NIST 800-53", href: "/topics/governance-risk-compliance/intro" },
+      { label: "ISO 27001", href: "/topics/compliance-audit/intro" },
+      { label: "SOC 2", href: "/topics/compliance-audit/intro" },
+      { label: "FedRAMP", href: "/topics/governance-risk-compliance/intro" },
     ],
   },
 ];
 
-const toolsSpotlight = [
-  { label: "Nmap", eyebrow: "Lab Preview" },
-  { label: "Burp Suite", eyebrow: "Lab Preview" },
-  { label: "Wireshark", eyebrow: "Lab Preview" },
-  { label: "Trivy", eyebrow: "Lab Preview" },
-  { label: "Prowler", eyebrow: "Lab Preview" },
-  { label: "HashiCorp Vault", eyebrow: "Lab Preview" },
+const toolsSpotlight: { label: string; eyebrow: string; href: string }[] = [
+  { label: "Nmap", eyebrow: "Tool", href: "/tools/nmap" },
+  { label: "Burp Suite", eyebrow: "Tool", href: "/tools/burp-suite" },
+  { label: "Wireshark", eyebrow: "Tool", href: "/tools/wireshark" },
+  { label: "Trivy", eyebrow: "Tool", href: "/tools/trivy" },
+  { label: "Prowler", eyebrow: "Tool", href: "/tools/prowler" },
+  { label: "HashiCorp Vault", eyebrow: "Tool", href: "/tools/vault" },
 ];
 
 export default function HomeLanding() {
@@ -80,7 +79,7 @@ export default function HomeLanding() {
               <p className="mt-3 text-slate-300">
                 Concise, actionable references. W3Schools structure. Security depth.
               </p>
-              <form action="/topics" role="search" className="mt-6 flex w-full max-w-xl gap-2">
+              <form action="/search" role="search" className="mt-6 flex w-full max-w-xl gap-2">
                 <input
                   name="q"
                   type="search"
@@ -100,6 +99,7 @@ export default function HomeLanding() {
                     key={q.k}
                     label={q.label}
                     eyebrow={q.eyebrow}
+                    href={q.href}
                     size="lg"
                     align="center"
                     className="h-full"
@@ -121,7 +121,7 @@ export default function HomeLanding() {
               <ul className="space-y-2 text-sm">
                 {b.items.map((it) => (
                   <li key={it.label}>
-                    <PromoFlare label={it.label} eyebrow={it.eyebrow ?? "Curriculum"} size="sm" />
+                    <PromoFlare label={it.label} eyebrow={it.eyebrow ?? "Curriculum"} href={it.href} size="sm" />
                   </li>
                 ))}
               </ul>
@@ -135,7 +135,7 @@ export default function HomeLanding() {
         <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-semibold">Popular Tools</h2>
-            <PromoBadge label="Full catalog in preview" tone="active" />
+            <PromoBadge label="View all tools" tone="active" href="/tools" />
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {toolsSpotlight.map((t) => (
@@ -143,6 +143,7 @@ export default function HomeLanding() {
                 key={t.label}
                 label={t.label}
                 eyebrow={t.eyebrow}
+                href={t.href}
                 size="sm"
                 align="center"
               />
@@ -150,11 +151,6 @@ export default function HomeLanding() {
           </div>
         </div>
       </section>
-
-      {/* Footer minimal */}
-      <footer className="mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex.</p>
-      </footer>
     </main>
   );
 }

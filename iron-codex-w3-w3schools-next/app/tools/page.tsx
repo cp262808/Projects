@@ -138,7 +138,7 @@ export default function ToolsPage() {
                     .map((tool) => (
                     <article
                       key={tool.slug}
-                      className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all cursor-default"
+                      className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-semibold text-emerald-200">
@@ -165,7 +165,7 @@ export default function ToolsPage() {
                         <span className="text-xs text-slate-400">
                           {tool.platform}
                         </span>
-                        <span className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</span>
+                        <a href={`/tools/${tool.slug}`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors">Explore →</a>
                       </div>
                     </article>
                   ))}
@@ -179,7 +179,7 @@ export default function ToolsPage() {
             {filteredTools.map((tool) => (
               <article
                 key={tool.slug}
-                className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all cursor-default"
+                className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
               >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-emerald-200">
@@ -225,10 +225,6 @@ export default function ToolsPage() {
         </section>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.</p>
-      </footer>
     </main>
   );
 }

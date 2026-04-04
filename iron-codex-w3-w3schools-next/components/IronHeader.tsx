@@ -129,7 +129,7 @@ export default function NavBar() {
               <Link href="/guides/cloud-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Cloud Hardening</Link>
               <Link href="/guides/saas-security/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Vendor/SaaS Reviews</Link>
               <Link href="/guides/incident-response/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Incident Response</Link>
-              <Link href="/topics/zero-trust/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Zero Trust</Link>
+              <Link href="/topics/zero-trust-architecture/intro" className="block px-2 py-1 rounded text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400">Zero Trust</Link>
             </div>
           </div>
 
@@ -146,7 +146,7 @@ export default function NavBar() {
           <a href="/about" className="px-3 h-9 inline-flex items-center rounded-md text-slate-100 hover:bg-emerald-600/20 hover:text-emerald-400 transition underline-offset-4 hover:underline">About</a>
 
           {/* Global search */}
-          <form action="/topics" className="ml-2 flex items-center gap-2" role="search" data-testid="header-search">
+          <form action="/search" className="ml-2 flex items-center gap-2" role="search" data-testid="header-search">
             <input name="q" type="search" placeholder="Search Iron Codex" className="h-9 w-56 rounded-md border border-slate-600 bg-slate-800 text-slate-100 placeholder-slate-400 px-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500" />
             <button className="h-9 px-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white transition">Search</button>
           </form>

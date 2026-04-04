@@ -124,7 +124,7 @@ export default function TopicsPage() {
             </p>
             
             {/* Search */}
-            <form action="/search" role="search" className="mt-6 flex w-full max-w-xl gap-2">
+            <form action="/search" method="GET" role="search" className="mt-6 flex w-full max-w-xl gap-2">
               <input
                 name="q"
                 type="search"
@@ -184,7 +184,7 @@ export default function TopicsPage() {
           {filteredTopics.map((topic) => (
             <article
               key={topic.slug}
-              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all cursor-default"
+              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
             >
               <div className="flex justify-between items-start mb-3">
                 <h2 className="text-xl font-bold text-emerald-200">
@@ -209,17 +209,13 @@ export default function TopicsPage() {
                 <span className="text-sm font-medium text-slate-400">
                   {topic.controls} controls
                 </span>
-                <span className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</span>
+                <a href={`/topics/${topic.slug}/intro`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors">Explore →</a>
               </div>
             </article>
           ))}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.</p>
-      </footer>
     </main>
   );
 }
