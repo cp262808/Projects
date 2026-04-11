@@ -1,5 +1,11 @@
-'use client';
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Security Maps · Iron Codex",
+  description:
+    "Visual roadmaps and learning paths for cybersecurity professionals at every stage of their career.",
+};
 
 export default function MapsPage() {
   return (
@@ -30,21 +36,21 @@ export default function MapsPage() {
           
           {/* Placeholder Cards */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
-            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5">
               <div className="text-2xl mb-3">🎯</div>
               <h3 className="font-semibold text-emerald-400 mb-2">Career Paths</h3>
               <p className="text-sm text-slate-300">
                 Structured learning paths for different cybersecurity roles and specializations.
               </p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5">
               <div className="text-2xl mb-3">📈</div>
               <h3 className="font-semibold text-emerald-400 mb-2">Skill Progression</h3>
               <p className="text-sm text-slate-300">
                 Visual progression maps showing how to advance from beginner to expert.
               </p>
             </div>
-            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5">
               <div className="text-2xl mb-3">🏆</div>
               <h3 className="font-semibold text-emerald-400 mb-2">Certification Prep</h3>
               <p className="text-sm text-slate-300">
@@ -54,11 +60,6 @@ export default function MapsPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.</p>
-      </footer>
     </main>
   );
 }

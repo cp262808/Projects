@@ -116,7 +116,7 @@ export default function HomeLanding() {
         <h2 className="text-xl font-semibold mb-6">Browse Topics</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {topicBuckets.map((b) => (
-            <div key={b.title} className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+            <div key={b.title} className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5">
               <h3 className="text-sm uppercase tracking-wide text-emerald-400 mb-2">{b.title}</h3>
               <ul className="space-y-2 text-sm">
                 {b.items.map((it) => (

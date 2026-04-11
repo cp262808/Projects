@@ -14,7 +14,7 @@ const allGuides = [
   },
   {
     title: "Cloud Security Hardening",
-    slug: "cloud-hardening", 
+    slug: "cloud-security", 
     description: "Step-by-step hardening guide for AWS, Azure, and GCP environments including IAM, network security, and monitoring configurations.",
     category: "Cloud Security",
     readTime: "35 min", 
@@ -23,7 +23,7 @@ const allGuides = [
   },
   {
     title: "Container Security Deep Dive",
-    slug: "containers",
+    slug: "container-security",
     description: "Complete guide to securing Docker containers and Kubernetes clusters, from image scanning to runtime protection.",
     category: "Infrastructure",
     readTime: "30 min",
@@ -124,9 +124,9 @@ export default function GuidesPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`px-4 py-2 rounded-lg transition-all duration-200 ${
                 selectedCategory === category
-                  ? 'bg-emerald-600 text-white'
+                  ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
                   : 'border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600'
               }`}
             >
@@ -160,7 +160,7 @@ export default function GuidesPage() {
           {filteredGuides.map((guide) => (
             <article
               key={guide.slug}
-              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all cursor-default"
+              className="group rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5"
             >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                 <div className="flex-1">
@@ -203,7 +203,7 @@ export default function GuidesPage() {
                   <div className="text-sm text-slate-400">
                     {guide.readTime} read
                   </div>
-                  <div className="text-emerald-400 text-sm uppercase tracking-[0.3em]">Preview</div>
+                  <a href={`/guides/${guide.slug}/intro`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors group-hover:translate-x-0.5 inline-block duration-200">Explore →</a>
                 </div>
               </div>
             </article>
@@ -211,10 +211,6 @@ export default function GuidesPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800 mx-auto max-w-6xl px-4 py-10 text-sm text-slate-400">
-        <p>© {new Date().getFullYear()} Iron Codex. Practical cybersecurity knowledge.</p>
-      </footer>
     </main>
   );
 }

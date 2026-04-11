@@ -1,114 +1,16 @@
 'use client';
 import React from "react";
 import { PromoBadge } from "@/components/PromoFlare";
+import { topics, topicCategories } from "@/data/topics";
 
-const allTopics = [
-  {
-    title: "Security Fundamentals",
-    slug: "security-fundamentals",
-    description: "Core security principles, governance frameworks, and foundational concepts every security professional should know.",
-    level: "Beginner",
-    controls: 24,
-    category: "Fundamentals"
-  },
-  {
-    title: "Identity & Access Management", 
-    slug: "identity-access-management",
-    description: "Authentication, authorization, SSO, privileged access management, and identity governance.",
-    level: "Intermediate",
-    controls: 32,
-    category: "Fundamentals"
-  },
-  {
-    title: "Application Security",
-    slug: "application-security",
-    description: "SAST, DAST, secure coding practices, vulnerability management, and application security testing.",
-    level: "Intermediate",
-    controls: 28,
-    category: "AppSec"
-  },
-  {
-    title: "API Security",
-    slug: "api-security",
-    description: "API authentication, rate limiting, input validation, and protection against OWASP API Top 10.",
-    level: "Intermediate", 
-    controls: 22,
-    category: "AppSec"
-  },
-  {
-    title: "Cloud Security",
-    slug: "cloud-security",
-    description: "AWS, Azure, GCP security controls, cloud-native security, and multi-cloud governance.",
-    level: "Advanced",
-    controls: 45,
-    category: "Infrastructure"
-  },
-  {
-    title: "Network Security",
-    slug: "network-security", 
-    description: "Firewalls, IDS/IPS, network segmentation, VPNs, and network monitoring.",
-    level: "Intermediate",
-    controls: 35,
-    category: "Infrastructure"
-  },
-  {
-    title: "Endpoint Security",
-    slug: "endpoint-security",
-    description: "EDR, antivirus, device encryption, patch management, and BYOD security.",
-    level: "Beginner",
-    controls: 16,
-    category: "Infrastructure"
-  },
-  {
-    title: "Container Security",
-    slug: "container-security",
-    description: "Docker, Kubernetes security, image scanning, runtime protection, and container hardening.",
-    level: "Advanced",
-    controls: 38,
-    category: "Infrastructure"
-  },
-  {
-    title: "Cryptography",
-    slug: "cryptography",
-    description: "Encryption algorithms, key management, PKI, digital signatures, and cryptographic protocols.",
-    level: "Advanced", 
-    controls: 20,
-    category: "Fundamentals"
-  },
-  {
-    title: "Risk Management",
-    slug: "governance-risk-compliance",
-    description: "Risk assessment, business impact analysis, third-party risk, and security metrics.",
-    level: "Intermediate",
-    controls: 18,
-    category: "Governance"
-  },
-  {
-    title: "Compliance & Governance",
-    slug: "compliance-audit",
-    description: "SOC 2, ISO 27001, NIST frameworks, audit preparation, and regulatory compliance.",
-    level: "Advanced",
-    controls: 42,
-    category: "Governance"
-  },
-  {
-    title: "Incident Response",
-    slug: "incident-response", 
-    description: "Incident handling procedures, forensics, threat hunting, and crisis management.",
-    level: "Advanced",
-    controls: 25,
-    category: "Operations"
-  }
-];
-
-const categories = ["All", "Fundamentals", "AppSec", "Infrastructure", "Governance", "Operations"];
+const categories = ["All", ...topicCategories];
 
 export default function TopicsPage() {
   const [selectedCategory, setSelectedCategory] = React.useState("All");
   
   const filteredTopics = selectedCategory === "All" 
-    ? allTopics 
-    : allTopics.filter(topic => topic.category === selectedCategory);
+    ? topics 
+    : topics.filter(topic => topic.category === selectedCategory);
 
   return (
     <main id="main" className="min-h-screen bg-slate-950 text-slate-100">
@@ -148,9 +50,9 @@ export default function TopicsPage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg transition ${
+              className={`px-4 py-2 rounded-lg transition-all duration-200 ${
                 selectedCategory === category
-                  ? 'bg-emerald-600 text-white'
+                  ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
                   : 'border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600'
               }`}
             >
@@ -162,11 +64,11 @@ export default function TopicsPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
-            <div className="text-2xl font-bold text-emerald-400">{allTopics.length}</div>
+            <div className="text-2xl font-bold text-emerald-400">{topics.length}</div>
             <div className="text-sm text-slate-400">Topics</div>
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
-            <div className="text-2xl font-bold text-emerald-400">{allTopics.reduce((sum, topic) => sum + topic.controls, 0)}</div>
+            <div className="text-2xl font-bold text-emerald-400">{topics.reduce((sum, topic) => sum + topic.controls, 0)}</div>
             <div className="text-sm text-slate-400">Total Controls</div>
           </div>
           <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 text-center">
@@ -181,13 +83,14 @@ export default function TopicsPage() {
 
         {/* Topics Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredTopics.map((topic) => (
+          {filteredTopics.map((topic, i) => (
             <article
               key={topic.slug}
-              className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
+              className="group rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5"
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className="flex justify-between items-start mb-3">
-                <h2 className="text-xl font-bold text-emerald-200">
+                <h2 className="text-xl font-bold text-emerald-200 group-hover:text-emerald-100 transition-colors">
                   {topic.title}
                 </h2>
                 <PromoBadge
@@ -209,7 +112,7 @@ export default function TopicsPage() {
                 <span className="text-sm font-medium text-slate-400">
                   {topic.controls} controls
                 </span>
-                <a href={`/topics/${topic.slug}/intro`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors">Explore →</a>
+                <a href={`/topics/${topic.slug}/intro`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors group-hover:translate-x-0.5 inline-block duration-200">Explore →</a>
               </div>
             </article>
           ))}

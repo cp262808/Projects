@@ -41,7 +41,7 @@
   },
   {
     "title": "Zero Trust \u2014 References",
-    "url": "/topics/zero-trust",
+    "url": "/topics/zero-trust-architecture",
     "keywords": [
       "mtls",
       "device trust",

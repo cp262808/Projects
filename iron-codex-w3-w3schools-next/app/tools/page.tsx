@@ -65,9 +65,9 @@ export default function ToolsPage() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition ${
+                  className={`px-3 py-1.5 text-sm rounded-lg transition-all duration-200 ${
                     selectedCategory === category
-                      ? 'bg-emerald-600 text-white'
+                      ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
                       : 'border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600'
                   }`}
                 >
@@ -85,9 +85,9 @@ export default function ToolsPage() {
                 <button
                   key={type}
                   onClick={() => setSelectedType(type)}
-                  className={`px-3 py-1.5 text-sm rounded-lg transition ${
+                  className={`px-3 py-1.5 text-sm rounded-lg transition-all duration-200 ${
                     selectedType === type
-                      ? 'bg-emerald-600 text-white'
+                      ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20'
                       : 'border border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600'
                   }`}
                 >
@@ -138,7 +138,7 @@ export default function ToolsPage() {
                     .map((tool) => (
                     <article
                       key={tool.slug}
-                      className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
+                      className="group rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5"
                     >
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-semibold text-emerald-200">
@@ -165,7 +165,7 @@ export default function ToolsPage() {
                         <span className="text-xs text-slate-400">
                           {tool.platform}
                         </span>
-                        <a href={`/tools/${tool.slug}`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors">Explore →</a>
+                        <a href={`/tools/${tool.slug}`} className="text-emerald-400 text-sm uppercase tracking-[0.3em] hover:text-emerald-300 transition-colors group-hover:translate-x-0.5 inline-block duration-200">Explore →</a>
                       </div>
                     </article>
                   ))}
@@ -179,7 +179,7 @@ export default function ToolsPage() {
             {filteredTools.map((tool) => (
               <article
                 key={tool.slug}
-                className="rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)]"
+                className="group rounded-xl border border-slate-800 bg-slate-900/60 p-4 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5"
               >
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="font-semibold text-emerald-200">

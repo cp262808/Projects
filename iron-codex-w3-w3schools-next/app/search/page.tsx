@@ -15,7 +15,7 @@ const mockResults = [
   {
     title: "Container Security",
     type: "Topic", 
-    url: "/topics/containers",
+    url: "/topics/container-security/intro",
     excerpt: "Docker, Kubernetes security, image scanning, runtime protection, and container hardening controls.",
     category: "Infrastructure"
   },
@@ -29,14 +29,14 @@ const mockResults = [
   {
     title: "Identity & Access Management",
     type: "Topic",
-    url: "/topics/identity-access",
+    url: "/topics/identity-access-management/intro",
     excerpt: "Authentication, authorization, SSO, privileged access management, and identity governance.",
     category: "Fundamentals"
   },
   {
     title: "Zero Trust Architecture",
     type: "Guide",
-    url: "/guides/zero-trust",
+    url: "/topics/zero-trust-architecture/intro",
     excerpt: "Implementation guide for Zero Trust security model including network microsegmentation and identity verification.",
     category: "Architecture"
   },
@@ -150,7 +150,7 @@ function SearchContent() {
               {results.map((result, index) => (
                 <article
                   key={index}
-                  className="group block rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all cursor-default"
+                  className="group block rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">

@@ -1,4 +1,11 @@
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About · Iron Codex",
+  description:
+    "Building practical cybersecurity knowledge for security professionals worldwide. Learn about the Iron Codex mission, values, and team.",
+};
 
 const teamValues = [
   {
@@ -89,7 +96,7 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold mb-8">Our Values</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {teamValues.map((value) => (
-            <div key={value.title} className="rounded-xl border border-slate-800 bg-slate-900/60 p-6">
+            <div key={value.title} className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 transition-all duration-300 hover:border-emerald-500/40 hover:shadow-[0_0_24px_rgba(16,185,129,0.12)] hover:-translate-y-0.5">
               <h3 className="text-lg font-semibold text-emerald-400 mb-3">
                 {value.title}
               </h3>

@@ -1,14 +1,8 @@
 "use client";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { PromoFlare } from "@/components/PromoFlare";
 import { useRouter } from "next/navigation";
 
-/**
- * Client component for IAM section pages.
- * Receives `slug` from the server page.
- */
-
-// ---------- Small UI bits ----------------------------------------------------
 function Badge({ children }: { children: React.ReactNode }) {
   return (
     <span className="text-xs px-2.5 py-1 rounded-full border border-emerald-400/40 bg-emerald-400/10 text-emerald-100">
@@ -116,112 +110,64 @@ function Quiz({
   );
 }
 
-// ---------- Content Model ----------------------------------------------------
 export type Slug =
-  | "intro" | "auth-basics" | "mfa" | "adaptive"
-  | "sso" | "federation" | "oauth"
-  | "rbac" | "abac" | "least"
-  | "lifecycle" | "pam" | "monitoring"
+  | "intro"
+  | "cia-triad" | "defense-in-depth" | "least-privilege" | "security-by-design"
+  | "risk-assessments" | "risk-treatment" | "risk-monitoring"
+  | "security-policies" | "awareness-training" | "compliance-framework" | "security-audits" | "security-metrics"
   | "quiz" | "snippets";
 
 type TocItem = { id: Slug; label: string } | { label: string; children: { id: Slug; label: string }[] };
 
 const TOC: TocItem[] = [
   { id: "intro", label: "Introduction" },
-  { label: "Authentication", children: [
-    { id: "auth-basics", label: "Basics" },
-    { id: "mfa", label: "MFA" },
-    { id: "adaptive", label: "Adaptive" },
+  { label: "Core Security Principles", children: [
+    { id: "cia-triad", label: "CIA Triad" },
+    { id: "defense-in-depth", label: "Defense in Depth" },
+    { id: "least-privilege", label: "Least Privilege" },
+    { id: "security-by-design", label: "Security by Design" },
   ]},
-  { label: "SSO & Federation", children: [
-    { id: "sso", label: "SSO" },
-    { id: "federation", label: "Federation" },
-    { id: "oauth", label: "OAuth2 & OIDC" },
+  { label: "Risk Management", children: [
+    { id: "risk-assessments", label: "Risk Assessments" },
+    { id: "risk-treatment", label: "Risk Treatment Plans" },
+    { id: "risk-monitoring", label: "Risk Monitoring" },
   ]},
-  { label: "Authorization", children: [
-    { id: "rbac", label: "RBAC" },
-    { id: "abac", label: "ABAC / Policy" },
-    { id: "least", label: "Least Privilege & JIT" },
-  ]},
-  { label: "Operations", children: [
-    { id: "lifecycle", label: "Identity Lifecycle" },
-    { id: "pam", label: "PAM" },
-    { id: "monitoring", label: "Monitoring & Governance" },
+  { label: "Governance & Compliance", children: [
+    { id: "security-policies", label: "Security Policies" },
+    { id: "awareness-training", label: "Awareness Training" },
+    { id: "compliance-framework", label: "Compliance Framework" },
+    { id: "security-audits", label: "Security Audits" },
+    { id: "security-metrics", label: "Security Metrics" },
   ]},
   { id: "quiz", label: "Quiz" },
   { id: "snippets", label: "Snippets" },
 ];
 
-// Codes
-const mfaCode = `// Node.js (speakeasy) — Time-based One-Time Password
-const speakeasy = require('speakeasy');
-const secret = speakeasy.generateSecret({ name: 'Iron-Codex (user@example.com)' });
-// Display secret.otpauth_url as QR for the authenticator app
-function verify(token){
-  return speakeasy.totp.verify({
-    secret: secret.base32, encoding: 'base32', token, window: 1
-  });
-}`;
-
-const jwtCode = `// Validate JWT (Node.js, jose)
-import { jwtVerify, createRemoteJWKSet } from 'jose'
-const JWKS = createRemoteJWKSet(new URL('https://issuer/.well-known/jwks.json'))
-const { payload } = await jwtVerify(token, JWKS, {
-  issuer: 'https://issuer/', audience: 'api://iron-codex'
-})`;
-
-const rbacCode = `// Simple RBAC check (TypeScript)
-type Role = 'EMPLOYEE' | 'MANAGER' | 'ADMIN'
-const can = {
-  APPROVE_TIMESHEET: new Set<Role>(['MANAGER','ADMIN']),
-}
-function allow(action: keyof typeof can, role: Role){
-  return can[action].has(role)
-}`;
-
-const regoCode = `# OPA/Rego (allow Finance to view non-HS docs)
-package authz
-allow {
-  input.user.department == 'Finance'
-  input.action == 'view'
-  input.resource.classification != 'HS'
-}`;
-
-const scpRegionAllowlist = `{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Deny",
-      "Action": "*",
-      "Resource": "*",
-      "Condition": { "StringNotEquals": { "aws:RequestedRegion": ["us-east-1","us-west-2"] } }
-    }
-  ]
-}`;
-
-// ---------- Nav + Search helpers --------------------------------------------
 const hrefFor = (slug: Slug) => `/topics/security-fundamentals/${slug}`;
 
 const ALL_SLUGS: Slug[] = [
-  "intro","auth-basics","mfa","adaptive","sso","federation","oauth","rbac","abac","least","lifecycle","pam","monitoring","quiz","snippets"
+  "intro", "cia-triad", "defense-in-depth", "least-privilege", "security-by-design",
+  "risk-assessments", "risk-treatment", "risk-monitoring",
+  "security-policies", "awareness-training", "compliance-framework", "security-audits", "security-metrics",
+  "quiz", "snippets"
 ];
 
 const SEARCH_TEXT: Record<Slug, string> = {
-  intro: "iam overview definition identification authentication authorization accounting",
-  "auth-basics": "password hygiene rate limit webauthn fido2 phishing resistant factors",
-  mfa: "multifactor authentication totp webauthn fido2 passkeys number matching disable basic auth legacy",
-  adaptive: "risk based sign in user risk sign in risk conditional access device posture",
-  sso: "sso saml idp session sign encrypt assertions key rotation",
-  federation: "federation external idp claims mapping",
-  oauth: "oauth2 openid connect pkce scopes jwt validation refresh token rotation dpop mtls",
-  rbac: "roles permissions separation of duties",
-  abac: "attributes policy opa rego",
-  least: "least privilege jit just in time elevation",
-  lifecycle: "provision deprovision access reviews service accounts keys rotation",
-  pam: "privileged access management break glass emergency access",
-  monitoring: "audit logs ueba analytics compliance mfa coverage",
+  intro: "security fundamentals principle overview",
+  "cia-triad": "cia triad confidentiality integrity availability",
+  "defense-in-depth": "defense in depth layers perimeter host application data",
+  "least-privilege": "least privilege rbac just in time access",
+  "security-by-design": "security by design secure devlopment threat modeling",
+  "risk-assessments": "risk assessment calculus asset inventory",
+  "risk-treatment": "risk treatment mitigation transfer acceptance avoidance",
+  "risk-monitoring": "risk monitoring effectiveness controls",
+  "security-policies": "security policies acceptable use incident response data classification",
+  "awareness-training": "awareness training education phishing",
+  "compliance-framework": "compliance framework nist iso 27001 cis controls",
+  "security-audits": "security audits assessments",
+  "security-metrics": "security metrics kpi program effectiveness",
   quiz: "quiz",
-  snippets: "snippets aws scp azure conditional access",
+  snippets: "snippets templates python",
 };
 
 function findFirstMatchingSlug(q: string): Slug | null {
@@ -233,11 +179,27 @@ function findFirstMatchingSlug(q: string): Slug | null {
   return null;
 }
 
+// Example snippets
+const riskCalculationCode = `def calculate_risk_score(likelihood: int, impact: int) -> int:
+    """
+    Calculate the risk score based on likelihood and impact.
+    Both should be an integer usually between 1-5.
+    Returns: The final priority score.
+    """
+    score = likelihood * impact
+    if score >= 15:
+        return "CRITICAL"
+    elif score >= 10:
+        return "HIGH"
+    elif score >= 5:
+        return "MEDIUM"
+    return "LOW"
+`;
+
 export default function Client({ slug }: { slug: Slug }) {
   const router = useRouter();
   const [q, setQ] = useState("");
 
-  // Filtered nav by query
   const filteredToc = useMemo(() => {
     const f = (label: string) => label.toLowerCase().includes(q.toLowerCase());
     return TOC
@@ -254,21 +216,6 @@ export default function Client({ slug }: { slug: Slug }) {
     if (s) router.push(hrefFor(s));
   }
 
-  // ---- Dev-only smoke tests -------------------------------------------------
-  useEffect(() => {
-    if (process.env.NODE_ENV !== "production") {
-      try {
-        console.assert(findFirstMatchingSlug("rbac") === "rbac", "rbac lookup");
-        console.assert(findFirstMatchingSlug("  OAuth  ") === "oauth", "oauth trim/case");
-        console.assert(findFirstMatchingSlug("break glass") === "pam", "break glass→pam");
-        console.assert(findFirstMatchingSlug(" ") === null, "empty query→null");
-        console.assert(hrefFor("intro") === "/topics/security-fundamentals/intro", "hrefFor(intro)");
-        console.assert(hrefFor("oauth") === "/topics/security-fundamentals/oauth", "hrefFor(oauth)");
-      } catch (e) { console.error(e); }
-    }
-  }, []);
-
-  // --- Section bodies (curated content) -------------------------------------
   function SectionBody() {
     switch (slug) {
       case "intro":
@@ -277,152 +224,186 @@ export default function Client({ slug }: { slug: Slug }) {
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="space-y-2">
                 <p>
-                  IAM ensures <b>the right identity</b> gets <b>the right access</b> to
-                  <b> the right resource</b> at <b>the right time</b>.
+                  Security fundamentals form the bedrock of any effective cybersecurity program. This topic covers the essential concepts, principles, and frameworks that security professionals must understand to build and maintain secure systems.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {"Identification Authentication Authorization Accounting".split(" ").map((p) => (
+                  {"CIA Risk Governance Frameworks".split(" ").map((p) => (
                     <span key={p} className="text-xs px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300">{p}</span>
                   ))}
                 </div>
               </div>
-              <div className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3">
-                <b>Standards first:</b> align with NIST SP 800‑63‑4 for assurance, OWASP ASVS for app controls.
+              <div className="grid grid-cols-2 gap-2">
+                <div className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 text-center">
+                  <b className="text-emerald-300">12</b>
+                  <div className="text-xs text-slate-400">Controls</div>
+                </div>
+                <div className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 text-center">
+                  <b className="text-emerald-300">3</b>
+                  <div className="text-xs text-slate-400">Domains</div>
+                </div>
               </div>
             </div>
           </Card>
         );
 
-      case "auth-basics":
+      case "cia-triad":
         return (
-          <Card title="Authentication Basics">
-            <p>
-              Authentication answers: <i>“Are you who you say you are?”</i> Factors: <kbd className="px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800">know</kbd>,
-              <kbd className="px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800">have</kbd>,
-              <kbd className="px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800">are</kbd>,
-              <kbd className="px-1.5 py-0.5 rounded border border-slate-700 bg-slate-800">where</kbd>.
-            </p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Block breached passwords; avoid forced periodic resets (follow NIST).</li>
-              <li>Rate‑limit &amp; lockout on failures; prefer WebAuthn/FIDO2 when possible.</li>
-            </ul>
-          </Card>
-        );
-
-      case "mfa":
-        return (
-          <Card title="Multi‑Factor Authentication (MFA)">
-            <p>Use phishing‑resistant methods first (passkeys/WebAuthn, FIDO2). Avoid SMS when stronger options exist.</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Enable <i>number matching</i> and additional context to mitigate MFA fatigue.</li>
-              <li>Disable legacy/basic auth protocols (POP/IMAP/EWS) and require OAuth‑based modern auth.</li>
-              <li>Provide backup codes; set recovery with identity proofing.</li>
-            </ul>
-          </Card>
-        );
-
-      case "adaptive":
-        return (
-          <Card title="Adaptive / Risk‑Based Auth">
-            <p>Evaluate sign‑in and user risk signals; require step‑up or block in risky sessions.</p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>Leverage sign‑in risk &amp; user risk policies; tie to device posture.</li>
-            </ul>
-          </Card>
-        );
-
-      case "sso":
-        return (
-          <Card title="Single Sign‑On (SSO)">
-            <ul className="list-disc list-inside space-y-1">
-              <li>Short IdP sessions + MFA; sign &amp; encrypt assertions.</li>
-              <li>Rotate keys regularly; enforce audience &amp; clock‑skew limits.</li>
-            </ul>
-          </Card>
-        );
-
-      case "federation":
-        return (
-          <Card title="Identity Federation">
-            <p>Trust external IdPs (&ldquo;Login with…&rdquo;) and map claims to local roles with least privilege.</p>
-          </Card>
-        );
-
-      case "oauth":
-        return (
-          <Card title="OAuth 2.0 & OpenID Connect">
-            <div className="grid sm:grid-cols-2 gap-3">
-              <ul className="list-disc list-inside space-y-1">
-                <li>Prefer auth‑code + PKCE; validate issuer, audience, signature, exp.</li>
-                <li>Use refresh token rotation; revoke on suspicious activity.</li>
-                <li>Sender‑constrain tokens: DPoP (RFC 9449) or mTLS (RFC 8705) when suitable.</li>
-              </ul>
-              <CodeBlock id="jwt-code" code={jwtCode} />
-            </div>
-          </Card>
-        );
-
-      case "rbac":
-        return (
-          <Card title="Role‑Based Access Control (RBAC)">
-            <p>Assign permissions to roles; assign roles to users. Implement Separation of Duties for risky pairs.</p>
-            <CodeBlock id="rbac-code" code={rbacCode} />
-          </Card>
-        );
-
-      case "abac":
-        return (
-          <Card title="ABAC / Policy‑Based">
-            <p>Decide with attributes (user, resource, action, env). Version and test policies before enforce.</p>
-            <CodeBlock id="rego-code" code={regoCode} />
-          </Card>
-        );
-
-      case "least":
-        return (
-          <Card title="Least Privilege & Just‑In‑Time">
-            <ul className="list-disc list-inside space-y-1">
-              <li>Grant minimum required; time‑box elevation with approvals and reason.</li>
-              <li>Separate admin vs. user accounts; record privileged sessions.</li>
-            </ul>
-          </Card>
-        );
-
-      case "lifecycle":
-        return (
-          <Card title="Identity Lifecycle">
-            <ol className="list-decimal list-inside space-y-1">
-              <li>Provision (birthright + request/approval)</li>
-              <li>Move/Change (update roles; remove old)</li>
-              <li>Deprovision (disable, archive, revoke)</li>
-              <li>Review (manager/system owner attestations)</li>
-            </ol>
-            <div className="rounded-xl border border-slate-700 bg-slate-900 p-3">
-              <b>Service accounts:</b>
+          <Card title="CIA Triad">
+            <p>Establish confidentiality, integrity, and availability as core security objectives for all systems and data.</p>
+            <div className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 mt-3">
+              <b>Implementation:</b>
               <ul className="list-disc list-inside mt-1 space-y-1">
-                <li>Avoid user‑managed keys where possible; otherwise rotate routinely and monitor use.</li>
-                <li>Scope to single app; no shared credentials; store secrets in a vault.</li>
+                <li>Data classification based on confidentiality requirements</li>
+                <li>Integrity controls through checksums and digital signatures</li>
+                <li>Availability through redundancy and disaster recovery</li>
               </ul>
             </div>
           </Card>
         );
 
-      case "pam":
+      case "defense-in-depth":
         return (
-          <Card title="Privileged Access Management (PAM)">
-            <ul className="list-disc list-inside space-y-1">
-              <li>Maintain two emergency (break‑glass) accounts with strong controls; exclude from CA.</li>
-              <li>Vault secrets; rotate automatically; per‑admin named accounts.</li>
+          <Card title="Defense in Depth">
+            <p>Implement multiple layers of security controls to create comprehensive protection. If one layer fails, another should catch the attack.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Network perimeter security (firewalls, IDS)</li>
+              <li>Host-based security (antivirus, HIPS)</li>
+              <li>Application security (input validation, authentication)</li>
+              <li>Data security (encryption, access controls)</li>
             </ul>
           </Card>
         );
 
-      case "monitoring":
+      case "least-privilege":
         return (
-          <Card title="Monitoring & Governance">
-            <ul className="list-disc list-inside space-y-1">
-              <li>Central audit logs for authn/authz & admin actions; UEBA/identity analytics.</li>
-              <li>Compliance reports: MFA coverage, access reviews; alert on risky OAuth grants.</li>
+          <Card title="Least Privilege">
+            <p>Grant users and systems the minimum level of access required to perform their functions.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Role-based access control (RBAC) implementation</li>
+              <li>Regular access reviews and recertification</li>
+              <li>Just-in-time access for administrative tasks</li>
+            </ul>
+          </Card>
+        );
+
+      case "security-by-design":
+        return (
+          <Card title="Security by Design">
+            <p>Integrate security considerations into all phases of system development and deployment.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Security requirements gathering</li>
+              <li>Threat modeling during design phase</li>
+              <li>Security testing throughout development</li>
+              <li>Secure configuration management</li>
+            </ul>
+          </Card>
+        );
+
+      case "risk-assessments":
+        return (
+          <Card title="Risk Assessments">
+            <p>Regularly identify, analyze, and evaluate security risks to organizational assets.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Asset inventory and classification</li>
+              <li>Threat and vulnerability identification</li>
+              <li>Risk calculation (likelihood × impact)</li>
+              <li>Risk treatment decisions</li>
+            </ul>
+          </Card>
+        );
+
+      case "risk-treatment":
+        return (
+          <Card title="Risk Treatment Plans">
+            <p>Create and implement strategies to address identified risks through four main approaches:</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li><b>Mitigate / Reduce:</b> Apply security controls to lower risk.</li>
+              <li><b>Transfer / Share:</b> Use cyber insurance or third-party sourcing.</li>
+              <li><b>Avoid:</b> Stop the risky activity entirely.</li>
+              <li><b>Accept:</b> Formally acknowledge the risk and proceed (requires management sign-off).</li>
+            </ul>
+          </Card>
+        );
+
+      case "risk-monitoring":
+        return (
+          <Card title="Risk Monitoring">
+            <p>Continuously monitor risk levels and the effectiveness of implemented controls.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Key Risk Indicators (KRIs) tracking</li>
+              <li>Continuous control validation</li>
+            </ul>
+          </Card>
+        );
+
+      case "security-policies":
+        return (
+          <Card title="Security Policies">
+            <p>Create comprehensive security policies that align with business objectives and regulatory requirements.</p>
+            <div className="rounded-xl border border-emerald-400/40 bg-emerald-400/10 p-3 mt-3">
+              <b>Key Policies:</b>
+              <ul className="list-disc list-inside mt-1 space-y-1">
+                <li>Information Security Policy</li>
+                <li>Acceptable Use Policy</li>
+                <li>Incident Response Policy</li>
+                <li>Data Classification Policy</li>
+              </ul>
+            </div>
+          </Card>
+        );
+
+      case "awareness-training":
+        return (
+          <Card title="Awareness Training">
+            <p>Educate employees on security policies, procedures, and best practices.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Phishing simulations</li>
+              <li>Annual security compliance sign-offs</li>
+              <li>Role-specific training (e.g., secure coding for developers)</li>
+            </ul>
+          </Card>
+        );
+
+      case "compliance-framework":
+        return (
+          <Card title="Compliance Framework">
+            <p>Align security practices with relevant regulatory requirements and industry standards.</p>
+            <div className="grid sm:grid-cols-3 gap-3 mt-3">
+              <div className="border border-slate-700 p-3 rounded-lg bg-slate-800">
+                <b className="text-emerald-300">NIST CSF</b><br />
+                <span className="text-xs text-slate-400">Identify, Protect, Detect, Respond, Recover</span>
+              </div>
+              <div className="border border-slate-700 p-3 rounded-lg bg-slate-800">
+                <b className="text-emerald-300">ISO 27001</b><br />
+                <span className="text-xs text-slate-400">114 controls, ISMS standard, third-party certification</span>
+              </div>
+              <div className="border border-slate-700 p-3 rounded-lg bg-slate-800">
+                <b className="text-emerald-300">CIS Controls</b><br />
+                <span className="text-xs text-slate-400">Prioritized defensive actions</span>
+              </div>
+            </div>
+          </Card>
+        );
+
+      case "security-audits":
+        return (
+          <Card title="Security Audits">
+            <p>Regularly assess the effectiveness of security controls and compliance with policies.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Internal audits versus External independent assessments</li>
+              <li>SOC 2 Type II reports</li>
+            </ul>
+          </Card>
+        );
+
+      case "security-metrics":
+        return (
+          <Card title="Security Metrics">
+            <p>Define and track key security metrics to measure program effectiveness.</p>
+            <ul className="list-disc list-inside space-y-1 mt-3">
+              <li>Mean Time to Detect (MTTD)</li>
+              <li>Mean Time to Remediate (MTTR)</li>
+              <li>Patching success rates</li>
             </ul>
           </Card>
         );
@@ -431,8 +412,14 @@ export default function Client({ slug }: { slug: Slug }) {
         return (
           <Card title="Quick Quiz">
             <Quiz
-              question="Which protocol adds identity on top of OAuth2?"
-              options={["SAML 1.1", "OpenID Connect", "Kerberos"]}
+              question="What does the 'I' in the CIA triad stand for?"
+              options={["Identity", "Integrity", "Intelligence"]}
+              answerIndex={1}
+            />
+            <div className="mt-4" />
+            <Quiz
+              question="Using an antivirus AND a network firewall is an example of what principle?"
+              options={["Least Privilege", "Defense in Depth", "Security by Design"]}
               answerIndex={1}
             />
           </Card>
@@ -440,18 +427,11 @@ export default function Client({ slug }: { slug: Slug }) {
 
       case "snippets":
         return (
-          <Card title="Copy‑Paste Snippets">
-            <div className="grid sm:grid-cols-2 gap-3">
-              <div className="rounded-xl border border-slate-700 bg-slate-900 p-3">
-                <b>Password policy (sample)</b>
-                <pre className="mt-2 text-sm whitespace-pre-wrap">{`• Length ≥ 12; block top 10k breached
-• Rotate only on compromise; prefer MFA
-• Disallow reuse across systems
-• Enforce lockout & rate‑limit`}</pre>
-              </div>
-              <div className="rounded-xl border border-slate-700 bg-slate-900 p-3">
-                <b>AWS SCP (region allow‑list)</b>
-                <CodeBlock id="scp-code" code={scpRegionAllowlist} />
+          <Card title="Copy-Paste Snippets">
+            <div className="grid gap-3">
+              <div>
+                <b>Python: Simple Risk Score Calculation</b>
+                <CodeBlock id="snip-risk" code={riskCalculationCode} />
               </div>
             </div>
           </Card>
@@ -459,10 +439,8 @@ export default function Client({ slug }: { slug: Slug }) {
     }
   }
 
-  // -------------------------------- Render ----------------------------------
   return (
     <div className="min-h-screen grid grid-cols-[280px_1fr] bg-slate-950 text-slate-100">
-      {/* Sidebar */}
       <aside className="sticky top-0 h-screen overflow-auto border-r border-slate-800/70 bg-slate-900/60">
         <div className="flex items-center gap-2 px-4 py-4 border-b border-slate-800/70">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_12px] shadow-emerald-400" />
@@ -471,7 +449,7 @@ export default function Client({ slug }: { slug: Slug }) {
         <div className="p-3 border-b border-slate-800/70 flex items-stretch gap-0 overflow-hidden">
           <input
             className="min-w-0 flex-1 bg-slate-800/70 border border-slate-700 rounded-l-lg rounded-r-none border-r-0 px-3 py-2 outline-none"
-            placeholder="Search IAM topics… (e.g., RBAC, OAuth2)"
+            placeholder="Search topics… (e.g., CIA, NIST)"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') runSearch(); }}
@@ -496,13 +474,13 @@ export default function Client({ slug }: { slug: Slug }) {
             {filteredToc.map((item, idx) => (
               <div key={idx}>
                 {"id" in item ? (
-                  <PromoFlare label={item.label} tone={slug === item.id ? "active" : "default"} eyebrow="Preview Series" />
+                  <PromoFlare label={item.label} tone={slug === item.id ? "active" : "default"} eyebrow="Lesson" href={hrefFor(item.id)} size="sm" />
                 ) : (
                   <details open className="rounded-xl border border-slate-800 bg-slate-900/40">
                     <summary className="cursor-pointer px-3 py-2 font-semibold">{item.label}</summary>
                     <div className="px-2 pb-2 space-y-1">
                       {item.children.map((c) => (
-                        <PromoFlare key={c.id} label={c.label} tone={slug === c.id ? "active" : "default"} size="sm" eyebrow="Preview Lesson" />
+                        <PromoFlare key={c.id} label={c.label} tone={slug === c.id ? "active" : "default"} size="sm" eyebrow="Lesson" href={hrefFor(c.id)} />
                       ))}
                     </div>
                   </details>
@@ -511,24 +489,20 @@ export default function Client({ slug }: { slug: Slug }) {
             ))}
           </div>
           <h4 className="px-2 mt-4 mb-1 text-xs uppercase tracking-widest text-slate-400">Practice</h4>
-          <PromoFlare label="Section Quiz" eyebrow="Practice Preview" />
-          <PromoFlare label="Snippets" eyebrow="Practice Preview" />
+          <PromoFlare label="Section Quiz" eyebrow="Practice" href={hrefFor("quiz")} size="sm" />
+          <PromoFlare label="Snippets" eyebrow="Practice" href={hrefFor("snippets")} size="sm" />
         </nav>
       </aside>
 
-      {/* Content */}
       <main className="px-5 sm:px-8 py-6 max-w-[1100px]">
         <div className="text-slate-400 text-sm mb-2">Cybersecurity › Security Fundamentals</div>
         <div className="flex flex-wrap items-center gap-2 mb-4">
           <h2 className="text-3xl font-bold">
-            {TOC.flatMap((t)=> ("id" in t ? [t] : t.children)).find((t:any)=> (t as any).id === slug)?.label}
+            {TOC.flatMap((t)=> ("id" in t ? [t] : t.children)).find((t: any)=> (t as any).id === slug)?.label ?? "Introduction"}
           </h2>
-          <Badge>Beginner → Expert</Badge>
+          <Badge>12 Controls</Badge>
         </div>
         <SectionBody />
-        <p className="mt-8 text-sm text-slate-400">
-          Tip: If <code>/data/iam.json</code> exists, this page will auto‑merge content in future (via layout hook).
-        </p>
       </main>
     </div>
   );
