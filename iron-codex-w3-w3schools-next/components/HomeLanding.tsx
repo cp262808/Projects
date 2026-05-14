@@ -96,10 +96,10 @@ const featuredGuides: {
 }[] = [
   { title: "Deep Dive: API Security", slug: "api-security", readTime: "25 min", category: "Application Security", level: "Intermediate" },
   { title: "Cloud Hardening", slug: "cloud-security", readTime: "35 min", category: "Cloud Security", level: "Advanced" },
-  { title: "Container Security Deep Dive", slug: "containers", readTime: "30 min", category: "Infrastructure", level: "Advanced" },
+  { title: "Container Security Deep Dive", slug: "container-security", readTime: "30 min", category: "Infrastructure", level: "Advanced" },
   { title: "Vendor Security Assessments", slug: "saas-security", readTime: "20 min", category: "Risk Management", level: "Intermediate" },
   { title: "Incident Response Playbook", slug: "incident-response", readTime: "40 min", category: "Operations", level: "Advanced" },
-  { title: "Zero Trust Architecture", slug: "zero-trust", readTime: "45 min", category: "Architecture", level: "Advanced" },
+  { title: "Identity & Access Management", slug: "identity-access-management", readTime: "45 min", category: "Architecture", level: "Advanced" },
 ];
 
 const toolsHighlight = [
