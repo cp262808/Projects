@@ -320,7 +320,7 @@ export default function Client({ slug }: { slug: Slug }) {
             </p>
             <ul className="list-disc list-inside space-y-2 text-slate-300">
               <li><strong>Centralized Security:</strong> Offload TLS termination, rate limiting, IP allowlisting, and WAF (Web Application Firewall) inspection to the gateway.</li>
-              <li><strong>API Versioning & Retirement:</strong> Maintain an inventory of all APIs. Deprecate and retire old versions securely. <span className="text-emerald-400">OWASP API9: Improper Inventory Management</span> highlights the danger of "Shadow APIs" (undocumented endpoints) and "Zombie APIs" (old, insecure versions left running).</li>
+              <li><strong>API Versioning &amp; Retirement:</strong> Maintain an inventory of all APIs. Deprecate and retire old versions securely. <span className="text-emerald-400">OWASP API9: Improper Inventory Management</span> highlights the danger of &quot;Shadow APIs&quot; (undocumented endpoints) and &quot;Zombie APIs&quot; (old, insecure versions left running).</li>
             </ul>
           </Card>
         );
