@@ -242,7 +242,7 @@ export default function Client({ slug }: { slug: Slug }) {
         return (
           <Card title="Mass Assignment Prevention">
             <p className="text-slate-300">
-              <span className="text-emerald-400">OWASP API3:2023 Broken Object Property Level Authorization</span>. APIs often take JSON payloads and directly bind them to internal objects or database records (Mass Assignment). Attackers can inject unauthorized fields (e.g., <code>"is_admin": true</code>) into the payload.
+              <span className="text-emerald-400">OWASP API3:2023 Broken Object Property Level Authorization</span>. APIs often take JSON payloads and directly bind them to internal objects or database records (Mass Assignment). Attackers can inject unauthorized fields (e.g., <code>&quot;is_admin&quot;: true</code>) into the payload.
             </p>
             <ul className="list-disc list-inside space-y-1 text-slate-300 mb-4">
               <li><strong>Never blindly map request bodies to database objects.</strong></li>
