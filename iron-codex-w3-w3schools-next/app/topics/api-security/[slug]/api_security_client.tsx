@@ -281,7 +281,7 @@ export default function Client({ slug }: { slug: Slug }) {
               <div>
                 <h4 className="font-semibold text-emerald-300">SQL/NoSQL Injection Prevention</h4>
                 <p className="text-sm text-slate-300">
-                  Always use parameterized queries (Prepared Statements) or modern ORMs. Never concatenate strings to build database queries. For NoSQL (like MongoDB), ensure input types are validated (e.g., rejecting an object where a string is expected) to prevent operator injection (like <code>{"$ne": null}</code>).
+                  Always use parameterized queries (Prepared Statements) or modern ORMs. Never concatenate strings to build database queries. For NoSQL (like MongoDB), ensure input types are validated (e.g., rejecting an object where a string is expected) to prevent operator injection (like <code>{`{"$ne": null}`}</code>).
                 </p>
               </div>
               <div>
