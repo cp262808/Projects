@@ -49,5 +49,5 @@ jobs:
           # Create the issue using the generated markdown drafts file
           gh issue create \
             --title "LinkedIn Drafts - Weekly Tech Roundup ($DATE_STR)" \
-            --body-file Junk/linkedin-agent/drafts/latest-drafts.md \
-            --label "linkedin-drafts"
+            --body-file Junk/linkedin-agent/drafts/latest-drafts.md
+
