@@ -1,0 +1,22 @@
+{
+  "name": "linkedin-agent",
+  "version": "1.0.0",
+  "description": "An agent that auto-posts to LinkedIn using Playwright and Gemini",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "post": "npm run start"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.11.0",
+    "@tavily/core": "^0.7.3",
+    "dotenv": "^16.4.5",
+    "playwright": "^1.44.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

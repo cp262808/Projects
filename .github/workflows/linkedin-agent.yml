@@ -1,0 +1,53 @@
+name: LinkedIn Content Researcher & Drafter
+
+on:
+  schedule:
+    # Run every Monday at 9:00 AM UTC (5:00 AM EST)
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    # Allow manual triggering from the GitHub Actions tab
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  research-and-draft:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: Junk/linkedin-agent/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          cd Junk/linkedin-agent
+          npm install
+
+      - name: Scour Topics and Generate Drafts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: |
+          cd Junk/linkedin-agent
+          npm run start scour-all
+
+      - name: Create GitHub Issue with Drafts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Retrieve date for the title
+          DATE_STR=$(date +'%Y-%m-%d')
+          
+          # Create the issue using the generated markdown drafts file
+          gh issue create \
+            --title "LinkedIn Drafts - Weekly Tech Roundup ($DATE_STR)" \
+            --body-file Junk/linkedin-agent/drafts/latest-drafts.md \
+            --label "linkedin-drafts"
