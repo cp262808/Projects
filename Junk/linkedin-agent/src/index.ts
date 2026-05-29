@@ -1,10 +1,17 @@
-import { generateLinkedInPost } from "./gemini";
+import { generateLinkedInPost, summarizePostAngle } from "./gemini";
 import { loginToLinkedIn, postToLinkedIn } from "./linkedin";
 import { scourTopic } from "./research";
 import fs from "fs";
 import path from "path";
 
 const DRAFTS_DIR = path.join(__dirname, "../drafts");
+const HISTORY_PATH = path.join(__dirname, "../history.json");
+
+interface HistoryEntry {
+    topic: string;
+    summary: string;
+    date: string;
+}
 
 async function main() {
     const args = process.argv.slice(2);
@@ -36,12 +43,38 @@ async function main() {
             const topics: string[] = JSON.parse(fs.readFileSync(configPath, "utf-8"));
             console.log(`Starting research for ${topics.length} topics...`);
 
+            // Load history
+            let history: HistoryEntry[] = [];
+            if (fs.existsSync(HISTORY_PATH)) {
+                try {
+                    history = JSON.parse(fs.readFileSync(HISTORY_PATH, "utf-8"));
+                } catch (e) {
+                    console.warn("Could not parse history.json, starting fresh.");
+                }
+            }
+
             let combinedMarkdown = `# Weekly LinkedIn Drafts - Generated on ${new Date().toLocaleDateString()}\n\n`;
 
             for (const topic of topics) {
                 console.log(`\n--- Processing Topic: ${topic} ---`);
                 const research = await scourTopic(topic);
-                const postContent = await generateLinkedInPost(topic, research.summary);
+                
+                // Get history specific to this topic (up to last 5 entries to keep prompt focused)
+                const topicHistory = history
+                    .filter(h => h.topic === topic)
+                    .slice(-5)
+                    .map(h => h.summary);
+
+                const postContent = await generateLinkedInPost(topic, research.summary, topicHistory);
+
+                // Summarize the new post's angle for future history
+                console.log("Summarizing post angle for history memory...");
+                const angleSummary = await summarizePostAngle(postContent);
+                history.push({
+                    topic,
+                    summary: angleSummary,
+                    date: new Date().toISOString()
+                });
 
                 combinedMarkdown += `## Topic: ${topic}\n\n`;
                 combinedMarkdown += `${postContent}\n\n`;
@@ -56,6 +89,15 @@ async function main() {
                 combinedMarkdown += `\n---\n\n`;
             }
 
+            // Prune history to keep only the last 50 entries overall
+            if (history.length > 50) {
+                history = history.slice(-50);
+            }
+
+            // Save history
+            fs.writeFileSync(HISTORY_PATH, JSON.stringify(history, null, 2));
+            console.log(`History memory updated at: ${HISTORY_PATH}`);
+
             const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
             const combinedPath = path.join(DRAFTS_DIR, `combined-drafts-${timestamp}.md`);
             const latestPath = path.join(DRAFTS_DIR, `latest-drafts.md`);
@@ -66,6 +108,7 @@ async function main() {
             console.log(`\n✅ Completed all topics.`);
             console.log(`Combined report saved to: ${combinedPath}`);
             console.log(`Latest report reference: ${latestPath}`);
+
 
         } else if (command === "scour" || command === "post") {
             const topic = args[1];
