@@ -1,5 +1,6 @@
 [
-  "Agentic AI and LLM workflows",
-  "TypeScript and Node.js backend development",
-  "Next.js App Router and React performance"
+  "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+  "Privacy-preserving AI architectures and secure RAG implementations",
+  "Cloud Security Architecture and DevSecOps best practices",
+  "Threat Modeling methodologies and secure design patterns"
 ]
