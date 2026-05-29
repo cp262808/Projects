@@ -9,7 +9,7 @@
     "post": "npm run start"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.11.0",
+    "@google/generative-ai": "^0.24.1",
     "@tavily/core": "^0.7.3",
     "dotenv": "^16.4.5",
     "playwright": "^1.44.0"
