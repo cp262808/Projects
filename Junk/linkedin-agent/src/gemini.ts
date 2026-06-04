@@ -1,13 +1,75 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
 
 dotenv.config();
 
 const API_KEY = process.env.GEMINI_API_KEY || "";
+const VIEWPOINT_PATH = process.env.VIEWPOINT_PATH || path.join(__dirname, "../viewpoint.json");
+
+interface ViewpointConfig {
+    perspective: string;
+    backgroundThemes: string[];
+    values: string[];
+    writingStyle: string[];
+    avoid: string[];
+}
+
+const DEFAULT_VIEWPOINT: ViewpointConfig = {
+    perspective: "A security practitioner who cares about pragmatic, privacy-conscious, business-aware security work.",
+    backgroundThemes: [
+        "product security for complex employee-facing and enterprise platforms",
+        "third-party risk, application security reviews, and threat modeling",
+        "responsible use of AI to improve security workflows",
+        "balancing useful automation with human judgment and privacy"
+    ],
+    values: [
+        "be practical instead of performative",
+        "protect people and organizations without oversharing sensitive context",
+        "prefer clear tradeoffs over generic best practices",
+        "write with humility, curiosity, and peer-level credibility"
+    ],
+    writingStyle: [
+        "professional but conversational",
+        "specific about security concepts without naming private systems, employers, clients, or coworkers",
+        "grounded in a viewpoint shaped by experience, not in personal anecdotes that reveal identifying details"
+    ],
+    avoid: [
+        "employer names, client names, vendor account details, internal system names, team names, locations, dates, or career history",
+        "claims that imply direct involvement in a specific incident unless the user supplies that text in the topic",
+        "first-person statements that disclose personal information or private workplace details",
+        "invented credentials, job titles, employers, or autobiographical facts"
+    ]
+};
+
+function loadViewpoint(): ViewpointConfig {
+    if (!fs.existsSync(VIEWPOINT_PATH)) {
+        return DEFAULT_VIEWPOINT;
+    }
+
+    try {
+        const parsed = JSON.parse(fs.readFileSync(VIEWPOINT_PATH, "utf-8"));
+        return {
+            perspective: parsed.perspective || DEFAULT_VIEWPOINT.perspective,
+            backgroundThemes: parsed.backgroundThemes || DEFAULT_VIEWPOINT.backgroundThemes,
+            values: parsed.values || DEFAULT_VIEWPOINT.values,
+            writingStyle: parsed.writingStyle || DEFAULT_VIEWPOINT.writingStyle,
+            avoid: parsed.avoid || DEFAULT_VIEWPOINT.avoid
+        };
+    } catch (error) {
+        console.warn(`Could not parse viewpoint config at ${VIEWPOINT_PATH}. Using privacy-safe defaults.`);
+        return DEFAULT_VIEWPOINT;
+    }
+}
+
+function formatList(items: string[]): string {
+    return items.map(item => `- ${item}`).join("\n");
+}
 
 export async function generateLinkedInPost(
-    topic: string, 
-    researchData?: string, 
+    topic: string,
+    researchData?: string,
     recentHistory?: string[]
 ): Promise<string> {
     if (!API_KEY) {
@@ -16,40 +78,48 @@ export async function generateLinkedInPost(
 
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const viewpoint = loadViewpoint();
 
     const prompt = `
-        You are ghostwriting a LinkedIn post for a Product Security Architect at a major financial institution.
-        
-        Author context:
-        - Works in product security for workforce experience applications (HR tech, employee-facing platforms).
-        - The primary application in scope is Oracle HCM Cloud, with multiple integrations to other SaaS vendors and internal systems.
-        - Day-to-day work includes 3rd-party security assessments, internal application security reviews, and deep threat modeling.
-        - Actively uses AI/LLMs to enhance and accelerate threat modeling workflows.
-        - Writes from first-person perspective ("I", "we", "my team") with real practitioner credibility.
-        - Tone: authoritative but approachable, sharing hard-won lessons from the trenches, not academic theory.
-        
+        You are drafting a LinkedIn post from a privacy-safe viewpoint brief.
+
+        Viewpoint brief:
+        ${viewpoint.perspective}
+
+        Background themes to use as abstract context, not as personal facts:
+        ${formatList(viewpoint.backgroundThemes)}
+
+        Values and judgment style:
+        ${formatList(viewpoint.values)}
+
+        Writing style:
+        ${formatList(viewpoint.writingStyle)}
+
+        Privacy boundaries. Do NOT include or invent any of the following:
+        ${formatList(viewpoint.avoid)}
+
         Write a high-quality, engaging LinkedIn post about the following topic: "${topic}".
-        
+
         ${researchData ? `Here is some fresh research and news for context:\n${researchData}\n` : ""}
-        
+
         ${recentHistory && recentHistory.length > 0 ? `
-        IMPORTANT: Here are the angles, points, or sub-topics covered in our recent posts on this subject. 
+        IMPORTANT: Here are the angles, points, or sub-topics covered in recent posts on this subject.
         To avoid duplication, write about a DIFFERENT angle, sub-topic, or recent development.
-        
+
         Recent post history:
         ${recentHistory.map(h => `- ${h}`).join("\n")}
         ` : ""}
-        
+
         Guidelines:
-        - Start with an attention-grabbing hook grounded in real-world security work.
-        - Draw on the author's experience with Oracle HCM, SaaS integrations, 3rd-party risk, or AI-assisted threat modeling where relevant.
-        - Share a specific insight, lesson learned, or practical takeaway — not generic advice.
+        - Start with an attention-grabbing hook grounded in practical security work.
+        - Reflect the viewpoint brief through priorities, tradeoffs, and framing, not through private autobiographical details.
+        - Share a specific insight, lesson learned, or practical takeaway, not generic advice.
+        - Use first person only for broad professional perspective, such as "I think" or "I look for"; do not claim private experiences.
         - Use line breaks for readability.
-        - Use 2-3 relevant hashtags (e.g. #AppSec #ThreatModeling #ProductSecurity #AIinSecurity).
-        - Encourage engagement (ask a question that fellow security practitioners would want to answer).
-        - Keep it professional yet conversational — like talking to a peer at a security conference.
-        - Do NOT mention the employer by name. Use phrases like "at a large financial institution" or "in financial services" if needed.
-        
+        - Use 2-3 relevant hashtags.
+        - Encourage engagement with a question practitioners would want to answer.
+        - Keep it professional yet conversational, like talking to a peer at a security conference.
+
         Output ONLY the post text.
     `;
 
@@ -69,12 +139,12 @@ export async function summarizePostAngle(post: string): Promise<string> {
     const prompt = `
         Read the following LinkedIn post and summarize the core angle, concept, or news event covered in exactly one sentence.
         Focus on the specific technical details or examples discussed rather than the broad topic.
-        
+
         Post:
         """
         ${post}
         """
-        
+
         Output ONLY the single sentence summary.
     `;
 
@@ -82,4 +152,3 @@ export async function summarizePostAngle(post: string): Promise<string> {
     const response = await result.response;
     return response.text().trim();
 }
-
