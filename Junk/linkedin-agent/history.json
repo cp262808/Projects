@@ -18,5 +18,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "A security team is leveraging AI and LLMs to enhance STRIDE-based threat modeling and operationalize secure design patterns, enabling continuous and dynamic security for complex integrated HR tech environments like Oracle HCM Cloud.",
     "date": "2026-05-30T21:19:43.775Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post details that securing LLMs against prompt injection (LLM01) necessitates rethinking input validation from static, rule-based heuristics for \"known bad\" patterns to adaptive, ML-based approaches that discern \"unintended purpose\" in dynamic natural language inputs.",
+    "date": "2026-06-05T12:55:00.629Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post details advanced strategies like Context-Based Access Control (CBAC) and Synthetic Data Generation as key architectural choices to enhance data security and privacy within Retrieval-Augmented Generation (RAG) pipelines.",
+    "date": "2026-06-05T12:55:19.305Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post details implementing Zero Trust in DevSecOps by enforcing least privilege through granular IAM for microservices, securing APIs with continuous authentication via cloud-native gateways, codifying access policies using Policy-as-Code in CI/CD, and integrating cloud-native security tools.",
+    "date": "2026-06-05T12:55:41.893Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for strategically integrating specific threat modeling methodologies like STRIDE for initial brainstorming and PASTA for risk-centric analysis, translating these insights into concrete secure design patterns such as identifying trust boundaries to guide input validation and designing for security redundancy.",
+    "date": "2026-06-05T12:56:01.924Z"
   }
 ]
