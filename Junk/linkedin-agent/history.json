@@ -38,5 +38,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for strategically integrating specific threat modeling methodologies like STRIDE for initial brainstorming and PASTA for risk-centric analysis, translating these insights into concrete secure design patterns such as identifying trust boundaries to guide input validation and designing for security redundancy.",
     "date": "2026-06-05T12:56:01.924Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post highlights that mitigating LLM01: Prompt Injection is challenging due to the fluid distinction between developer instructions and user input in natural language, necessitating human vigilance, user education, and rigorous logging for auditing context as critical defenses.",
+    "date": "2026-06-15T14:58:07.545Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post discusses the critical challenge of rigorously evaluating the actual privacy posture of deployed RAG systems, advocating for granular, scalable methodologies that detect semantic disclosure and indirect inference risks beyond simple verbatim leakage or PII presence.",
+    "date": "2026-06-15T14:58:28.950Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post emphasizes embedding security into engineering workflows by providing actionable feedback within existing tools and balancing AI-driven detection and response with human judgment for contextual understanding and privacy considerations.",
+    "date": "2026-06-15T14:58:51.897Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "Addressing the OWASP Top 10's \"Insecure Design,\" the post advocates for proactively embedding robust security and privacy architectural patterns into complex enterprise platforms by designing for complete trust boundary landscapes, data flow integrity across integrations, and secure communication patterns.",
+    "date": "2026-06-15T14:59:17.260Z"
   }
 ]
