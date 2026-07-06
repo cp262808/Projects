@@ -58,5 +58,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "Addressing the OWASP Top 10's \"Insecure Design,\" the post advocates for proactively embedding robust security and privacy architectural patterns into complex enterprise platforms by designing for complete trust boundary landscapes, data flow integrity across integrations, and secure communication patterns.",
     "date": "2026-06-15T14:59:17.260Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The 2025 OWASP Top 10 highlights Improper Output Handling (LLM05), stressing that LLM-generated content, such as malicious JavaScript or SQL, must be rigorously validated and sanitized before being passed to downstream systems to prevent exploitation.",
+    "date": "2026-07-06T12:38:23.490Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post highlights the increasing practicality of Homomorphic Encryption for performing secure vector similarity searches on encrypted embeddings within RAG systems to ensure data privacy.",
+    "date": "2026-07-06T12:38:47.908Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for architectural commitments like unified visibility, consistent policy enforcement via centralized platforms, immutable backups, and isolated recovery environments to achieve operational simplicity and unbreakable resilience in complex cloud-native DevSecOps environments.",
+    "date": "2026-07-06T12:39:10.537Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for strategically selecting threat modeling methodologies like STRIDE, PASTA, or attack tree analysis to translate identified threats into concrete, embedded secure design patterns such as robust input validation, secure API gateways, and granular access controls.",
+    "date": "2026-07-06T12:39:39.124Z"
   }
 ]
