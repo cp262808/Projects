@@ -78,5 +78,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for strategically selecting threat modeling methodologies like STRIDE, PASTA, or attack tree analysis to translate identified threats into concrete, embedded secure design patterns such as robust input validation, secure API gateways, and granular access controls.",
     "date": "2026-07-06T12:39:39.124Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post emphasizes that true resilience against prompt injection (LLM01) relies on implementing granular, data source-level access controls and entitlement management, ensuring LLM agents operate with the principle of least privilege to prevent unauthorized access to sensitive records or initiation of actions via integrated tools.",
+    "date": "2026-07-13T11:53:43.208Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post discusses implementing granular, dynamic policy enforcement within RAG pipelines using \"retrieval-aware policy engines\" and \"just-in-time trust,\" alongside evaluating the performance tradeoffs of integrating Privacy-Enhancing Technologies like homomorphic encryption and secure multi-party computation for real-time applications.",
+    "date": "2026-07-13T11:54:01.620Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for integrating privacy-by-design into DevSecOps by architecting data flows to minimize exposure and enable pseudonymization, alongside using automated CI/CD pipeline gates to scan infrastructure-as-code for sensitive data misconfigurations and policy deviations.",
+    "date": "2026-07-13T11:54:27.651Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for evolving threat model outputs from static documents into dynamic, embedded secure design patterns that adapt to changing platforms, new features, third-party integrations, and emerging AI-related threats by balancing automation with human architectural judgment.",
+    "date": "2026-07-13T11:54:51.125Z"
   }
 ]
