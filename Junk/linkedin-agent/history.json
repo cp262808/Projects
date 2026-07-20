@@ -98,5 +98,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for evolving threat model outputs from static documents into dynamic, embedded secure design patterns that adapt to changing platforms, new features, third-party integrations, and emerging AI-related threats by balancing automation with human architectural judgment.",
     "date": "2026-07-13T11:54:51.125Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post advocates for mitigating prompt injection by \"left-shifting\" security with robust system prompts that define LLM behavior and architectural segregation of untrusted content to prevent it from influencing core operational directives.",
+    "date": "2026-07-20T11:37:32.717Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post advocates for using hardware-backed confidential computing, leveraging secure enclaves, to establish a trusted execution environment for securing sensitive data during retrieval and generation operations in RAG systems.",
+    "date": "2026-07-20T11:37:53.571Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for securing DevSecOps pipelines and control planes by meticulously managing identities and access within CI/CD using CIEM, hardening build environments, and ensuring immutable images and validated steps to mitigate supply chain risks.",
+    "date": "2026-07-20T11:38:16.773Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for evolving threat modeling beyond isolated analyses to systematically capture and institutionalize reusable secure design patterns, derived from methodologies like LINDDUN for privacy risks and attack-tree analysis for exploitability, to inform solutions such as data minimization and robust consent management across platforms and third-party integrations.",
+    "date": "2026-07-20T11:38:41.473Z"
   }
 ]
