@@ -118,5 +118,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for evolving threat modeling beyond isolated analyses to systematically capture and institutionalize reusable secure design patterns, derived from methodologies like LINDDUN for privacy risks and attack-tree analysis for exploitability, to inform solutions such as data minimization and robust consent management across platforms and third-party integrations.",
     "date": "2026-07-20T11:38:41.473Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The OWASP Top 10 for LLM Applications (2025) advocates moving beyond prompt-level defenses like prompt injection mitigation to a comprehensive system-level security approach that protects the entire data ecosystem, addressing specific risks such as agents with excessive entitlements and system prompt leakage (LLM07).",
+    "date": "2026-07-27T12:13:00.935Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post advocates for decentralized or federated RAG architectures where data stays closer to its source and queries are routed to limited-scope knowledge bases, thereby inherently minimizing data exposure and privacy risk at scale.",
+    "date": "2026-07-27T12:13:20.666Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for adaptive cloud security architectures that autonomously learn, prioritize, and course-correct by implementing context-aware, privacy-conscious automated remediation for attacks on identities, APIs, and CI/CD pipelines, incorporating data sensitivity, geopatriation compliance, and human judgment gates.",
+    "date": "2026-07-27T12:13:51.808Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for strategically selecting threat modeling methodologies like STRIDE, PASTA, and LINDDUN to build verifiable secure design patterns, specifically addressing data flow integrity across complex third-party integrations and protecting AI workflows from adversarial attacks while ensuring privacy.",
+    "date": "2026-07-27T12:14:12.538Z"
   }
 ]
