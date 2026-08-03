@@ -138,5 +138,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for strategically selecting threat modeling methodologies like STRIDE, PASTA, and LINDDUN to build verifiable secure design patterns, specifically addressing data flow integrity across complex third-party integrations and protecting AI workflows from adversarial attacks while ensuring privacy.",
     "date": "2026-07-27T12:14:12.538Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post advocates securing LLM applications, especially RAG systems, by moving beyond prompt injection to protect the upstream information pipeline against data poisoning, subverted embedding, and manipulated retrieval mechanisms, aligning with new OWASP Top 10 categories like LLM08 (Vector and Embedding Weaknesses).",
+    "date": "2026-08-03T12:13:54.175Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post advocates for using synthetic data to rigorously test policy engines and benchmark privacy mechanisms like anonymization and differential privacy in RAG implementations, preventing exposure of actual sensitive data during development.",
+    "date": "2026-08-03T12:14:12.055Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "GitOps improves cloud security by using Git repositories as the single source of truth for defining version-controlled security policies, such as network ACLs and IAM roles, which automated agents then continuously reconcile with the live environment to detect and correct drift.",
+    "date": "2026-08-03T12:14:42.820Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for leveraging AI and ML tools integrated into DevSecOps workflows to continuously evolve threat modeling by predicting emerging threats, analyzing complex attack scenarios, and suggesting secure design patterns that refine architectural decisions like data flow integrity and granular access controls.",
+    "date": "2026-08-03T12:15:09.099Z"
   }
 ]
