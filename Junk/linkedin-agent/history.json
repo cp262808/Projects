@@ -158,5 +158,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for leveraging AI and ML tools integrated into DevSecOps workflows to continuously evolve threat modeling by predicting emerging threats, analyzing complex attack scenarios, and suggesting secure design patterns that refine architectural decisions like data flow integrity and granular access controls.",
     "date": "2026-08-03T12:15:09.099Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post advocates for integrating human-in-the-loop controls as a deliberate design choice for critical or sensitive LLM workflows to mitigate risks like prompt injection and unintended model behavior.",
+    "date": "2026-08-17T09:32:00.836Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post details applying Differential Privacy (DP) to embedding vectors during RAG retrieval by injecting calibrated noise, utilizing a privacy budget (epsilon) to balance data privacy and retrieval accuracy, even with moderate epsilon values like 1.",
+    "date": "2026-08-17T09:32:22.947Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post outlines architectural commitments for responsible AI integration in cloud security, emphasizing privacy-aware data pipelines with differential privacy or synthetic data, building explainable AI components to avoid black box problems, and maintaining human-in-the-loop validation with clear escalation paths.",
+    "date": "2026-08-17T09:32:56.866Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for distilling threat modeling insights into actionable secure design patterns, exemplified by specifying a particular data sanitization library for user content or a standardized API authorization approach for inter-service communication.",
+    "date": "2026-08-17T09:33:24.833Z"
   }
 ]
