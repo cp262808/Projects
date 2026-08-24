@@ -178,5 +178,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for distilling threat modeling insights into actionable secure design patterns, exemplified by specifying a particular data sanitization library for user content or a standardized API authorization approach for inter-service communication.",
     "date": "2026-08-17T09:33:24.833Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post highlights the critical need for robust, intelligent sanitization and continuous adversarial testing of LLM outputs to prevent sensitive information disclosure (LLM02) of privacy-sensitive, proprietary, or internal system details, moving beyond a sole focus on prompt injection.",
+    "date": "2026-08-24T09:37:51.934Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post explores implementing Private Information Retrieval (PIR) within RAG systems to allow a client's query to fetch context from a knowledge base without revealing the specific query details to the server or knowledge base owner.",
+    "date": "2026-08-24T09:38:14.695Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for embedding Zero Trust principles like meticulous segmentation and continuous verification, alongside robust data security via proactive classification, encryption at rest and in transit, and data sovereignty requirements, as non-negotiable architectural commitments for cloud security.",
+    "date": "2026-08-24T09:38:37.779Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for translating threat modeling insights into practical, reusable secure design patterns, exemplified by standardizing approaches for secure inter-service communication and robust input validation, to consistently embed security into system foundations.",
+    "date": "2026-08-24T09:38:59.094Z"
   }
 ]
