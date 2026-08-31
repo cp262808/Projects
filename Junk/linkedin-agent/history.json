@@ -198,5 +198,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for translating threat modeling insights into practical, reusable secure design patterns, exemplified by standardizing approaches for secure inter-service communication and robust input validation, to consistently embed security into system foundations.",
     "date": "2026-08-24T09:38:59.094Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post emphasizes that Prompt Injection (LLM01) in the updated OWASP Top 10 for LLM Applications serves as an initial exploit, enabling chained vulnerabilities such as Sensitive Information Disclosure (LLM02), Excessive Agency (LLM06), or data manipulation within RAG pipelines (LLM08), necessitating LLM-specific threat modeling to disrupt these attack flows.",
+    "date": "2026-08-31T16:33:24.409Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post advocates for **retrieval-aware policy engines** and **just-in-time trust mechanisms** to dynamically adjust data retrieval scope in RAG systems based on query context, user session, and behavioral signals, ensuring granular privacy.",
+    "date": "2026-08-31T16:33:45.089Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The core angle is ensuring continuous cloud security effectiveness in dynamic DevSecOps environments through adaptive vulnerability management, privacy-compliant security telemetry, and balancing automated policy enforcement with human expertise for iterative threat modeling.",
+    "date": "2026-08-31T16:34:46.023Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post emphasizes continuously validating and refining secure design patterns using iterative threat modeling methodologies such as STRIDE, PASTA, LINDDUN for data minimization against new data flows, or attack tree analysis to adapt to evolving risks and system changes.",
+    "date": "2026-08-31T16:35:08.436Z"
   }
 ]
