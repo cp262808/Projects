@@ -218,5 +218,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post emphasizes continuously validating and refining secure design patterns using iterative threat modeling methodologies such as STRIDE, PASTA, LINDDUN for data minimization against new data flows, or attack tree analysis to adapt to evolving risks and system changes.",
     "date": "2026-08-31T16:35:08.436Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post advocates for securing LLM agents' actions in enterprise environments by extending Zero Trust through granular tool permissioning, specifically by applying least privilege to API access, validating model-generated inputs to tools, and monitoring agent actions.",
+    "date": "2026-09-21T15:30:51.383Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post highlights the application of cryptographic methods like homomorphic or attribute-based encryption to create privacy-preserving vector stores in RAG, enabling computation and similarity searches directly on encrypted sensitive data without ever decrypting it.",
+    "date": "2026-09-21T15:31:07.854Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for fostering a security-first culture by adopting seamlessly integrating cloud-native security tools, automating compliance through SAST/DAST integration into CI/CD pipelines, and providing privacy-aware training.",
+    "date": "2026-09-21T15:31:31.242Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for tailoring threat modeling depth and frequency, suggesting deep dives with LINDDUN or PASTA for sensitive AI workflows and focused STRIDE sessions for less critical applications, based on system criticality and data sensitivity.",
+    "date": "2026-09-21T15:31:53.905Z"
   }
 ]
