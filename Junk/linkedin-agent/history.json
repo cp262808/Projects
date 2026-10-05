@@ -1,15 +1,5 @@
 [
   {
-    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
-    "summary": "The post details how to defend enterprise LLM applications, like Oracle HCM Cloud, against prompt injection—especially indirect attacks from hidden prompts in documents or images—by employing multi-layered defenses such as context isolation, strong access controls, and strict output monitoring.",
-    "date": "2026-05-30T21:18:46.214Z"
-  },
-  {
-    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
-    "summary": "The post advocates for \"Confidential RAG\" using encrypted vector databases, RBAC, and threat modeling to secure centralized workforce data, while also promoting agent-based AI for real-time redaction and privacy-preserving techniques like Federated Learning, differential privacy, SMPC, and homomorphic encryption for enterprise AI.",
-    "date": "2026-05-30T21:19:07.971Z"
-  },
-  {
     "topic": "Cloud Security Architecture and DevSecOps best practices",
     "summary": "A financial institution employs DevSecOps to secure complex cloud environments by embedding security from initial architectural diagrams, conducting robust 3rd-party SaaS security assessments, leveraging AI/LLMs for dynamic threat modeling to uncover obscure attack paths, and ensuring continuous monitoring across cloud-native and SaaS systems.",
     "date": "2026-05-30T21:19:27.223Z"
@@ -238,5 +228,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post advocates for tailoring threat modeling depth and frequency, suggesting deep dives with LINDDUN or PASTA for sensitive AI workflows and focused STRIDE sessions for less critical applications, based on system criticality and data sensitivity.",
     "date": "2026-09-21T15:31:53.905Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post advocates for architectural shifts against indirect prompt injection, emphasizing rigorous separation of trusted system prompts from untrusted external content and stringent validation of all LLM-generated output before it triggers actions like API calls or SQL queries.",
+    "date": "2026-10-05T17:36:56.344Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post discusses the practical challenges of integrating privacy-enhancing technologies like homomorphic encryption into large-scale, real-time RAG systems, specifically addressing computational overhead, latency impacts, and the necessity of architectural tradeoffs for balancing efficiency and privacy.",
+    "date": "2026-10-05T17:37:19.978Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for defining explicit architectural security commitments, such as expected data flows, permissible IAM roles, network boundaries, and data privacy requirements, and continuously validating their adherence using DevSecOps policy-as-code checks for items like network ACLs and IAM policies.",
+    "date": "2026-10-05T17:37:41.100Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post emphasizes that selecting specific threat modeling methodologies, such as LINDDUN for privacy-focused data minimization or PASTA/Attack Trees for operational resilience against complex attack chains, is crucial for deriving purpose-built secure design patterns.",
+    "date": "2026-10-05T17:38:06.236Z"
   }
 ]
