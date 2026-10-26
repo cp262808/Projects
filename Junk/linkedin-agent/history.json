@@ -1,26 +1,6 @@
 [
   {
     "topic": "Cloud Security Architecture and DevSecOps best practices",
-    "summary": "A financial institution employs DevSecOps to secure complex cloud environments by embedding security from initial architectural diagrams, conducting robust 3rd-party SaaS security assessments, leveraging AI/LLMs for dynamic threat modeling to uncover obscure attack paths, and ensuring continuous monitoring across cloud-native and SaaS systems.",
-    "date": "2026-05-30T21:19:27.223Z"
-  },
-  {
-    "topic": "Threat Modeling methodologies and secure design patterns",
-    "summary": "A security team is leveraging AI and LLMs to enhance STRIDE-based threat modeling and operationalize secure design patterns, enabling continuous and dynamic security for complex integrated HR tech environments like Oracle HCM Cloud.",
-    "date": "2026-05-30T21:19:43.775Z"
-  },
-  {
-    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
-    "summary": "The post details that securing LLMs against prompt injection (LLM01) necessitates rethinking input validation from static, rule-based heuristics for \"known bad\" patterns to adaptive, ML-based approaches that discern \"unintended purpose\" in dynamic natural language inputs.",
-    "date": "2026-06-05T12:55:00.629Z"
-  },
-  {
-    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
-    "summary": "The post details advanced strategies like Context-Based Access Control (CBAC) and Synthetic Data Generation as key architectural choices to enhance data security and privacy within Retrieval-Augmented Generation (RAG) pipelines.",
-    "date": "2026-06-05T12:55:19.305Z"
-  },
-  {
-    "topic": "Cloud Security Architecture and DevSecOps best practices",
     "summary": "The post details implementing Zero Trust in DevSecOps by enforcing least privilege through granular IAM for microservices, securing APIs with continuous authentication via cloud-native gateways, codifying access policies using Policy-as-Code in CI/CD, and integrating cloud-native security tools.",
     "date": "2026-06-05T12:55:41.893Z"
   },
@@ -248,5 +228,25 @@
     "topic": "Threat Modeling methodologies and secure design patterns",
     "summary": "The post emphasizes that selecting specific threat modeling methodologies, such as LINDDUN for privacy-focused data minimization or PASTA/Attack Trees for operational resilience against complex attack chains, is crucial for deriving purpose-built secure design patterns.",
     "date": "2026-10-05T17:38:06.236Z"
+  },
+  {
+    "topic": "Securing LLM applications and prompt injection mitigation patterns (OWASP Top 10 for LLMs)",
+    "summary": "The post highlights the escalating sophistication of prompt injection attacks, which now leverage multi-turn jailbreaks, multimodal inputs (like steganography), and tool poisoning against agentic systems, necessitating advanced mitigation strategies such as anomaly detection, dynamic contextual guardrails, and secure agent interaction.",
+    "date": "2026-10-26T15:39:17.905Z"
+  },
+  {
+    "topic": "Privacy-preserving AI architectures and secure RAG implementations",
+    "summary": "The post details leveraging confidential computing hardware like Intel SGX or AMD SEV to create secure enclaves, protecting RAG's embedding, indexing, and generation steps by isolating data and logic at the silicon level during active processing.",
+    "date": "2026-10-26T15:39:36.377Z"
+  },
+  {
+    "topic": "Cloud Security Architecture and DevSecOps best practices",
+    "summary": "The post advocates for integrating dynamic, attribute-based access controls, policy-as-code for access assignments, and automated continuous access reviews directly into CI/CD pipelines to ensure least privilege and just-in-time access in fast-paced DevSecOps environments.",
+    "date": "2026-10-26T15:39:54.867Z"
+  },
+  {
+    "topic": "Threat Modeling methodologies and secure design patterns",
+    "summary": "The post advocates for integrating lightweight, feature-level threat modeling sessions into the sprint backlog as user stories, proactively shaping secure design patterns by identifying trust boundaries and data flows within continuous delivery.",
+    "date": "2026-10-26T15:40:16.114Z"
   }
 ]
